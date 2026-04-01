@@ -100,11 +100,10 @@
   <div id="passwordModal" class="modal">
     <div class="modal-content">
       <h3 style="margin:0">Security Verification</h3>
-      <p style="color:var(--text-muted); font-size:0.9rem; margin-top:8px;">Enter password to unlock evaluation score.</p>
       <input type="password" id="pwInput" placeholder="Password" />
       <div class="btn-row">
         <button style="background:var(--primary); color:white;" id="btnGo">Unlock</button>
-        <button style="background:#f3f4f6; color:var(--text-muted);" onclick="closeModal()">Cancel</button>
+        <button style="background:#f3f4f6;" onclick="closeModal()">Cancel</button>
       </div>
     </div>
   </div>
@@ -113,7 +112,6 @@
     let db = [];
     let activeAgent = null;
 
-    // TARGET SETTINGS
     const TARGET_QA = 15;
     const TARGET_AUDIT = 20;
 
@@ -133,7 +131,10 @@
         const s = parseFloat(agent.score);
         const c = s >= 90 ? '#10b981' : (s >= 80 ? '#f59e0b' : '#ef4444');
         
-        pill.innerHTML = `<div class="dot" style="background:${c}"></div> ${agent.name}`;
+        // GI-UPDATE: Name (ID) sa Pill
+        const displayName = agent.id ? `${agent.name} (${agent.id})` : agent.name;
+        
+        pill.innerHTML = `<div class="dot" style="background:${c}"></div> ${displayName}`;
         pill.onclick = () => {
           renderAgent(agent);
           [...box.children].forEach(el => el.classList.remove('active'));
@@ -149,20 +150,22 @@
       const qas = agent.qa || [];
       const audits = agent.audits || [];
 
-      // Smart Counter (> 5 chars)
       const countQA = qas.filter(x => (typeof x === 'object' ? x.comment : x).toString().trim().length > 5).length;
       const countAudit = audits.filter(x => (typeof x === 'object' ? x.comment : x).toString().trim().length > 5).length;
 
+      // GI-UPDATE: Name (ID) sa Main Title
+      const fullTitle = agent.id ? `${agent.name} (${agent.id})` : agent.name;
+
       document.getElementById('dashboardView').innerHTML = `
         <div class="kpi-row">
-            <div class="kpi-box"><div class="kpi-label">Verified ID</div><div class="kpi-value" style="font-size:1.4rem">${agent.id || 'N/A'}</div></div>
+            <div class="kpi-box"><div class="kpi-label">Performance Status</div><div class="kpi-value" style="font-size:1.4rem">ACTIVE</div></div>
             <div class="kpi-box"><div class="kpi-label">Long Calls Tracker</div><div class="kpi-value">${countQA} <span class="kpi-target">/ ${TARGET_QA}</span></div></div>
             <div class="kpi-box"><div class="kpi-label">Dispo Audits Tracker</div><div class="kpi-value">${countAudit} <span class="kpi-target">/ ${TARGET_AUDIT}</span></div></div>
         </div>
 
         <div class="main-card">
             <div class="card-head">
-                <div><h2>${agent.name}</h2><span style="color:var(--text-muted); font-weight:600;">Evaluation Analytics</span></div>
+                <div><h2>${fullTitle}</h2><span style="color:var(--text-muted); font-weight:600;">Evaluation Analytics</span></div>
                 <div>
                     <button class="unlock-btn" id="btnReveal">🔐 Reveal Score</button>
                     <div class="score-txt" id="scoreVal">${agent.score}%</div>
@@ -211,4 +214,3 @@
     };
   </script>
 </body>
-</html>
