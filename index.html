@@ -76,7 +76,7 @@
     let rawData = [];
     let activeAgent = null;
 
-    // CONFIGURATION: USBA KINI NGA MGA TARGET DINHI
+    // TARGETS PARA SA MONITORING
     const TARGET_QA = 15;
     const TARGET_AUDIT = 20;
 
@@ -117,6 +117,10 @@
       const qas = agent.qa || [];
       const audits = agent.audits || [];
       
+      // I-COUNT LANG ANG ROWS NGA NAAY SULOD (NON-EMPTY)
+      const activeQaCount = qas.filter(q => (typeof q === 'object' ? q.comment : q).toString().trim() !== "").length;
+      const activeAuditCount = audits.filter(a => (typeof a === 'object' ? a.comment : a).toString().trim() !== "").length;
+
       document.getElementById('output').innerHTML = `
         <div class="stats-grid">
           <div class="stat-card">
@@ -124,12 +128,12 @@
             <div class="stat-value" style="font-size: 1.4rem;">${agent.id || 'N/A'}</div>
           </div>
           <div class="stat-card">
-            <div class="stat-label">QA Evaluations</div>
-            <div class="stat-value">${qas.length} <span class="stat-target">/ ${TARGET_QA}</span></div>
+            <div class="stat-label">Long Calls Evaluated</div>
+            <div class="stat-value">${activeQaCount} <span class="stat-target">/ ${TARGET_QA}</span></div>
           </div>
           <div class="stat-card">
-            <div class="stat-label">Dispo Audits</div>
-            <div class="stat-value">${audits.length} <span class="stat-target">/ ${TARGET_AUDIT}</span></div>
+            <div class="stat-label">Dispo Audits Completed</div>
+            <div class="stat-value">${activeAuditCount} <span class="stat-target">/ ${TARGET_AUDIT}</span></div>
           </div>
         </div>
         <div class="details-card">
@@ -154,14 +158,19 @@
     }
 
     function renderTable(title, data) {
+      // Ihapon lang ang naay sulod para sa badge sa table header
+      const filledCount = data.filter(item => (typeof item === 'object' ? item.comment : item).toString().trim() !== "").length;
+      
       return `
         <div class="table-section">
-          <h3><span>${title}</span> <span class="badge">${data.length} records</span></h3>
+          <h3><span>${title}</span> <span class="badge">${filledCount} active records</span></h3>
           <table>
             <thead><tr><th class="col-num">#</th><th>Feedback</th></tr></thead>
             <tbody>
               ${data.length > 0 ? data.map((item, i) => {
                 const text = (typeof item === 'object' ? item.comment : item) || "";
+                if (text.toString().trim() === "") return ''; // Skip empty rows sa table display kung gusto nimo
+                
                 const formatted = text.replace(/^(\d{2}-\d{2}-\d{2})/g, '<span class="date-bold">$1</span>')
                                       .replace(/"([^"]+)"/g, '<span class="quote">"$1"</span>')
                                       .replace(/\n/g, '<br>');
