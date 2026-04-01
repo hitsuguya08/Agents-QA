@@ -2,386 +2,217 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Agent QA Viewer | Pro</title>
+  <title>QA Dashboard | Agent Performance</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Google Fonts: Inter para sa modern look -->
   <link href="https://googleapis.com" rel="stylesheet">
   <style>
     :root {
-      --primary: #059669; /* Emerald Green */
-      --primary-dark: #064e3b;
-      --primary-light: #ecfdf5;
-      --accent: #10b981;
-      --bg: #f9fafb;
-      --card-bg: #ffffff;
-      --text-main: #1f2937;
+      --sidebar-width: 260px;
+      --primary: #059669;
+      --bg-body: #f3f4f6;
+      --bg-card: #ffffff;
+      --text-main: #111827;
       --text-muted: #6b7280;
       --border: #e5e7eb;
-      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
 
     * { box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-main); margin: 0; display: flex; height: 100vh; overflow: hidden; }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg);
-      color: var(--text-main);
-      margin: 0;
-      padding: 40px 0;
-      line-height: 1.5;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--primary-dark);
-      margin: 0 0 10px 0;
-      letter-spacing: -0.025em;
-    }
-
-    /* Tab Bar Styling */
-    .tab-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-      margin-bottom: 30px;
-      padding: 10px;
-      background: #f3f4f6;
-      border-radius: 12px;
-    }
-
-    .tab-bar button {
-      background: transparent;
-      color: var(--text-muted);
-      border: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: all 0.2s ease;
-    }
-
-    .tab-bar button:hover {
-      background: #e5e7eb;
-      color: var(--text-main);
-    }
-
-    .tab-bar button.active {
-      background: var(--card-bg);
-      color: var(--primary);
-      box-shadow: var(--shadow);
-    }
-
-    /* Leaderboard */
-    #leaderboard {
-      margin-bottom: 30px;
-    }
-
-    .lb-card {
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: white;
-      padding: 20px;
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-    }
-
-    .lb-card h2 { margin: 0 0 15px 0; font-size: 1.25rem; display: flex; align-items: center; gap: 10px; }
-    .lb-card ul { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
-    .lb-card li { background: rgba(255,255,255,0.1); padding: 8px 12px; border-radius: 8px; font-size: 0.9rem; }
-
-    /* Agent Card */
-    .agent-card {
-      background: var(--card-bg);
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-    }
-
-    .agent-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 25px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 20px;
-    }
-
-    .agent-info h2 { font-size: 1.75rem; margin: 0 0 5px 0; color: var(--primary-dark); }
-    .agent-info .meta { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
-
-    /* Score Button & Display */
-    .score-box { text-align: right; }
-    .reveal-btn {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .reveal-btn:hover { background: var(--primary-dark); }
-    .qa-score { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
-
-    /* Tables & Details */
-    details {
-      margin-top: 20px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    summary {
-      padding: 15px 20px;
-      background: var(--primary-light);
-      color: var(--primary-dark);
-      font-weight: 700;
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    summary::-webkit-details-marker { display: none; }
-
-    table { width: 100%; border-collapse: collapse; table-layout: fixed; background: white; }
-    th { background: #f9fafb; color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; padding: 12px 20px; text-align: left; border-bottom: 1px solid var(--border); }
-    td { padding: 16px 20px; border-bottom: 1px solid var(--border); vertical-align: top; font-size: 0.9rem; color: var(--text-main); word-wrap: break-word; }
-    
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background-color: #fcfdfd; }
-
-    .col-num { width: 60px; text-align: center; color: var(--text-muted); font-weight: 600; }
-    
-    /* Bold & Quote Styling */
-    .date-highlight { font-weight: 700; color: var(--primary-dark); }
-    .quote { 
-        color: var(--primary-dark); 
-        font-weight: 600; 
-        background: #f0fdf4; 
-        padding: 2px 4px; 
-        border-radius: 4px; 
-        border-left: 3px solid var(--accent);
-    }
-
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0; top: 0; width: 100%; height: 100%;
-      background: rgba(17, 24, 39, 0.7);
-      backdrop-filter: blur(4px);
-      justify-content: center; align-items: center;
-    }
-
-    .modal-content {
+    /* SIDEBAR LAYOUT */
+    .sidebar {
+      width: var(--sidebar-width);
       background: white;
-      padding: 30px;
-      border-radius: 20px;
-      width: 90%;
-      max-width: 350px;
-      text-align: center;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
     }
 
-    .modal-content h3 { margin: 0 0 20px 0; color: var(--text-main); }
-    .modal-content input {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 20px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      font-size: 1rem;
-      text-align: center;
+    .sidebar-header { padding: 24px; border-bottom: 1px solid var(--border); text-align: center; }
+    .sidebar-header h1 { font-size: 1.25rem; margin: 0; color: var(--primary); font-weight: 700; }
+
+    .agent-list { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 4px; }
+    .agent-list button {
+      text-align: left; padding: 12px 16px; border: none; background: transparent; 
+      border-radius: 8px; cursor: pointer; font-weight: 500; color: var(--text-muted);
+      transition: 0.2s;
     }
+    .agent-list button:hover { background: #f9fafb; color: var(--text-main); }
+    .agent-list button.active { background: #ecfdf5; color: var(--primary); font-weight: 700; }
 
-    .btn-group { display: flex; gap: 10px; }
-    .btn-group button { flex: 1; padding: 10px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; }
-    .btn-confirm { background: var(--primary); color: white; }
-    .btn-cancel { background: #f3f4f6; color: var(--text-muted); }
+    /* MAIN CONTENT LAYOUT */
+    .main-content { flex: 1; overflow-y: auto; padding: 32px; display: flex; flex-direction: column; gap: 24px; }
 
-    @media (max-width: 640px) {
-      h1 { font-size: 1.75rem; }
-      .agent-header { flex-direction: column; gap: 15px; }
-      .score-box { text-align: left; width: 100%; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .stat-card { background: white; padding: 20px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+    .stat-value { font-size: 1.5rem; font-weight: 700; margin-top: 4px; color: var(--primary); }
+
+    .details-container { background: white; border-radius: 16px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+    
+    .agent-top-bar { padding: 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: #f9fafb; }
+    .agent-name-title h2 { margin: 0; font-size: 1.5rem; }
+
+    /* REVEAL BUTTON STYLE */
+    .reveal-btn { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+    .qa-score-display { font-size: 1.5rem; font-weight: 800; color: var(--primary); display: none; }
+
+    /* TABLE STYLE */
+    .table-section { padding: 24px; border-bottom: 1px solid var(--border); }
+    .table-section h3 { margin: 0 0 16px 0; font-size: 1rem; color: var(--text-muted); }
+    table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    th { text-align: left; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; padding: 12px; border-bottom: 2px solid var(--border); }
+    td { padding: 12px; border-bottom: 1px solid var(--border); font-size: 0.9rem; vertical-align: top; word-wrap: break-word; }
+    .col-num { width: 45px; font-weight: bold; color: var(--text-muted); text-align: center; }
+
+    /* BOLD & QUOTE STYLING */
+    .quote { font-weight: 700; color: #065f46; background: #f0fdf4; padding: 0 4px; border-radius: 4px; border-left: 3px solid #10b981; }
+    .date-highlight { font-weight: 700; color: #111827; }
+
+    /* MODAL */
+    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(17,24,39,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; }
+    .modal-content { background: white; padding: 32px; border-radius: 16px; width: 320px; text-align: center; }
+    .modal-content input { width: 100%; padding: 12px; margin: 16px 0; border: 1px solid var(--border); border-radius: 8px; text-align: center; font-size: 1rem; }
+    .btn-group { display: flex; gap: 8px; }
+    .btn-group button { flex: 1; padding: 10px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
+    .btn-ok { background: var(--primary); color: white; }
+    .btn-no { background: #f3f4f6; color: var(--text-muted); }
+
+    /* MOBILE ADJUSTMENTS */
+    @media (max-width: 768px) {
+      body { flex-direction: column; overflow: auto; height: auto; }
+      .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+      .agent-list { flex-direction: row; overflow-x: auto; padding: 12px; }
+      .agent-list button { white-space: nowrap; }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <header>
-      <h1>Agent QA Viewer</h1>
-      <p style="color: var(--text-muted);">Quality Assurance Performance Tracking</p>
-    </header>
+  <aside class="sidebar">
+    <div class="sidebar-header"><h1>QA Dashboard</h1></div>
+    <div id="tabs" class="agent-list"></div>
+  </aside>
 
-    <div id="tabs" class="tab-bar"></div>
-    
+  <main class="main-content">
     <div id="leaderboard"></div>
-    
     <div id="output"></div>
-  </div>
+  </main>
 
-  <!-- Password Modal -->
   <div id="passwordModal" class="modal">
     <div class="modal-content">
       <h3>Enter Password</h3>
       <input type="password" id="passwordInput" placeholder="••••••••" />
       <div class="btn-group">
-        <button class="btn-confirm" id="confirmPassword">Unlock</button>
-        <button class="btn-cancel" id="cancelPassword">Cancel</button>
+        <button class="btn-ok" id="confirmPassword">Unlock</button>
+        <button class="btn-no" id="cancelPassword">Cancel</button>
       </div>
     </div>
   </div>
 
   <script>
     let currentAgent = null;
-    let currentScoreSpan = null;
+    let currentScoreDisplay = null;
     let currentButton = null;
 
     window.addEventListener('DOMContentLoaded', () => {
       fetch('data.json')
-        .then(response => response.json())
-        .then(data => renderTabs(data))
-        .catch(err => {
-          document.getElementById('output').innerHTML = '<div style="text-align:center; padding: 50px;">⚠️ Data file (data.json) not found.</div>';
+        .then(res => res.json())
+        .then(data => {
+            const sorted = data.sort((a,b) => parseFloat(b.score) - parseFloat(a.score));
+            renderSidebar(sorted);
+            renderLeaderboard(sorted);
         });
     });
 
-    function renderTabs(agents) {
-      const tabsContainer = document.getElementById('tabs');
-      const leaderboardContainer = document.getElementById('leaderboard');
-      tabsContainer.innerHTML = '';
-      
-      const sortedAgents = [...agents].sort((a, b) => parseFloat(b.score || 0) - parseFloat(a.score || 0));
-
-      // Modern Leaderboard
-      const topAgents = sortedAgents.filter(a => parseFloat(a.score) >= 90);
-      if (topAgents.length > 0) {
-        leaderboardContainer.innerHTML = `
-          <div class="lb-card">
-            <h2>🏆 Top Performers (90%+)</h2>
-            <ul>${topAgents.map(a => `<li><strong>${a.name}</strong> — ${a.score}%</li>`).join('')}</ul>
-          </div>`;
-      }
-
-      sortedAgents.forEach(agent => {
-        const tab = document.createElement('button');
-        tab.textContent = agent.name || 'Unnamed';
-        tab.onclick = () => {
-          renderAgentCards([agent]);
-          [...tabsContainer.children].forEach(b => b.classList.remove('active'));
-          tab.classList.add('active');
-        };
-        tabsContainer.appendChild(tab);
-      });
-      if (sortedAgents.length > 0) tabsContainer.firstChild.click();
-    }
-
-    function renderAgentCards(agentList) {
-      const container = document.getElementById('output');
-      container.innerHTML = '';
-
-      agentList.forEach(agent => {
-        const card = document.createElement('div');
-        card.className = 'agent-card';
-        
-        const qaData = agent.qa || [];
-        const auditData = agent.audits || [];
-
-        card.innerHTML = `
-          <div class="agent-header">
-            <div class="agent-info">
-              <h2>${agent.name}</h2>
-              <div class="meta">ID: ${agent.id || 'N/A'} • Evaluated: ${qaData.length + auditData.length} total</div>
-            </div>
-            <div class="score-box">
-              <button class="reveal-btn">🔐 View Score</button>
-              <span class="qa-score" style="display:none;">${agent.score}%</span>
-            </div>
-          </div>
-        `;
-
-        const btn = card.querySelector('.reveal-btn');
-        const span = card.querySelector('.qa-score');
-
+    function renderSidebar(agents) {
+      const container = document.getElementById('tabs');
+      agents.forEach((agent, i) => {
+        const btn = document.createElement('button');
+        btn.textContent = agent.name;
         btn.onclick = () => {
-          currentAgent = agent;
-          currentScoreSpan = span;
-          currentButton = btn;
-          document.getElementById('passwordInput').value = '';
-          document.getElementById('passwordModal').style.display = 'flex';
+          renderAgent(agent);
+          [...container.children].forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
         };
-
-        card.appendChild(renderTableSection('Long Calls (QA)', qaData));
-        card.appendChild(renderTableSection('Dispo Audits', auditData));
-        container.appendChild(card);
+        container.appendChild(btn);
+        if(i === 0) btn.click();
       });
     }
 
-    function renderTableSection(label, dataArray) {
-      const details = document.createElement('details');
-      details.open = true;
-      details.innerHTML = `<summary><span>${label}</span> <span>${dataArray.length} items</span></summary>`;
-      
-      const table = document.createElement('table');
-      table.innerHTML = `<thead><tr><th class="col-num">#</th><th>Feedback & Comments</th></tr></thead>`;
-      const tbody = document.createElement('tbody');
-      
-      if (dataArray.length > 0) {
-        dataArray.forEach((item, i) => {
-          const commentText = typeof item === 'object' ? (item.comment || "") : item;
-          
-          let formatted = (commentText || '')
-            .replace(/^(\d{2}-\d{2}-\d{2})/g, '<span class="date-highlight">$1</span>') 
-            .replace(/(Date Posted\s*)(\d{4}-\d{2}-\d{2})/g, '<strong>$1$2</strong>')
-            .replace(/\n/g, '<br>'); 
-          
-          formatted = formatted.replace(/"([^"]+)"/g, '<span class="quote">"$1"</span>');
+    function renderLeaderboard(agents) {
+      const top = agents.filter(a => parseFloat(a.score) >= 90);
+      if(top.length === 0) return;
+      document.getElementById('leaderboard').innerHTML = `
+        <div class="stat-card" style="background: linear-gradient(to right, #059669, #10b981); color: white;">
+          <div class="stat-label" style="color: white; opacity: 0.8;">🏆 Top Performers</div>
+          <div style="margin-top: 8px; font-weight: 600; font-size: 0.9rem;">
+            ${top.map(a => `${a.name} (${a.score}%)`).join(' • ')}
+          </div>
+        </div>`;
+    }
 
-          tbody.innerHTML += `<tr><td class="col-num">${i+1}</td><td>${formatted}</td></tr>`;
-        });
-      } else {
-        tbody.innerHTML = `<tr><td colspan="2" style="text-align:center; color:#9ca3af; padding: 30px;">No entries recorded.</td></tr>`;
-      }
+    function renderAgent(agent) {
+      const qaCount = (agent.qa || []).length;
+      const auditCount = (agent.audits || []).length;
       
-      table.appendChild(tbody);
-      details.appendChild(table);
-      return details;
+      document.getElementById('output').innerHTML = `
+        <div class="stats-grid">
+            <div class="stat-card"><div class="stat-label">Agent ID</div><div class="stat-value">${agent.id || 'N/A'}</div></div>
+            <div class="stat-card"><div class="stat-label">QA Evaluations</div><div class="stat-value">${qaCount}</div></div>
+            <div class="stat-card"><div class="stat-label">Dispo Audits</div><div class="stat-value">${auditCount}</div></div>
+        </div>
+
+        <div class="details-container">
+            <div class="agent-top-bar">
+                <div class="agent-name-title"><h2>${agent.name}</h2><span style="color: var(--text-muted); font-size: 0.8rem;">Performance Overview</span></div>
+                <div>
+                    <button class="reveal-btn">🔐 Show Score</button>
+                    <span class="qa-score-display">${agent.score}%</span>
+                </div>
+            </div>
+            ${renderTableSection('Long Calls (QA)', agent.qa || [])}
+            ${renderTableSection('Dispo Audits', agent.audits || [])}
+        </div>`;
+
+      const btn = document.querySelector('.reveal-btn');
+      const score = document.querySelector('.qa-score-display');
+      btn.onclick = () => {
+        currentAgent = agent;
+        currentScoreDisplay = score;
+        currentButton = btn;
+        document.getElementById('passwordModal').style.display = 'flex';
+      };
+    }
+
+    function renderTableSection(title, data) {
+      return `
+        <div class="table-section">
+            <h3>${title} (${data.length})</h3>
+            <table>
+                <thead><tr><th class="col-num">#</th><th>Comment</th></tr></thead>
+                <tbody>
+                    ${data.length > 0 ? data.map((item, i) => {
+                        const txt = (typeof item === 'object' ? item.comment : item) || "";
+                        const formatted = txt.replace(/^(\d{2}-\d{2}-\d{2})/g, '<span class="date-highlight">$1</span>')
+                                           .replace(/"([^"]+)"/g, '<span class="quote">"$1"</span>')
+                                           .replace(/\n/g, '<br>');
+                        return `<tr><td class="col-num">${i+1}</td><td>${formatted}</td></tr>`;
+                    }).join('') : '<tr><td colspan="2" style="text-align:center; padding: 20px; color: #ccc;">No records</td></tr>'}
+                </tbody>
+            </table>
+        </div>`;
     }
 
     document.getElementById('confirmPassword').onclick = () => {
-      const input = document.getElementById('passwordInput').value.trim();
-      if (input === (currentAgent.password || '').toString().trim()) {
-        currentScoreSpan.style.display = 'block';
-        currentButton.style.display = 'none';
-        document.getElementById('passwordModal').style.display = 'none';
-      } else { alert('❌ Incorrect password.'); }
+      if(document.getElementById('passwordInput').value.trim() === currentAgent.password.toString()) {
+          currentScoreDisplay.style.display = 'block';
+          currentButton.style.display = 'none';
+          document.getElementById('passwordModal').style.display = 'none';
+      } else { alert('Wrong password!'); }
     };
-
     document.getElementById('cancelPassword').onclick = () => { document.getElementById('passwordModal').style.display = 'none'; };
-    
-    // Close modal on outside click
-    window.onclick = (event) => {
-      const modal = document.getElementById('passwordModal');
-      if (event.target == modal) modal.style.display = "none";
-    }
   </script>
 </body>
 </html>
