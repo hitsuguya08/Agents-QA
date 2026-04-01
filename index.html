@@ -98,7 +98,7 @@
         card.className = 'agent-card';
         card.innerHTML = `
           <h2>${agent.name}</h2>
-          <div class="meta">Calls Evaluated: ${agent.qa ? agent.qa.length : 0}</div>
+          <div class="meta">Evaluations: ${agent.qa ? agent.qa.length : 0}</div>
           <button class="reveal-btn">🔐 View QA Score</button>
           <span class="qa-score" style="display:none;font-weight:bold;margin-left:10px;"></span>
         `;
@@ -119,9 +119,9 @@
           details.open = true;
           details.innerHTML = `<summary>QA Comments (${agent.qa.length})</summary>
             <table>
-              <thead><tr><th>#</th><th>Phone</th><th>Comment</th></tr></thead>
+              <thead><tr><th>#</th><th>Comment</th></tr></thead>
               <tbody>
-                ${agent.qa.map((call, i) => `<tr><td>${i+1}</td><td>${call.phone || 'N/A'}</td><td>${(call.comment || '').replace(/\n/g, '<br>')}</td></tr>`).join('')}
+                ${agent.qa.map((call, i) => `<tr><td>${i+1}</td><td>${(call.comment || '').replace(/\n/g, '<br>')}</td></tr>`).join('')}
               </tbody>
             </table>`;
           card.appendChild(details);
