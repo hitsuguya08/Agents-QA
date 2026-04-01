@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>QA Dashboard | Standard View</title>
+  <title>QA Dashboard | Compact Pro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://googleapis.com" rel="stylesheet">
   <style>
@@ -12,74 +12,77 @@
     }
     * { box-sizing: border-box; }
     
-    /* Tinaasan ang base font size para mas malinaw */
-    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; font-size: 14.5px; line-height: 1.6; }
+    /* Gaminyo ang base font para murag naka-80% zoom */
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; font-size: 13px; line-height: 1.4; }
 
-    /* HEADER */
+    /* THIN GRADIENT HEADER */
     .header-main { 
       background: linear-gradient(135deg, #064e3b, #10b981); 
-      padding: 20px 0; text-align: center; color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 12px 0; text-align: center; color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    .header-main h1 { margin: 0; font-size: 1.2rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+    .header-main h1 { margin: 0; font-size: 1rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
 
-    /* NAV BAR */
-    .nav-bar { background: white; border-bottom: 1px solid var(--border); padding: 12px 0; position: sticky; top: 0; z-index: 100; overflow-x: auto; }
-    .nav-inner { display: flex; justify-content: center; gap: 10px; padding: 0 20px; min-width: max-content; margin: 0 auto; }
+    /* COMPACT NAV BAR */
+    .nav-bar { background: white; border-bottom: 1px solid var(--border); padding: 8px 0; position: sticky; top: 0; z-index: 100; overflow-x: auto; }
+    .nav-inner { display: flex; justify-content: center; gap: 6px; padding: 0 15px; min-width: max-content; margin: 0 auto; }
     .agent-pill { 
-      padding: 8px 18px; border-radius: 30px; border: 1px solid var(--border); background: white; 
-      color: var(--text-muted); font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 8px;
+      padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border); background: white; 
+      color: var(--text-muted); font-weight: 600; font-size: 0.75rem; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 6px;
     }
-    .agent-pill.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2); }
-    .dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid white; }
+    .agent-pill.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 2px 5px rgba(16, 185, 129, 0.2); }
+    .dot { width: 7px; height: 7px; border-radius: 50%; border: 1px solid white; }
 
-    /* CONTAINER - Pinalapad nang kaunti (950px) */
-    .content-container { max-width: 950px; margin: 40px auto; padding: 0 20px 60px; }
+    /* CENTERED CONTAINER - Limited width for compact look */
+    .content-container { max-width: 820px; margin: 25px auto; padding: 0 15px 50px; }
 
-    /* KPI BOXES - Slightly larger */
-    .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; margin-bottom: 30px; }
-    .kpi-box { padding: 22px; border-radius: 16px; text-align: center; color: white; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); transition: 0.2s; }
+    /* COMPACT KPI BOXES (Blue, Green, Purple) */
+    .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 25px; }
+    .kpi-box { padding: 15px; border-radius: 12px; text-align: center; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
     .kpi-1 { background: var(--box-blue); } 
     .kpi-2 { background: var(--box-green); } 
     .kpi-3 { background: var(--box-purple); }
-    .kpi-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; opacity: 0.9; margin-bottom: 6px; letter-spacing: 0.5px; }
-    .kpi-value { font-size: 1.6rem; font-weight: 800; display: flex; align-items: baseline; justify-content: center; gap: 5px; }
-    .kpi-target { font-size: 1.1rem; opacity: 0.7; font-weight: 400; }
+    .kpi-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; opacity: 0.9; margin-bottom: 4px; letter-spacing: 0.5px; }
+    .kpi-value { font-size: 1.3rem; font-weight: 800; display: flex; align-items: baseline; justify-content: center; gap: 4px; }
+    .kpi-target { font-size: 0.85rem; opacity: 0.7; font-weight: 400; }
 
     /* CONTENT CARD */
-    .main-card { background: white; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); overflow: hidden; }
-    .card-head { padding: 28px 35px; display: flex; justify-content: space-between; align-items: center; background: #fafafa; border-bottom: 1px solid var(--border); }
-    .card-head h2 { margin: 0; font-size: 1.6rem; font-weight: 800; }
+    .main-card { background: white; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); overflow: hidden; }
+    .card-head { padding: 18px 25px; display: flex; justify-content: space-between; align-items: center; background: #fafafa; border-bottom: 1px solid var(--border); }
+    .card-head h2 { margin: 0; font-size: 1.25rem; font-weight: 800; letter-spacing: -0.01em; }
+    .card-head p { margin: 2px 0 0 0; font-size: 0.75rem; color: var(--text-muted); }
 
-    .unlock-btn { background: #1e293b; color: white; border: none; padding: 10px 22px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: 0.2s; }
-    .unlock-btn:hover { background: #000; transform: translateY(-1px); }
-    .score-txt { font-size: 1.8rem; font-weight: 900; color: var(--primary); display: none; }
+    .unlock-btn { background: #1e293b; color: white; border: none; padding: 7px 14px; border-radius: 6px; font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: 0.2s; }
+    .unlock-btn:hover { background: #000; }
+    .score-txt { font-size: 1.5rem; font-weight: 900; color: var(--primary); display: none; }
 
-    /* TABLES - Better spacing and readability */
-    .table-block { padding: 30px 35px; border-bottom: 1px solid var(--border); }
-    .table-block h3 { margin: 0 0 20px 0; font-size: 1rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
-    .badge { background: #f3f4f6; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; color: var(--text-muted); font-weight: 700; }
+    /* COMPACT TABLES */
+    .table-block { padding: 20px 25px; border-bottom: 1px solid var(--border); }
+    .table-block h3 { margin: 0 0 15px 0; font-size: 0.85rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; color: #374151; }
+    .badge { background: #f1f5f9; padding: 3px 8px; border-radius: 12px; font-size: 0.65rem; color: #475569; font-weight: 700; }
 
     table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-    th { text-align: left; padding: 12px; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; border-bottom: 2px solid var(--border); }
-    td { padding: 20px 12px; border-bottom: 1px solid var(--border); font-size: 0.95rem; vertical-align: top; word-wrap: break-word; line-height: 1.6; }
-    .num-col { width: 55px; text-align: center; font-weight: 800; color: #cbd5e1; }
+    th { text-align: left; padding: 8px 10px; font-size: 0.65rem; color: #9ca3af; text-transform: uppercase; border-bottom: 1px solid var(--border); letter-spacing: 0.05em; }
+    td { padding: 12px 10px; border-bottom: 1px solid #f8fafc; font-size: 0.8rem; vertical-align: top; word-wrap: break-word; line-height: 1.5; color: #4b5563; }
+    .num-col { width: 40px; text-align: center; font-weight: 800; color: #cbd5e1; }
 
     /* FORMATTING */
     .date-bold { font-weight: 800; color: var(--text); }
-    .quote-box { font-weight: 700; color: #065f46; background: #ecfdf5; padding: 3px 7px; border-radius: 6px; border-left: 4px solid var(--primary); display: inline-block; margin: 4px 0; }
+    .quote-box { font-weight: 700; color: #065f46; background: #ecfdf5; padding: 2px 5px; border-radius: 4px; border-left: 3px solid var(--primary); display: inline-block; margin: 2px 0; }
 
     /* MODAL */
-    .modal { display: none; position: fixed; z-index: 200; left:0; top:0; width:100%; height:100%; background:rgba(15,23,42,0.6); backdrop-filter:blur(6px); justify-content:center; align-items:center; }
-    .modal-content { background:white; padding:40px; border-radius:24px; width:360px; text-align:center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
-    .modal-content input { width:100%; padding:15px; margin:20px 0; border:1px solid var(--border); border-radius:12px; text-align:center; font-size:1.2rem; outline:none; background:#f9fafb; }
-    .btn-row { display: flex; gap: 12px; }
-    .btn-row button { flex:1; padding: 14px; border:none; border-radius:12px; font-weight:700; cursor:pointer; }
+    .modal { display: none; position: fixed; z-index: 200; left:0; top:0; width:100%; height:100%; background:rgba(15,23,42,0.6); backdrop-filter:blur(4px); justify-content:center; align-items:center; }
+    .modal-content { background:white; padding:30px; border-radius:16px; width:300px; text-align:center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); }
+    .modal-content input { width:100%; padding:10px; margin:15px 0; border:1px solid var(--border); border-radius:8px; text-align:center; font-size:1rem; outline:none; background:#f9fafb; }
+    .btn-row { display: flex; gap: 8px; }
+    .btn-row button { flex:1; padding: 10px; border:none; border-radius:8px; font-weight:700; cursor:pointer; font-size: 0.8rem; }
+
+    @media (max-width: 500px) { .kpi-row { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
 
   <header class="header-main">
-    <h1>AGENT QA PERFORMANCE TRACKER</h1>
+    <h1>PERFORMANCE ANALYTICS HUB</h1>
   </header>
 
   <nav class="nav-bar">
@@ -92,11 +95,11 @@
 
   <div id="passwordModal" class="modal">
     <div class="modal-content">
-      <h3 style="margin:0">Verify Identity</h3>
+      <h3 style="margin:0; font-size:1rem;">Verify Identity</h3>
       <input type="password" id="pwInput" placeholder="Password" />
       <div class="btn-row">
         <button style="background:var(--primary); color:white;" id="btnGo">Unlock</button>
-        <button style="background:#f3f4f6;" onclick="closeModal()">Cancel</button>
+        <button style="background:#f3f4f6; color:#6b7280;" onclick="closeModal()">Cancel</button>
       </div>
     </div>
   </div>
@@ -136,13 +139,13 @@
 
       document.getElementById('dashboardView').innerHTML = `
         <div class="kpi-row">
-            <div class="kpi-box kpi-1"><div class="kpi-label">Status</div><div class="kpi-value" style="font-size:1.4rem">ACTIVE</div></div>
+            <div class="kpi-box kpi-1"><div class="kpi-label">Agent Status</div><div class="kpi-value" style="font-size:1.1rem">ACTIVE</div></div>
             <div class="kpi-box kpi-2"><div class="kpi-label">Long Calls</div><div class="kpi-value">${countQA} <span class="kpi-target">/ ${TARGET_QA}</span></div></div>
             <div class="kpi-box kpi-3"><div class="kpi-label">Audits</div><div class="kpi-value">${countAudit} <span class="kpi-target">/ ${TARGET_AUDIT}</span></div></div>
         </div>
         <div class="main-card">
             <div class="card-head">
-                <div><h2>${cleanName(agent.name)}</h2><span style="color:var(--text-muted); font-weight:600;">QA Evaluation Summary</span></div>
+                <div><h2>${cleanName(agent.name)}</h2><p>QA Feedback Overview</p></div>
                 <div><button class="unlock-btn" id="btnReveal">🔐 Reveal Score</button><div class="score-txt" id="scoreVal">${agent.score || '0'}%</div></div>
             </div>
             ${renderTable('Long Calls Evaluation', qas)}
@@ -153,12 +156,13 @@
 
     function renderTable(title, data) {
       const activeCount = data.filter(item => (typeof item === 'object' ? item.comment : item).toString().trim().length > 5).length;
-      return `<div class="table-block"><h3><span>${title}</span> <span class="badge">${activeCount} Evaluated</span></h3>
+      return `<div class="table-block"><h3><span>${title}</span> <span class="badge">${activeCount} active records</span></h3>
         <table><thead><tr><th class="num-col">#</th><th>Feedback Details</th></tr></thead><tbody>
         ${data.map((item, i) => {
           let txt = (typeof item === 'object' ? item.comment : item) || ""; txt = txt.toString().trim();
           if (txt.length <= 5) return `<tr><td class="num-col">${i+1}</td><td><span style="color:#cbd5e1">---</span></td></tr>`;
           
+          // Clean Replacement
           let formatted = txt
             .replace(/^(\d{2}-\d{2}-\d{2})/g, '<strong class="date-bold">$1</strong>')
             .replace(/"([^"]+)"/g, '<span class="quote-box">"$1"</span>')
@@ -172,7 +176,7 @@
     document.getElementById('btnGo').onclick = () => {
       if(document.getElementById('pwInput').value.trim() === activeAgent.password.toString()) {
           document.getElementById('scoreVal').style.display = 'block'; document.getElementById('btnReveal').style.display = 'none'; closeModal();
-      } else { alert('❌ Incorrect password.'); }
+      } else { alert('❌ Wrong password.'); }
     };
   </script>
 </body>
