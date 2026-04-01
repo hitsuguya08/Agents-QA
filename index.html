@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>QA Pro Dashboard | Analytics</title>
+  <title>QA Dashboard | Analytics</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://googleapis.com" rel="stylesheet">
   <style>
@@ -28,7 +28,7 @@
     .agent-pill.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2); }
     .dot { width: 8px; height: 8px; border-radius: 50%; }
 
-    .content-container { max-width: 900px; margin: 30px auto; padding: 0 20px 60px; }
+    .content-container { max-width: 950px; margin: 30px auto; padding: 0 20px 60px; }
 
     .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
     .kpi-box { background: white; padding: 20px; border-radius: 16px; border: 1px solid var(--border); text-align: center; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
@@ -40,7 +40,7 @@
     .card-head { padding: 25px 30px; display: flex; justify-content: space-between; align-items: center; background: #fafafa; border-bottom: 1px solid var(--border); }
     .card-head h2 { margin: 0; font-size: 1.5rem; font-weight: 800; }
 
-    .unlock-btn { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+    .unlock-btn { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; }
     .score-txt { font-size: 1.8rem; font-weight: 800; color: var(--primary); display: none; }
 
     .table-block { padding: 25px 30px; border-bottom: 1px solid var(--border); }
@@ -53,8 +53,8 @@
     td { padding: 18px 12px; border-bottom: 1px solid var(--border); font-size: 0.9rem; vertical-align: top; word-wrap: break-word; line-height: 1.6; }
     .num-col { width: 50px; text-align: center; font-weight: 800; color: #cbd5e1; }
 
-    /* STYLING FOR BOLD DATES AND QUOTES */
-    .date-bold { font-weight: 800; color: var(--text); }
+    /* STYLING FOR BOLD AND QUOTES */
+    .bold-item { font-weight: 800; color: var(--text); }
     .quote { font-weight: 700; color: #065f46; background: #f0fdf4; padding: 2px 6px; border-radius: 4px; border-left: 3.5px solid var(--primary); }
 
     .modal { display: none; position: fixed; z-index: 1000; left:0; top:0; width:100%; height:100%; background:rgba(15,23,42,0.6); backdrop-filter:blur(4px); justify-content:center; align-items:center; }
@@ -103,10 +103,10 @@
       });
     });
 
-    // Helper function to clean name (removes anything in parentheses)
-    function getNameOnly(fullName) {
-      if (!fullName) return "Unnamed";
-      return fullName.split('(')[0].trim();
+    // Mokuha lang sa ngalan (tangtangon ang naa sa sulod sa parentheses)
+    function cleanName(name) {
+      if (!name) return "Unnamed";
+      return name.split('(')[0].trim();
     }
 
     function renderPills(agents) {
@@ -118,7 +118,7 @@
         const s = parseFloat(agent.score || 0);
         const c = s >= 90 ? '#10b981' : (s >= 80 ? '#f59e0b' : '#ef4444');
         
-        pill.innerHTML = `<div class="dot" style="background:${c}"></div> ${getNameOnly(agent.name)}`;
+        pill.innerHTML = `<div class="dot" style="background:${c}"></div> ${cleanName(agent.name)}`;
         pill.onclick = () => {
           renderAgent(agent);
           [...box.children].forEach(el => el.classList.remove('active'));
@@ -146,7 +146,7 @@
 
         <div class="main-card">
             <div class="card-head">
-                <div><h2>${getNameOnly(agent.name)}</h2><span style="color:var(--text-muted); font-size:0.8rem; font-weight:600;">Performance Summary</span></div>
+                <div><h2>${cleanName(agent.name)}</h2><span style="color:var(--text-muted); font-size:0.8rem; font-weight:600;">Performance Summary</span></div>
                 <div>
                     <button class="unlock-btn" id="btnReveal">🔐 Reveal Score</button>
                     <div class="score-txt" id="scoreVal">${agent.score || '0'}%</div>
@@ -167,21 +167,21 @@
       const activeCount = data.filter(item => (typeof item === 'object' ? item.comment : item).toString().trim().length > 5).length;
       return `
         <div class="table-block">
-            <h3><span>${title}</span> <span class="badge">${activeCount} active records</span></h3>
+            <h3><span>${title}</span> <span class="badge">${activeCount} evaluated</span></h3>
             <table>
-                <thead><tr><th class="num-col">#</th><th>Feedback & Observations</th></tr></thead>
+                <thead><tr><th class="num-col">#</th><th>Observations & Comments</th></tr></thead>
                 <tbody>
                     ${data.map((item, i) => {
-                        const raw = (typeof item === 'object' ? item.comment : item) || "";
-                        const txt = raw.toString().trim();
-                        const isReal = txt.length > 5;
+                        let txt = (typeof item === 'object' ? item.comment : item) || "";
+                        txt = txt.toString().trim();
                         
-                        // FIXED: Corrected regex replacement strings
-                        let formatted = isReal 
-                          ? txt.replace(/^(\d{2}-\d{2}-\d{2})/g, '<span class="date-bold">$1</span>')
-                               .replace(/"([^"]+)"/g, '<span class="quote">"$1"</span>')
-                               .replace(/\n/g, '<br>')
-                          : '<span style="color:#cbd5e1">---</span>';
+                        if (txt.length <= 5) return `<tr><td class="num-col">${i+1}</td><td><span style="color:#cbd5e1">---</span></td></tr>`;
+                        
+                        // FIX: Mas sigurado nga bold formatting
+                        let formatted = txt
+                          .replace(/^(\d{2}-\d{2}-\d{2})/g, '<b class="bold-item">$1</b>')
+                          .replace(/"([^"]+)"/g, '<span class="quote">"$1"</span>')
+                          .replace(/\n/g, '<br>');
 
                         return `<tr><td class="num-col">${i+1}</td><td>${formatted}</td></tr>`;
                     }).join('')}
