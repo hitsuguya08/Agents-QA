@@ -2,208 +2,235 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>QA Pro Dashboard | Performance Tracking</title>
+  <title>QA Dashboard | Analytics</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://googleapis.com" rel="stylesheet">
   <style>
     :root {
-      --sidebar-width: 280px;
-      --primary: #059669; --primary-light: #ecfdf5;
-      --bg-body: #f3f4f6; --bg-card: #ffffff;
-      --text-main: #111827; --text-muted: #6b7280; --border: #e5e7eb;
-      --shadow: 0 1px 3px rgba(0,0,0,0.1);
+      --primary: #10b981; /* Emerald */
+      --primary-soft: #ecfdf5;
+      --bg: #f8fafc;
+      --sidebar: #ffffff;
+      --card: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #f1f5f9;
+      --radius: 12px;
     }
+
     * { box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-main); margin: 0; display: flex; height: 100vh; overflow: hidden; }
-    .sidebar { width: var(--sidebar-width); background: white; border-right: 1px solid var(--border); display: flex; flex-direction: column; flex-shrink: 0; }
-    .sidebar-header { padding: 24px; border-bottom: 1px solid var(--border); }
-    .sidebar-header h1 { font-size: 1.2rem; color: var(--primary); font-weight: 700; margin: 0 0 15px 0; }
-    #searchBar { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 0.9rem; outline: none; background: #f9fafb; }
-    .agent-list { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 5px; }
-    .agent-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-radius: 10px; cursor: pointer; border: none; background: transparent; width: 100%; text-align: left; transition: 0.2s; }
-    .agent-item:hover { background: #f9fafb; }
-    .agent-item.active { background: var(--primary-light); color: var(--primary); font-weight: 700; }
-    .status-dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 0 1px #eee; }
-    .main-content { flex: 1; overflow-y: auto; padding: 40px; display: flex; flex-direction: column; gap: 30px; }
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
-    .stat-card { background: white; padding: 24px; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); }
-    .stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; }
-    .stat-value { font-size: 1.8rem; font-weight: 700; margin-top: 8px; color: var(--primary); display: flex; align-items: baseline; gap: 5px; }
-    .stat-target { font-size: 1rem; color: #9ca3af; font-weight: 400; }
-    .details-card { background: white; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); overflow: hidden; }
-    .agent-top-bar { padding: 24px 30px; display: flex; justify-content: space-between; align-items: center; background: #f9fafb; border-bottom: 1px solid var(--border); }
-    .reveal-btn { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 600; cursor: pointer; }
-    .score-value { font-size: 1.8rem; font-weight: 800; color: var(--primary); display: none; }
-    .table-section { padding: 30px; border-bottom: 1px solid var(--border); }
-    .table-section h3 { margin: 0 0 20px 0; font-size: 1rem; color: var(--text-main); display: flex; justify-content: space-between; }
-    .badge { background: #f3f4f6; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; color: var(--text-muted); }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; }
+
+    /* MODERN SIDEBAR */
+    .sidebar { width: 300px; background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; flex-shrink: 0; }
+    .sidebar-header { padding: 32px 24px; }
+    .sidebar-header h1 { font-size: 1.4rem; margin: 0; font-weight: 700; color: var(--text); }
+    .sidebar-header p { font-size: 0.85rem; color: var(--text-muted); margin: 4px 0 0 0; }
+
+    .search-wrapper { padding: 0 24px 20px; }
+    #searchBar { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: 10px; background: #f8fafc; outline: none; font-size: 0.9rem; transition: 0.2s; }
+    #searchBar:focus { border-color: var(--primary); background: white; box-shadow: 0 0 0 3px var(--primary-soft); }
+
+    .agent-list { flex: 1; overflow-y: auto; padding: 0 16px 24px; display: flex; flex-direction: column; gap: 8px; }
+    .agent-card-nav { 
+      padding: 16px; border-radius: var(--radius); cursor: pointer; border: 1px solid transparent; background: white; 
+      transition: all 0.2s; display: flex; align-items: center; gap: 12px;
+    }
+    .agent-card-nav:hover { background: var(--bg); }
+    .agent-card-nav.active { background: var(--primary-soft); border-color: #dcfce7; }
+    
+    .avatar { width: 40px; height: 40px; border-radius: 10px; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #64748b; font-size: 0.9rem; }
+    .agent-card-nav.active .avatar { background: var(--primary); color: white; }
+    .agent-info-nav b { display: block; font-size: 0.95rem; }
+    .agent-info-nav span { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* MAIN PANEL */
+    .main-panel { flex: 1; overflow-y: auto; padding: 48px; display: flex; flex-direction: column; gap: 32px; max-width: 1100px; margin: 0 auto; }
+
+    .top-header { display: flex; justify-content: space-between; align-items: flex-end; }
+    .agent-title h2 { font-size: 2.2rem; margin: 0; letter-spacing: -0.02em; }
+    .agent-title span { color: var(--text-muted); font-weight: 500; }
+
+    .score-unlock-box { text-align: right; }
+    .reveal-btn { background: var(--text); color: white; border: none; padding: 12px 24px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .reveal-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .final-score { font-size: 2.2rem; font-weight: 800; color: var(--primary); display: none; }
+
+    /* KPI CARDS */
+    .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .kpi-card { background: white; padding: 24px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+    .kpi-label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .kpi-value { font-size: 1.8rem; font-weight: 700; margin-top: 12px; display: flex; align-items: baseline; gap: 4px; }
+    .kpi-total { font-size: 1rem; color: #cbd5e1; font-weight: 400; }
+
+    /* DATA TABLES */
+    .section-card { background: white; border-radius: 24px; border: 1px solid var(--border); overflow: hidden; }
+    .section-header { padding: 24px 32px; border-bottom: 1px solid var(--border); background: #fafafa; display: flex; justify-content: space-between; align-items: center; }
+    .section-header h3 { margin: 0; font-size: 1.1rem; }
+    .count-badge { background: #e2e8f0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+
     table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-    th { text-align: left; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; padding: 12px; border-bottom: 2px solid var(--border); }
-    td { padding: 15px 12px; border-bottom: 1px solid var(--border); font-size: 0.95rem; vertical-align: top; word-wrap: break-word; }
-    .col-num { width: 50px; text-align: center; font-weight: 700; color: var(--text-muted); }
-    .quote { font-weight: 700; color: #065f46; background: #f0fdf4; padding: 0 4px; border-radius: 4px; border-left: 3px solid #10b981; }
-    .date-bold { font-weight: 700; color: var(--text-main); }
-    .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(17, 24, 39, 0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; }
-    .modal-box { background: white; padding: 35px; border-radius: 20px; width: 340px; text-align: center; }
-    .modal-box input { width: 100%; padding: 14px; margin: 20px 0; border: 1px solid var(--border); border-radius: 12px; text-align: center; font-size: 1.1rem; }
-    .btn-group { display: flex; gap: 10px; }
-    .btn-group button { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; }
-    @media (max-width: 850px) { body { flex-direction: column; overflow: auto; height: auto; } .sidebar { width: 100%; } .agent-list { flex-direction: row; } }
+    th { text-align: left; padding: 16px 32px; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; border-bottom: 1px solid var(--border); }
+    td { padding: 24px 32px; border-bottom: 1px solid var(--border); font-size: 0.95rem; vertical-align: top; word-wrap: break-word; line-height: 1.6; }
+    .row-num { width: 70px; font-weight: 700; color: #cbd5e1; text-align: center; }
+
+    /* FORMATTING */
+    .quote-box { font-weight: 600; color: #064e3b; background: #f0fdf4; padding: 2px 6px; border-radius: 6px; border: 1px solid #dcfce7; }
+    .date-pill { font-weight: 700; color: var(--text); }
+
+    /* MODAL */
+    .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(8px); justify-content: center; align-items: center; }
+    .modal-content { background: white; padding: 40px; border-radius: 24px; width: 360px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+    .modal-content input { width: 100%; padding: 16px; margin: 24px 0; border: 1px solid var(--border); border-radius: 12px; text-align: center; font-size: 1.2rem; background: #f8fafc; }
+    .btn-group { display: flex; gap: 12px; }
+    .btn-group button { flex: 1; padding: 14px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; }
+
+    @media (max-width: 900px) {
+        body { flex-direction: column; overflow: auto; height: auto; }
+        .sidebar { width: 100%; border-right: none; }
+        .main-panel { padding: 24px; }
+        .kpi-row { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
+
   <aside class="sidebar">
     <div class="sidebar-header">
       <h1>QA Dashboard</h1>
-      <input type="text" id="searchBar" placeholder="Search agent name..." onkeyup="filterList()">
+      <p>Performance Analytics</p>
     </div>
-    <div id="tabs" class="agent-list"></div>
+    <div class="search-wrapper">
+      <input type="text" id="searchBar" placeholder="Search agent..." onkeyup="doSearch()">
+    </div>
+    <div id="agentList" class="agent-list"></div>
   </aside>
-  <main class="main-content">
-    <div id="output"></div>
+
+  <main class="main-panel">
+    <div id="dashboardContent"></div>
   </main>
+
   <div id="passwordModal" class="modal">
-    <div class="modal-box">
-      <h3>Verify Identity</h3>
-      <input type="password" id="passInput" placeholder="••••••••" />
+    <div class="modal-content">
+      <h3 style="margin:0">Password Required</h3>
+      <p style="color:var(--text-muted); font-size:0.9rem; margin-top:8px;">Enter your credentials to see the score.</p>
+      <input type="password" id="passIn" placeholder="••••" />
       <div class="btn-group">
-        <button style="background:var(--primary); color:white;" id="confirmBtn">Unlock</button>
-        <button style="background:#f3f4f6;" onclick="closeModal()">Cancel</button>
+        <button style="background:var(--text); color:white;" id="unlockGo">Verify</button>
+        <button style="background:#f1f5f9; color:var(--text-muted);" onclick="closePw()">Cancel</button>
       </div>
     </div>
   </div>
-  <script>
-    let rawData = [];
-    let activeAgent = null;
 
-    // TARGETS PARA SA MONITORING (Usba kini kung kailangan)
+  <script>
+    let dbData = [];
+    let focusedAgent = null;
+
+    // QUOTA TARGETS
     const TARGET_QA = 15;
     const TARGET_AUDIT = 20;
 
     window.addEventListener('DOMContentLoaded', () => {
-      fetch('data.json').then(res => res.json()).then(data => {
-        rawData = data.sort((a, b) => parseFloat(b.score) - parseFloat(a.score));
-        renderList(rawData);
+      fetch('data.json').then(r => r.json()).then(data => {
+        dbData = data.sort((a,b) => parseFloat(b.score) - parseFloat(a.score));
+        buildSidebar(dbData);
       });
     });
 
-    function renderList(agents) {
-      const container = document.getElementById('tabs');
-      container.innerHTML = '';
-      agents.forEach((agent, i) => {
-        const btn = document.createElement('button');
-        btn.className = 'agent-item';
-        const score = parseFloat(agent.score);
-        const color = score >= 90 ? '#10b981' : (score >= 80 ? '#f59e0b' : '#ef4444');
-        btn.innerHTML = `<span>${agent.name}</span><div class="status-dot" style="background:${color}"></div>`;
-        btn.onclick = () => {
-          renderDashboard(agent);
-          [...container.children].forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
+    function buildSidebar(list) {
+      const box = document.getElementById('agentList');
+      box.innerHTML = '';
+      list.forEach((agent, i) => {
+        const item = document.createElement('div');
+        item.className = 'agent-card-nav';
+        const initials = agent.name.split(' ').map(n => n[0]).join('').toUpperCase();
+        
+        item.innerHTML = `
+          <div class="avatar">${initials}</div>
+          <div class="agent-info-nav"><b>${agent.name}</b><span>Agent ID: ${agent.id || '--'}</span></div>
+        `;
+        
+        item.onclick = () => {
+          buildDashboard(agent);
+          [...box.children].forEach(c => c.classList.remove('active'));
+          item.classList.add('active');
         };
-        container.appendChild(btn);
-        if (i === 0 && !activeAgent) btn.click();
+        box.appendChild(item);
+        if(i === 0 && !focusedAgent) item.click();
       });
     }
 
-    function filterList() {
-      const query = document.getElementById('searchBar').value.toLowerCase();
-      const filtered = rawData.filter(a => a.name.toLowerCase().includes(query));
-      renderList(filtered);
+    function doSearch() {
+      const q = document.getElementById('searchBar').value.toLowerCase();
+      buildSidebar(dbData.filter(a => a.name.toLowerCase().includes(q)));
     }
 
-    function renderDashboard(agent) {
-      activeAgent = agent;
+    function buildDashboard(agent) {
+      focusedAgent = agent;
       const qas = agent.qa || [];
       const audits = agent.audits || [];
-      
-      // SMART COUNTER LOGIC: I-ihap lang kung ang comment kay sobra sa 5 characters
-      const activeQaCount = qas.filter(q => {
-        const txt = (typeof q === 'object' ? q.comment : q).toString().trim();
-        return txt.length > 5;
-      }).length;
 
-      const activeAuditCount = audits.filter(a => {
-        const txt = (typeof a === 'object' ? a.comment : a).toString().trim();
-        return txt.length > 5;
-      }).length;
+      // Smart Filter Count
+      const countQA = qas.filter(x => (typeof x === 'object' ? x.comment : x).toString().trim().length > 5).length;
+      const countAudit = audits.filter(x => (typeof x === 'object' ? x.comment : x).toString().trim().length > 5).length;
 
-      document.getElementById('output').innerHTML = `
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-label">Agent ID</div>
-            <div class="stat-value" style="font-size: 1.4rem;">${agent.id || 'N/A'}</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Long Calls Evaluated</div>
-            <div class="stat-value">${activeQaCount} <span class="stat-target">/ ${TARGET_QA}</span></div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Dispo Audits Completed</div>
-            <div class="stat-value">${activeAuditCount} <span class="stat-target">/ ${TARGET_AUDIT}</span></div>
-          </div>
+      document.getElementById('dashboardContent').innerHTML = `
+        <div class="top-header">
+            <div class="agent-title"><span>Overview</span><h2>${agent.name}</h2></div>
+            <div class="score-unlock-box">
+                <button class="reveal-btn" id="btnReveal">🔐 Unlock Score</button>
+                <div class="final-score" id="scoreValue">${agent.score}%</div>
+            </div>
         </div>
-        <div class="details-card">
-          <div class="agent-top-bar">
-            <div class="agent-name-box">
-              <h2>${agent.name}</h2>
-              <span style="font-size:0.85rem; color:var(--text-muted)">Performance Overview</span>
-            </div>
-            <div>
-              <button class="reveal-btn" id="lockBtn">🔐 Reveal Score</button>
-              <span class="score-value" id="scoreVal">${agent.score}%</span>
-            </div>
-          </div>
-          ${renderTable('Long Calls Feedback', qas)}
-          ${renderTable('Dispo Audit Feedback', audits)}
+
+        <div class="kpi-row">
+            <div class="kpi-card"><div class="kpi-label">Verified ID</div><div class="kpi-value" style="font-size:1.4rem">${agent.id || 'N/A'}</div></div>
+            <div class="kpi-card"><div class="kpi-label">Long Calls</div><div class="kpi-value">${countQA}<span class="kpi-total">/ ${TARGET_QA}</span></div></div>
+            <div class="kpi-card"><div class="kpi-label">Dispo Audits</div><div class="kpi-value">${countAudit}<span class="kpi-total">/ ${TARGET_AUDIT}</span></div></div>
+        </div>
+
+        <div class="section-card">
+            <div class="section-header"><h3>Long Calls Feedback</h3><span class="count-badge">${countQA} Evaluated</span></div>
+            ${renderDataTable(qas)}
+        </div>
+
+        <div class="section-card">
+            <div class="section-header"><h3>Audit Feedback</h3><span class="count-badge">${countAudit} Evaluated</span></div>
+            ${renderDataTable(audits)}
         </div>`;
 
-      document.getElementById('lockBtn').onclick = () => {
-        document.getElementById('passInput').value = '';
+      document.getElementById('btnReveal').onclick = () => {
+        document.getElementById('passIn').value = '';
         document.getElementById('passwordModal').style.display = 'flex';
+        document.getElementById('passIn').focus();
       };
     }
 
-    function renderTable(title, data) {
-      // Ihapon lang ang tinuod nga records para sa header badge
-      const filledCount = data.filter(item => {
-        const txt = (typeof item === 'object' ? item.comment : item).toString().trim();
-        return txt.length > 5;
-      }).length;
-      
+    function renderDataTable(data) {
       return `
-        <div class="table-section">
-          <h3><span>${title}</span> <span class="badge">${filledCount} records found</span></h3>
-          <table>
-            <thead><tr><th class="col-num">#</th><th>Feedback</th></tr></thead>
+        <table>
+            <thead><tr><th class="row-num">#</th><th>Commentary & Observations</th></tr></thead>
             <tbody>
-              ${data.length > 0 ? data.map((item, i) => {
-                const text = (typeof item === 'object' ? item.comment : item) || "";
-                const trimText = text.toString().trim();
-                
-                // I-check kung tinuod nga comment (>5 chars) o placeholder lang
-                const isRealComment = trimText.length > 5;
-                
-                const formatted = isRealComment 
-                  ? trimText.replace(/^(\d{2}-\d{2}-\d{2})/g, '<span class="date-bold">$1</span>')
-                            .replace(/"([^"]+)"/g, '<span class="quote">"$1"</span>')
-                            .replace(/\n/g, '<br>')
-                  : '<span style="color:#e5e7eb">---</span>'; // Dashes kung placeholder lang
-
-                return `<tr><td class="col-num">${i + 1}</td><td>${formatted}</td></tr>`;
-              }).join('') : '<tr><td colspan="2" style="text-align:center; padding:40px; color:#9ca3af;">No records found.</td></tr>'}
+                ${data.length > 0 ? data.map((item, i) => {
+                    const raw = (typeof item === 'object' ? item.comment : item) || "";
+                    const trim = raw.toString().trim();
+                    const isReal = trim.length > 5;
+                    const fmt = isReal ? trim.replace(/^(\d{2}-\d{2}-\d{2})/g, '<span class="date-pill">$1</span>')
+                                              .replace(/"([^"]+)"/g, '<span class="quote-box">"$1"</span>')
+                                              .replace(/\n/g, '<br>') : '<span style="color:#e2e8f0">---</span>';
+                    return `<tr><td class="row-num">${i+1}</td><td>${fmt}</td></tr>`;
+                }).join('') : '<tr><td colspan="2" style="text-align:center; padding:60px; color:#94a3b8">No records available.</td></tr>'}
             </tbody>
-          </table>
-        </div>`;
+        </table>`;
     }
 
-    function closeModal() { document.getElementById('passwordModal').style.display = 'none'; }
-    document.getElementById('confirmBtn').onclick = () => {
-      if (document.getElementById('passInput').value.trim() === activeAgent.password.toString()) {
-        document.getElementById('scoreVal').style.display = 'block';
-        document.getElementById('lockBtn').style.display = 'none';
-        closeModal();
-      } else { alert('❌ Incorrect password.'); }
+    function closePw() { document.getElementById('passwordModal').style.display = 'none'; }
+    document.getElementById('unlockGo').onclick = () => {
+      if(document.getElementById('passIn').value.trim() === focusedAgent.password.toString()) {
+          document.getElementById('scoreValue').style.display = 'block';
+          document.getElementById('btnReveal').style.display = 'none';
+          closePw();
+      } else { alert('Incorrect password.'); }
     };
   </script>
 </body>
