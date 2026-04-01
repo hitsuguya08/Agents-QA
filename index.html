@@ -107,7 +107,7 @@
       <h3 style="margin:0; font-size: 1rem;">Verification</h3>
       <input type="password" id="pwInput" placeholder="••••" />
       <div class="btn-row">
-        <button style="background:var(--primary); color:white;" id="btnGo">QA Score</button>
+        <button style="background:var(--primary); color:white;" id="btnGo">Submit</button>
         <button style="background:#f3f4f6; color:#64748b;" onclick="closeModal()">Exit</button>
       </div>
     </div>
@@ -159,7 +159,7 @@
         <div class="main-card">
             <div class="card-head">
                 <div><h2>${cleanName(agent.name)}</h2><span style="color:var(--text-muted); font-weight:600; font-size: 0.75rem;">Weekly Summary</span></div>
-                <div><button class="unlock-btn" id="btnReveal">🔐 Unlock</button><div class="score-txt" id="scoreVal">${agent.score || '0'}%</div></div>
+                <div><button class="unlock-btn" id="btnReveal">🔐 QA Score</button><div class="score-txt" id="scoreVal">${agent.score || '0'}%</div></div>
             </div>
             ${renderTable('Long Calls Evaluation', qas)}
             ${renderTable('Dispo Audits', audits)}
