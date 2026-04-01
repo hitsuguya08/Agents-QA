@@ -6,33 +6,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     @import url('https://googleapis.com');
-    :root { --bg-dark: #f5fef5; --bg-panel: #e0f7e9; --accent: #2e7d32; --accent-light: #a5d6a7; --text-main: #1b5e20; --text-muted: #4caf50; --border: #c8e6c9; --quote-color: #388e3c; }
+    :root {
+      --bg-dark: #f5fef5;
+      --bg-panel: #e0f7e9;
+      --accent: #2e7d32;
+      --accent-light: #a5d6a7;
+      --text-main: #1b5e20;
+      --text-muted: #4caf50;
+      --border: #c8e6c9;
+      --quote-color: #388e3c;
+    }
     body { font-family: 'Comic Neue', sans-serif; background: var(--bg-dark); color: var(--text-main); margin: 0; padding: 24px 0; line-height: 1.6; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
     h1 { font-size: 2.2rem; margin-bottom: 24px; color: var(--accent); text-align: center; }
     .tab-bar { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 24px; }
     .tab-bar button { background: var(--accent); color: var(--bg-dark); border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-size: 1rem; transition: all 0.3s ease; }
+    .tab-bar button:hover { background: var(--accent-light); }
     .tab-bar button.active { background: var(--bg-panel); color: var(--accent); border: 2px solid var(--accent); }
     .card-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
-    .agent-card { background: var(--bg-panel); border-radius: 16px; padding: 20px; box-shadow: 0 0 10px rgba(46, 125, 50, 0.2); }
-    .agent-card h2 { color: var(--accent); margin-bottom: 8px; }
+    .agent-card { background: var(--bg-panel); border-radius: 16px; padding: 20px; box-shadow: 0 0 10px rgba(46, 125, 50, 0.2); transition: transform 0.2s ease; }
+    .agent-card h2 { font-size: 1.5rem; margin-bottom: 8px; color: var(--accent); }
     .meta { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 16px; }
-    .reveal-btn { background: #a5d6a7; border: 2px solid #2e7d32; color: #1b5e20; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; }
-    details { background: #dcedc8; border: 2px solid var(--accent); border-radius: 12px; margin-top: 16px; overflow: hidden; }
-    summary { padding: 12px 16px; cursor: pointer; font-weight: bold; background: #c5e1a5; }
+    .reveal-btn { background: #a5d6a7; border: 2px solid #2e7d32; color: #1b5e20; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: background 0.3s ease; margin-bottom: 12px; }
+    details { background: #dcedc8; border: 2px solid var(--accent); border-radius: 12px; margin-bottom: 16px; overflow: hidden; }
+    summary { padding: 12px 16px; cursor: pointer; font-size: 1rem; color: var(--accent-light); font-weight: bold; background: #c5e1a5; }
     table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
     th, td { padding: 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
     th { background: var(--accent); color: var(--bg-dark); text-align: left; }
     tr:nth-child(even) td { background: #d0f0d0; }
-    .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); justify-content: center; align-items: center; }
+    .quote { color: var(--quote-color); font-weight: bold; }
+    .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); justify-content: center; align-items: center; }
     .modal-content { background: #ffffff; padding: 24px; border-radius: 12px; max-width: 400px; width: 90%; text-align: center; }
-    .modal-content input { width: 80%; padding: 10px; margin: 12px 0; border-radius: 8px; border: 1px solid #ccc; }
+    .modal-content input { width: 80%; padding: 10px; margin: 12px 0; border: 1px solid #ccc; border-radius: 8px; }
     .confirm-btn { background: #4caf50; color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; }
     .cancel-btn { background: #ccc; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; }
   </style>
 </head>
 <body>
-
   <div class="container">
     <h1>Agent QA Viewer</h1>
     <div id="tabs" class="tab-bar"></div>
@@ -44,7 +54,10 @@
     <div class="modal-content">
       <h3>Enter Password</h3>
       <input type="password" id="passwordInput" placeholder="Password" />
-      <div><button class="confirm-btn" id="confirmPassword">Confirm</button> <button class="cancel-btn" id="cancelPassword">Cancel</button></div>
+      <div>
+        <button class="confirm-btn" id="confirmPassword">Confirm</button>
+        <button class="cancel-btn" id="cancelPassword">Cancel</button>
+      </div>
     </div>
   </div>
 
@@ -57,7 +70,9 @@
       fetch('data.json')
         .then(response => response.json())
         .then(data => renderTabs(data))
-        .catch(err => { document.getElementById('output').innerHTML = '<div style="text-align:center;">⚠️ Error loading data.json</div>'; });
+        .catch(err => {
+          document.getElementById('output').innerHTML = '<div style="text-align:center;">⚠️ Error loading data.json</div>';
+        });
     });
 
     function renderTabs(agents) {
@@ -67,7 +82,7 @@
       
       const sortedAgents = [...agents].sort((a, b) => parseFloat(b.score || 0) - parseFloat(a.score || 0));
 
-      const topAgents = sortedAgents.filter(a => parseFloat(a.score) >= 90);
+      const topAgents = sortedAgents.filter(agent => parseFloat(agent.score) >= 90);
       if (topAgents.length > 0) {
         leaderboardContainer.innerHTML = `
           <div style="background:#c8e6c9;border:2px solid #2e7d32;border-radius:12px;padding:16px;">
@@ -79,11 +94,11 @@
       sortedAgents.forEach(agent => {
         const tab = document.createElement('button');
         tab.textContent = agent.name || 'Unnamed';
-        tab.onclick = () => {
+        tab.addEventListener('click', () => {
           renderAgentCards([agent]);
           [...tabsContainer.children].forEach(b => b.classList.remove('active'));
           tab.classList.add('active');
-        };
+        });
         tabsContainer.appendChild(tab);
       });
       if (sortedAgents.length > 0) tabsContainer.firstChild.click();
@@ -96,38 +111,53 @@
       agentList.forEach(agent => {
         const card = document.createElement('div');
         card.className = 'agent-card';
+        
+        const qaCount = Array.isArray(agent.qa) ? agent.qa.length : 0;
+        const auditCount = Array.isArray(agent.audits) ? agent.audits.length : 0;
+
         card.innerHTML = `
-          <h2>${agent.name}</h2>
-          <div class="meta">Evaluations: ${agent.qa ? agent.qa.length : 0}</div>
-          <button class="reveal-btn">🔐 View QA Score</button>
-          <span class="qa-score" style="display:none;font-weight:bold;margin-left:10px;"></span>
-        `;
+          <h2>${agent.name || 'Unnamed Agent'}</h2>
+          <div class="meta">ID: ${agent.id || 'N/A'} | QA: ${qaCount} | Audits: ${auditCount}</div>
+          <div>
+            <button class="reveal-btn">🔐 View QA Score</button>
+            <span class="qa-score" style="display:none;margin-left:10px;font-weight:bold;"></span>
+          </div>`;
 
         const btn = card.querySelector('.reveal-btn');
         const span = card.querySelector('.qa-score');
 
-        btn.onclick = () => {
+        btn.addEventListener('click', () => {
           currentAgent = agent;
           currentScoreSpan = span;
           currentButton = btn;
           document.getElementById('passwordInput').value = '';
           document.getElementById('passwordModal').style.display = 'flex';
-        };
+        });
 
-        if (agent.qa && agent.qa.length > 0) {
-          const details = document.createElement('details');
-          details.open = true;
-          details.innerHTML = `<summary>QA Comments (${agent.qa.length})</summary>
-            <table>
-              <thead><tr><th>#</th><th>Comment</th></tr></thead>
-              <tbody>
-                ${agent.qa.map((call, i) => `<tr><td>${i+1}</td><td>${(call.comment || '').replace(/\n/g, '<br>')}</td></tr>`).join('')}
-              </tbody>
-            </table>`;
-          card.appendChild(details);
-        }
+        // Kani ang mobuhat sa "Long Calls" ug "Dispo Audits" labels
+        card.appendChild(renderCalls('Long Calls', agent.qa || []));
+        card.appendChild(renderCalls('Dispo Audits', agent.audits || []));
         container.appendChild(card);
       });
+    }
+
+    function renderCalls(label, calls) {
+      const details = document.createElement('details');
+      details.open = true;
+      details.innerHTML = `<summary>${label} (${calls.length})</summary>`;
+      const table = document.createElement('table');
+      table.innerHTML = `<thead><tr><th>#</th><th>Comment</th></tr></thead>`;
+      const tbody = document.createElement('tbody');
+      
+      calls.forEach((call, i) => {
+        let comment = (call.comment || '').replace(/(Date Posted\s*)(\d{4}-\d{2}-\d{2})(.*?)(?=Date Posted|$)/g, '$1$2$3<br>');
+        comment = comment.replace(/"([^"]+)"/g, '<span class="quote">"$1"</span>');
+        tbody.innerHTML += `<tr><td>${i+1}</td><td>${comment}</td></tr>`;
+      });
+      
+      table.appendChild(tbody);
+      details.appendChild(table);
+      return details;
     }
 
     document.getElementById('confirmPassword').onclick = () => {
