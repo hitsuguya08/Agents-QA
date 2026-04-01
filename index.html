@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>QA Dashboard | Analytics</title>
+  <title>QA Pro Dashboard | Performance Tracker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://googleapis.com" rel="stylesheet">
   <style>
@@ -14,35 +14,42 @@
     * { box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; line-height: 1.5; }
 
+    /* HEADER */
     .header-main { background: white; border-bottom: 1px solid var(--border); padding: 20px 0; text-align: center; }
     .header-main h1 { margin: 0; font-size: 1.3rem; font-weight: 800; color: var(--primary); letter-spacing: -0.01em; }
 
+    /* HORIZONTAL TABS (CENTERED) */
     .nav-bar { background: white; border-bottom: 1px solid var(--border); padding: 12px 0; position: sticky; top: 0; z-index: 100; overflow-x: auto; }
     .nav-inner { display: flex; justify-content: center; gap: 8px; padding: 0 20px; min-width: max-content; margin: 0 auto; }
     
     .agent-pill { 
       padding: 8px 18px; border-radius: 30px; border: 1px solid var(--border); background: white; 
-      color: var(--text-muted); font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: 0.2s; 
+      color: var(--text-muted); font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; 
       display: flex; align-items: center; gap: 8px;
     }
-    .agent-pill.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2); }
+    .agent-pill:hover { background: #f9fafb; color: var(--text); }
+    .agent-pill.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2); }
     .dot { width: 8px; height: 8px; border-radius: 50%; }
 
-    .content-container { max-width: 950px; margin: 30px auto; padding: 0 20px 60px; }
+    /* CONTENT CONTAINER */
+    .content-container { max-width: 950px; margin: 30px auto; padding: 0 20px 80px; }
 
+    /* KPI BOXES */
     .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
     .kpi-box { background: white; padding: 20px; border-radius: 16px; border: 1px solid var(--border); text-align: center; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
     .kpi-label { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; }
-    .kpi-value { font-size: 1.6rem; font-weight: 800; display: flex; align-items: baseline; justify-content: center; gap: 4px; }
+    .kpi-value { font-size: 1.6rem; font-weight: 800; display: flex; align-items: baseline; justify-content: center; gap: 5px; }
     .kpi-target { font-size: 1rem; color: #cbd5e1; font-weight: 400; }
 
-    .main-card { background: white; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); overflow: hidden; }
+    /* FEEDBACK CARD */
+    .main-card { background: white; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); overflow: hidden; }
     .card-head { padding: 25px 30px; display: flex; justify-content: space-between; align-items: center; background: #fafafa; border-bottom: 1px solid var(--border); }
     .card-head h2 { margin: 0; font-size: 1.5rem; font-weight: 800; }
 
-    .unlock-btn { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; }
+    .unlock-btn { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.2s; }
     .score-txt { font-size: 1.8rem; font-weight: 800; color: var(--primary); display: none; }
 
+    /* TABLES */
     .table-block { padding: 25px 30px; border-bottom: 1px solid var(--border); }
     .table-block:last-child { border-bottom: none; }
     .table-block h3 { margin: 0 0 20px 0; font-size: 1rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
@@ -53,13 +60,14 @@
     td { padding: 18px 12px; border-bottom: 1px solid var(--border); font-size: 0.9rem; vertical-align: top; word-wrap: break-word; line-height: 1.6; }
     .num-col { width: 50px; text-align: center; font-weight: 800; color: #cbd5e1; }
 
-    /* STYLING FOR BOLD AND QUOTES */
-    .bold-item { font-weight: 800; color: var(--text); }
-    .quote { font-weight: 700; color: #065f46; background: #f0fdf4; padding: 2px 6px; border-radius: 4px; border-left: 3.5px solid var(--primary); }
+    /* STYLING FOR BOLD ITEMS */
+    .bold-date { font-weight: 800; color: var(--text); }
+    .quote-style { font-weight: 700; color: #065f46; background: #f0fdf4; padding: 2px 6px; border-radius: 4px; border-left: 3.5px solid var(--primary); }
 
+    /* MODAL */
     .modal { display: none; position: fixed; z-index: 1000; left:0; top:0; width:100%; height:100%; background:rgba(15,23,42,0.6); backdrop-filter:blur(4px); justify-content:center; align-items:center; }
     .modal-content { background:white; padding:40px; border-radius:24px; width:360px; text-align:center; }
-    .modal-content input { width:100%; padding:16px; margin:20px 0; border:1px solid var(--border); border-radius:10px; text-align:center; font-size:1.2rem; outline:none; }
+    .modal-content input { width:100%; padding:16px; margin:20px 0; border:1px solid var(--border); border-radius:12px; text-align:center; font-size:1.2rem; outline:none; }
     .btn-row { display: flex; gap: 12px; }
     .btn-row button { flex:1; padding: 14px; border:none; border-radius:12px; font-weight:700; cursor:pointer; }
   </style>
@@ -80,7 +88,7 @@
 
   <div id="passwordModal" class="modal">
     <div class="modal-content">
-      <h3 style="margin:0">Security Verification</h3>
+      <h3 style="margin:0">Identity Verification</h3>
       <input type="password" id="pwInput" placeholder="Password" />
       <div class="btn-row">
         <button style="background:var(--primary); color:white;" id="btnGo">Unlock</button>
@@ -103,10 +111,10 @@
       });
     });
 
-    // Mokuha lang sa ngalan (tangtangon ang naa sa sulod sa parentheses)
-    function cleanName(name) {
-      if (!name) return "Unnamed";
-      return name.split('(')[0].trim();
+    // Helper function para makuha ra ang name (wala'y labot ang ID sa parentheses)
+    function cleanName(fullName) {
+      if (!fullName) return "Unnamed";
+      return fullName.split('(')[0].trim();
     }
 
     function renderPills(agents) {
@@ -134,6 +142,7 @@
       const qas = agent.qa || [];
       const audits = agent.audits || [];
 
+      // Smart Counter (> 5 chars)
       const countQA = qas.filter(x => (typeof x === 'object' ? x.comment : x).toString().trim().length > 5).length;
       const countAudit = audits.filter(x => (typeof x === 'object' ? x.comment : x).toString().trim().length > 5).length;
 
@@ -146,7 +155,7 @@
 
         <div class="main-card">
             <div class="card-head">
-                <div><h2>${cleanName(agent.name)}</h2><span style="color:var(--text-muted); font-size:0.8rem; font-weight:600;">Performance Summary</span></div>
+                <div><h2>${cleanName(agent.name)}</h2><span style="color:var(--text-muted); font-size:0.8rem; font-weight:600;">Performance Overview</span></div>
                 <div>
                     <button class="unlock-btn" id="btnReveal">🔐 Reveal Score</button>
                     <div class="score-txt" id="scoreVal">${agent.score || '0'}%</div>
@@ -169,7 +178,7 @@
         <div class="table-block">
             <h3><span>${title}</span> <span class="badge">${activeCount} evaluated</span></h3>
             <table>
-                <thead><tr><th class="num-col">#</th><th>Observations & Comments</th></tr></thead>
+                <thead><tr><th class="num-col">#</th><th>Feedback & Observations</th></tr></thead>
                 <tbody>
                     ${data.map((item, i) => {
                         let txt = (typeof item === 'object' ? item.comment : item) || "";
@@ -177,10 +186,10 @@
                         
                         if (txt.length <= 5) return `<tr><td class="num-col">${i+1}</td><td><span style="color:#cbd5e1">---</span></td></tr>`;
                         
-                        // FIX: Mas sigurado nga bold formatting
+                        // FIX: Safe replacement aron dili mopakita ang code tags
                         let formatted = txt
-                          .replace(/^(\d{2}-\d{2}-\d{2})/g, '<b class="bold-item">$1</b>')
-                          .replace(/"([^"]+)"/g, '<span class="quote">"$1"</span>')
+                          .replace(/^(\d{2}-\d{2}-\d{2})/g, '<b class="bold-date">$1</b>')
+                          .replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>')
                           .replace(/\n/g, '<br>');
 
                         return `<tr><td class="num-col">${i+1}</td><td>${formatted}</td></tr>`;
