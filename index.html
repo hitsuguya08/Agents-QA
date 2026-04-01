@@ -28,7 +28,8 @@
     .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
     .stat-card { background: white; padding: 24px; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); }
     .stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; }
-    .stat-value { font-size: 1.8rem; font-weight: 700; margin-top: 8px; color: var(--primary); }
+    .stat-value { font-size: 1.8rem; font-weight: 700; margin-top: 8px; color: var(--primary); display: flex; align-items: baseline; gap: 5px; }
+    .stat-target { font-size: 1rem; color: #9ca3af; font-weight: 400; }
     .details-card { background: white; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); overflow: hidden; }
     .agent-top-bar { padding: 24px 30px; display: flex; justify-content: space-between; align-items: center; background: #f9fafb; border-bottom: 1px solid var(--border); }
     .reveal-btn { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 600; cursor: pointer; }
@@ -75,6 +76,10 @@
     let rawData = [];
     let activeAgent = null;
 
+    // CONFIGURATION: USBA KINI NGA MGA TARGET DINHI
+    const TARGET_QA = 15;
+    const TARGET_AUDIT = 20;
+
     window.addEventListener('DOMContentLoaded', () => {
       fetch('data.json').then(res => res.json()).then(data => {
         rawData = data.sort((a, b) => parseFloat(b.score) - parseFloat(a.score));
@@ -116,15 +121,15 @@
         <div class="stats-grid">
           <div class="stat-card">
             <div class="stat-label">Agent ID</div>
-            <div class="stat-value">${agent.id || 'N/A'}</div>
+            <div class="stat-value" style="font-size: 1.4rem;">${agent.id || 'N/A'}</div>
           </div>
           <div class="stat-card">
             <div class="stat-label">QA Evaluations</div>
-            <div class="stat-value">${qas.length}</div>
+            <div class="stat-value">${qas.length} <span class="stat-target">/ ${TARGET_QA}</span></div>
           </div>
           <div class="stat-card">
             <div class="stat-label">Dispo Audits</div>
-            <div class="stat-value">${audits.length}</div>
+            <div class="stat-value">${audits.length} <span class="stat-target">/ ${TARGET_AUDIT}</span></div>
           </div>
         </div>
         <div class="details-card">
