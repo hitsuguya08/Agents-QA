@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     @import url('https://googleapis.com');
-    :root { --bg-dark: #f5fef5; --bg-panel: #e0f7e9; --accent: #2e7d32; --accent-light: #a5d6a7; --text-main: #1b5e20; --text-muted: #4caf50; --border: #c8e6c9; --quote-color: #388e3c; }
+    :root { --bg-dark: #f5fef5; --bg-panel: #e0f7e9; --accent: #2e7d32; --accent-light: #a5d6a7; --text-main: #1b5e20; --text-muted: #4caf50; --border: #c8e6c9; --quote-color: #1b5e20; }
     body { font-family: 'Comic Neue', sans-serif; background: var(--bg-dark); color: var(--text-main); margin: 0; padding: 24px 0; line-height: 1.6; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
     h1 { font-size: 2.2rem; margin-bottom: 24px; color: var(--accent); text-align: center; }
@@ -19,14 +19,16 @@
     .meta { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 16px; }
     .reveal-btn { background: #a5d6a7; border: 2px solid #2e7d32; color: #1b5e20; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-bottom: 15px; }
 
-    /* STYLING PARA SA BOLD AT QUOTES */
-    .quote { color: var(--quote-color); font-weight: bold; }
+    /* ITO ANG MAGPAPABOLD SA TEXT SA LOOB NG " " */
+    .quote { font-weight: bold; color: var(--quote-color); background-color: rgba(46, 125, 50, 0.05); padding: 0 2px; }
+    .date-highlight { font-weight: bold; }
+    
     details { background: #dcedc8; border: 2px solid var(--accent); border-radius: 12px; margin-bottom: 16px; overflow: hidden; }
     summary { padding: 12px 16px; cursor: pointer; font-weight: bold; background: #c5e1a5; color: var(--text-main); }
-    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; background: white; table-layout: fixed; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; background: white; table-layout: fixed; } 
     th, td { padding: 12px; border-bottom: 1px solid var(--border); vertical-align: top; text-align: left; word-wrap: break-word; }
     th { background: var(--accent); color: white; }
-    th:first-child, td:first-child { width: 50px; text-align: center; font-weight: bold; }
+    th:first-child, td:first-child { width: 50px; text-align: center; font-weight: bold; } 
     tr:nth-child(even) td { background: #f9fff9; }
 
     .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); justify-content: center; align-items: center; }
@@ -132,12 +134,13 @@
         dataArray.forEach((item, i) => {
           const commentText = typeof item === 'object' ? (item.comment || "") : item;
           
-          // FORMATTING REGEX (PARA SA BOLD AT QUOTES)
+          // FORMATTING: Bold sa start date at Date Posted
           let formattedComment = (commentText || '')
-            .replace(/(Date Posted\s*)(\d{4}-\d{2}-\d{2})(.*?)(?=Date Posted|$)/g, '<strong>$1$2</strong>$3<br>')
-            .trim();
+            .replace(/^(\d{2}-\d{2}-\d{2})/g, '<span class="date-highlight">$1</span>') 
+            .replace(/(Date Posted\s*)(\d{4}-\d{2}-\d{2})/g, '<strong>$1$2</strong>')
+            .replace(/\n/g, '<br>'); 
           
-          // Quotes styling
+          // ITO ANG PABOLD SA LOOB NG QUOTES
           formattedComment = formattedComment.replace(/"([^"]+)"/g, '<span class="quote">"$1"</span>');
 
           tbody.innerHTML += `<tr><td>${i+1}</td><td>${formattedComment}</td></tr>`;
