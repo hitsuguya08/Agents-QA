@@ -14,60 +14,53 @@
     * { box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; line-height: 1.5; }
 
-    /* HEADER */
     .header-main { background: white; border-bottom: 1px solid var(--border); padding: 20px 0; text-align: center; }
     .header-main h1 { margin: 0; font-size: 1.3rem; font-weight: 800; color: var(--primary); letter-spacing: -0.01em; }
 
-    /* TABS NAV */
     .nav-bar { background: white; border-bottom: 1px solid var(--border); padding: 12px 0; position: sticky; top: 0; z-index: 100; overflow-x: auto; }
-    .nav-inner { display: flex; justify-content: center; gap: 8px; padding: 0 20px; min-width: max-content; }
+    .nav-inner { display: flex; justify-content: center; gap: 8px; padding: 0 20px; min-width: max-content; margin: 0 auto; }
+    
     .agent-pill { 
-      padding: 8px 16px; border-radius: 30px; border: 1px solid var(--border); background: white; 
-      color: var(--text-muted); font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: 0.2s; 
+      padding: 8px 18px; border-radius: 30px; border: 1px solid var(--border); background: white; 
+      color: var(--text-muted); font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; 
       display: flex; align-items: center; gap: 8px;
     }
     .agent-pill.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2); }
     .dot { width: 8px; height: 8px; border-radius: 50%; }
 
-    /* MAIN CONTAINER */
     .content-container { max-width: 900px; margin: 30px auto; padding: 0 20px 60px; }
 
-    /* STATS BOXES */
     .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
     .kpi-box { background: white; padding: 20px; border-radius: 16px; border: 1px solid var(--border); text-align: center; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-    .kpi-label { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.025em; }
+    .kpi-label { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; }
     .kpi-value { font-size: 1.6rem; font-weight: 800; display: flex; align-items: baseline; justify-content: center; gap: 4px; }
     .kpi-target { font-size: 1rem; color: #cbd5e1; font-weight: 400; }
 
-    /* CARD DESIGN */
     .main-card { background: white; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); overflow: hidden; }
     .card-head { padding: 25px 30px; display: flex; justify-content: space-between; align-items: center; background: #fafafa; border-bottom: 1px solid var(--border); }
-    .card-head h2 { margin: 0; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; }
+    .card-head h2 { margin: 0; font-size: 1.5rem; font-weight: 800; }
 
-    .unlock-btn { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+    .unlock-btn { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; }
     .score-txt { font-size: 1.8rem; font-weight: 800; color: var(--primary); display: none; }
 
-    /* TABLES */
     .table-block { padding: 25px 30px; border-bottom: 1px solid var(--border); }
     .table-block:last-child { border-bottom: none; }
     .table-block h3 { margin: 0 0 20px 0; font-size: 1rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
     .badge { background: #f1f5f9; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; color: var(--text-muted); }
 
     table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-    th { text-align: left; padding: 12px; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; border-bottom: 2px solid var(--border); }
+    th { text-align: left; padding: 10px; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; border-bottom: 2px solid var(--border); }
     td { padding: 18px 12px; border-bottom: 1px solid var(--border); font-size: 0.9rem; vertical-align: top; word-wrap: break-word; line-height: 1.6; }
     .num-col { width: 50px; text-align: center; font-weight: 800; color: #cbd5e1; }
 
-    /* STYLING FIX FOR COMMENTS */
     .date-bold { font-weight: 700; color: var(--text); }
-    .quote { font-weight: 700; color: #065f46; background: #f0fdf4; padding: 2px 5px; border-radius: 4px; border-left: 3px solid var(--primary); }
+    .quote { font-weight: 700; color: #065f46; background: #f0fdf4; padding: 2px 6px; border-radius: 4px; border-left: 3.5px solid var(--primary); }
 
-    /* MODAL */
     .modal { display: none; position: fixed; z-index: 1000; left:0; top:0; width:100%; height:100%; background:rgba(15,23,42,0.6); backdrop-filter:blur(4px); justify-content:center; align-items:center; }
-    .modal-content { background:white; padding:40px; border-radius:24px; width:340px; text-align:center; }
-    .modal-content input { width:100%; padding:14px; margin:20px 0; border:1px solid var(--border); border-radius:10px; text-align:center; font-size:1.1rem; outline:none; }
+    .modal-content { background:white; padding:40px; border-radius:24px; width:360px; text-align:center; }
+    .modal-content input { width:100%; padding:16px; margin:20px 0; border:1px solid var(--border); border-radius:10px; text-align:center; font-size:1.2rem; outline:none; }
     .btn-row { display: flex; gap: 10px; }
-    .btn-row button { flex:1; padding: 12px; border:none; border-radius:10px; font-weight:700; cursor:pointer; }
+    .btn-row button { flex:1; padding: 14px; border:none; border-radius:10px; font-weight:700; cursor:pointer; }
   </style>
 </head>
 <body>
@@ -99,7 +92,6 @@
     let db = [];
     let activeAgent = null;
 
-    // TARGET SETTINGS
     const TARGET_QA = 15;
     const TARGET_AUDIT = 20;
 
@@ -110,6 +102,11 @@
       });
     });
 
+    // Helper function para makuha ra ang name (wala'y labot ang ID sa parentheses)
+    function getNameOnly(fullName) {
+      return fullName.split('(')[0].trim();
+    }
+
     function renderPills(agents) {
       const box = document.getElementById('agentPills');
       box.innerHTML = '';
@@ -119,9 +116,7 @@
         const s = parseFloat(agent.score || 0);
         const c = s >= 90 ? '#10b981' : (s >= 80 ? '#f59e0b' : '#ef4444');
         
-        // Direkta nga gamiton ang agent.name (kay naa na man ang ID sa sulod ani)
-        pill.innerHTML = `<div class="dot" style="background:${c}"></div> ${agent.name}`;
-        
+        pill.innerHTML = `<div class="dot" style="background:${c}"></div> ${getNameOnly(agent.name)}`;
         pill.onclick = () => {
           renderAgent(agent);
           [...box.children].forEach(el => el.classList.remove('active'));
@@ -136,21 +131,19 @@
       activeAgent = agent;
       const qas = agent.qa || [];
       const audits = agent.audits || [];
-
-      // Smart Counter (> 5 chars)
       const countQA = qas.filter(x => (typeof x === 'object' ? x.comment : x).toString().trim().length > 5).length;
       const countAudit = audits.filter(x => (typeof x === 'object' ? x.comment : x).toString().trim().length > 5).length;
 
       document.getElementById('dashboardView').innerHTML = `
         <div class="kpi-row">
-            <div class="kpi-box"><div class="kpi-label">Agent Status</div><div class="kpi-value" style="color:var(--primary)">ACTIVE</div></div>
+            <div class="kpi-box"><div class="kpi-label">Status</div><div class="kpi-value" style="color:var(--primary)">ACTIVE</div></div>
             <div class="kpi-box"><div class="kpi-label">Long Calls</div><div class="kpi-value">${countQA} <span class="kpi-target">/ ${TARGET_QA}</span></div></div>
             <div class="kpi-box"><div class="kpi-label">Audits</div><div class="kpi-value">${countAudit} <span class="kpi-target">/ ${TARGET_AUDIT}</span></div></div>
         </div>
 
         <div class="main-card">
             <div class="card-head">
-                <div><h2>${agent.name}</h2><span style="color:var(--text-muted); font-size:0.8rem; font-weight:600;">Evaluation Analytics</span></div>
+                <div><h2>${getNameOnly(agent.name)}</h2><span style="color:var(--text-muted); font-size:0.8rem; font-weight:600;">Performance Summary</span></div>
                 <div>
                     <button class="unlock-btn" id="btnReveal">🔐 Reveal Score</button>
                     <div class="score-txt" id="scoreVal">${agent.score || '0'}%</div>
@@ -173,20 +166,17 @@
         <div class="table-block">
             <h3><span>${title}</span> <span class="badge">${activeCount} active records</span></h3>
             <table>
-                <thead><tr><th class="num-col">#</th><th>Feedback & Comments</th></tr></thead>
+                <thead><tr><th class="num-col">#</th><th>Feedback & Observations</th></tr></thead>
                 <tbody>
                     ${data.map((item, i) => {
                         const raw = (typeof item === 'object' ? item.comment : item) || "";
                         const txt = raw.toString().trim();
                         const isReal = txt.length > 5;
-                        
-                        // FIX: Sakto nga formatting para sa bold dates ug quotes
                         let formatted = isReal 
                           ? txt.replace(/^(\d{2}-\d{2}-\d{2})/g, '<span class="date-bold">$1</span>')
                                .replace(/"([^"]+)"/g, '<span class="quote">"$1"</span>')
                                .replace(/\n/g, '<br>')
                           : '<span style="color:#cbd5e1">---</span>';
-
                         return `<tr><td class="num-col">${i+1}</td><td>${formatted}</td></tr>`;
                     }).join('')}
                 </tbody>
