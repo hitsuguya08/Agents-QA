@@ -76,7 +76,7 @@
     let rawData = [];
     let activeAgent = null;
 
-    // TARGETS PARA SA MONITORING
+    // TARGETS PARA SA MONITORING (Usba kini kung kailangan)
     const TARGET_QA = 15;
     const TARGET_AUDIT = 20;
 
@@ -117,9 +117,16 @@
       const qas = agent.qa || [];
       const audits = agent.audits || [];
       
-      // I-COUNT LANG ANG ROWS NGA NAAY SULOD (NON-EMPTY)
-      const activeQaCount = qas.filter(q => (typeof q === 'object' ? q.comment : q).toString().trim() !== "").length;
-      const activeAuditCount = audits.filter(a => (typeof a === 'object' ? a.comment : a).toString().trim() !== "").length;
+      // SMART COUNTER LOGIC: I-ihap lang kung ang comment kay sobra sa 5 characters
+      const activeQaCount = qas.filter(q => {
+        const txt = (typeof q === 'object' ? q.comment : q).toString().trim();
+        return txt.length > 5;
+      }).length;
+
+      const activeAuditCount = audits.filter(a => {
+        const txt = (typeof a === 'object' ? a.comment : a).toString().trim();
+        return txt.length > 5;
+      }).length;
 
       document.getElementById('output').innerHTML = `
         <div class="stats-grid">
@@ -158,22 +165,31 @@
     }
 
     function renderTable(title, data) {
-      // Ihapon lang ang naay sulod para sa badge sa table header
-      const filledCount = data.filter(item => (typeof item === 'object' ? item.comment : item).toString().trim() !== "").length;
+      // Ihapon lang ang tinuod nga records para sa header badge
+      const filledCount = data.filter(item => {
+        const txt = (typeof item === 'object' ? item.comment : item).toString().trim();
+        return txt.length > 5;
+      }).length;
       
       return `
         <div class="table-section">
-          <h3><span>${title}</span> <span class="badge">${filledCount} active records</span></h3>
+          <h3><span>${title}</span> <span class="badge">${filledCount} records found</span></h3>
           <table>
             <thead><tr><th class="col-num">#</th><th>Feedback</th></tr></thead>
             <tbody>
               ${data.length > 0 ? data.map((item, i) => {
                 const text = (typeof item === 'object' ? item.comment : item) || "";
-                if (text.toString().trim() === "") return ''; // Skip empty rows sa table display kung gusto nimo
+                const trimText = text.toString().trim();
                 
-                const formatted = text.replace(/^(\d{2}-\d{2}-\d{2})/g, '<span class="date-bold">$1</span>')
-                                      .replace(/"([^"]+)"/g, '<span class="quote">"$1"</span>')
-                                      .replace(/\n/g, '<br>');
+                // I-check kung tinuod nga comment (>5 chars) o placeholder lang
+                const isRealComment = trimText.length > 5;
+                
+                const formatted = isRealComment 
+                  ? trimText.replace(/^(\d{2}-\d{2}-\d{2})/g, '<span class="date-bold">$1</span>')
+                            .replace(/"([^"]+)"/g, '<span class="quote">"$1"</span>')
+                            .replace(/\n/g, '<br>')
+                  : '<span style="color:#e5e7eb">---</span>'; // Dashes kung placeholder lang
+
                 return `<tr><td class="col-num">${i + 1}</td><td>${formatted}</td></tr>`;
               }).join('') : '<tr><td colspan="2" style="text-align:center; padding:40px; color:#9ca3af;">No records found.</td></tr>'}
             </tbody>
