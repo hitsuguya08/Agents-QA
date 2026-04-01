@@ -2,56 +2,251 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Agent QA Viewer</title>
+  <title>Agent QA Viewer | Pro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Google Fonts: Inter para sa modern look -->
+  <link href="https://googleapis.com" rel="stylesheet">
   <style>
-    @import url('https://googleapis.com');
-    :root { --bg-dark: #f5fef5; --bg-panel: #e0f7e9; --accent: #2e7d32; --accent-light: #a5d6a7; --text-main: #1b5e20; --text-muted: #4caf50; --border: #c8e6c9; --quote-color: #1b5e20; }
-    body { font-family: 'Comic Neue', sans-serif; background: var(--bg-dark); color: var(--text-main); margin: 0; padding: 24px 0; line-height: 1.6; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
-    h1 { font-size: 2.2rem; margin-bottom: 24px; color: var(--accent); text-align: center; }
-    .tab-bar { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 24px; }
-    .tab-bar button { background: var(--accent); color: var(--bg-dark); border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-size: 1rem; transition: all 0.3s ease; }
-    .tab-bar button.active { background: var(--bg-panel); color: var(--accent); border: 2px solid var(--accent); }
-    .card-container { display: grid; grid-template-columns: 1fr; gap: 24px; }
-    .agent-card { background: var(--bg-panel); border-radius: 16px; padding: 20px; box-shadow: 0 0 10px rgba(46, 125, 50, 0.2); }
-    .agent-card h2 { color: var(--accent); margin-bottom: 8px; }
-    .meta { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 16px; }
-    .reveal-btn { background: #a5d6a7; border: 2px solid #2e7d32; color: #1b5e20; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-bottom: 15px; }
+    :root {
+      --primary: #059669; /* Emerald Green */
+      --primary-dark: #064e3b;
+      --primary-light: #ecfdf5;
+      --accent: #10b981;
+      --bg: #f9fafb;
+      --card-bg: #ffffff;
+      --text-main: #1f2937;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
 
-    /* ITO ANG MAGPAPABOLD SA TEXT SA LOOB NG " " */
-    .quote { font-weight: bold; color: var(--quote-color); background-color: rgba(46, 125, 50, 0.05); padding: 0 2px; }
-    .date-highlight { font-weight: bold; }
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      margin: 0;
+      padding: 40px 0;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin: 0 0 10px 0;
+      letter-spacing: -0.025em;
+    }
+
+    /* Tab Bar Styling */
+    .tab-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 30px;
+      padding: 10px;
+      background: #f3f4f6;
+      border-radius: 12px;
+    }
+
+    .tab-bar button {
+      background: transparent;
+      color: var(--text-muted);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+
+    .tab-bar button:hover {
+      background: #e5e7eb;
+      color: var(--text-main);
+    }
+
+    .tab-bar button.active {
+      background: var(--card-bg);
+      color: var(--primary);
+      box-shadow: var(--shadow);
+    }
+
+    /* Leaderboard */
+    #leaderboard {
+      margin-bottom: 30px;
+    }
+
+    .lb-card {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .lb-card h2 { margin: 0 0 15px 0; font-size: 1.25rem; display: flex; align-items: center; gap: 10px; }
+    .lb-card ul { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+    .lb-card li { background: rgba(255,255,255,0.1); padding: 8px 12px; border-radius: 8px; font-size: 0.9rem; }
+
+    /* Agent Card */
+    .agent-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .agent-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 25px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+    }
+
+    .agent-info h2 { font-size: 1.75rem; margin: 0 0 5px 0; color: var(--primary-dark); }
+    .agent-info .meta { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
+
+    /* Score Button & Display */
+    .score-box { text-align: right; }
+    .reveal-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .reveal-btn:hover { background: var(--primary-dark); }
+    .qa-score { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+
+    /* Tables & Details */
+    details {
+      margin-top: 20px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    summary {
+      padding: 15px 20px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 700;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    table { width: 100%; border-collapse: collapse; table-layout: fixed; background: white; }
+    th { background: #f9fafb; color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; padding: 12px 20px; text-align: left; border-bottom: 1px solid var(--border); }
+    td { padding: 16px 20px; border-bottom: 1px solid var(--border); vertical-align: top; font-size: 0.9rem; color: var(--text-main); word-wrap: break-word; }
     
-    details { background: #dcedc8; border: 2px solid var(--accent); border-radius: 12px; margin-bottom: 16px; overflow: hidden; }
-    summary { padding: 12px 16px; cursor: pointer; font-weight: bold; background: #c5e1a5; color: var(--text-main); }
-    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; background: white; table-layout: fixed; } 
-    th, td { padding: 12px; border-bottom: 1px solid var(--border); vertical-align: top; text-align: left; word-wrap: break-word; }
-    th { background: var(--accent); color: white; }
-    th:first-child, td:first-child { width: 50px; text-align: center; font-weight: bold; } 
-    tr:nth-child(even) td { background: #f9fff9; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background-color: #fcfdfd; }
 
-    .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); justify-content: center; align-items: center; }
-    .modal-content { background: #ffffff; padding: 24px; border-radius: 12px; max-width: 400px; width: 90%; text-align: center; }
-    .modal-content input { width: 80%; padding: 10px; margin: 12px 0; border-radius: 8px; border: 1px solid #ccc; }
-    .confirm-btn { background: #4caf50; color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; }
-    .cancel-btn { background: #ccc; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; }
+    .col-num { width: 60px; text-align: center; color: var(--text-muted); font-weight: 600; }
+    
+    /* Bold & Quote Styling */
+    .date-highlight { font-weight: 700; color: var(--primary-dark); }
+    .quote { 
+        color: var(--primary-dark); 
+        font-weight: 600; 
+        background: #f0fdf4; 
+        padding: 2px 4px; 
+        border-radius: 4px; 
+        border-left: 3px solid var(--accent);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0; width: 100%; height: 100%;
+      background: rgba(17, 24, 39, 0.7);
+      backdrop-filter: blur(4px);
+      justify-content: center; align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 350px;
+      text-align: center;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-content h3 { margin: 0 0 20px 0; color: var(--text-main); }
+    .modal-content input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .btn-group { display: flex; gap: 10px; }
+    .btn-group button { flex: 1; padding: 10px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; }
+    .btn-confirm { background: var(--primary); color: white; }
+    .btn-cancel { background: #f3f4f6; color: var(--text-muted); }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 1.75rem; }
+      .agent-header { flex-direction: column; gap: 15px; }
+      .score-box { text-align: left; width: 100%; }
+    }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <h1>Agent QA Viewer</h1>
+    <header>
+      <h1>Agent QA Viewer</h1>
+      <p style="color: var(--text-muted);">Quality Assurance Performance Tracking</p>
+    </header>
+
     <div id="tabs" class="tab-bar"></div>
-    <div id="leaderboard" style="margin-bottom: 24px;"></div>
-    <div id="output" class="card-container"></div>
+    
+    <div id="leaderboard"></div>
+    
+    <div id="output"></div>
   </div>
 
+  <!-- Password Modal -->
   <div id="passwordModal" class="modal">
     <div class="modal-content">
       <h3>Enter Password</h3>
-      <input type="password" id="passwordInput" placeholder="Password" />
-      <div><button class="confirm-btn" id="confirmPassword">Confirm</button> <button class="cancel-btn" id="cancelPassword">Cancel</button></div>
+      <input type="password" id="passwordInput" placeholder="••••••••" />
+      <div class="btn-group">
+        <button class="btn-confirm" id="confirmPassword">Unlock</button>
+        <button class="btn-cancel" id="cancelPassword">Cancel</button>
+      </div>
     </div>
   </div>
 
@@ -64,22 +259,28 @@
       fetch('data.json')
         .then(response => response.json())
         .then(data => renderTabs(data))
-        .catch(err => { document.getElementById('output').innerHTML = '<div style="text-align:center;">⚠️ Error loading data.json</div>'; });
+        .catch(err => {
+          document.getElementById('output').innerHTML = '<div style="text-align:center; padding: 50px;">⚠️ Data file (data.json) not found.</div>';
+        });
     });
 
     function renderTabs(agents) {
       const tabsContainer = document.getElementById('tabs');
       const leaderboardContainer = document.getElementById('leaderboard');
       tabsContainer.innerHTML = '';
+      
       const sortedAgents = [...agents].sort((a, b) => parseFloat(b.score || 0) - parseFloat(a.score || 0));
+
+      // Modern Leaderboard
       const topAgents = sortedAgents.filter(a => parseFloat(a.score) >= 90);
       if (topAgents.length > 0) {
         leaderboardContainer.innerHTML = `
-          <div style="background:#c8e6c9;border:2px solid #2e7d32;border-radius:12px;padding:16px;">
-            <h2 style="color:#2e7d32;margin-top:0;">🏆 Top Performers</h2>
-            <ul>${topAgents.map(a => `<li><strong>${a.name}</strong> — ${a.score}</li>`).join('')}</ul>
+          <div class="lb-card">
+            <h2>🏆 Top Performers (90%+)</h2>
+            <ul>${topAgents.map(a => `<li><strong>${a.name}</strong> — ${a.score}%</li>`).join('')}</ul>
           </div>`;
       }
+
       sortedAgents.forEach(agent => {
         const tab = document.createElement('button');
         tab.textContent = agent.name || 'Unnamed';
@@ -96,19 +297,30 @@
     function renderAgentCards(agentList) {
       const container = document.getElementById('output');
       container.innerHTML = '';
+
       agentList.forEach(agent => {
         const card = document.createElement('div');
         card.className = 'agent-card';
+        
         const qaData = agent.qa || [];
         const auditData = agent.audits || [];
+
         card.innerHTML = `
-          <h2>${agent.name}</h2>
-          <div class="meta">ID: ${agent.id || 'N/A'} | QA: ${qaData.length} | Audits: ${auditData.length}</div>
-          <button class="reveal-btn">🔐 View QA Score</button>
-          <span class="qa-score" style="display:none;font-weight:bold;margin-left:10px;"></span>
+          <div class="agent-header">
+            <div class="agent-info">
+              <h2>${agent.name}</h2>
+              <div class="meta">ID: ${agent.id || 'N/A'} • Evaluated: ${qaData.length + auditData.length} total</div>
+            </div>
+            <div class="score-box">
+              <button class="reveal-btn">🔐 View Score</button>
+              <span class="qa-score" style="display:none;">${agent.score}%</span>
+            </div>
+          </div>
         `;
+
         const btn = card.querySelector('.reveal-btn');
         const span = card.querySelector('.qa-score');
+
         btn.onclick = () => {
           currentAgent = agent;
           currentScoreSpan = span;
@@ -116,6 +328,7 @@
           document.getElementById('passwordInput').value = '';
           document.getElementById('passwordModal').style.display = 'flex';
         };
+
         card.appendChild(renderTableSection('Long Calls (QA)', qaData));
         card.appendChild(renderTableSection('Dispo Audits', auditData));
         container.appendChild(card);
@@ -125,29 +338,29 @@
     function renderTableSection(label, dataArray) {
       const details = document.createElement('details');
       details.open = true;
-      details.innerHTML = `<summary>${label} (${dataArray.length})</summary>`;
+      details.innerHTML = `<summary><span>${label}</span> <span>${dataArray.length} items</span></summary>`;
+      
       const table = document.createElement('table');
-      table.innerHTML = `<thead><tr><th>#</th><th>Description / Comment</th></tr></thead>`;
+      table.innerHTML = `<thead><tr><th class="col-num">#</th><th>Feedback & Comments</th></tr></thead>`;
       const tbody = document.createElement('tbody');
       
       if (dataArray.length > 0) {
         dataArray.forEach((item, i) => {
           const commentText = typeof item === 'object' ? (item.comment || "") : item;
           
-          // FORMATTING: Bold sa start date at Date Posted
-          let formattedComment = (commentText || '')
+          let formatted = (commentText || '')
             .replace(/^(\d{2}-\d{2}-\d{2})/g, '<span class="date-highlight">$1</span>') 
             .replace(/(Date Posted\s*)(\d{4}-\d{2}-\d{2})/g, '<strong>$1$2</strong>')
             .replace(/\n/g, '<br>'); 
           
-          // ITO ANG PABOLD SA LOOB NG QUOTES
-          formattedComment = formattedComment.replace(/"([^"]+)"/g, '<span class="quote">"$1"</span>');
+          formatted = formatted.replace(/"([^"]+)"/g, '<span class="quote">"$1"</span>');
 
-          tbody.innerHTML += `<tr><td>${i+1}</td><td>${formattedComment}</td></tr>`;
+          tbody.innerHTML += `<tr><td class="col-num">${i+1}</td><td>${formatted}</td></tr>`;
         });
       } else {
-        tbody.innerHTML = `<tr><td colspan="2" style="text-align:center;">No data found</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="2" style="text-align:center; color:#9ca3af; padding: 30px;">No entries recorded.</td></tr>`;
       }
+      
       table.appendChild(tbody);
       details.appendChild(table);
       return details;
@@ -156,13 +369,19 @@
     document.getElementById('confirmPassword').onclick = () => {
       const input = document.getElementById('passwordInput').value.trim();
       if (input === (currentAgent.password || '').toString().trim()) {
-        currentScoreSpan.textContent = `Score: ${currentAgent.score || 'N/A'}`;
-        currentScoreSpan.style.display = 'inline';
+        currentScoreSpan.style.display = 'block';
         currentButton.style.display = 'none';
         document.getElementById('passwordModal').style.display = 'none';
-      } else { alert('❌ Wrong password'); }
+      } else { alert('❌ Incorrect password.'); }
     };
+
     document.getElementById('cancelPassword').onclick = () => { document.getElementById('passwordModal').style.display = 'none'; };
+    
+    // Close modal on outside click
+    window.onclick = (event) => {
+      const modal = document.getElementById('passwordModal');
+      if (event.target == modal) modal.style.display = "none";
+    }
   </script>
 </body>
 </html>
