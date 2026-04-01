@@ -1,151 +1,334 @@
-[
-  {
-    "name": "",
-    "score": "",
-    "password": "",
-    "qa": [
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      }
-    ],
-    "audits": [
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      },
-      {
-        "phone": "",
-        "comment": ""
-      }
-    ]
-  }
-]
+	
+0	
+name	"J. Años"
+score	""
+password	"Jowsip2026"
+qa	
+0	
+phone	"6062918024"
+comment	"GOOD CALL"
+1	
+phone	"7752330167"
+comment	"GOOD CALL"
+2	
+phone	"3852665318"
+comment	`03-30-26  - GREETINGS  @0:07  cust said,  "I'm doing great, thank you for asking. Hello?"  agent some delay in pressing  3(Repeat Intro)  instead of  proceed  ;  @0:34  Slight delay  ;  @01:15  cust said,  "Yeah, so I, I don't know who make that request because I haven't requested that, but I right now almost to jumping in a meeting in here. So if there is something that we need to talk and discuss, maybe another time would be better, not right now."  agent pressed  >(How get Number 2nd rnd)  instead of  b(Busy).  WINDOW Date Posted  03-31-26.`
+3	
+phone	"3475675353"
+comment	"GOOD CALL"
+4	
+phone	"3315756312"
+comment	"GOOD CALL"
+5	
+phone	"8067866833"
+comment	"GOOD CALL"
+6	
+phone	""
+comment	""
+7	
+phone	""
+comment	""
+8	
+phone	""
+comment	""
+9	
+phone	""
+comment	""
+10	
+phone	""
+comment	""
+11	
+phone	""
+comment	""
+12	
+phone	""
+comment	""
+13	
+phone	""
+comment	""
+14	
+phone	""
+comment	""
+audits	
+0	
+phone	"5732125578"
+comment	"GOOD CALL"
+1	
+phone	"7867525585"
+comment	"GOOD CALL"
+2	
+phone	"7025757456"
+comment	"GOOD CALL"
+3	
+phone	"5208910586"
+comment	"GOOD CALL"
+4	
+phone	"9072309604"
+comment	"GOOD CALL"
+5	
+phone	"6145990606"
+comment	"GOOD CALL"
+6	
+phone	""
+comment	""
+7	
+phone	""
+comment	""
+8	
+phone	""
+comment	""
+9	
+phone	""
+comment	""
+10	
+phone	""
+comment	""
+11	
+phone	""
+comment	""
+12	
+phone	""
+comment	""
+13	
+phone	""
+comment	""
+14	
+phone	""
+comment	""
+15	
+phone	""
+comment	""
+16	
+phone	""
+comment	""
+17	
+phone	""
+comment	""
+18	
+phone	""
+comment	""
+19	
+phone	""
+comment	""
+1	
+name	"S. Fuentes"
+score	""
+password	"10988343"
+qa	
+0	
+phone	"9565892198"
+comment	"PITCH at 00:44 Slight delay in applying a silent rule. BATHREMO"
+1	
+phone	"6104170035"
+comment	`TCPa at 03:47 Cust said "I guess so if I answer the phone. (agent pressed Repeat) somebody calls me and I don't answer, if someone calls me and I don't answer the phone, then that's it, you know, you're not gonna be able to talk to me or nothing because I don't recognize the phone number or anything or who it is then I'm not gonna answer the phone." agnet pressed : (TF-Busy) instead of 5 (What Company)+ 32 (Quick Repeat). BATHREMO`
+2	
+phone	"4405398108"
+comment	"GOOD CALL"
+3	
+phone	"8144377881"
+comment	"GREETINGS at 00:10 Slight delay. BATHREMO"
+4	
+phone	"2392930622"
+comment	"GOOD CALL"
+5	
+phone	"5413147750"
+comment	"GREETINGS - Note - There was static noise on the customer’s line. HOMEWRTY-PC"
+6	
+phone	"8062826233"
+comment	`BENEFITS at 01:48 Cust said "The only time I've had a home warranty is from a builder's warranty." with slight delay the agent pressed 1 (Yes) instead of 3 (Unsure).  HOMEWRTY-PC`
+7	
+phone	""
+comment	""
+8	
+phone	""
+comment	""
+9	
+phone	""
+comment	""
+10	
+phone	""
+comment	""
+11	
+phone	""
+comment	""
+12	
+phone	""
+comment	""
+13	
+phone	""
+comment	""
+14	
+phone	""
+comment	""
+audits	
+0	
+phone	"2394100409"
+comment	"GOOD CALL"
+1	
+phone	"2032600854"
+comment	"GOOD CALL"
+2	
+phone	"6124515636"
+comment	"GOOD CALL"
+3	
+phone	"4016992432"
+comment	"Disposing the call as LB  instead of CB. WINDOW"
+4	
+phone	"8565581172"
+comment	"GOOD CALL"
+5	
+phone	"8569569485"
+comment	"GOOD CALL"
+6	
+phone	""
+comment	""
+7	
+phone	""
+comment	""
+8	
+phone	""
+comment	""
+9	
+phone	""
+comment	""
+10	
+phone	""
+comment	""
+11	
+phone	""
+comment	""
+12	
+phone	""
+comment	""
+13	
+phone	""
+comment	""
+14	
+phone	""
+comment	""
+15	
+phone	""
+comment	""
+16	
+phone	""
+comment	""
+17	
+phone	""
+comment	""
+18	
+phone	""
+comment	""
+19	
+phone	""
+comment	""
+2	
+name	"L. Guansing"
+score	""
+password	"5560guansinG!"
+qa	
+0	
+phone	"6604415370"
+comment	"GOOD CALL"
+1	
+phone	"5742700354"
+comment	"GOOD CALL"
+2	
+phone	"6177748908"
+comment	"GOOD CALL"
+3	
+phone	""
+comment	""
+4	
+phone	""
+comment	""
+5	
+phone	""
+comment	""
+6	
+phone	""
+comment	""
+7	
+phone	""
+comment	""
+8	
+phone	""
+comment	""
+9	
+phone	""
+comment	""
+10	
+phone	""
+comment	""
+11	
+phone	""
+comment	""
+12	
+phone	""
+comment	""
+13	
+phone	""
+comment	""
+14	
+phone	""
+comment	""
+audits	
+0	
+phone	"3139780106"
+comment	"GOOD CALL"
+1	
+phone	"6812230933"
+comment	"GOOD CALL"
+2	
+phone	"8565653160"
+comment	"GOOD CALL"
+3	
+phone	""
+comment	""
+4	
+phone	""
+comment	""
+5	
+phone	""
+comment	""
+6	
+phone	""
+comment	""
+7	
+phone	""
+comment	""
+8	
+phone	""
+comment	""
+9	
+phone	""
+comment	""
+10	
+phone	""
+comment	""
+11	
+phone	""
+comment	""
+12	
+phone	""
+comment	""
+13	
+phone	""
+comment	""
+14	
+phone	""
+comment	""
+15	
+phone	""
+comment	""
+16	
+phone	""
+comment	""
+17	
+phone	""
+comment	""
+18	
+phone	""
+comment	""
+19	
+phone	""
+comment	""
