@@ -154,7 +154,7 @@
         <div class="kpi-row">
             <div class="kpi-box kpi-1"><div class="kpi-label">Status</div><div class="kpi-value">ACTIVE</div></div>
             <div class="kpi-box kpi-2"><div class="kpi-label">Long Calls</div><div class="kpi-value">${countQA} <span class="kpi-target">/ ${TARGET_QA}</span></div></div>
-            <div class="kpi-box kpi-3"><div class="kpi-label">Audits</div><div class="kpi-value">${countAudit} <span class="kpi-target">/ ${TARGET_AUDIT}</span></div></div>
+            <div class="kpi-box kpi-3"><div class="kpi-label">Dispo Audits</div><div class="kpi-value">${countAudit} <span class="kpi-target">/ ${TARGET_AUDIT}</span></div></div>
         </div>
         <div class="main-card">
             <div class="card-head">
@@ -162,7 +162,7 @@
                 <div><button class="unlock-btn" id="btnReveal">🔐 Unlock</button><div class="score-txt" id="scoreVal">${agent.score || '0'}%</div></div>
             </div>
             ${renderTable('Long Calls Evaluation', qas)}
-            ${renderTable('Compliance Audits', audits)}
+            ${renderTable('Dispo Audits', audits)}
         </div>`;
       document.getElementById('btnReveal').onclick = () => { document.getElementById('pwInput').value = ''; document.getElementById('passwordModal').style.display = 'flex'; document.getElementById('pwInput').focus(); };
     }
