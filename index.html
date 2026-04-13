@@ -10,6 +10,7 @@
       --primary: #10b981; --primary-dark: #059669;
       --bg: #f8fafc; --card: #ffffff;
       --text: #0f172a; --text-muted: #64748b; --border: #e2e8f0;
+      --accent: #2563eb;
     }
     * { box-sizing: border-box; }
     
@@ -60,7 +61,9 @@
     .card-head { padding: 18px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f8fafc; }
     .card-head h2 { margin: 0; font-size: 1.2rem; font-weight: 800; }
 
+    .btn-group { display: flex; flex-direction: column; gap: 5px; align-items: flex-end; }
     .unlock-btn { background: #0f172a; color: white; border: none; padding: 7px 15px; border-radius: 8px; font-weight: 700; font-size: 0.75rem; cursor: pointer; }
+    .msg-btn { background: var(--accent); color: white; border: none; padding: 7px 15px; border-radius: 8px; font-weight: 700; font-size: 0.75rem; cursor: pointer; text-decoration: none; }
     .score-txt { font-size: 1.5rem; font-weight: 900; color: var(--primary); display: none; }
 
     .table-block { padding: 20px 25px; border-bottom: 1px solid #f1f5f9; }
@@ -119,14 +122,17 @@
     const TARGET_QA = 15;
     const TARGET_AUDIT = 20;
 
+    // --- SETUP PARA SA FEEDBACK ---
+    const MY_WHATSAPP = "639123456789"; // Ilisi ni sa imong number (format: 639...)
+    const MY_EMAIL = "qa@example.com";    // Ilisi ni sa imong email
+
     window.addEventListener('DOMContentLoaded', () => {
       fetch('data.json').then(r => r.json()).then(data => {
         db = data.sort((a,b) => parseFloat(b.score || 0) - parseFloat(a.score || 0));
         renderPills(db);
-      });
+      }).catch(err => console.error("Error loading JSON:", err));
     });
 
-    // Mokuha ra sa pangalan (remove ID/parentheses)
     function cleanName(n) { 
         if(!n) return "Unnamed";
         return n.split('(')[0].trim(); 
@@ -159,12 +165,21 @@
         <div class="main-card">
             <div class="card-head">
                 <div><h2>${cleanName(agent.name)}</h2><span style="color:var(--text-muted); font-weight:600; font-size: 0.75rem;">Weekly Summary</span></div>
-                <div><button class="unlock-btn" id="btnReveal">🔐 QA Score</button><div class="score-txt" id="scoreVal">${agent.score || '0'}%</div></div>
+                <div class="btn-group">
+                    <button class="unlock-btn" id="btnReveal">🔐 QA Score</button>
+                    <button class="msg-btn" onclick="sendInquiry()">💬 Send Inquiry</button>
+                    <div class="score-txt" id="scoreVal">${agent.score || '0'}%</div>
+                </div>
             </div>
             ${renderTable('Long Calls Evaluation', qas)}
             ${renderTable('Dispo Audits', audits)}
         </div>`;
-      document.getElementById('btnReveal').onclick = () => { document.getElementById('pwInput').value = ''; document.getElementById('passwordModal').style.display = 'flex'; document.getElementById('pwInput').focus(); };
+      
+      document.getElementById('btnReveal').onclick = () => { 
+          document.getElementById('pwInput').value = ''; 
+          document.getElementById('passwordModal').style.display = 'flex'; 
+          document.getElementById('pwInput').focus(); 
+      };
     }
 
     function renderTable(title, data) {
@@ -175,9 +190,8 @@
           let txt = (typeof item === 'object' ? item.comment : item) || ""; txt = txt.toString().trim();
           if (txt.length <= 5) return `<tr><td class="num-col">${i+1}</td><td><span style="color:#cbd5e1">---</span></td></tr>`;
           
-          // FIXED LOGIC: Tinanggal ang error-prone date tags
           let formatted = txt
-            .replace(/^(\d{2}-\d{2}-\d{2})/g, '<b>$1</b>') // Simple bold for date
+            .replace(/^(\d{2}-\d{2}-\d{2})/g, '<b>$1</b>')
             .replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>')
             .replace(/\n/g, '<br>');
             
@@ -185,11 +199,34 @@
         }).join('')}</tbody></table></div>`;
     }
 
+    // --- FUNCTION PARA SA SEND MESSAGE ---
+    function sendInquiry() {
+        if(!activeAgent) return;
+        const name = cleanName(activeAgent.name);
+        const msg = `Hi QA! I have a question regarding my QA Dashboard results (Agent: ${name}).`;
+        
+        // Pili lang ka ug usa sa ubos (gi-comment nako ang Email, WhatsApp ang active):
+        
+        // Option WhatsApp:
+        const url = `https://wa.me{MY_WHATSAPP}?text=${encodeURIComponent(msg)}`;
+        
+        // Option Email:
+        // const url = `mailto:${MY_EMAIL}?subject=QA Inquiry: ${name}&body=${encodeURIComponent(msg)}`;
+        
+        window.open(url, '_blank');
+    }
+
     function closeModal() { document.getElementById('passwordModal').style.display = 'none'; }
+    
     document.getElementById('btnGo').onclick = () => {
-      if(document.getElementById('pwInput').value.trim() === activeAgent.password.toString()) {
-          document.getElementById('scoreVal').style.display = 'block'; document.getElementById('btnReveal').style.display = 'none'; closeModal();
-      } else { alert('❌ Wrong password.'); }
+      const inputPw = document.getElementById('pwInput').value.trim();
+      if(activeAgent && inputPw === activeAgent.password.toString()) {
+          document.getElementById('scoreVal').style.display = 'block'; 
+          document.getElementById('btnReveal').style.display = 'none'; 
+          closeModal();
+      } else { 
+          alert('❌ Wrong password.'); 
+      }
     };
   </script>
 </body>
