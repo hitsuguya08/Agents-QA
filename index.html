@@ -61,9 +61,9 @@
     .card-head { padding: 18px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f8fafc; }
     .card-head h2 { margin: 0; font-size: 1.2rem; font-weight: 800; }
 
-    .btn-group { display: flex; flex-direction: column; gap: 5px; align-items: flex-end; }
+    .btn-group { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
     .unlock-btn { background: #0f172a; color: white; border: none; padding: 7px 15px; border-radius: 8px; font-weight: 700; font-size: 0.75rem; cursor: pointer; }
-    .msg-btn { background: var(--accent); color: white; border: none; padding: 7px 15px; border-radius: 8px; font-weight: 700; font-size: 0.75rem; cursor: pointer; text-decoration: none; }
+    .msg-btn { background: var(--accent); color: white; border: none; padding: 7px 15px; border-radius: 8px; font-weight: 700; font-size: 0.75rem; cursor: pointer; }
     .score-txt { font-size: 1.5rem; font-weight: 900; color: var(--primary); display: none; }
 
     .table-block { padding: 20px 25px; border-bottom: 1px solid #f1f5f9; }
@@ -122,9 +122,8 @@
     const TARGET_QA = 15;
     const TARGET_AUDIT = 20;
 
-    // --- SETUP PARA SA FEEDBACK ---
-    const MY_WHATSAPP = "639123456789"; // Ilisi ni sa imong number (format: 639...)
-    const MY_EMAIL = "qa@example.com";    // Ilisi ni sa imong email
+    // --- SETUP PARA SA GMAIL ---
+    const MY_EMAIL = "imong_email@gmail.com"; // ILISI KINI SA IMONG GMAIL ADDRESS
 
     window.addEventListener('DOMContentLoaded', () => {
       fetch('data.json').then(r => r.json()).then(data => {
@@ -167,7 +166,7 @@
                 <div><h2>${cleanName(agent.name)}</h2><span style="color:var(--text-muted); font-weight:600; font-size: 0.75rem;">Weekly Summary</span></div>
                 <div class="btn-group">
                     <button class="unlock-btn" id="btnReveal">🔐 QA Score</button>
-                    <button class="msg-btn" onclick="sendInquiry()">💬 Send Inquiry</button>
+                    <button class="msg-btn" onclick="sendInquiry()">✉️ Send Inquiry</button>
                     <div class="score-txt" id="scoreVal">${agent.score || '0'}%</div>
                 </div>
             </div>
@@ -199,21 +198,18 @@
         }).join('')}</tbody></table></div>`;
     }
 
-    // --- FUNCTION PARA SA SEND MESSAGE ---
+    // --- GMAIL INQUIRY FUNCTION ---
     function sendInquiry() {
         if(!activeAgent) return;
         const name = cleanName(activeAgent.name);
-        const msg = `Hi QA! I have a question regarding my QA Dashboard results (Agent: ${name}).`;
         
-        // Pili lang ka ug usa sa ubos (gi-comment nako ang Email, WhatsApp ang active):
+        const subject = encodeURIComponent(`QA Dashboard Inquiry - ${name}`);
+        const body = encodeURIComponent(`Hi QA,\n\nI have a question regarding my performance results.\n\nAgent Name: ${name}\n\n[Isulat dire ang imong pangutana/details]:\n\n`);
         
-        // Option WhatsApp:
-        const url = `https://wa.me{MY_WHATSAPP}?text=${encodeURIComponent(msg)}`;
+        const mailtoUrl = `mailto:${MY_EMAIL}?subject=${subject}&body=${body}`;
         
-        // Option Email:
-        // const url = `mailto:${MY_EMAIL}?subject=QA Inquiry: ${name}&body=${encodeURIComponent(msg)}`;
-        
-        window.open(url, '_blank');
+        // Mo-abli ang Gmail/Email App
+        window.location.href = mailtoUrl;
     }
 
     function closeModal() { document.getElementById('passwordModal').style.display = 'none'; }
