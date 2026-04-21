@@ -1,7 +1,7 @@
 [
   {
     "name": "J. Años",
-    "score": "92.50%",
+    "score": "93.18",
     "password": "Jowsip2026",
     "qa": [
       {
@@ -29,12 +29,12 @@
         "comment": "GOOD CALL"
       },
       {
-        "phone": "",
-        "comment": ""
+        "phone": "9133573256",
+        "comment": "GOOD CALL"
       },
       {
-        "phone": "",
-        "comment": ""
+        "phone": "9133573256",
+        "comment": "GOOD CALL"
       },
       {
         "phone": "",
@@ -103,16 +103,16 @@
         "comment": "GOOD CALL"
       },
       {
-        "phone": "",
-        "comment": ""
+        "phone": "9133573256",
+        "comment": "GOOD CALL"
       },
       {
-        "phone": "",
-        "comment": ""
+        "phone": "9133573256",
+        "comment": "GOOD CALL"
       },
       {
-        "phone": "",
-        "comment": ""
+        "phone": "9133573256",
+        "comment": "GOOD CALL"
       },
       {
         "phone": "",
@@ -150,7 +150,7 @@
   },
   {
     "name": "S. Fuentes",
-    "score": "90.68%",
+    "score": "49.18%",
     "password": "10988343",
     "qa": [
       {
@@ -178,20 +178,20 @@
         "comment": "MAIN REASON at 1:17 Cx said \"Well, the only reason I would want new windows is because I've been here for 29 years and they were here prior to when I moved in, so that would probably be it, but, right now we're dealing with like we had to have a barn put up that was destroyed in weather last year and so we're just really trying to concentrate on getting a lot of the stuff outside cleared up. We might be selling at some point in time down the road, but, we just need to get things worked out around here, so, but we're not interested in new windows right now.So I appreciate the call and the offer.But we'll have to try it some other time.\" agent pressed 54 (No Time) instead of 58 (Hesitant) ; WI-PC"
       },
       {
-        "phone": "",
-        "comment": ""
+        "phone": "5072359854",
+        "comment": "OWN HOME at 1:53 Cx said \"Yes, he does.\" agent PROCEED instead of pressing 88 (Disqualified)<--Autofail ; WI"
       },
       {
-        "phone": "",
-        "comment": ""
+        "phone": "9045710748",
+        "comment": "MAIN REASON at 1:17 failed to apply silent rule ; HOME TYPE at 1:51 talking over ; at 2:10 slight delay ; WI-PC"
       },
       {
-        "phone": "",
-        "comment": ""
+        "phone": "5072359854",
+        "comment": "TCPA at 3:05 slight delay ; at 3:33 Cx said \"I understand that. Yeah, I said that's fine, but it doesn't necessarily mean be answering because of, of the prefix. If it's not a local prefix, It tend to not answer.\" w/ slight delay agent pressed D (Defer) instead of ) (Company) ; at 4:06 slight talking over ; WI-PC"
       },
       {
-        "phone": "",
-        "comment": ""
+        "phone": "2073856494",
+        "comment": "GREETINGS at 00:17 slight delay ; WI-PC"
       },
       {
         "phone": "",
@@ -299,7 +299,7 @@
   },
   {
     "name": "L. Guansing",
-    "score": "91.68%",
+    "score": "84.77%",
     "password": "5560guansinG!",
     "qa": [
       {
@@ -323,16 +323,16 @@
         "comment": "PITCH After pressing B(Busy)@ 01:01 Cx said\"Okay\"Agent pressed 31(LR-Pitch)instead of proceed BR"
       },
       {
-        "phone": "",
-        "comment": ""
+        "phone": "6602874718",
+        "comment": "GOOD CALL"
       },
       {
-        "phone": "",
-        "comment": ""
+        "phone": "4403101162",
+        "comment": "GOOD CALL"
       },
       {
-        "phone": "",
-        "comment": ""
+        "phone": "9133573256",
+        "comment": "GREETINGS@ 00:31 Excessive use of R(Repeat that) BR"
       },
       {
         "phone": "",
@@ -390,27 +390,27 @@
       },
       {
         "phone": "",
-        "comment": ""
+        "comment": "GOOD CALL"
       },
       {
         "phone": "",
-        "comment": ""
+        "comment": "GOOD CALL"
       },
       {
         "phone": "",
-        "comment": ""
+        "comment": "GOOD CALL"
       },
       {
         "phone": "",
-        "comment": ""
+        "comment": "GOOD CALL"
       },
       {
         "phone": "",
-        "comment": ""
+        "comment": "GOOD CALL"
       },
       {
         "phone": "",
-        "comment": ""
+        "comment": "GOOD CALL"
       },
       {
         "phone": "",
