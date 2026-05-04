@@ -1,39 +1,39 @@
 [
   {
     "name": "J. Años",
-    "score": "93.18",
+    "score": "73.15%",
     "password": "Jowsip2026",
     "qa": [
       {
-        "phone": "2817943083",
-        "comment": "GOOD CALL"
+        "phone": "5615231737",
+        "comment": "Cx interrupted at the mbeginning of the script and then @00:36 cx said \"Ok, I'm sitting down. I'm at a pickleball court, so you have to forgive me.\",  agent pressed    31(LR - Pitch)  instead of   !(Call Recorded)  +  31(LR - Pitch) - , WI"
       },
       {
-        "phone": "6153888856",
-        "comment": "PITCH at 00:48 Slight delay. WINDOW"
+        "phone": "9086256288",
+        "comment": "Cx said \"Oh, no, no, I live in Prospect Park and it's just a manufactured home that was manufactured probably 100 years ago. I've been living here for 50 years.\",  agent pressed    1(No - Mobile/Log)  instead of     5(Not Qualified.) - , WI"
       },
       {
-        "phone": "9789025080",
-        "comment": "GOOD CALL"
+        "phone": "4192909238",
+        "comment": "PITCH - @00:54 Slight delay - , WI"
       },
       {
-        "phone": "8017838000",
-        "comment": "GREETINGS at 00:10 Slight delay in applying a silent rule. WINDOW"
+        "phone": "6097894018",
+        "comment": "PITCH - @00:41 Slight delay in applying the silent rule - , WI"
       },
       {
-        "phone": "5415358876",
-        "comment": "TCPA at 02:22 Slight delay in applying a silent rule. WINDOW"
+        "phone": "8606701727",
+        "comment": "SURVEY - OWN HOME - @1:45 Bumping key - , WI"
       },
       {
-        "phone": "6025740692",
-        "comment": "GOOD CALL"
+        "phone": "9542633884",
+        "comment": "Cx said \"Do you guys work by leads? Like somebody give you a number and then you would call it because they say call this person.\", agent pressed   ^(Deferment)  instead of   >(How Get Number) - , WI"
       },
       {
-        "phone": "9133573256",
-        "comment": "GOOD CALL"
+        "phone": "9362343213",
+        "comment": "Cx said \"Well, I know it because I used to be a contractor but I can't afford window replacement right now…\",  agent pressed    41(Imm No)  instead of   64(Don't Need Now) - , WI"
       },
       {
-        "phone": "9133573256",
+        "phone": "7209839352",
         "comment": "GOOD CALL"
       },
       {
@@ -67,51 +67,51 @@
     ],
     "audits": [
       {
-        "phone": "3604308100",
-        "comment": "Disposing the call as NI1 instead of AM. ; Delay disposing the call for 20 secs. WINDOWS"
+        "phone": "6058302491",
+        "comment": "Agent disposed the call as   DA  instead of   CB - , WI"
       },
       {
-        "phone": "9718046580",
-        "comment": "Miss Option at 00:32. ; Disposing the call as BAD instead WN. WINDOW"
+        "phone": "9042060060",
+        "comment": "Missed option - , WI"
       },
       {
-        "phone": "6146158535",
-        "comment": "Miss Option at 00:34. WINDOW"
-      },
-      {
-        "phone": "7758302266",
-        "comment": "Disposing the call as NQ instead of CB. WINDOW"
-      },
-      {
-        "phone": "6106260555",
+        "phone": "",
         "comment": "GOOD CALL"
       },
       {
-        "phone": "3175246546",
+        "phone": "",
         "comment": "GOOD CALL"
       },
       {
-        "phone": "6096029198",
+        "phone": "",
         "comment": "GOOD CALL"
       },
       {
-        "phone": "8016981294",
+        "phone": "",
         "comment": "GOOD CALL"
       },
       {
-        "phone": "9033808414",
+        "phone": "",
         "comment": "GOOD CALL"
       },
       {
-        "phone": "9133573256",
+        "phone": "",
         "comment": "GOOD CALL"
       },
       {
-        "phone": "9133573256",
+        "phone": "",
         "comment": "GOOD CALL"
       },
       {
-        "phone": "9133573256",
+        "phone": "",
+        "comment": "GOOD CALL"
+      },
+      {
+        "phone": "",
+        "comment": "GOOD CALL"
+      },
+      {
+        "phone": "",
         "comment": "GOOD CALL"
       },
       {
@@ -150,48 +150,48 @@
   },
   {
     "name": "S. Fuentes",
-    "score": "49.18%",
+    "score": "78.50%",
     "password": "10988343",
     "qa": [
       {
-        "phone": "4068260907",
+        "phone": "4199843135",
+        "comment": "cx said \"Windows is on the list, but it's far down the list we have other improvements to be done.\" Agent played 57 (No need) instead of 4 (Not Interested) - PC WI"
+      },
+      {
+        "phone": "7542298831",
+        "comment": "Next Step @ 01:42-01:53 - talking over (INSTANT RED) - PC WI \nClient Branding/TCPA @ 02:02 - major delay - PC WI"
+      },
+      {
+        "phone": "3212890553",
+        "comment": "Home Type @ 01:45 - slight delay - PC WI"
+      },
+      {
+        "phone": "7026729422",
         "comment": "GOOD CALL"
       },
       {
-        "phone": "8564629401",
-        "comment": "MAIN REASON at 1:44 failed to apply silent rule ; WI-PC"
+        "phone": "3477301950",
+        "comment": "Greetings @ 00:12 - slight delay; Pitch @ 00:59 - slight delay in applying silent rule - PC WI \nMain Reason @ 02:16 - slight delay - PC WI"
       },
       {
-        "phone": "5165410148",
-        "comment": "GREETINGS at 00:13 slight delay ; PITCH at 1:16 Cx said \"All right.Could I call my daughter because ultimately, this is going to be her and her sisters And their brother-in-law.Three of them are going to take and probably sell this house. I recommended replacing that window.\" w/ slight delay agent pressed 4 (Not Interested) instead of 55 (Talk To Someone) ; WI-PC\n\nMAIN REASON at 2:40 slight delay ; at 3:39 slight talking over ; at 3:42 Agent pressed 55 (Talk To Someone) twice instead of continuing the spiel by pressing (SPACE)<--Note ; WI-PC"
+        "phone": "3172609269",
+        "comment": "Main Reason @ 01:24 - slight delay - PC WI"
       },
       {
-        "phone": "9284016618",
-        "comment": "MAIN REASON at 1:12 failed to apply silent rule ; OWN HOME at 1:31 slight delay ; WI-PC"
+        "phone": "8659846176",
+        "comment": "Greetings @ 00:24 - slight delay - PC WI \nMain Reason @ 02:02 - slight delay - PC WI"
       },
       {
-        "phone": "5808322275",
+        "phone": "3853969805",
         "comment": "GOOD CALL"
       },
       {
-        "phone": "9183752705",
-        "comment": "MAIN REASON at 1:17 Cx said \"Well, the only reason I would want new windows is because I've been here for 29 years and they were here prior to when I moved in, so that would probably be it, but, right now we're dealing with like we had to have a barn put up that was destroyed in weather last year and so we're just really trying to concentrate on getting a lot of the stuff outside cleared up. We might be selling at some point in time down the road, but, we just need to get things worked out around here, so, but we're not interested in new windows right now.So I appreciate the call and the offer.But we'll have to try it some other time.\" agent pressed 54 (No Time) instead of 58 (Hesitant) ; WI-PC"
+        "phone": "7723591942",
+        "comment": "Main Reason @ 01:28; @ 01:59  - bumping keys - PC WI"
       },
       {
-        "phone": "5072359854",
-        "comment": "OWN HOME at 1:53 Cx said \"Yes, he does.\" agent PROCEED instead of pressing 88 (Disqualified)<--Autofail ; WI"
-      },
-      {
-        "phone": "9045710748",
-        "comment": "MAIN REASON at 1:17 failed to apply silent rule ; HOME TYPE at 1:51 talking over ; at 2:10 slight delay ; WI-PC"
-      },
-      {
-        "phone": "5072359854",
-        "comment": "TCPA at 3:05 slight delay ; at 3:33 Cx said \"I understand that. Yeah, I said that's fine, but it doesn't necessarily mean be answering because of, of the prefix. If it's not a local prefix, It tend to not answer.\" w/ slight delay agent pressed D (Defer) instead of ) (Company) ; at 4:06 slight talking over ; WI-PC"
-      },
-      {
-        "phone": "2073856494",
-        "comment": "GREETINGS at 00:17 slight delay ; WI-PC"
+        "phone": "7203190392",
+        "comment": "Own Home @ 01:57 - slight delay - PC WI \nTCPA @ 03:04 cx said \"Ahh, no, I don't approve of those guys calling me.\" Agent slight delay in playing 58 (Hesitant) instead of end call - 4 (Final No) - PC WI"
       },
       {
         "phone": "",
@@ -299,40 +299,40 @@
   },
   {
     "name": "L. Guansing",
-    "score": "84.77%",
+    "score": "79.25%",
     "password": "5560guansinG!",
     "qa": [
       {
-        "phone": "5632522127",
+        "phone": "5802621036",
+        "comment": "Survey Home Type   @ 02:49   Cust said \" Huh. It was built from the ground up. It's not a mobile. \"   The agent re ask instead of proceed.   Date Posted: (SB) BR"
+      },
+      {
+        "phone": "5862778304",
         "comment": "GOOD CALL"
       },
       {
-        "phone": "8598013247",
-        "comment": "PRE TRANSFER@ 03:27 Cx said\"Can you hold up on that I'm getting ready to take a shower and head out because she's in the hospital and I'm going up there.\"Agent pressed 6(Q3-Transfer Attempt-Busy)instead of :(TF-Busy) BR"
+        "phone": "5175752253",
+        "comment": "TCPA   @ 04:00   The customer spoke for 18 seconds, and the agent asked them to repeat (timing issue).   Date Posted: (SB) BR"
       },
       {
-        "phone": "4197869407",
-        "comment": "TCPA After pressing R(Repeat that)@ 05:18 Cx said\"I said I guess I have to be.I don't like all these phone calls, but I guess I'll have to be if I'm gonna be trying to upgrade my tub so I don't fall.\"Agent pressed 41(Imm Nox1)instead of 24(Is that a YESX1) BR"
-      },
-      {
-        "phone": "6207782990",
+        "phone": "9038153089",
         "comment": "GOOD CALL"
       },
       {
-        "phone": "3035873776",
-        "comment": "PITCH After pressing B(Busy)@ 01:01 Cx said\"Okay\"Agent pressed 31(LR-Pitch)instead of proceed BR"
+        "phone": "4055690367",
+        "comment": "Greetings   @ 00:15   The agent delay in applying silent rule.   - Note -   The agent having hard time hearing the cust due to inaudible response; the agent should've have end call.   Date Posted: (SB) BR"
       },
       {
-        "phone": "6602874718",
-        "comment": "GOOD CALL"
+        "phone": "6157588859",
+        "comment": "PITCH   @ 00:08   Cust said \" I'm not gonna talk to you. I'm hanging up bye. \"   The agent pressed X - Thanks Bye instead of 41 - Imm No.   Date Posted: (SB) BR"
       },
       {
-        "phone": "4403101162",
-        "comment": "GOOD CALL"
+        "phone": "6156278318",
+        "comment": "Since the Intro was voice mail and the customer picked up after 7 seconds, the agent should've disposed the call as AM right away.   Date Posted: (SB) WIFRESH"
       },
       {
-        "phone": "9133573256",
-        "comment": "GREETINGS@ 00:31 Excessive use of R(Repeat that) BR"
+        "phone": "4195609220",
+        "comment": "Pitch   @ 00:35   Cust interrupted and said \" I got, I just got all new windows two years ago, so I have not. I don't know where you got my number, but I'm not looking for ones. Thank you. \"   The agent pressed 41 - Imm No instead of end the call."
       },
       {
         "phone": "",
@@ -365,27 +365,27 @@
     ],
     "audits": [
       {
-        "phone": "4046009882",
-        "comment": "GOOD CALL"
+        "phone": "3038883658",
+        "comment": "The agent disposed the call as CB instead of DA."
       },
       {
-        "phone": "3125765508",
-        "comment": "GOOD CALL"
+        "phone": "2539615743",
+        "comment": "The agent disposed the call as CB instead of DA.   Date Posted: (SB) WIFRESH"
       },
       {
-        "phone": "7204274683",
-        "comment": "GOOD CALL"
+        "phone": "2066020493",
+        "comment": "The agent disposed the call as CB instead of DA.   Date Posted: (SB) WIFRESH"
       },
       {
-        "phone": "7608675157",
-        "comment": "GOOD CALL"
+        "phone": "9542348856",
+        "comment": "The agent disposed the call as AM instead of DA.   Date Posted: (SB) WIFRESH"
       },
       {
-        "phone": "4703851656",
-        "comment": "GOOD CALL"
+        "phone": "5205102603",
+        "comment": "after V - Very Bust, cust said \" please, please don’t \". The agent disposed the call as CB instead of DNC. Under Compliance - CAT3.   Date Posted: (SB) WIFRESH"
       },
       {
-        "phone": "9095539943",
+        "phone": "",
         "comment": "GOOD CALL"
       },
       {
