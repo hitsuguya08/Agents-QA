@@ -7,7 +7,6 @@
   <link href="https://googleapis.com" rel="stylesheet">
   <style>
     :root {
-      /* Base sa imong image: Mustard Yellow + Midnight Navy */
       --primary: #f59e0b;    
       --primary-dark: #d97706;
       --bg: #fef3c7;         /* Warm Cream/Yellow Background */
@@ -25,7 +24,6 @@
       margin: 0; padding: 0; font-size: 14px;
     }
 
-    /* Top Bar - Dark Style */
     .header-main { 
       background: #020617; 
       padding: 20px 0; text-align: center; color: var(--primary);
@@ -34,12 +32,12 @@
     }
     .header-main h1 { margin: 0; font-size: 1.2rem; font-weight: 800; letter-spacing: 2px; }
 
-    /* Nav Bar - Midnight Style */
     .nav-bar { 
       background: rgba(15, 23, 42, 0.95); 
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--primary); 
       padding: 12px 0; position: sticky; top: 0; z-index: 100;
+      overflow-x: auto;
     }
     .nav-inner { display: flex; justify-content: center; gap: 10px; padding: 0 15px; flex-wrap: wrap; }
     
@@ -56,7 +54,6 @@
 
     .content-container { max-width: 900px; margin: 40px auto; padding: 0 20px 80px; }
 
-    /* KPI Section - Mix of Dark and Gold */
     .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
     .kpi-box { padding: 25px 15px; border-radius: 24px; text-align: center; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
     
@@ -67,7 +64,6 @@
     .kpi-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; opacity: 0.8; }
     .kpi-value { font-size: 1.8rem; font-weight: 800; }
 
-    /* Main Dashboard Card */
     .main-card { 
       background: var(--card); border-radius: 32px; border: none; 
       box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.4); overflow: hidden; color: var(--text-light);
@@ -78,13 +74,10 @@
     }
     .card-head h2 { margin: 0; font-size: 1.6rem; font-weight: 800; color: var(--primary); }
 
-    /* Buttons */
     .btn-group { display: flex; gap: 10px; align-items: center; }
     .unlock-btn { background: var(--primary); color: var(--text-dark); padding: 10px 20px; border-radius: 12px; border: none; font-weight: 800; cursor: pointer; transition: 0.2s; }
     .msg-btn { background: transparent; color: var(--primary); border: 2px solid var(--primary); padding: 8px 20px; border-radius: 12px; font-weight: 800; cursor: pointer; }
-    .unlock-btn:hover { transform: scale(1.05); background: #fbbf24; }
 
-    /* Tables */
     .table-block { padding: 30px; border-bottom: 1px solid var(--border); }
     .table-block h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 20px; display: flex; justify-content: space-between; }
     .badge { background: var(--primary); color: var(--text-dark); padding: 4px 12px; border-radius: 8px; font-size: 0.7rem; font-weight: 800; }
@@ -98,7 +91,6 @@
       display: inline-block; margin: 5px 0;
     }
 
-    /* Modal */
     .modal { display: none; position: fixed; inset: 0; background:rgba(2, 6, 23, 0.85); backdrop-filter:blur(10px); z-index: 200; justify-content:center; align-items:center; }
     .modal-content { background:var(--card); padding:40px; border-radius:30px; width:340px; text-align:center; border: 2px solid var(--primary); }
     .modal-content input { width:100%; padding:15px; margin:20px 0; border:2px solid var(--border); background: #020617; color:white; border-radius:15px; text-align:center; font-size: 1.5rem; font-weight: 800; }
@@ -138,7 +130,7 @@
         db = data.sort((a,b) => parseFloat(b.score || 0) - parseFloat(a.score || 0));
         renderPills(db);
       }).catch(err => {
-        document.getElementById('dashboardView').innerHTML = `<div style="text-align:center; padding:50px;">Check your data.json file location.</div>`;
+        document.getElementById('dashboardView').innerHTML = `<div style="text-align:center; padding:50px;">Please ensure data.json is in the same folder.</div>`;
       });
     });
 
@@ -212,12 +204,17 @@
 
     function closeModal() { document.getElementById('passwordModal').style.display = 'none'; }
     
+    // FIX PARA SA PASSWORD ERROR
     document.getElementById('btnGo').onclick = () => {
-      if(activeAgent && document.getElementById('pwInput').value.trim() === activeAgent.password.toString()) {
+      const inputPw = document.getElementById('pwInput').value.trim();
+      
+      if(activeAgent && inputPw === activeAgent.password.toString().trim()) {
           document.getElementById('scoreVal').style.display = 'block'; 
           document.getElementById('btnReveal').style.display = 'none'; 
           closeModal();
-      } else { alert('❌ Incorrect Access Code'); }
+      } else { 
+          alert('❌ Incorrect Access Code. Please try again.'); 
+      }
     };
 
     window.onclick = (e) => { if(e.target == document.getElementById('passwordModal')) closeModal(); }
