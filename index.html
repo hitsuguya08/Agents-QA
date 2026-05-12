@@ -2,119 +2,127 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>WEEKLY QA PERFORMANCE</title>
+  <title>QA Analytics | Premium Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://googleapis.com" rel="stylesheet">
   <style>
     :root {
-      --primary: #10b981; 
-      --primary-dark: #059669;
-      --bg: #0f172a;        /* Deep Navy */
-      --card: #1e293b;      /* Slate Card */
-      --text: #f1f5f9;      /* Off-white */
-      --text-muted: #94a3b8;
+      /* Base sa imong image: Mustard Yellow + Midnight Navy */
+      --primary: #f59e0b;    
+      --primary-dark: #d97706;
+      --bg: #fef3c7;         /* Warm Cream/Yellow Background */
+      --card: #0f172a;       /* Dark Navy Card */
+      --text-light: #f8fafc; 
+      --text-dark: #0f172a;
       --border: #334155;
-      --accent: #6366f1;
     }
 
     * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
     
     body { 
       font-family: 'Plus Jakarta Sans', sans-serif; 
-      background-color: var(--bg); color: var(--text); 
-      margin: 0; padding: 0; font-size: 14px; line-height: 1.6;
+      background-color: var(--bg); color: var(--text-dark); 
+      margin: 0; padding: 0; font-size: 14px;
     }
 
+    /* Top Bar - Dark Style */
     .header-main { 
       background: #020617; 
-      padding: 20px 0; text-align: center; color: white;
-      border-bottom: 4px solid var(--primary);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      padding: 20px 0; text-align: center; color: var(--primary);
+      border-bottom: 5px solid var(--primary);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
-    .header-main h1 { margin: 0; font-size: 1.1rem; font-weight: 800; letter-spacing: 1.5px; }
+    .header-main h1 { margin: 0; font-size: 1.2rem; font-weight: 800; letter-spacing: 2px; }
 
+    /* Nav Bar - Midnight Style */
     .nav-bar { 
-      background: rgba(15, 23, 42, 0.8); 
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border); 
+      background: rgba(15, 23, 42, 0.95); 
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--primary); 
       padding: 12px 0; position: sticky; top: 0; z-index: 100;
-      overflow-x: auto;
     }
     .nav-inner { display: flex; justify-content: center; gap: 10px; padding: 0 15px; flex-wrap: wrap; }
     
     .agent-pill { 
-      padding: 8px 18px; border-radius: 12px; border: 1px solid var(--border); 
-      background: #1e293b; color: var(--text-muted); font-weight: 700; 
+      padding: 8px 18px; border-radius: 30px; border: 1px solid var(--border); 
+      background: #1e293b; color: #94a3b8; font-weight: 700; 
       font-size: 0.75rem; cursor: pointer; transition: 0.3s; 
       display: flex; align-items: center; gap: 8px;
     }
-    .agent-pill:hover { background: #334155; color: white; }
-    .agent-pill.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
+    .agent-pill:hover { border-color: var(--primary); color: var(--primary); }
+    .agent-pill.active { background: var(--primary); color: var(--text-dark); border-color: var(--primary); }
     
     .dot { width: 8px; height: 8px; border-radius: 50%; }
 
-    .content-container { max-width: 900px; margin: 30px auto; padding: 0 20px 60px; }
+    .content-container { max-width: 900px; margin: 40px auto; padding: 0 20px 80px; }
 
+    /* KPI Section - Mix of Dark and Gold */
     .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
-    .kpi-box { padding: 24px 16px; border-radius: 20px; text-align: center; color: white; transition: 0.3s; }
-    .kpi-box:hover { transform: translateY(-5px); }
+    .kpi-box { padding: 25px 15px; border-radius: 24px; text-align: center; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
     
-    .kpi-1 { background: linear-gradient(135deg, #3730a3, #6366f1); } 
-    .kpi-2 { background: linear-gradient(135deg, #065f46, #10b981); } 
-    .kpi-3 { background: linear-gradient(135deg, #5b21b6, #8b5cf6); }
+    .kpi-1 { background: var(--card); color: var(--primary); border: 1px solid var(--primary); } 
+    .kpi-2 { background: var(--primary); color: var(--text-dark); } 
+    .kpi-3 { background: #334155; color: white; }
 
-    .kpi-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; opacity: 0.8; margin-bottom: 5px; }
-    .kpi-value { font-size: 1.6rem; font-weight: 800; display: flex; align-items: baseline; justify-content: center; gap: 4px; }
-    .kpi-target { font-size: 0.95rem; opacity: 0.6; font-weight: 400; }
+    .kpi-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; opacity: 0.8; }
+    .kpi-value { font-size: 1.8rem; font-weight: 800; }
 
+    /* Main Dashboard Card */
     .main-card { 
-      background: var(--card); border-radius: 24px; border: 1px solid var(--border); 
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); overflow: hidden; 
+      background: var(--card); border-radius: 32px; border: none; 
+      box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.4); overflow: hidden; color: var(--text-light);
     }
     .card-head { 
-      padding: 25px 30px; display: flex; justify-content: space-between; 
+      padding: 30px; display: flex; justify-content: space-between; 
       align-items: center; border-bottom: 1px solid var(--border); background: #1e293b;
     }
-    .card-head h2 { margin: 0; font-size: 1.4rem; font-weight: 800; color: white; }
+    .card-head h2 { margin: 0; font-size: 1.6rem; font-weight: 800; color: var(--primary); }
 
-    .unlock-btn { background: #020617; color: white; padding: 10px 18px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; }
-    .msg-btn { background: var(--accent); color: white; padding: 10px 18px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; margin-left: 8px; }
+    /* Buttons */
+    .btn-group { display: flex; gap: 10px; align-items: center; }
+    .unlock-btn { background: var(--primary); color: var(--text-dark); padding: 10px 20px; border-radius: 12px; border: none; font-weight: 800; cursor: pointer; transition: 0.2s; }
+    .msg-btn { background: transparent; color: var(--primary); border: 2px solid var(--primary); padding: 8px 20px; border-radius: 12px; font-weight: 800; cursor: pointer; }
+    .unlock-btn:hover { transform: scale(1.05); background: #fbbf24; }
 
-    .table-block { padding: 25px 30px; border-bottom: 1px solid var(--border); }
-    .table-block h3 { margin-bottom: 15px; font-size: 1rem; color: var(--text); }
-    .badge { background: #334155; padding: 5px 12px; border-radius: 8px; font-size: 0.7rem; color: #38bdf8; font-weight: 700; }
+    /* Tables */
+    .table-block { padding: 30px; border-bottom: 1px solid var(--border); }
+    .table-block h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 20px; display: flex; justify-content: space-between; }
+    .badge { background: var(--primary); color: var(--text-dark); padding: 4px 12px; border-radius: 8px; font-size: 0.7rem; font-weight: 800; }
 
     table { width: 100%; border-collapse: collapse; }
-    th { text-align: left; padding: 10px; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
-    td { padding: 15px 10px; border-top: 1px solid var(--border); color: #cbd5e1; font-size: 0.9rem; }
+    td { padding: 18px 10px; border-top: 1px solid var(--border); color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; }
 
     .quote-style { 
-      font-weight: 600; color: #d1fae5; background: #064e3b; 
+      font-weight: 600; color: #fde68a; background: #334155; 
       padding: 4px 10px; border-radius: 8px; border-left: 4px solid var(--primary); 
       display: inline-block; margin: 5px 0;
     }
 
-    .modal { display: none; position: fixed; z-index: 200; inset: 0; background:rgba(2, 6, 23, 0.8); backdrop-filter:blur(8px); justify-content:center; align-items:center; }
-    .modal-content { background:var(--card); padding:35px; border-radius:28px; width:320px; text-align:center; border: 1px solid var(--border); }
-    .modal-content input { width:100%; padding:14px; margin:20px 0; border:2px solid var(--border); background: #0f172a; color:white; border-radius:12px; text-align:center; font-size: 1.2rem; outline:none; }
+    /* Modal */
+    .modal { display: none; position: fixed; inset: 0; background:rgba(2, 6, 23, 0.85); backdrop-filter:blur(10px); z-index: 200; justify-content:center; align-items:center; }
+    .modal-content { background:var(--card); padding:40px; border-radius:30px; width:340px; text-align:center; border: 2px solid var(--primary); }
+    .modal-content input { width:100%; padding:15px; margin:20px 0; border:2px solid var(--border); background: #020617; color:white; border-radius:15px; text-align:center; font-size: 1.5rem; font-weight: 800; }
     
-    .btn-confirm { background: var(--primary); color: white; padding: 12px; border:none; border-radius:12px; width: 100%; font-weight:700; cursor:pointer; }
+    .btn-confirm { background: var(--primary); color: var(--text-dark); padding: 15px; border:none; border-radius:15px; width: 100%; font-weight:800; cursor:pointer; font-size: 1rem; }
 
     @media (max-width: 600px) { .kpi-row { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
 
-  <header class="header-main"><h1>Week 1 May QA Report</h1></header>
+  <header class="header-main"><h1>QA PERFORMANCE DASHBOARD</h1></header>
   <nav class="nav-bar"><div id="agentPills" class="nav-inner"></div></nav>
-  <div class="content-container"><div id="dashboardView"></div></div>
+  
+  <div class="content-container">
+    <div id="dashboardView"></div>
+  </div>
 
   <div id="passwordModal" class="modal">
     <div class="modal-content">
-      <h3 style="margin:0;">🔒 Security Check</h3>
+      <h3 style="color:var(--primary); margin:0;">🔐 Enter Access Code</h3>
       <input type="password" id="pwInput" placeholder="••••" maxlength="10" />
-      <button class="btn-confirm" id="btnGo">Confirm</button>
-      <p onclick="closeModal()" style="color:var(--text-muted); cursor:pointer; margin-top:15px; font-size:0.8rem;">Cancel</p>
+      <button class="btn-confirm" id="btnGo">VERIFY</button>
+      <p onclick="closeModal()" style="color:var(--text-muted); cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
     </div>
   </div>
 
@@ -130,7 +138,7 @@
         db = data.sort((a,b) => parseFloat(b.score || 0) - parseFloat(a.score || 0));
         renderPills(db);
       }).catch(err => {
-        document.getElementById('dashboardView').innerHTML = `<div style="text-align:center; padding:50px;">Check your data.json file.</div>`;
+        document.getElementById('dashboardView').innerHTML = `<div style="text-align:center; padding:50px;">Check your data.json file location.</div>`;
       });
     });
 
@@ -154,17 +162,17 @@
 
       document.getElementById('dashboardView').innerHTML = `
         <div class="kpi-row">
-            <div class="kpi-box kpi-1"><div class="kpi-label">Status</div><div class="kpi-value">ACTIVE</div></div>
-            <div class="kpi-box kpi-2"><div class="kpi-label">Long Calls</div><div class="kpi-value">${countQA} <span class="kpi-target">/ ${TARGET_QA}</span></div></div>
-            <div class="kpi-box kpi-3"><div class="kpi-label">Dispo Audits</div><div class="kpi-value">${countAudit} <span class="kpi-target">/ ${TARGET_AUDIT}</span></div></div>
+            <div class="kpi-box kpi-1"><div class="kpi-label">Agent Status</div><div class="kpi-value">ACTIVE</div></div>
+            <div class="kpi-box kpi-2"><div class="kpi-label">Long Calls</div><div class="kpi-value">${countQA} <span style="font-size:1rem; opacity:0.7;">/ ${TARGET_QA}</span></div></div>
+            <div class="kpi-box kpi-3"><div class="kpi-label">Dispo Audits</div><div class="kpi-value">${countAudit} <span style="font-size:1rem; opacity:0.7;">/ ${TARGET_AUDIT}</span></div></div>
         </div>
         <div class="main-card">
             <div class="card-head">
-                <div><h2>${agent.name}</h2><span style="color:var(--text-muted); font-size: 0.8rem;">WEEKLY PERFORMANCE Breakdown</span></div>
-                <div>
-                    <button class="unlock-btn" id="btnReveal">🔐 Reveal Score</button>
-                    <button class="msg-btn" onclick="sendInquiry()">✉️ Inquire</button>
-                    <div id="scoreVal" style="display:none; font-size: 1.8rem; font-weight: 800; color: var(--primary);">${agent.score || '0'}%</div>
+                <div><h2>${agent.name}</h2><span style="color:#94a3b8; font-size: 0.8rem; text-transform:uppercase; letter-spacing:1px;">Quality Assurance Summary</span></div>
+                <div class="btn-group">
+                    <button class="unlock-btn" id="btnReveal">🔐 SHOW SCORE</button>
+                    <button class="msg-btn" onclick="sendInquiry()">INQUIRE</button>
+                    <div id="scoreVal" style="display:none; font-size: 2.2rem; font-weight: 900; color: var(--primary);">${agent.score || '0'}%</div>
                 </div>
             </div>
             ${renderTable('Long Calls Evaluation', qas)}
@@ -172,6 +180,7 @@
         </div>`;
       
       document.getElementById('btnReveal').onclick = () => { 
+        document.getElementById('pwInput').value = '';
         document.getElementById('passwordModal').style.display = 'flex'; 
         document.getElementById('pwInput').focus(); 
       };
@@ -181,7 +190,7 @@
       const activeCount = data.filter(item => (typeof item === 'object' ? item.comment : item).toString().trim().length > 5).length;
       return `
       <div class="table-block">
-        <h3><span>${title}</span> <span class="badge">${activeCount} COMPLETED</span></h3>
+        <h3><span>${title}</span> <span class="badge">${activeCount} DONE</span></h3>
         <table>
           <tbody>
             ${data.map((item, i) => {
@@ -189,7 +198,7 @@
               txt = txt.toString().trim();
               if (txt.length <= 5) return "";
               let formatted = txt.replace(/^(\d{2}-\d{2}-\d{2})/g, '<b>$1</b>').replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>').replace(/\n/g, '<br>');
-              return `<tr><td style="width:30px; color:var(--text-muted); font-weight:800;">${i+1}</td><td>${formatted}</td></tr>`;
+              return `<tr><td style="width:40px; color:var(--primary); font-weight:800; font-size:1.1rem;">${i+1}</td><td>${formatted}</td></tr>`;
             }).join('')}
           </tbody>
         </table>
@@ -197,7 +206,7 @@
     }
 
     function sendInquiry() {
-        const subject = encodeURIComponent(`Performance Inquiry: ${activeAgent.name}`);
+        const subject = encodeURIComponent(`Inquiry: ${activeAgent.name}`);
         window.location.href = `mailto:${MY_EMAIL}?subject=${subject}`;
     }
 
@@ -208,8 +217,10 @@
           document.getElementById('scoreVal').style.display = 'block'; 
           document.getElementById('btnReveal').style.display = 'none'; 
           closeModal();
-      } else { alert('❌ Wrong Password'); }
+      } else { alert('❌ Incorrect Access Code'); }
     };
+
+    window.onclick = (e) => { if(e.target == document.getElementById('passwordModal')) closeModal(); }
   </script>
 </body>
 </html>
