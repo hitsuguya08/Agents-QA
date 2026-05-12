@@ -4,104 +4,298 @@
   <meta charset="UTF-8" />
   <title>QA Pro | Insights Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://googleapis.com" rel="stylesheet">
+  <link href="googleapis.com" rel="stylesheet">
   <style>
     :root {
-      --primary: #10b981; --bg: #f3f4f6; --text: #1e293b; 
-      --text-muted: #64748b; --border: #e2e8f0; --accent: #4f46e5;
+      --primary: #10b981; 
+      --primary-dark: #059669;
+      --bg: #f3f4f6; 
+      --card: #ffffff;
+      --text: #1e293b; 
+      --text-muted: #64748b; 
+      --border: #e2e8f0;
+      --accent: #4f46e5;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     }
+
     * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+    
     body { 
-      font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); 
-      color: var(--text); margin: 0; padding: 0; font-size: 14px; 
+      font-family: 'Plus Jakarta Sans', sans-serif; 
+      background-color: var(--bg); color: var(--text); 
+      margin: 0; padding: 0; font-size: 14px; line-height: 1.6;
     }
+
     .header-main { 
       background: linear-gradient(to right, #0f172a, #1e293b); 
-      padding: 20px 0; text-align: center; color: white; border-bottom: 4px solid var(--primary);
+      padding: 20px 0; text-align: center; color: white;
+      border-bottom: 4px solid var(--primary);
+      box-shadow: var(--shadow-md);
     }
+    .header-main h1 { 
+      margin: 0; font-size: 1.1rem; font-weight: 800; 
+      letter-spacing: 1.5px; text-transform: uppercase;
+    }
+
     .nav-bar { 
-      background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border); padding: 12px 0; position: sticky; top: 0; z-index: 100;
+      background: rgba(255, 255, 255, 0.8); 
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); 
+      padding: 12px 0; position: sticky; top: 0; z-index: 100;
+      overflow-x: auto;
     }
-    .nav-inner { display: flex; justify-content: center; gap: 10px; }
+    .nav-inner { display: flex; justify-content: center; gap: 10px; padding: 0 15px; min-width: max-content; margin: 0 auto; }
+    
     .agent-pill { 
       padding: 8px 18px; border-radius: 12px; border: 1px solid var(--border); 
-      background: white; cursor: pointer; font-weight: 700; font-size: 0.75rem;
-      transition: 0.3s; display: flex; align-items: center; gap: 8px;
+      background: white; color: var(--text-muted); font-weight: 700; 
+      font-size: 0.75rem; cursor: pointer; transition: all 0.3s ease; 
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: var(--shadow-sm);
     }
-    .agent-pill.active { background: var(--primary); color: white; }
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; }
-    .content-container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+    .agent-pill:hover { transform: translateY(-2px); border-color: var(--primary); color: var(--primary); }
+    .agent-pill.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
+    
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #cbd5e1; }
+    .active .dot { background: white; box-shadow: 0 0 8px rgba(255,255,255,0.8); }
+
+    .content-container { max-width: 900px; margin: 30px auto; padding: 0 20px 60px; }
+
     .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
-    .kpi-box { padding: 24px; border-radius: 20px; text-align: center; color: white; font-weight: 800; }
+    .kpi-box { 
+      padding: 24px 16px; border-radius: 20px; text-align: center; color: white; 
+      transition: transform 0.3s ease; position: relative; overflow: hidden;
+    }
+    .kpi-box:hover { transform: translateY(-5px); }
+    
     .kpi-1 { background: linear-gradient(135deg, #4f46e5, #818cf8); } 
     .kpi-2 { background: linear-gradient(135deg, #059669, #34d399); } 
     .kpi-3 { background: linear-gradient(135deg, #7c3aed, #a78bfa); }
-    .main-card { background: white; border-radius: 24px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); overflow: hidden; }
-    .card-head { padding: 25px; display: flex; justify-content: space-between; border-bottom: 1px solid #f1f5f9; }
-    .modal { display: none; position: fixed; z-index: 200; left:0; top:0; width:100%; height:100%; background:rgba(15,23,42,0.6); backdrop-filter:blur(8px); justify-content:center; align-items:center; }
-    .modal-content { background:white; padding:35px; border-radius:28px; width:320px; text-align:center; }
-    .btn-confirm { background: var(--primary); color: white; padding: 10px; border-radius: 8px; border: none; cursor: pointer; width: 100%; margin-top: 10px; }
-    table { width: 100%; border-collapse: collapse; }
-    th { text-align: left; color: #94a3b8; font-size: 0.7rem; padding: 10px; }
-    td { padding: 15px 10px; border-top: 1px solid #f1f5f9; }
+
+    .kpi-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.9; margin-bottom: 6px; }
+    .kpi-value { font-size: 1.6rem; font-weight: 800; display: flex; align-items: baseline; justify-content: center; gap: 4px; }
+    .kpi-target { font-size: 0.95rem; opacity: 0.7; font-weight: 400; }
+
+    .main-card { 
+      background: white; border-radius: 24px; border: 1px solid var(--border); 
+      box-shadow: var(--shadow-lg); overflow: hidden; 
+    }
+    .card-head { 
+      padding: 25px 30px; display: flex; justify-content: space-between; 
+      align-items: center; border-bottom: 1px solid #f1f5f9; background: #fafafa;
+    }
+    .card-head h2 { margin: 0; font-size: 1.4rem; font-weight: 800; color: #0f172a; }
+
+    .btn-group { display: flex; gap: 10px; align-items: center; }
+    .unlock-btn, .msg-btn { 
+      padding: 10px 18px; border-radius: 12px; font-weight: 700; 
+      font-size: 0.8rem; cursor: pointer; transition: all 0.2s; border: none;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .unlock-btn { background: #0f172a; color: white; }
+    .unlock-btn:hover { background: #334155; }
+    .msg-btn { background: var(--accent); color: white; }
+    .msg-btn:hover { background: #4338ca; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); }
+
+    .table-block { padding: 25px 30px; border-bottom: 1px solid #f8fafc; }
+    .table-block:last-child { border-bottom: none; }
+    .table-block h3 { margin: 0 0 16px 0; font-size: 1rem; font-weight: 700; color: #334155; display: flex; justify-content: space-between; align-items: center; }
+    .badge { background: #e0f2fe; padding: 5px 12px; border-radius: 8px; font-size: 0.7rem; color: #0369a1; font-weight: 700; }
+
+    table { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
+    th { text-align: left; padding: 0 10px 10px; font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
+    td { 
+      padding: 15px 10px; background: #ffffff; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9;
+      font-size: 0.9rem; color: #475569;
+    }
+    td:first-child { border-left: 1px solid #f1f5f9; border-radius: 12px 0 0 12px; }
+    td:last-child { border-right: 1px solid #f1f5f9; border-radius: 0 12px 12px 0; }
+
+    .num-col { width: 50px; text-align: center; font-weight: 800; color: #cbd5e1; font-size: 1.1rem; }
+
+    .quote-style { 
+      font-weight: 600; color: #065f46; background: #ecfdf5; 
+      padding: 6px 12px; border-radius: 10px; border-left: 4px solid var(--primary); 
+      display: inline-block; margin: 5px 0; font-size: 0.85rem;
+    }
+
+    .modal { display: none; position: fixed; z-index: 200; left:0; top:0; width:100%; height:100%; background:rgba(15,23,42,0.4); backdrop-filter:blur(8px); justify-content:center; align-items:center; }
+    .modal-content { background:white; padding:35px; border-radius:28px; width:320px; text-align:center; box-shadow: var(--shadow-lg); border: 1px solid var(--border); }
+    .modal-content input { width:100%; padding:14px; margin:20px 0; border:2px solid #f1f5f9; border-radius:12px; text-align:center; font-size: 1.2rem; outline:none; font-weight: 800; }
+    .modal-content input:focus { border-color: var(--primary); }
+    
+    .btn-row { display: flex; gap: 10px; }
+    .btn-row button { flex:1; padding: 12px; border:none; border-radius: 12px; font-weight:700; cursor:pointer; font-size: 0.85rem; }
+    .btn-confirm { background: var(--primary); color: white; }
+    .btn-cancel { background: #f1f5f9; color: #64748b; }
+
+    @media (max-width: 600px) { 
+      .kpi-row { grid-template-columns: 1fr; }
+      .card-head { flex-direction: column; gap: 15px; text-align: center; }
+    }
   </style>
 </head>
 <body>
-  <header class="header-main"><h1>QA PERFORMANCE INSIGHTS</h1></header>
-  <nav class="nav-bar"><div id="agentPills" class="nav-inner"></div></nav>
-  <div class="content-container"><div id="dashboardView"></div></div>
+
+  <header class="header-main">
+    <h1>QA PERFORMANCE INSIGHTS</h1>
+  </header>
+
+  <nav class="nav-bar">
+    <div id="agentPills" class="nav-inner"></div>
+  </nav>
+
+  <div class="content-container">
+    <div id="dashboardView"></div>
+  </div>
 
   <div id="passwordModal" class="modal">
     <div class="modal-content">
-      <h3>🔒 Security Check</h3>
-      <input type="password" id="pwInput" style="width:100%; padding:10px; margin:10px 0;" placeholder="••••" />
-      <button class="btn-confirm" id="btnGo">Confirm</button>
-      <button onclick="closeModal()" style="background:none; border:none; color:gray; cursor:pointer; margin-top:10px;">Cancel</button>
+      <div style="margin-bottom: 15px;">
+        <div style="font-size: 2rem; margin-bottom: 10px;">🔒</div>
+        <h3 style="margin:0; font-size: 1.1rem; color: var(--text);">Security Check</h3>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin: 5px 0;">Please enter your access code</p>
+      </div>
+      <input type="password" id="pwInput" placeholder="••••" maxlength="10" />
+      <div class="btn-row">
+        <button class="btn-confirm" id="btnGo">Confirm</button>
+        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      </div>
     </div>
   </div>
 
   <script>
-    // Mismo nga code sa Part 2 script... (I-paste diri ang script gikan sa miaging chat)
     let db = [];
     let activeAgent = null;
     const TARGET_QA = 15;
     const TARGET_AUDIT = 20;
+    const MY_EMAIL = "hitsuguya08@gmail.com"; 
 
     window.addEventListener('DOMContentLoaded', () => {
       fetch('data.json').then(r => r.json()).then(data => {
-        db = data;
+        db = data.sort((a,b) => parseFloat(b.score || 0) - parseFloat(a.score || 0));
         renderPills(db);
       }).catch(err => {
-        document.getElementById('dashboardView').innerHTML = "Check if data.json exists in the same folder.";
+        console.error("Error loading JSON:", err);
+        document.getElementById('dashboardView').innerHTML = `<div style="text-align:center; padding:50px; color:var(--text-muted);">Error loading data.json</div>`;
       });
     });
 
+    function cleanName(n) { 
+        if(!n) return "Unnamed Agent";
+        return n.split('(')[0].trim(); 
+    }
+
     function renderPills(agents) {
-      const box = document.getElementById('agentPills');
+      const box = document.getElementById('agentPills'); 
+      box.innerHTML = '';
       agents.forEach((agent, i) => {
-        const pill = document.createElement('div');
+        const pill = document.createElement('div'); 
         pill.className = 'agent-pill';
-        pill.innerHTML = `<div class="dot"></div> ${agent.name}`;
-        pill.onclick = () => { renderAgent(agent); };
-        box.appendChild(pill);
-        if(i===0) pill.click();
+        const s = parseFloat(agent.score || 0);
+        const colorClass = s >= 90 ? '#10b981' : (s >= 80 ? '#f59e0b' : '#ef4444');
+        
+        pill.innerHTML = `<div class="dot" style="background:${colorClass}"></div> ${cleanName(agent.name)}`;
+        pill.onclick = () => { 
+          renderAgent(agent); 
+          [...box.children].forEach(el => el.classList.remove('active')); 
+          pill.classList.add('active'); 
+        };
+        box.appendChild(pill); 
+        if(i === 0 && !activeAgent) pill.click();
       });
     }
 
     function renderAgent(agent) {
+      activeAgent = agent;
+      const qas = agent.qa || []; 
+      const audits = agent.audits || [];
+      const countQA = qas.filter(x => (typeof x === 'object' ? x.comment : x).toString().trim().length > 5).length;
+      const countAudit = audits.filter(x => (typeof x === 'object' ? x.comment : x).toString().trim().length > 5).length;
+
       document.getElementById('dashboardView').innerHTML = `
         <div class="kpi-row">
-          <div class="kpi-box kpi-1">STATUS: ACTIVE</div>
-          <div class="kpi-box kpi-2">QA: ${agent.qa.length}</div>
-          <div class="kpi-box kpi-3">AUDITS: ${agent.audits.length}</div>
+            <div class="kpi-box kpi-1"><div class="kpi-label">Current Status</div><div class="kpi-value">ACTIVE</div></div>
+            <div class="kpi-box kpi-2"><div class="kpi-label">Long Calls</div><div class="kpi-value">${countQA} <span class="kpi-target">/ ${TARGET_QA}</span></div></div>
+            <div class="kpi-box kpi-3"><div class="kpi-label">Dispo Audits</div><div class="kpi-value">${countAudit} <span class="kpi-target">/ ${TARGET_AUDIT}</span></div></div>
         </div>
         <div class="main-card">
-          <div class="card-head"><h2>${agent.name}</h2></div>
-          <div style="padding:20px;"><table><tr><th>Feedback</th></tr>${agent.qa.map(q => `<tr><td>${q}</td></tr>`).join('')}</table></div>
+            <div class="card-head">
+                <div>
+                  <h2>${cleanName(agent.name)}</h2>
+                  <span style="color:var(--text-muted); font-weight:600; font-size: 0.8rem; text-transform: uppercase; letter-spacing:1px;">Performance Breakdown</span>
+                </div>
+                <div class="btn-group">
+                    <button class="unlock-btn" id="btnReveal">🔐 Reveal Score</button>
+                    <button class="msg-btn" onclick="sendInquiry()">✉️ Inquire</button>
+                    <div class="score-txt" id="scoreVal" style="display:none; font-size: 1.8rem; color: var(--primary); font-weight: 800;">${agent.score || '0'}%</div>
+                </div>
+            </div>
+            ${renderTable('Long Calls Evaluation', qas)}
+            ${renderTable('Dispo Audits', audits)}
         </div>`;
+      
+      document.getElementById('btnReveal').onclick = () => { 
+          document.getElementById('pwInput').value = ''; 
+          document.getElementById('passwordModal').style.display = 'flex'; 
+          document.getElementById('pwInput').focus(); 
+      };
     }
+
+    function renderTable(title, data) {
+      const activeCount = data.filter(item => (typeof item === 'object' ? item.comment : item).toString().trim().length > 5).length;
+      return `
+      <div class="table-block">
+        <h3><span>${title}</span> <span class="badge">${activeCount} COMPLETED</span></h3>
+        <table>
+          <thead>
+            <tr><th class="num-col">#</th><th>Evaluation Details & Feedback</th></tr>
+          </thead>
+          <tbody>
+            ${data.map((item, i) => {
+              // GINA-FIX ANG [object Object] DIRE:
+              let txt = (typeof item === 'object' ? item.comment : item) || ""; 
+              txt = txt.toString().trim();
+              if (txt.length <= 5) return `<tr><td class="num-col">${i+1}</td><td><span style="color:#cbd5e1; font-style: italic;">No feedback recorded</span></td></tr>`;
+              
+              let formatted = txt
+                .replace(/^(\d{2}-\d{2}-\d{2})/g, '<b>$1</b>')
+                .replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>')
+                .replace(/\n/g, '<br>');
+                
+              return `<tr><td class="num-col">${i+1}</td><td>${formatted}</td></tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>`;
+    }
+
+    function sendInquiry() {
+        if(!activeAgent) return;
+        const name = cleanName(activeAgent.name);
+        const subject = encodeURIComponent(`Performance Inquiry: ${name}`);
+        const body = encodeURIComponent(`Hi TL,\n\nI would like to discuss my recent evaluations.\n\nAgent: ${name}\n\nQuestions/Concerns:\n- `);
+        window.location.href = `mailto:${MY_EMAIL}?subject=${subject}&body=${body}`;
+    }
+
     function closeModal() { document.getElementById('passwordModal').style.display = 'none'; }
+    
+    document.getElementById('btnGo').onclick = () => {
+      const inputPw = document.getElementById('pwInput').value.trim();
+      if(activeAgent && inputPw === activeAgent.password.toString()) {
+          document.getElementById('scoreVal').style.display = 'block'; 
+          document.getElementById('btnReveal').style.display = 'none'; 
+          closeModal();
+      } else { 
+          alert('❌ Incorrect Password. Please try again.'); 
+      }
+    };
+
+    window.onclick = (event) => {
+      if (event.target == document.getElementById('passwordModal')) closeModal();
+    }
   </script>
 </body>
 </html>
