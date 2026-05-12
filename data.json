@@ -1,39 +1,39 @@
 [
   {
     "name": "J. Años",
-    "score": "63.98%",
+    "score": "49.92%",
     "password": "Jowsip2026",
     "qa": [
       {
-        "phone": "",
-        "comment": "GOOD CALL"
+        "phone": "3148993114",
+        "comment": "Pitch   @ 00:45   Cust said \" All right Matt. \"   The agent pressed 41 - Imm No instead of proceed. \n\nSurvey Own Home   @ 01:47   There was a some delay."
       },
       {
-        "phone": "",
-        "comment": "GOOD CALL"
+        "phone": "5072363998",
+        "comment": "Note:  Survey Own Home: Cust said \" Mhm-uh \"   Survey Home Type   @ 02:31   Cust said \" No, a stick built home, a stick built brick home \"   The agent pressed 32 - Unsure (Own Home screen) instead of proceed."
       },
       {
-        "phone": "",
-        "comment": "GOOD CALLGOOD CALL"
+        "phone": "5138371251",
+        "comment": "Pitch   @ 01:13   There was a major delay."
       },
       {
-        "phone": "",
-        "comment": "GOOD CALL"
+        "phone": "5169720285",
+        "comment": "Greetings   @ 00:16   Slight delay."
       },
       {
-        "phone": "",
-        "comment": "GOOD CALL"
+        "phone": "2087314883",
+        "comment": "TCPA   after ^ Defer   @ 03:06   Cust said \" Well if you're just trying to sell me Windows. I can't afford it so I don't wanna waste your time or my time. I'm retired. I'm on a fixed it.(stopped) then proceed \" I'm on a fixed income and I can't afford, Like a ton for windows. \"   The agent pressed 64 - Don't Need Now instead of 41 - Imm No.   @ 03:53   Cust said \" Well, you didn't answer my question. I don't want to waste my time and I don't want to waste their time. They're gonna try to just sell me thousands of dollars' worth of windows. I'm telling you right now I can't do it, so let's not waste any time.\"   The agent pressed $ How Much + 32 Quick Repeat instead of 43 - Final No. Compliance: Call Agressiveness - CAT2."
       },
       {
-        "phone": "7206530877",
-        "comment": "PITCH at 01:15 Slight delay. WINDOWS\n\nHOME TYPE at 03:18 after repeat cust said \"They're gonna come and replace my windows. I'm in a program to add up to, to Commerce City that they're gonna replace my windows.\" agent pressed ^ (Deferment rnd 2) + Proceed instead of 85 (Already have a qoute) +  Proceed. WINDOWS \n\nTCPA not fully played at 04:19 Cust interrupted and then at 05:10 after 60 (TTS), cust answer \"Okay, okay thank you\" agent pressed 32 (Quick Repeat) instead of 31 (LR-TCPA). WINDOWS"
+        "phone": "5083336196",
+        "comment": "Pitch   @ 00:43   There was a major delay."
       },
       {
-        "phone": "4057197818",
-        "comment": "MAIN REASON at 01:14 Cust said \"Oh, because, my one on my windows, but they have like a big crack, so I just wanna replace it.\" agent pressed Repeat, Then the cust repeated \"I'm saying like there's like a crack on the on the window from the outside so I just wanna replace it if there's any.\" agent Proceed instead of End The Call. WINDOW \n\nUnder Compliance - Not Qualified tagged as SALE. WINDOW"
+        "phone": "8608597814",
+        "comment": "Pitch   @ 00:40   Cust interrupted and said \" Okay, the mistake was mine, I guess, because I have a broken window. So all I was looking for was glass replacement. So I made the assumption that's what I was doing when I put in that type of thing. I just needed a window the glass replaced. But now I'm getting. Now I'm getting phone calls from all sorts of places that want me to replace all the windows in my house. I, I don't want that.\"   The agent pressed 41 - Imm No instead of End the call politely. (Not Qualified).   NOTE: @ 01:25   Cust interrupted and said \" No, it's, it's amazing. It's amazing. It really is amazing. You guys are amazing. So what I need is a piece of glass. And, I get calls wanting. I don't need that...\"   The agent pressed 42 - Imm No instead of End the call politely. (Not Qualified). \n\nThis call should have been disposed as NQ."
       },
       {
-        "phone": "",
+        "phone": "5405265885",
         "comment": "GOOD CALL"
       },
       {
@@ -67,51 +67,51 @@
     ],
     "audits": [
       {
-        "phone": "6156001524",
-        "comment": "Agent disposed the call as DA instead of CB.  WINDOW"
+        "phone": "9198171753",
+        "comment": "The agent disposed the call as AM instead of DA."
       },
       {
-        "phone": "",
+        "phone": "3252346521",
+        "comment": "The agent disposed the call as AM instead of CB."
+      },
+      {
+        "phone": "5392521883",
+        "comment": "The agent disposed the call as AM instead of CB."
+      },
+      {
+        "phone": "9048930319",
+        "comment": "The agent disposed the call as CB instead of DA."
+      },
+      {
+        "phone": "5713405029",
         "comment": "GOOD CALL"
       },
       {
-        "phone": "",
+        "phone": "7408024322",
         "comment": "GOOD CALL"
       },
       {
-        "phone": "",
+        "phone": "4692866842",
+        "comment": "The agent delayed 6 seconds in disposing the call."
+      },
+      {
+        "phone": "2539484629",
+        "comment": "The agent disposed the call as DA instead of CB."
+      },
+      {
+        "phone": "4698752827",
+        "comment": "The agent disposed the call as DA instead of CB; delayed 6 seconds in disposing the call."
+      },
+      {
+        "phone": "9543950707",
         "comment": "GOOD CALL"
       },
       {
-        "phone": "",
+        "phone": "8652560775",
         "comment": "GOOD CALL"
       },
       {
-        "phone": "",
-        "comment": "GOOD CALL"
-      },
-      {
-        "phone": "",
-        "comment": "GOOD CALL"
-      },
-      {
-        "phone": "",
-        "comment": "GOOD CALL"
-      },
-      {
-        "phone": "",
-        "comment": "GOOD CALL"
-      },
-      {
-        "phone": "",
-        "comment": "GOOD CALL"
-      },
-      {
-        "phone": "",
-        "comment": "GOOD CALL"
-      },
-      {
-        "phone": "",
+        "phone": "9043797689",
         "comment": "GOOD CALL"
       },
       {
@@ -150,48 +150,48 @@
   },
   {
     "name": "S. Fuentes",
-    "score": "86.10%",
+    "score": "93.98%",
     "password": "10988343",
     "qa": [
       {
-        "phone": "9168723232",
+        "phone": "9049820802",
+        "comment": "GOOD CALL"
+      },
+      {
+        "phone": "4055035979",
+        "comment": "GREETINGS  @0:07  Slight delay in playing silent rule."
+      },
+      {
+        "phone": "8605189279",
+        "comment": "GOOD CALL"
+      },
+      {
+        "phone": "5078484978",
+        "comment": "PITCH  @0:52  Slight delay."
+      },
+      {
+        "phone": "6145542608",
+        "comment": "PITCH  @01:00  & @01:11  Slight delay  ;  @02:56  Some delay applying silent rule."
+      },
+      {
+        "phone": "7072105462",
+        "comment": "TCPA  @04:39  Slight delay  ;  @06:04  Slight delay."
+      },
+      {
+        "phone": "7737912374",
+        "comment": "GOOD CALL"
+      },
+      {
+        "phone": "7193735550",
         "comment": "GOOD CALL"
       },
       {
         "phone": "",
-        "comment": "GOOD CALL"
-      },
-      {
-        "phone": "3073494787",
-        "comment": "PITCH - @1:05 Cx said \"Oh, yeah, I think I only had a minute, but, if you wanna call me after 4 that would be fine.\",  agent pressed  (No need)  instead of   (Vey Busy)(pressed Busy@00:21) , ;PC-WI"
+        "comment": ""
       },
       {
         "phone": "",
-        "comment": "GOOD CALL"
-      },
-      {
-        "phone": "9132757558",
-        "comment": "SURVEY - MAIN REASON - @1:08 Bumping key , ;WI"
-      },
-      {
-        "phone": "5617335344",
-        "comment": "SURVEY - MAIN REASON - @1:24 Bumping key , ;WI"
-      },
-      {
-        "phone": "9045055448",
-        "comment": "PITCH - @00:48 Slight delay in applying the silent rule , ;WI"
-      },
-      {
-        "phone": "8033237396",
-        "comment": "GREETINGS - @00:16 Bumping key , ;WI"
-      },
-      {
-        "phone": "",
-        "comment": "GOOD CALL"
-      },
-      {
-        "phone": "7197238718",
-        "comment": "PITCH - @1:02-1:06 Talking over , ;WI"
+        "comment": ""
       },
       {
         "phone": "",
@@ -216,12 +216,12 @@
     ],
     "audits": [
       {
-        "phone": "7024724546",
-        "comment": "Agent disposed the call as  CB  instead of  LB --(Gender match) , ;WI"
+        "phone": "5072105608",
+        "comment": "Agent has a missed option."
       },
       {
-        "phone": "2629940592",
-        "comment": "Agent disposed the call as  CB  instead of  NQ , ;WI"
+        "phone": "",
+        "comment": "GOOD CALL"
       },
       {
         "phone": "",
@@ -299,40 +299,40 @@
   },
   {
     "name": "L. Guansing",
-    "score": "79.61%",
+    "score": "80.52%",
     "password": "5560guansinG!",
     "qa": [
       {
-        "phone": "3178698823",
-        "comment": "PITCH  @01:49  after 64(Don't Need Now)  cust said, \"Okay,,,I'm actually,,\"  agent attempted to proceed but then cust interrupted and said,  \"Yeah, if you wanna call back that's fine. I'm, I'm just at the grocery store right now.\"  agent pressed   b(Busy)  instead of  ending the call.  **already used 2rnds of how get**  --Call Aggressiveness--  WIFR"
+        "phone": "6129642551",
+        "comment": "Pre-Transfer @ 03:23 - slight delay in applying silent rule"
       },
       {
-        "phone": "",
+        "phone": "9037923649",
+        "comment": "Main Reason @ 00:53 - slight delay in applying silent rule; @ 01:13 - major delay"
+      },
+      {
+        "phone": "9047133717",
+        "comment": "Own Home @ 01:41 - slight delay - WI"
+      },
+      {
+        "phone": "9842913834",
         "comment": "GOOD CALL"
       },
       {
-        "phone": "3094029266",
-        "comment": "TCPA  @03:26  after 2nd rnd of r(Repeat)  cust said,  \"I was looking for government assistance, for replacing my windows.\"  agent pressed ](No Problem)  +  32(Quick Repeat)  instead of   67(Gov't Assistance)  +  32(Quick Repeat).  WIFR"
+        "phone": "3036192922",
+        "comment": "TCPA @ 03:47 - slight delay"
       },
       {
-        "phone": "",
-        "comment": "GOOD CALL"
+        "phone": "3259394255",
+        "comment": "Greetings @ 00:19 - slight delay; @ 00:31 - bumping key\n\nTCPA @ 02:37 - some delay - WI"
       },
       {
-        "phone": "3303532514",
-        "comment": "TCPA  @03:50  cust said,  \"Yeah, I, I normally don't answer calls like this one. I, I don't know why I did, to be honest with you, because if I don't know who's on the other end, I don't answer if they, you know, if they need to be, they could leave a voicemail, but so I won't promise that I will answer my phone because I often don't.\"  agent pressed  42(Imm No x2)  instead of  5(WI - What Comp)  +  32(Quick Repeat)  ;  PRE TRANSFER  @04:54  cust said,  \"No, no, it's too early in the morning for me. I'm retired and I just got up. I'm not ready for this right now my husband isn't available he isn't up yet so. No, they can try and they can call back and if I answer I answer and if I don't, they can leave a message.\"  agent some delay in pressing  43(Final No)  instead of  :(TF Busy).  WIFR"
+        "phone": "3052814107",
+        "comment": "Own Home @ 01:51 - slight delay - WI"
       },
       {
-        "phone": "9312246132",
-        "comment": "GREETINGS  @0:13  Slight delay.  WIFR"
-      },
-      {
-        "phone": "",
-        "comment": "GOOD CALL"
-      },
-      {
-        "phone": "",
-        "comment": "GOOD CALL"
+        "phone": "4199242260",
+        "comment": "Main Reason @ 00:59 cx said \"I can't afford anything now I'm and I probably won't ever be able to afford anything….\" Agent pressed 41 (Imm No) instead of 64 (Don't Need Now) - WI"
       },
       {
         "phone": "",
@@ -365,6 +365,34 @@
     ],
     "audits": [
       {
+        "phone": "4177572821",
+        "comment": "Agent has major delay @ 00:00 - 00:29 - WI"
+      },
+      {
+        "phone": "2243979330",
+        "comment": "Agent disposed the call as NI1 instead of A - WI"
+      },
+      {
+        "phone": "6627360976",
+        "comment": "Agent disposed the call as DA instead of A. Delay dispo for 20secs - WI"
+      },
+      {
+        "phone": "",
+        "comment": "GOOD CALL"
+      },
+      {
+        "phone": "",
+        "comment": "GOOD CALL"
+      },
+      {
+        "phone": "",
+        "comment": "GOOD CALL"
+      },
+      {
+        "phone": "",
+        "comment": "GOOD CALL"
+      },
+      {
         "phone": "",
         "comment": "GOOD CALL"
       },
@@ -386,7 +414,128 @@
       },
       {
         "phone": "",
+        "comment": ""
+      },
+      {
+        "phone": "",
+        "comment": ""
+      },
+      {
+        "phone": "",
+        "comment": ""
+      },
+      {
+        "phone": "",
+        "comment": ""
+      },
+      {
+        "phone": "",
+        "comment": ""
+      },
+      {
+        "phone": "",
+        "comment": ""
+      },
+      {
+        "phone": "",
+        "comment": ""
+      },
+      {
+        "phone": "",
+        "comment": ""
+      }
+    ]
+  },
+  {
+    "name": "C. Omandam",
+    "score": "75.06%",
+    "password": "",
+    "qa": [
+      {
+        "phone": "",
         "comment": "GOOD CALL"
+      },
+      {
+        "phone": "6208994156",
+        "comment": "Pitch   @ 00:35    Cust said \" Are you, is this a rec, is it well just so you're aware you have the wrong number because we aren't doing any type of f***ing remodeling so I'll know where you're getting that from. So I hope you got that on the recording.\"   The agent pressed 88 - Wrong Number instead of 41 - Imm No.   Date Posted: (SB) BR RV"
+      },
+      {
+        "phone": "9126740031",
+        "comment": "Pre Transfer   @ 03:16   There was a major delay.   Date Posted: (SB) HW RV"
+      },
+      {
+        "phone": "9108242164",
+        "comment": "Survey Benefits   @ 01:57   The agent failed to apply silent rule."
+      },
+      {
+        "phone": "3369773721",
+        "comment": "CPA   @ 03:15   Slight delay in applying silent rule;   @ 03:24   After applying silent rule the agent should dispo right away the call. - Tagged as timing Issue."
+      },
+      {
+        "phone": "3372249073",
+        "comment": "Survey Benefits   @ 02:16   The agent slight delay in applying the silent rule."
+      },
+      {
+        "phone": "7628227465",
+        "comment": "Survey Own Home   @ 01:19   Cust said \" Yeah, but I'm not interested in that. I had bad experience with home warranties and stuff, so I'm not gonna deal with that no more. Thank you.\"   The agent pressed 41 - Imm No instead of End call politely."
+      },
+      {
+        "phone": "9198426055",
+        "comment": "Survey Add-Up   @ 01:59   There was a some delay."
+      },
+      {
+        "phone": "",
+        "comment": ""
+      },
+      {
+        "phone": "",
+        "comment": ""
+      },
+      {
+        "phone": "",
+        "comment": ""
+      },
+      {
+        "phone": "",
+        "comment": ""
+      },
+      {
+        "phone": "",
+        "comment": ""
+      },
+      {
+        "phone": "",
+        "comment": ""
+      },
+      {
+        "phone": "",
+        "comment": ""
+      }
+    ],
+    "audits": [
+      {
+        "phone": "3136050337",
+        "comment": "There is a missed option at 00:17."
+      },
+      {
+        "phone": "9156302438",
+        "comment": "The agent disposed the call LB instead of CB. (gender mismatched)."
+      },
+      {
+        "phone": "2156813479",
+        "comment": "The agent disposed the call LB instead of CB. (gender mismatched)."
+      },
+      {
+        "phone": "8045170446",
+        "comment": "The agent disposed the call as NI2 instead of CB."
+      },
+      {
+        "phone": "7029291121",
+        "comment": "The agent disposed the call as CB instead of NI2."
+      },
+      {
+        "phone": "5163042345",
+        "comment": "There was a missed option @ 00:12."
       },
       {
         "phone": "",
