@@ -10,7 +10,6 @@
       --primary: #f59e0b;    --bg: #fef3c7;
       --card: #0f172a;       --text-light: #f8fafc;
       --text-dark: #0f172a;  --border: #334155;
-      --neon-green: #10b981; /* Green color gikan sa imong Photoshop */
     }
     * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: var(--text-dark); margin: 0; padding: 0; }
@@ -38,10 +37,9 @@
     .kpi-2 { background: var(--primary); color: var(--text-dark); } 
     .kpi-3 { background: #334155; color: white; }
 
-    /* DESIGN GIKAN SA PHOTOSHOP */
-    .kpi-label { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; opacity: 0.9; letter-spacing: 1.5px; }
-    .kpi-1 .kpi-label { color: #94a3b8; } /* Week Label color */
-    .kpi-1 .kpi-value { color: var(--neon-green); font-size: 2.2rem; } /* Month color */
+    /* LAYOUT BALIK SA KARAAN NGA COLORS */
+    .kpi-label { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; opacity: 0.8; letter-spacing: 1.5px; color: #94a3b8; }
+    .kpi-1 .kpi-value { color: var(--primary); font-size: 2.2rem; } /* Puli sa Neon Green to Gold */
     
     .kpi-value { font-size: 2rem; font-weight: 900; line-height: 1; text-transform: uppercase; }
     
