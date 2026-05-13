@@ -43,7 +43,7 @@
     .kpi-2 { background: var(--primary); color: var(--text-dark); } 
     .kpi-3 { background: #334155; color: white; }
 
-    .kpi-label { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; color: #ffffff !important; letter-spacing: 1.5px; }
+    .kpi-label { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; color: #ffffff !important; letter-spacing: 1.5px; opacity: 1; }
     .kpi-2 .kpi-label { color: #0f172a !important; opacity: 0.8; }
     .kpi-1 .kpi-value { color: var(--primary); }
     .kpi-value { font-size: 2rem; font-weight: 900; line-height: 1; text-transform: uppercase; }
@@ -88,19 +88,30 @@
   <header class="header-main">
     <div style="width: 100px;"></div>
     <h1>AGENT ANALYTICS PORTAL</h1>
-    <button onclick="checkAdminAccess()" class="admin-btn">ADMIN ONLY</button>
+    <button onclick="openAdminModal()" class="admin-btn">ADMIN ONLY</button>
   </header>
 
   <nav class="nav-bar"><div id="agentPills" class="nav-inner"></div></nav>
   <div class="content-container"><div id="dashboardView"></div></div>
 
-  <!-- Password Modal -->
+  <!-- Agent Password Modal -->
   <div id="passwordModal" class="modal">
     <div class="modal-content">
       <h3 style="color:var(--primary); margin:0;">🔐 UNLOCK SCORES</h3>
       <input type="password" id="pwInput" placeholder="••••" />
       <button class="btn-verify" onclick="verifyAndShowScores()">VERIFY ACCESS</button>
-      <p onclick="closeModal()" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
+      <p onclick="closeModal('passwordModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
+    </div>
+  </div>
+
+  <!-- Admin Password Modal (Bagay na ang design!) -->
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
+      <h3 style="color:var(--primary); margin:0;">🚨 ADMIN ACCESS</h3>
+      <p style="color:#94a3b8; font-size:0.75rem; margin-top:10px;">Security Verification Required</p>
+      <input type="password" id="adminPwInput" placeholder="••••" />
+      <button class="btn-verify" onclick="verifyAdmin()">ACCESS EDITOR</button>
+      <p onclick="closeModal('adminModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
     </div>
   </div>
 
@@ -147,7 +158,7 @@
                 <div class="kpi-value">${monthDisplay}</div>
             </div>
             <div class="kpi-box kpi-2">
-                <div class="kpi-label">LONG CALLS</div>
+                <div class="kpi-label">WEEKLY QA</div>
                 <div class="kpi-value" style="color:var(--text-dark)">${qas.length}</div>
             </div>
             <div class="kpi-box kpi-3">
@@ -163,7 +174,7 @@
                 </div>
                 <div class="btn-group">
                     <button class="inquire-btn" onclick="sendInquiry()">✉️ INQUIRE</button>
-                    <button class="unlock-btn" onclick="openModal()">🔐 UNLOCK SCORE</button>
+                    <button class="unlock-btn" onclick="openAgentModal()">🔐 UNLOCK SCORE</button>
                     <div id="scoreBreakdown" style="display:none;"></div>
                 </div>
             </div>
@@ -187,15 +198,18 @@
       window.location.href = `mailto:${MY_EMAIL}?subject=${subject}`;
     }
 
-    function checkAdminAccess() {
-      const ADMIN_CODE = "Jeikaaru-08!"; // PWEDE NIMO USBON KINI
-      const access = prompt("🔐 Enter Admin Security Code:");
-      if (access === ADMIN_CODE) { window.location.href = "admin.html"; }
-      else if (access !== null) { alert("❌ Unauthorized Access Denied."); }
-    }
+    // MODAL HANDLERS
+    function openAgentModal() { document.getElementById('pwInput').value = ''; document.getElementById('passwordModal').style.display = 'flex'; document.getElementById('pwInput').focus(); }
+    function openAdminModal() { document.getElementById('adminPwInput').value = ''; document.getElementById('adminModal').style.display = 'flex'; document.getElementById('adminPwInput').focus(); }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-    function openModal() { document.getElementById('pwInput').value = ''; document.getElementById('passwordModal').style.display = 'flex'; document.getElementById('pwInput').focus(); }
-    function closeModal() { document.getElementById('passwordModal').style.display = 'none'; }
+    // VERIFY ADMIN (KINI ANG GUSTO NIMO)
+    function verifyAdmin() {
+      const ADMIN_CODE = "adminaccess123"; // PWEDE NIMO USBON KINI
+      const input = document.getElementById('adminPwInput').value;
+      if (input === ADMIN_CODE) { window.location.href = "admin.html"; } 
+      else { alert("❌ Unauthorized Access Denied."); closeModal('adminModal'); }
+    }
 
     function verifyAndShowScores() {
       const inputPw = document.getElementById('pwInput').value.trim();
@@ -215,10 +229,14 @@
             </div>`;
           document.getElementById('scoreBreakdown').style.display = 'block'; 
           document.querySelector('.unlock-btn').style.display = 'none'; 
-          closeModal();
+          closeModal('passwordModal');
       } else { alert('❌ Incorrect Access Code'); }
     }
-    window.onclick = (e) => { if(e.target == document.getElementById('passwordModal')) closeModal(); }
+
+    window.onclick = (e) => { 
+        if(e.target == document.getElementById('passwordModal')) closeModal('passwordModal');
+        if(e.target == document.getElementById('adminModal')) closeModal('adminModal');
+    }
   </script>
 </body>
 </html>
