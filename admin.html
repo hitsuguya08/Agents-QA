@@ -25,7 +25,7 @@
     .form-section { background: #f8fafc; padding: 25px; border-radius: 20px; margin-bottom: 30px; border: 1px solid #e2e8f0; }
     .form-section h3 { margin-top: 0; font-size: 0.8rem; text-transform: uppercase; color: #64748b; letter-spacing: 1px; margin-bottom: 20px; }
 
-    /* Score Grid Fix */
+    /* Score Grid Styles */
     .score-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; background: #1e293b; padding: 25px; border-radius: 20px; margin-bottom: 20px; }
     .score-grid label { color: var(--primary); margin-bottom: 8px; font-size: 0.7rem; font-weight: 800; display: block; }
     .score-grid input { 
@@ -33,7 +33,7 @@
       padding: 15px; border-radius: 12px; text-align: center; font-weight: 800; font-size: 1.3rem; width: 100%;
     }
 
-    /* Inputs */
+    /* Input Styles */
     .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
     label { display: block; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; color: var(--navy); }
     input, textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; font-family: inherit; font-size: 0.9rem; transition: 0.3s; color: var(--navy); }
@@ -44,6 +44,7 @@
     .btn-add { background: var(--primary); color: var(--navy); border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; margin-top: 10px; }
     .btn-clear { background: #fee2e2; color: #ef4444; border: 1px solid #fecaca; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; }
 
+    /* Modal for JSON Output */
     .json-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; padding: 50px; justify-content: center; align-items: center; }
     .json-content { background: var(--navy); width: 100%; max-width: 700px; border-radius: 25px; padding: 35px; border: 1px solid var(--primary); }
     textarea#jsonOutput { background: #020617; color: #10b981; border: none; height: 300px; font-family: monospace; width: 100%; padding: 20px; margin-top: 15px; border-radius: 12px; }
@@ -67,18 +68,27 @@
     </div>
     
     <div id="editorContent" class="scroll-content" style="display:none;">
+        <!-- BASIC INFORMATION SECTION -->
         <div class="form-section">
             <h3>Basic Information</h3>
             <div class="grid-inputs">
                 <div><label>Agent Name</label><input type="text" id="editName" oninput="saveAndSync()"></div>
                 <div><label>Dashboard Password</label><input type="text" id="editPass" oninput="saveAndSync()"></div>
             </div>
-            <div style="margin-top:10px;">
-                <label>Current Month Label (e.g., MAY, JUNE)</label>
-                <input type="text" id="editMonth" oninput="saveAndSync()" placeholder="MAY" style="width: 200px; text-transform: uppercase;">
+            <!-- Month & Week Label Inputs -->
+            <div class="grid-inputs" style="margin-top:10px;">
+                <div>
+                    <label>Current Month (e.g., MAY)</label>
+                    <input type="text" id="editMonth" oninput="saveAndSync()" placeholder="MAY" style="text-transform: uppercase;">
+                </div>
+                <div>
+                    <label>Current Week (e.g., WEEK 1)</label>
+                    <input type="text" id="editWeekLabel" oninput="saveAndSync()" placeholder="WEEK 1" style="text-transform: uppercase;">
+                </div>
             </div>
         </div>
 
+        <!-- WEEKLY SCORES SECTION -->
         <div class="form-section">
             <h3>Weekly Scores (MTD Tracking)</h3>
             <div class="score-grid">
@@ -89,6 +99,7 @@
             </div>
         </div>
 
+        <!-- FEEDBACK SECTION -->
         <div class="form-section">
             <h3>Latest Feedback</h3>
             <label>QA Evaluations</label>
@@ -102,9 +113,11 @@
     </div>
   </div>
 
+  <!-- JSON Export Modal -->
   <div id="jsonModal" class="json-modal">
     <div class="json-content">
         <h2 style="color:var(--primary); margin:0;">✅ JSON Ready</h2>
+        <p style="color:#94a3b8; font-size: 0.85rem;">I-copy kini ug i-paste sa imong GitHub <b>data.json</b></p>
         <textarea id="jsonOutput" readonly onclick="this.select()"></textarea>
         <div style="display:flex; gap:10px; margin-top:25px;">
             <button class="btn-save" style="flex:1;" onclick="copyJSON()">Copy Code</button>
@@ -145,10 +158,14 @@
 
       document.getElementById('editorContent').style.display = 'block';
       document.getElementById('editingTitle').innerText = "Editing: " + agent.name;
+      
+      // Load Basic Info
       document.getElementById('editName').value = agent.name;
       document.getElementById('editPass').value = agent.password;
       document.getElementById('editMonth').value = agent.month || "MAY";
+      document.getElementById('editWeekLabel').value = agent.week_label || "WEEK 1";
       
+      // Load Weekly Scores
       document.getElementById('w1').value = agent.weekly.week1.score;
       document.getElementById('w2').value = agent.weekly.week2.score;
       document.getElementById('w3').value = agent.weekly.week3.score;
@@ -184,6 +201,7 @@
       db[selectedIndex].name = document.getElementById('editName').value;
       db[selectedIndex].password = document.getElementById('editPass').value;
       db[selectedIndex].month = document.getElementById('editMonth').value.toUpperCase();
+      db[selectedIndex].week_label = document.getElementById('editWeekLabel').value.toUpperCase();
       saveToLocal();
       renderSidebar();
     }
@@ -203,17 +221,26 @@
 
     function clearPerformanceData() {
       if(selectedIndex === -1) return;
-      if(!confirm("Reset weekly scores and current feedback?")) return;
+      if(!confirm("I-reset ang scores ug feedback para sa maong agent?")) return;
       db[selectedIndex].weekly = { week1:{score:0}, week2:{score:0}, week3:{score:0}, week4:{score:0} };
       db[selectedIndex].qa = [];
       db[selectedIndex].audits = [];
       db[selectedIndex].month = "MAY";
+      db[selectedIndex].week_label = "WEEK 1";
       selectAgent(selectedIndex);
       saveToLocal();
     }
 
     function addNewAgent() {
-      db.push({ name: "New Agent", password: "123", month: "MAY", weekly: { week1:{score:0}, week2:{score:0}, week3:{score:0}, week4:{score:0} }, qa: [], audits: [] });
+      db.push({ 
+        name: "New Agent", 
+        password: "123", 
+        month: "MAY", 
+        week_label: "WEEK 1",
+        weekly: { week1:{score:0}, week2:{score:0}, week3:{score:0}, week4:{score:0} }, 
+        qa: [], 
+        audits: [] 
+      });
       saveToLocal();
       renderSidebar();
     }
