@@ -96,14 +96,12 @@
         <div class="form-section">
             <h3 id="currentWeekTitle">WEEK 1 DATA</h3>
             
-            <div style="background: var(--navy); padding: 12px 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--primary); display: flex; align-items: center; justify-content: space-between;">
+           <div style="background: var(--navy); padding: 8px 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--primary); display: flex; align-items: center; justify-content: space-between; max-width: 400px;">
     <label style="color:var(--primary); font-size: 0.75rem; font-weight: 800; margin: 0;">WEEKLY QA SCORE (%)</label>
     <input type="number" id="weeklyScoreInput" 
-           style="background:#020617; color:var(--primary); border:1px solid var(--primary); font-size: 1.1rem; text-align: center; font-weight: 800; width: 100px; padding: 5px; border-radius: 8px;" 
+           style="background:#020617; color:var(--primary); border:1px solid var(--primary); font-size: 1rem; text-align: center; font-weight: 800; width: 80px; padding: 5px; border-radius: 8px;" 
            oninput="updateWeeklyScore(this.value)">
 </div>
-
-
             <h3>QA Evaluations</h3>
             <div id="qaContainer"></div>
             <button class="btn-add" onclick="addRow('qa')">+ Add QA Feedback</button>
