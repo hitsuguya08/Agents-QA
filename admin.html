@@ -37,8 +37,10 @@
     
     /* Theme Customizer */
     .theme-box { background: #1e293b; padding: 20px; border-radius: 20px; margin-bottom: 25px; border: 2px solid var(--primary); color: white; }
-    .theme-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 10px; }
-    .color-input { width: 100%; height: 45px; border: none; border-radius: 10px; cursor: pointer; background: #020617; padding: 5px; }
+    .preset-btn { border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.65rem; font-weight: 800; transition: 0.2s; }
+    .preset-btn:hover { transform: translateY(-2px); filter: brightness(1.2); }
+    .theme-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
+    .color-input { width: 100%; height: 40px; border: none; border-radius: 8px; cursor: pointer; background: #020617; padding: 4px; }
 
     .tabs-container { display: flex; gap: 10px; margin-bottom: 25px; background: #f1f5f9; padding: 10px; border-radius: 15px; }
     .tab-btn { flex: 1; padding: 12px; border: none; border-radius: 10px; cursor: pointer; font-weight: 800; color: #64748b; background: transparent; transition: 0.3s; }
@@ -49,7 +51,6 @@
     .btn-add { background: var(--primary); color: var(--navy); border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; margin-top: 10px; }
     
     .form-section { background: #f8fafc; padding: 25px; border-radius: 20px; margin-bottom: 30px; border: 1px solid #e2e8f0; }
-    .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     label { display: block; font-weight: 700; font-size: 0.7rem; margin-bottom: 8px; color: #94a3b8; text-transform: uppercase; }
     input, textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; color: var(--navy); font-family: inherit; }
     .row-number { background: var(--navy); color: var(--primary); font-weight: 800; padding: 12px; border-radius: 12px; min-width: 45px; text-align: center; }
@@ -80,25 +81,33 @@
     </div>
     
     <div class="scroll-content">
-        <!-- GLOBAL THEME CUSTOMIZER -->
+        <!-- AUTOMATIC THEME PRESETS -->
         <div class="theme-box">
-            <h3 style="margin:0; font-size:0.9rem; color:var(--primary);">🎨 GLOBAL THEME COLORS</h3>
+            <h3 style="margin:0; font-size:0.85rem; color:var(--primary); letter-spacing:1px;">🎨 AUTO-THEME PRESETS</h3>
+            <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="preset-btn" onclick="setTheme('#f59e0b', '#fef3c7', '#0f172a')" style="background:#f59e0b; color:#0f172a;">AMBER GOLD</button>
+                <button class="preset-btn" onclick="setTheme('#10b981', '#ecfdf5', '#064e3b')" style="background:#10b981; color:white;">EMERALD</button>
+                <button class="preset-btn" onclick="setTheme('#3b82f6', '#eff6ff', '#1e3a8a')" style="background:#3b82f6; color:white;">OCEAN</button>
+                <button class="preset-btn" onclick="setTheme('#ef4444', '#fef2f2', '#450a0a')" style="background:#ef4444; color:white;">CRIMSON</button>
+                <button class="preset-btn" onclick="setTheme('#8b5cf6', '#f5f3ff', '#2e1065')" style="background:#8b5cf6; color:white;">ROYAL</button>
+                <button class="preset-btn" onclick="setTheme('#ffffff', '#111827', '#1f2937')" style="background:#374151; color:white;">DARK MODE</button>
+            </div>
             <div class="theme-grid">
-                <div><label>Primary (Amber)</label><input type="color" id="themePrimary" class="color-input" onchange="saveAndSync()"></div>
+                <div><label>Primary</label><input type="color" id="themePrimary" class="color-input" onchange="saveAndSync()"></div>
                 <div><label>Background</label><input type="color" id="themeBg" class="color-input" onchange="saveAndSync()"></div>
-                <div><label>Card/Nav Color</label><input type="color" id="themeCard" class="color-input" onchange="saveAndSync()"></div>
+                <div><label>Card/Nav</label><input type="color" id="themeCard" class="color-input" onchange="saveAndSync()"></div>
             </div>
         </div>
 
         <div id="editorContent" style="display:none;">
             <div class="form-section">
                 <h3>Basic Information</h3>
-                <div class="grid-inputs">
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
                     <div><label style="color:var(--navy)">Agent Name</label><input type="text" id="editName" oninput="saveAndSync()"></div>
                     <div><label style="color:var(--navy)">Password</label><input type="text" id="editPass" oninput="saveAndSync()"></div>
                 </div>
                 <div style="margin-top: 15px;">
-                    <label style="color:var(--navy)">Display Month (e.g. MAY)</label>
+                    <label style="color:var(--navy)">Display Month</label>
                     <input type="text" id="editMonth" oninput="saveAndSync()" placeholder="MAY">
                 </div>
             </div>
@@ -112,16 +121,13 @@
 
             <div class="form-section">
                 <h3 id="currentWeekTitle" style="color:var(--navy)">WEEK 1 DATA</h3>
-                <div style="background: var(--navy); padding: 10px 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--primary); display: flex; align-items: center; justify-content: space-between; max-width: 400px;">
-                    <label style="color:var(--primary); font-size: 0.75rem; font-weight: 800; margin: 0;">WEEKLY QA SCORE (%)</label>
+                <div style="background: var(--navy); padding: 8px 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--primary); display: flex; align-items: center; justify-content: space-between; max-width: 400px;">
+                    <label style="color:var(--primary); font-size: 0.7rem; font-weight: 800; margin: 0;">WEEKLY SCORE (%)</label>
                     <input type="number" id="weeklyScoreInput" style="background:#020617; color:var(--primary); border:1px solid var(--primary); font-size: 1rem; text-align: center; font-weight: 800; width: 80px; padding: 5px; border-radius: 8px;" oninput="updateWeeklyScore(this.value)">
                 </div>
-
-                <h3>QA Evaluations</h3>
                 <div id="qaContainer"></div>
                 <button class="btn-add" onclick="addRow('qa')">+ Add QA Feedback</button>
-                <h3 style="margin-top:40px;">Dispo Audits</h3>
-                <div id="auditContainer"></div>
+                <div id="auditContainer" style="margin-top:30px;"></div>
                 <button class="btn-add" onclick="addRow('audits')">+ Add Audit Entry</button>
             </div>
         </div>
@@ -145,13 +151,12 @@
     let currentWeek = 'week1';
 
     window.addEventListener('DOMContentLoaded', () => {
-      const savedData = localStorage.getItem('qa_dashboard_mtd_data_v2');
+      const savedData = localStorage.getItem('qa_dashboard_mtd_data_v3');
       if (savedData) { 
         db = JSON.parse(savedData); 
         if(!db.theme) db.theme = { primary: "#f59e0b", bg: "#fef3c7", card: "#0f172a" };
         applyThemeInputs(); renderSidebar(); 
-      }
-      else { 
+      } else { 
         fetch('data.json').then(r => r.json()).then(data => { 
           db = data.agents ? data : { theme: db.theme, agents: data };
           saveToLocal(); applyThemeInputs(); renderSidebar(); 
@@ -159,12 +164,18 @@
       }
     });
 
-    function saveToLocal() { localStorage.setItem('qa_dashboard_mtd_data_v2', JSON.stringify(db)); }
-    
+    function saveToLocal() { localStorage.setItem('qa_dashboard_mtd_data_v3', JSON.stringify(db)); }
     function applyThemeInputs() {
       document.getElementById('themePrimary').value = db.theme.primary;
       document.getElementById('themeBg').value = db.theme.bg;
       document.getElementById('themeCard').value = db.theme.card;
+    }
+
+    function setTheme(p, b, c) {
+      document.getElementById('themePrimary').value = p;
+      document.getElementById('themeBg').value = b;
+      document.getElementById('themeCard').value = c;
+      saveAndSync();
     }
 
     function renderSidebar() {
@@ -225,9 +236,9 @@
       const container = document.getElementById(type === 'qa' ? 'qaContainer' : 'auditContainer');
       container.innerHTML = data.map((item, i) => `
         <div style="margin-bottom:12px; display:flex; gap:12px;">
-            <div class="row-number">${i + 1}</div>
-            <textarea oninput="updateItem('${type}', ${i}, this.value)" style="flex:1; min-height:80px;">${item}</textarea>
-            <button onclick="removeItem('${type}', ${i})" style="color:#ef4444; background:none; border:none; cursor:pointer; font-weight:800; font-size:1.2rem;">✕</button>
+            <div class="row-number" style="min-width:35px; height:35px; font-size:0.7rem;">${i + 1}</div>
+            <textarea oninput="updateItem('${type}', ${i}, this.value)" style="flex:1; min-height:60px;">${item}</textarea>
+            <button onclick="removeItem('${type}', ${i})" style="color:#ef4444; background:none; border:none; cursor:pointer; font-weight:800;">✕</button>
         </div>`).join('');
     }
 
