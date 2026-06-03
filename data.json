@@ -105,7 +105,7 @@
             "GOOD CALL",
             "GOOD CALL",
             "GOOD CALL",
-            "Tagging a SALE call into a NON-SALE call.  WI",
+            "Tagging a SALE call into a NON-SALE call.  WI (FOR DISPUTE)",
             "INTRO  @0:40  cust said,  \"I'm under the weather today. I have COVID.\"  agent pressed  b(Busy)  instead of  v(Very busy).  PC BR"
           ],
           "audits": [
@@ -324,7 +324,7 @@
             "GOOD CALL",
             "GREETINGS after 41(Imm No x1)  @0:30  cust said,  \"Well, I just got, I had to dirt after one of the hurricanes down here, I had to break a window to get back in the house. So that was all fine and good, anderson window came out, they did their measurements, blah blah blah, talked me into buying 2,2,2 other, 3 other windows, small, not big, and I got a total bill of $17,000. Can you imagine? And I, I asked, I asked everybody, in between Tampa and Sarasota and down here in Inglewood, I, I asked friends, neighbors. Have you ever bought a window? Well, yeah, occasionally, you know, found two guys that bought windows. Well, how much were they? Well, one window was about 6, maybe 700. The other one was around 5. I said, well, I bought 4,4 windows for 17,000, and the guy said, Anderson? I said, yeah, yeah they brag about being the best. They ought to brag about being the most expensive.\"  agent  end the call instead   $(How Much)  +  7(What's About).  WI",
             "GOOD CALL",
-            " PITCH  @01:04  after r(Repeat) cust said,  \"I don't, I don't think I remember it. I don't write it down. I'm saying there's a million advertisements out there now on the radio and television. We replace the windows if you're a veteran, if you're this, if you're that, there's almost no cost. They're all full of it, I know that. So if you're gonna go into a thing and it's gonna run into 1000, you get it, I'm not interested.\"  agent pressed  4(Not Interested)  instead of  66(How Much).  PC WI \n\nMAIN REASON  @02:03  cust said,  \"I said they're 50 years old. I live in Kings Point. It's a pretty old place. I mean, I don't live here that long, but the place is 50 years old, the windows and everything kind of changed their touch.\"  agent pressed  x(Exit)  instead of  proceed.  PC WI"
+            " PITCH  @01:04  after r(Repeat) cust said,  \"I don't, I don't think I remember it. I don't write it down. I'm saying there's a million advertisements out there now on the radio and television. We replace the windows if you're a veteran, if you're this, if you're that, there's almost no cost. They're all full of it, I know that. So if you're gonna go into a thing and it's gonna run into 1000, you get it, I'm not interested.\"  agent pressed  4(Not Interested)  instead of  66(How Much).  PC WI (FOR DISPUTE)\n\nMAIN REASON  @02:03  cust said,  \"I said they're 50 years old. I live in Kings Point. It's a pretty old place. I mean, I don't live here that long, but the place is 50 years old, the windows and everything kind of changed their touch.\"  agent pressed  x(Exit)  instead of  proceed.  PC WI"
           ],
           "audits": [
             "GOOD CALL",
