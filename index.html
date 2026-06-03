@@ -50,6 +50,10 @@
     .card-head { padding: 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: #1e293b; }
     .card-head h2 { margin: 0; font-size: 1.5rem; font-weight: 800; color: var(--primary); }
 
+    .btn-group { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .inquire-btn { background: transparent; color: var(--primary); border: 2px solid var(--primary); padding: 8px 18px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.75rem; transition: 0.3s; }
+    .unlock-btn { background: var(--primary); color: var(--text-dark); padding: 10px 20px; border-radius: 12px; border: none; font-weight: 800; cursor: pointer; font-size: 0.8rem; }
+
     .mtd-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; background: #020617; padding: 15px; border-radius: 16px; border: 1px solid var(--primary); margin-top: 15px; width: 100%; }
     .mtd-item { text-align: center; }
     .mtd-label { font-size: 0.6rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; }
@@ -65,8 +69,6 @@
     .modal-content { background:var(--card); padding:40px; border-radius:30px; width:340px; text-align:center; border: 2px solid var(--primary); }
     .modal-content input { width:100%; padding:15px; margin:20px 0; border:2px solid var(--border); background: #020617; color:white; border-radius:15px; text-align:center; font-size: 1.5rem; font-weight: 800; outline: none; }
     .btn-verify { background: var(--primary); color: var(--text-dark); padding: 15px; border:none; border-radius:15px; width: 100%; font-weight:800; cursor:pointer; }
-    
-    @media (max-width: 600px) { .kpi-row { grid-template-columns: 1fr; } .card-head { flex-direction: column; gap: 15px; text-align: center; } }
   </style>
 </head>
 <body>
@@ -106,6 +108,7 @@
     let db = [];
     let activeAgent = null;
     let currentViewWeek = 'week1';
+    let isUnlocked = false; // Persistent Unlock Flag
     const MY_EMAIL = "hitsuguya08@gmail.com"; 
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -127,6 +130,8 @@
 
     function selectAgent(agent, element) {
       activeAgent = agent;
+      isUnlocked = false; // Reset lock kung mobalhin og laing agent
+      currentViewWeek = 'week1';
       document.querySelectorAll('.agent-pill').forEach(el => el.classList.remove('active'));
       element.classList.add('active');
       renderDashboard();
@@ -150,8 +155,8 @@
       document.getElementById('dashboardView').innerHTML = `
         <div class="kpi-row">
             <div class="kpi-box kpi-1"><div class="kpi-label">WEEKLY SCORE</div><div class="kpi-value">${currentScore}%</div></div>
-            <div class="kpi-box kpi-2"><div class="kpi-label">LONG CALLS</div><div class="kpi-value" style="color:var(--text-dark)">${qas.length}</div></div>
-            <div class="kpi-box kpi-3"><div class="kpi-label">DISPO AUDITS</div><div class="kpi-value">${audits.length}</div></div>
+            <div class="kpi-box kpi-2"><div class="kpi-label">QA EVALS</div><div class="kpi-value" style="color:var(--text-dark)">${qas.length}</div></div>
+            <div class="kpi-box kpi-3"><div class="kpi-label">AUDITS</div><div class="kpi-value">${audits.length}</div></div>
         </div>
 
         <div class="dashboard-tabs">
@@ -165,8 +170,10 @@
             <div class="card-head">
                 <div><h2>${activeAgent.name}</h2></div>
                 <div class="btn-group">
-                    <button class="unlock-btn" onclick="openAgentModal()">🔐 UNLOCK MTD SCORES</button>
-                    <div id="scoreBreakdown" style="display:none;"></div>
+                    <button class="inquire-btn" onclick="sendInquiry()">✉️ CLARIFY FEEDBACK</button>
+                    <div id="unlockArea">
+                        ${isUnlocked ? renderScoreGrid() : '<button class="unlock-btn" onclick="openAgentModal()">🔐 UNLOCK MTD SCORES</button>'}
+                    </div>
                 </div>
             </div>
             ${renderTable('QA Feedback (' + currentViewWeek.toUpperCase() + ')', qas)}
@@ -174,14 +181,35 @@
         </div>`;
     }
 
+    function renderScoreGrid() {
+      const wd = activeAgent.weekly_data;
+      const s1 = parseFloat(wd.week1.score || 0), s2 = parseFloat(wd.week2.score || 0), s3 = parseFloat(wd.week3.score || 0), s4 = parseFloat(wd.week4.score || 0);
+      const allS = [s1, s2, s3, s4].filter(s => s > 0);
+      const mtd = allS.length > 0 ? (allS.reduce((a,b) => a+b, 0) / allS.length).toFixed(2) : "0.00";
+
+      return `
+        <div class="mtd-grid">
+            <div class="mtd-item"><div class="mtd-label">W1</div><div class="mtd-val">${s1}%</div></div>
+            <div class="mtd-item"><div class="mtd-label">W2</div><div class="mtd-val">${s2}%</div></div>
+            <div class="mtd-item"><div class="mtd-label">W3</div><div class="mtd-val">${s3}%</div></div>
+            <div class="mtd-item"><div class="mtd-label">W4</div><div class="mtd-val">${s4}%</div></div>
+            <div class="mtd-item" style="border-left:1px solid #334155"><div class="mtd-label" style="color:var(--primary)">MTD</div><div class="mtd-val" style="color:var(--primary); font-size:1rem;">${mtd}%</div></div>
+        </div>`;
+    }
+
     function renderTable(title, data) {
-      if(data.length === 0) return `<div class="table-block"><h3>${title}</h3><p style="color:#64748b; font-size:0.85rem;">No entries recorded for this week.</p></div>`;
+      if(data.length === 0) return `<div class="table-block"><h3>${title}</h3><p style="color:#64748b; font-size:0.85rem;">No entries recorded.</p></div>`;
       return `<div class="table-block"><h3>${title}</h3><table><tbody>
         ${data.map((item, i) => {
           let formatted = item.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
           return `<tr><td style="width:35px; color:var(--primary); font-weight:800;">${i+1}</td><td>${formatted}</td></tr>`;
         }).join('')}
       </tbody></table></div>`;
+    }
+
+    function sendInquiry() {
+      const subject = encodeURIComponent(`QA Inquiry: ${activeAgent.name} (${currentViewWeek.toUpperCase()})`);
+      window.location.href = `mailto:${MY_EMAIL}?subject=${subject}`;
     }
 
     function openAgentModal() { document.getElementById('pwInput').value = ''; document.getElementById('passwordModal').style.display = 'flex'; }
@@ -196,21 +224,8 @@
     function verifyAndShowScores() {
       const inputPw = document.getElementById('pwInput').value.trim();
       if(activeAgent && inputPw === activeAgent.password.toString().trim()) {
-          const wd = activeAgent.weekly_data;
-          const s1 = parseFloat(wd.week1.score || 0), s2 = parseFloat(wd.week2.score || 0), s3 = parseFloat(wd.week3.score || 0), s4 = parseFloat(wd.week4.score || 0);
-          const allS = [s1, s2, s3, s4].filter(s => s > 0);
-          const mtd = allS.length > 0 ? (allS.reduce((a,b) => a+b, 0) / allS.length).toFixed(2) : "0.00";
-
-          document.getElementById('scoreBreakdown').innerHTML = `
-            <div class="mtd-grid">
-                <div class="mtd-item"><div class="mtd-label">W1</div><div class="mtd-val">${s1}%</div></div>
-                <div class="mtd-item"><div class="mtd-label">W2</div><div class="mtd-val">${s2}%</div></div>
-                <div class="mtd-item"><div class="mtd-label">W3</div><div class="mtd-val">${s3}%</div></div>
-                <div class="mtd-item"><div class="mtd-label">W4</div><div class="mtd-val">${s4}%</div></div>
-                <div class="mtd-item" style="border-left:1px solid #334155"><div class="mtd-label" style="color:var(--primary)">MTD</div><div class="mtd-val" style="color:var(--primary); font-size:1rem;">${mtd}%</div></div>
-            </div>`;
-          document.getElementById('scoreBreakdown').style.display = 'block'; 
-          document.querySelector('.unlock-btn').style.display = 'none'; 
+          isUnlocked = true;
+          renderDashboard(); // Refresh para mapulihan ang button sa score grid
           closeModal('passwordModal');
       } else { alert('❌ Incorrect Access Code'); }
     }
