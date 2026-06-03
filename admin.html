@@ -35,22 +35,19 @@
     .editor-header { padding: 20px 40px; background: white; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
     .scroll-content { padding: 40px; overflow-y: auto; flex: 1; }
     
-    /* Tabs System */
     .tabs-container { display: flex; gap: 10px; margin-bottom: 25px; background: #f1f5f9; padding: 10px; border-radius: 15px; }
-    .tab-btn { 
-      flex: 1; padding: 12px; border: none; border-radius: 10px; cursor: pointer; 
-      font-weight: 800; color: #64748b; background: transparent; transition: 0.3s; 
-    }
+    .tab-btn { flex: 1; padding: 12px; border: none; border-radius: 10px; cursor: pointer; font-weight: 800; color: #64748b; background: transparent; transition: 0.3s; }
     .tab-btn.active { background: var(--navy); color: var(--primary); }
 
-    /* Forms */
     .btn-save { background: var(--navy); color: var(--primary); border: none; padding: 12px 25px; border-radius: 12px; font-weight: 800; cursor: pointer; }
     .btn-dashboard { background: transparent; color: var(--navy); border: 2px solid var(--navy); padding: 10px 20px; border-radius: 12px; font-weight: 800; text-decoration: none; font-size: 0.8rem; }
     .btn-add { background: var(--primary); color: var(--navy); border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+    
     .form-section { background: #f8fafc; padding: 25px; border-radius: 20px; margin-bottom: 30px; border: 1px solid #e2e8f0; }
     .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    label { display: block; font-weight: 700; font-size: 0.75rem; margin-bottom: 8px; color: var(--navy); text-transform: uppercase; }
     input, textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; color: var(--navy); font-family: inherit; }
-    .row-number { background: var(--navy); color: var(--primary); font-weight: 800; padding: 12px; border-radius: 12px; min-width: 45px; text-align: center; display: flex; align-items: center; justify-content: center; }
+    .row-number { background: var(--navy); color: var(--primary); font-weight: 800; padding: 12px; border-radius: 12px; min-width: 45px; text-align: center; }
 
     .json-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; padding: 50px; justify-content: center; align-items: center; }
     .json-content { background: var(--navy); width: 100%; max-width: 700px; border-radius: 25px; padding: 35px; border: 1px solid var(--primary); }
@@ -78,11 +75,16 @@
     </div>
     
     <div id="editorContent" class="scroll-content" style="display:none;">
+        <!-- BASIC INFO WITH MONTH -->
         <div class="form-section">
             <h3>Basic Information</h3>
             <div class="grid-inputs">
                 <div><label>Agent Name</label><input type="text" id="editName" oninput="saveAndSync()"></div>
                 <div><label>Password</label><input type="text" id="editPass" oninput="saveAndSync()"></div>
+            </div>
+            <div style="margin-top: 15px;">
+                <label>Display Month (e.g. MAY, JUNE)</label>
+                <input type="text" id="editMonth" oninput="saveAndSync()" placeholder="MAY">
             </div>
         </div>
 
@@ -95,13 +97,11 @@
 
         <div class="form-section">
             <h3 id="currentWeekTitle">WEEK 1 DATA</h3>
-            
-           <div style="background: var(--navy); padding: 8px 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--primary); display: flex; align-items: center; justify-content: space-between; max-width: 400px;">
-    <label style="color:var(--primary); font-size: 0.75rem; font-weight: 800; margin: 0;">WEEKLY QA SCORE (%)</label>
-    <input type="number" id="weeklyScoreInput" 
-           style="background:#020617; color:var(--primary); border:1px solid var(--primary); font-size: 1rem; text-align: center; font-weight: 800; width: 80px; padding: 5px; border-radius: 8px;" 
-           oninput="updateWeeklyScore(this.value)">
-</div>
+            <div style="background: var(--navy); padding: 10px 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--primary); display: flex; align-items: center; justify-content: space-between; max-width: 400px;">
+                <label style="color:var(--primary); font-size: 0.75rem; font-weight: 800; margin: 0;">WEEKLY QA SCORE (%)</label>
+                <input type="number" id="weeklyScoreInput" style="background:#020617; color:var(--primary); border:1px solid var(--primary); font-size: 1rem; text-align: center; font-weight: 800; width: 80px; padding: 5px; border-radius: 8px;" oninput="updateWeeklyScore(this.value)">
+            </div>
+
             <h3>QA Evaluations</h3>
             <div id="qaContainer"></div>
             <button class="btn-add" onclick="addRow('qa')">+ Add QA Feedback</button>
@@ -113,13 +113,13 @@
   </div>
 
   <div id="exportModal" class="json-modal"><div class="json-content">
-      <h2>✅ JSON Ready</h2>
+      <h2 style="color:var(--primary); margin:0;">✅ JSON Ready</h2>
       <textarea id="jsonOutput" class="json-area" readonly onclick="this.select()"></textarea>
       <div style="display:flex; gap:10px; margin-top:25px;"><button class="btn-save" style="flex:1;" onclick="copyJSON()">Copy Code</button><button class="btn-save" style="background:#334155; color:white;" onclick="closeModal('exportModal')">Close</button></div>
   </div></div>
 
   <div id="importModal" class="json-modal"><div class="json-content">
-      <h2>📥 Import JSON</h2>
+      <h2 style="color:var(--primary); margin:0;">📥 Import JSON</h2>
       <textarea id="jsonInput" class="json-area" placeholder="Paste JSON here..."></textarea>
       <div style="display:flex; gap:10px; margin-top:25px;"><button class="btn-save" style="flex:1; background:#10b981; color:white;" onclick="processImport()">IMPORT</button><button class="btn-save" style="background:#334155; color:white;" onclick="closeModal('importModal')">Cancel</button></div>
   </div></div>
@@ -141,8 +141,7 @@
         <div class="agent-item ${i === selectedIndex ? 'active' : ''}" onclick="selectAgent(${i})">
           <span>${a.name}</span>
           <button class="btn-del-agent" onclick="deleteAgent(${i}, event)">✕</button>
-        </div>
-      `).join('');
+        </div>`).join('');
     }
 
     function selectAgent(index) {
@@ -153,6 +152,7 @@
       document.getElementById('editingTitle').innerText = "Editing: " + a.name;
       document.getElementById('editName').value = a.name;
       document.getElementById('editPass').value = a.password;
+      document.getElementById('editMonth').value = a.month || "MAY";
       switchTab(currentWeek);
       renderSidebar();
     }
@@ -189,7 +189,14 @@
     }
 
     function updateItem(type, index, val) { db[selectedIndex].weekly_data[currentWeek][type][index] = val; saveToLocal(); }
-    function saveAndSync() { if(selectedIndex === -1) return; db[selectedIndex].name = document.getElementById('editName').value; db[selectedIndex].password = document.getElementById('editPass').value; saveToLocal(); renderSidebar(); }
+    function saveAndSync() {
+      if(selectedIndex === -1) return;
+      db[selectedIndex].name = document.getElementById('editName').value;
+      db[selectedIndex].password = document.getElementById('editPass').value;
+      db[selectedIndex].month = document.getElementById('editMonth').value.toUpperCase();
+      saveToLocal(); renderSidebar();
+    }
+
     function addRow(type) { db[selectedIndex].weekly_data[currentWeek][type].push("GOOD CALL"); renderList(type, db[selectedIndex].weekly_data[currentWeek][type]); saveToLocal(); }
     function removeItem(type, index) { db[selectedIndex].weekly_data[currentWeek][type].splice(index, 1); renderList(type, db[selectedIndex].weekly_data[currentWeek][type]); saveToLocal(); }
     function showExport() { document.getElementById('jsonOutput').value = JSON.stringify(db, null, 2); document.getElementById('exportModal').style.display = 'flex'; }
@@ -197,8 +204,8 @@
     function processImport() { try { db = JSON.parse(document.getElementById('jsonInput').value); saveToLocal(); renderSidebar(); closeModal('importModal'); alert("Imported!"); } catch(e) { alert("Error!"); } }
     function copyJSON() { navigator.clipboard.writeText(document.getElementById('jsonOutput').value); alert("Copied!"); }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-    function addNewAgent() { db.push({ name: "New Agent", password: "123", weekly_data: { week1:{score:0,qa:[],audits:[]}, week2:{score:0,qa:[],audits:[]}, week3:{score:0,qa:[],audits:[]}, week4:{score:0,qa:[],audits:[]} } }); saveToLocal(); renderSidebar(); }
-    function clearWeeklyData() { if(confirm(`Reset all data for ${currentWeek.toUpperCase()}?`)) { db[selectedIndex].weekly_data[currentWeek] = { score: 0, qa: [], audits: [] }; switchTab(currentWeek); saveToLocal(); } }
+    function addNewAgent() { db.push({ name: "New Agent", password: "123", month: "MAY", weekly_data: { week1:{score:0,qa:[],audits:[]}, week2:{score:0,qa:[],audits:[]}, week3:{score:0,qa:[],audits:[]}, week4:{score:0,qa:[],audits:[]} } }); saveToLocal(); renderSidebar(); }
+    function clearWeeklyData() { if(confirm(`Reset?`)) { db[selectedIndex].weekly_data[currentWeek] = { score: 0, qa: [], audits: [] }; switchTab(currentWeek); saveToLocal(); } }
   </script>
 </body>
 </html>
