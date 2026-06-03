@@ -128,14 +128,49 @@
       });
     }
 
-    function selectAgent(agent, element) {
-      activeAgent = agent;
-      isUnlocked = false; // Reset lock kung mobalhin og laing agent
-      currentViewWeek = 'week1';
-      document.querySelectorAll('.agent-pill').forEach(el => el.classList.remove('active'));
-      element.classList.add('active');
-      renderDashboard();
+      function renderDashboard() {
+      if(!activeAgent.weekly_data) {
+          activeAgent.weekly_data = { week1:{score:0,qa:[],audits:[]}, week2:{score:0,qa:[],audits:[]}, week3:{score:0,qa:[],audits:[]}, week4:{score:0,qa:[],audits:[]} };
+      }
+      
+      const weekly = activeAgent.weekly_data[currentViewWeek];
+      const qas = weekly.qa || [];
+      const audits = weekly.audits || [];
+      const currentScore = weekly.score || 0;
+
+      document.getElementById('dashboardView').innerHTML = `
+        <div class="kpi-row">
+            <div class="kpi-box kpi-1"><div class="kpi-label">WEEKLY SCORE</div><div class="kpi-value">${currentScore}%</div></div>
+            <div class="kpi-box kpi-2"><div class="kpi-label">QA EVALS</div><div class="kpi-value" style="color:var(--text-dark)">${qas.length}</div></div>
+            <div class="kpi-box kpi-3"><div class="kpi-label">AUDITS</div><div class="kpi-value">${audits.length}</div></div>
+        </div>
+
+        <div class="dashboard-tabs">
+            <button class="dash-tab-btn ${currentViewWeek === 'week1' ? 'active' : ''}" onclick="switchDashboardWeek('week1')">WEEK 1</button>
+            <button class="dash-tab-btn ${currentViewWeek === 'week2' ? 'active' : ''}" onclick="switchDashboardWeek('week2')">WEEK 2</button>
+            <button class="dash-tab-btn ${currentViewWeek === 'week3' ? 'active' : ''}" onclick="switchDashboardWeek('week3')">WEEK 3</button>
+            <button class="dash-tab-btn ${currentViewWeek === 'week4' ? 'active' : ''}" onclick="switchDashboardWeek('week4')">WEEK 4</button>
+        </div>
+
+        <div class="main-card">
+            <div class="card-head" style="flex-direction: column; align-items: flex-start; gap: 20px; padding: 30px;">
+                <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                    <h2 style="margin:0;">${activeAgent.name}</h2>
+                    <div class="btn-group">
+                        <button class="inquire-btn" onclick="sendInquiry()">✉️ CLARIFY FEEDBACK</button>
+                        ${!isUnlocked ? '<button class="unlock-btn" onclick="openAgentModal()">🔐 UNLOCK MTD SCORES</button>' : ''}
+                    </div>
+                </div>
+                
+                <div id="unlockArea" style="width: 100%;">
+                    ${isUnlocked ? renderScoreGrid() : ''}
+                </div>
+            </div>
+            ${renderTable('QA Feedback (' + currentViewWeek.toUpperCase() + ')', qas)}
+            ${renderTable('Dispo Audits', audits)}
+        </div>`;
     }
+
 
     function switchDashboardWeek(week) {
         currentViewWeek = week;
