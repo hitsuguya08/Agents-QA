@@ -31,7 +31,85 @@
       "GOOD CALL"
     ],
     "month": "MAY",
-    "week_label": "WEEK 4"
+    "week_label": "WEEK 4",
+    "weekly_data": {
+      "week1": {
+        "score": 62.92,
+        "qa": [
+          " Pitch   @ 00:45   Cust said \" All right Matt. \"   The agent pressed 41 - Imm No instead of proceed.   Date Posted: (SB) WI FR",
+          "Note:  Survey Own Home: Cust said \" Mhm-uh \"   Survey Home Type   @ 02:31   Cust said \" No, a stick built home, a stick built brick home \"   The agent pressed 32 - Unsure (Own Home screen) instead of proceed.   Date Posted: (SB) WI FR ",
+          "GOOD CALL",
+          "GOOD CALL",
+          "Greetings   @ 00:16   Slight delay.   Date Posted: (SB) WI FR",
+          "TCPA   after ^ Defer   @ 03:06   Cust said \" Well if you're just trying to sell me Windows. I can't afford it so I don't wanna waste your time or my time. I'm retired. I'm on a fixed it.(stopped) then proceed \" I'm on a fixed income and I can't afford, Like a ton for windows. \"   The agent pressed 64 - Don't Need Now instead of 41 - Imm No.   @ 03:53   Cust said \" Well, you didn't answer my question. I don't want to waste my time and I don't want to waste their time. They're gonna try to just sell me thousands of dollars' worth of windows. I'm telling you right now I can't do it, so let's not waste any time.\"   The agent pressed $ How Much + 32 Quick Repeat instead of 43 - Final No. Compliance: Call Agressiveness - CAT2.   Date Posted: (SB) WI FR",
+          "GOOD CALL",
+          "Pitch   @ 00:40   Cust interrupted and said \" Okay, the mistake was mine, I guess, because I have a broken window. So all I was looking for was glass replacement. So I made the assumption that's what I was doing when I put in that type of thing. I just needed a window the glass replaced. But now I'm getting. Now I'm getting phone calls from all sorts of places that want me to replace all the windows in my house. I, I don't want that.\"   The agent pressed 41 - Imm No instead of End the call politely. (Not Qualified).   NOTE: @ 01:25   Cust interrupted and said \" No, it's, it's amazing. It's amazing. It really is amazing. You guys are amazing. So what I need is a piece of glass. And, I get calls wanting. I don't need that...\"   The agent pressed 42 - Imm No instead of End the call politely. (Not Qualified).   Date Posted: (SB) WI FR\n\nThis call should have been disposed as NQ.   Date Posted: (SB) WI FR"
+        ],
+        "audits": [
+          "The agent disposed the call as AM instead of DA.   Date Posted: (SB) WI FR ",
+          " The agent disposed the call as AM instead of CB.   (SB) WI FR ",
+          "The agent disposed the call as AM instead of CB.  (SB) WI FR",
+          "The agent disposed the call as CB instead of DA.   (SB) WI FR",
+          "GOOD CALL",
+          "GOOD CALL",
+          "The agent delayed 6 seconds in disposing the call.   (SB) WI FR",
+          "The agent disposed the call as DA instead of CB. (SB) WI FR",
+          "The agent disposed the call as DA instead of CB; delayed 6 seconds in disposing the call.   (SB) WI FR ",
+          "GOOD CALL",
+          "GOOD CALL",
+          "GOOD CALL"
+        ]
+      },
+      "week2": {
+        "score": 86.56,
+        "qa": [
+          "GOOD CALL",
+          "PITCH - @00:20 Cx interrupted and then @00:41 cx said \"Okay.\",  agent pressed    1(Yes - Pitch)  instead of    31(LR - Pitch)_(SB-BR)",
+          "SURVEY -  OWN HOME - @1:35 Slight delay_(SB-BR)",
+          "GOOD CALL",
+          "PITCH - @1:11 Bumping key_(SB-WI)",
+          "GOOD CALL",
+          "GREETINGS - @00:11 Slight delay_(SB-WI)",
+          "GOOD CALL"
+        ],
+        "audits": [
+          "Agent disposed the call as  DA  instead of  AM_(SB-WI)",
+          "Agent disposed the call as  DA  instead of  AM_(SB-WI)",
+          "Agent disposed the call as  DA  instead of  AM ; Delay dispo for more than 5 secs_(SB-WI)",
+          "Agent disposed the call as  DA  instead of  AM ; Delay dispo for more than 5 secs_(SB-WI)",
+          "Agent disposed the call as  DA  instead of  AM_(SB-WI)",
+          "Agent disposed the call as  DA  instead of  AM ; Delay dispo for more than 5 secs_(SB-WI)",
+          "GOOD CALL",
+          "GOOD CALL",
+          "Missed option_(SB-WI)",
+          "Agent disposed the call as  DA  instead of   AM_(SB-WI)",
+          "GOOD CALL",
+          "GOOD CALL"
+        ]
+      },
+      "week3": {
+        "score": 0,
+        "qa": [],
+        "audits": []
+      },
+      "week4": {
+        "score": 78.64,
+        "qa": [
+          "INTRO  @0:02  Unnecessary hotkey.  WI",
+          "GOOD CALL",
+          "GOOD CALL",
+          "GOOD CALL",
+          "Tagging a SALE call into a NON-SALE call.  WI",
+          "INTRO  @0:40  cust said,  \"I'm under the weather today. I have COVID.\"  agent pressed  b(Busy)  instead of  v(Very busy).  PC BR"
+        ],
+        "audits": [
+          "Agent disposed the call as NI3 instead of CB.  WI",
+          "GOOD CALL",
+          "GOOD CALL",
+          "GOOD CALL"
+        ]
+      }
+    }
   },
   {
     "name": "S. Fuentes",
