@@ -40,7 +40,19 @@
     .kpi-2 { background: var(--primary); color: var(--text-dark); } 
     .kpi-3 { background: #334155; color: white; }
     .kpi-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; color: #ffffff !important; letter-spacing: 1px; }
-    .kpi-value { font-size: 1.8rem; font-weight: 900; line-height: 1; text-transform: uppercase; }
+        .kpi-value { 
+      font-size: 1.8rem; 
+      font-weight: 900; 
+      line-height: 1; 
+      text-transform: uppercase; 
+      color: #ffffff !important; /* Kani ang mopalutaw sa puti nga color para sa MAY */
+    }
+
+    /* Kung gusto nimo nga color amber/yellow ang MONTH para mas klaro: */
+    .kpi-1 .kpi-value {
+      color: var(--primary) !important;
+    }
+
 
     .dashboard-tabs { display: flex; gap: 8px; margin-bottom: 20px; background: #1e293b; padding: 8px; border-radius: 16px; border: 1px solid var(--border); }
     .dash-tab-btn { flex: 1; padding: 12px; border: none; border-radius: 10px; background: transparent; color: #94a3b8; font-weight: 800; font-size: 0.7rem; cursor: pointer; transition: 0.2s; }
