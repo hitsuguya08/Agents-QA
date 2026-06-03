@@ -23,9 +23,26 @@
     .agent-item.active { background: var(--primary); color: var(--navy); font-weight: 800; }
     
     .btn-del-agent {
-      background: #ef4444; color: white; border: none; border-radius: 6px;
-      width: 24px; height: 24px; font-size: 0.7rem; font-weight: bold; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; transition: 0.2s;
+      background: #ef4444; 
+      color: white; 
+      border: none; 
+      border-radius: 6px;
+      width: 24px; 
+      height: 24px; 
+      font-size: 0.7rem; 
+      font-weight: bold; 
+      cursor: pointer;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      transition: 0.2s;
+      /* KANI ANG GI-ADD PARA MAWALA SIYA */
+      opacity: 0; 
+    }
+
+    /* MOPAKITA RA KUNG I-HOVER ANG AGENT ITEM */
+    .agent-item:hover .btn-del-agent {
+      opacity: 1;
     }
 
     /* Main Editor */
