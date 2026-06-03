@@ -1,8 +1,8 @@
 {
   "theme": {
-    "primary": "#005500",
-    "bg": "#3f4145",
-    "card": "#0f172a"
+    "primary": "#80ff80",
+    "bg": "#ceffce",
+    "card": "#ccff80"
   },
   "agents": [
     {
