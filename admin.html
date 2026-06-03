@@ -243,7 +243,7 @@
     }
 
     function updateItem(type, index, val) { db.agents[selectedIndex].weekly_data[currentWeek][type][index] = val; saveToLocal(); }
-    function addRow(type) { db.agents[selectedIndex].weekly_data[currentWeek][type].push("NEW ENTRY"); renderList(type, db.agents[selectedIndex].weekly_data[currentWeek][type]); saveToLocal(); }
+    function addRow(type) { db.agents[selectedIndex].weekly_data[currentWeek][type].push("GOOD CALL"); renderList(type, db.agents[selectedIndex].weekly_data[currentWeek][type]); saveToLocal(); }
     function removeItem(type, index) { db.agents[selectedIndex].weekly_data[currentWeek][type].splice(index, 1); renderList(type, db.agents[selectedIndex].weekly_data[currentWeek][type]); saveToLocal(); }
     function showExport() { document.getElementById('jsonOutput').value = JSON.stringify(db, null, 2); document.getElementById('exportModal').style.display = 'flex'; }
     function showImportModal() { document.getElementById('importModal').style.display = 'flex'; }
