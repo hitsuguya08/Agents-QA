@@ -1,8 +1,8 @@
 {
   "theme": {
-    "primary": "#f59e0b",
-    "bg": "#fef3c7",
-    "card": "#0f172a"
+    "primary": "#ffffff",
+    "bg": "#111827",
+    "card": "#1f2937"
   },
   "agents": [
     {
@@ -147,23 +147,78 @@
       "audits": [],
       "weekly_data": {
         "week1": {
-          "score": 0,
-          "qa": [],
-          "audits": []
+          "score": 93.98,
+          "qa": [
+            "GOOD CALL",
+            "GREETINGS  @0:07  Slight delay in playing silent rule.  WIFR ",
+            "GOOD CALL",
+            " PITCH  @0:52  Slight delay.  WI ",
+            "PITCH  @01:00  & @01:11  Slight delay  ;  @02:56  Some delay applying silent rule.  WI",
+            "TCPA  @04:39  Slight delay  ;  @06:04  Slight delay.  WI",
+            "GOOD CALL",
+            "GOOD CALL"
+          ],
+          "audits": [
+            "GOOD CALL",
+            "Agent has a missed option.  WI",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL"
+          ]
         },
         "week2": {
-          "score": 0,
-          "qa": [],
-          "audits": []
+          "score": 81.9,
+          "qa": [
+            "TCPA @ 03:38 - slight delay - BR",
+            "GOOD CALL",
+            "GOOD CALL",
+            "Main Reason @ 01:37 cx said \"zero, zero\" Agent played 11 (Generic Reason) instead of 2 (Unknown); Own Home @ 01:54 - slight delay - PC BR",
+            "Main Reason @ 00:59 - slight delay; Walk In tub @ 01:36 - slight delay - PC BR ",
+            "Greetings @ 00:41 - some delay - PC BR",
+            "Main Reason @ 00:48 - slight delay; @ 01:13 - major delay - PC BR ",
+            "Pitch @ 00:41; @ 01:22 - slight delays - PC BR ",
+            "Pitch @ 00:57 - slight delay - PC BR\n\nOwn Home @ 01:36 - slight delay - PC BR",
+            "GOOD CALL"
+          ],
+          "audits": [
+            " Agent disposed the call as LB instead of BAD - BR ",
+            "GOOD CALL",
+            "Delay dispo for 27secs. - BR"
+          ]
         },
         "week3": {
-          "score": 0,
-          "qa": [],
+          "score": 88.68,
+          "qa": [
+            "GOOD CALL",
+            "SURVEY - CREDIT - @2:11 Slight delay in applying the silent rule_(PC-BR)",
+            "TCPA - @2:22 Some delay_(PC-BR)",
+            "GOOD CALL",
+            "SURVEY - MAIN REASON - @1:43 Slight delay in applying the silent rule_(PC-BR)",
+            "SURVEY - MAIN REASON - @1:25 Slight delay_(PC-BR)",
+            "SURVEY - HOME TYPE - @1:35 Slight delay in pressing unnecessary hotkey_(PC-BR)",
+            "PITCH - @00:53 Slight delay in applying the silent rule_(PC-BR)",
+            " TCPA - @3:39 Slight delay in applying the silent rule_(PC-BR)",
+            "SURVEY - MAIN REASON - @00:54 Some delay in applying the silent rule_(PC-BR)"
+          ],
           "audits": []
         },
         "week4": {
-          "score": 0,
-          "qa": [],
+          "score": 66.36,
+          "qa": [
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "CREDIT  @03:14  Slight delay.  PC BR\n\nTCPA  @04:08  cust said,  \"Yeah, if they call me and I don't answer and they don't leave a voicemail, I'm gonna think it's not important and I'm not gonna call the number back.\"  agent pressed  60(What Partners)  instead of  d(Defer)  ;  @05:34  after  3(I guess, i think so, i suppose, Maybe)  cust said,  \"i guess.\"  agent proceed the call instead of  3(I guess, i think so, i suppose, Maybe) 2nd rnd  --Autofail--  PC BR\n\nNO Affirmation in TCPA. PC BR",
+            " TCPA  @02:50 Bumping key.  PC BR ",
+            "GOOD CALL"
+          ],
           "audits": []
         }
       }
@@ -203,14 +258,58 @@
       "week_label": "WEEK 4",
       "weekly_data": {
         "week1": {
-          "score": 0,
-          "qa": [],
-          "audits": []
+          "score": 85.52,
+          "qa": [
+            "Pre-Transfer @ 03:23 - slight delay in applying silent rule - WI",
+            "GOOD CALL",
+            "Own Home @ 01:41 - slight delay - WI ",
+            "GOOD CALL",
+            "TCPA @ 03:47 - slight delay - WI",
+            "Greetings @ 00:19 - slight delay; @ 00:31 - bumping key - WI \n\nTCPA @ 02:37 - some delay - WI ",
+            "Own Home @ 01:51 - slight delay - WI ",
+            "Main Reason @ 00:59 cx said \"I can't afford anything now I'm and I probably won't ever be able to afford anything….\" Agent pressed 41 (Imm No) instead of 64 (Don't Need Now) - WI "
+          ],
+          "audits": [
+            "Agent has major delay @ 00:00 - 00:29 - WI",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "Agent disposed the call as NI1 instead of A - WI",
+            "GOOD CALL",
+            "Agent disposed the call as DA instead of A. Delay dispo for 20secs - WI ",
+            "GOOD CALL"
+          ]
         },
         "week2": {
-          "score": 0,
-          "qa": [],
-          "audits": []
+          "score": 85.58,
+          "qa": [
+            "TCPA - @3:22 Cx said \"Right.\",  agent pressed    24(Is that a YES)  instead of    1(Yes TCPA)_(SB-WI)",
+            "GOOD CALL",
+            "PITCH - @1:00 Cx said \"I wouldn't have any idea, but go ahead. I'm just riding around. I mean, you know, I'm just riding this way.\", agent had a slight delay in pressing    31(LR - Pitch)  instead of    1(Yes - Pitch)_(SB-WI)",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "SURVEY - MAIN REASON - @1:34 Major delay_(SB-WI)"
+          ],
+          "audits": [
+            " Missed option_(SB-WI)",
+            "Agent disposed the call as  CB  instead of  NI3_(SB-WI)",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "Agent disposed the call as  DA  instead of   CB_(SB-WI)",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL"
+          ]
         },
         "week3": {
           "score": 0,
@@ -218,9 +317,21 @@
           "audits": []
         },
         "week4": {
-          "score": 0,
-          "qa": [],
-          "audits": []
+          "score": 88.68,
+          "qa": [
+            "HOMETYPE  @01:31 after r(Repeat that 2nd rnd)  cust said,  \"I'm sorry, I've had throat surgery, so this might not be a good time, thank you.\"  agent pressed  64(Don't Need Now)  instead of  b(Busy). WI",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GREETINGS after 41(Imm No x1)  @0:30  cust said,  \"Well, I just got, I had to dirt after one of the hurricanes down here, I had to break a window to get back in the house. So that was all fine and good, anderson window came out, they did their measurements, blah blah blah, talked me into buying 2,2,2 other, 3 other windows, small, not big, and I got a total bill of $17,000. Can you imagine? And I, I asked, I asked everybody, in between Tampa and Sarasota and down here in Inglewood, I, I asked friends, neighbors. Have you ever bought a window? Well, yeah, occasionally, you know, found two guys that bought windows. Well, how much were they? Well, one window was about 6, maybe 700. The other one was around 5. I said, well, I bought 4,4 windows for 17,000, and the guy said, Anderson? I said, yeah, yeah they brag about being the best. They ought to brag about being the most expensive.\"  agent  end the call instead   $(How Much)  +  7(What's About).  WI",
+            "GOOD CALL",
+            " PITCH  @01:04  after r(Repeat) cust said,  \"I don't, I don't think I remember it. I don't write it down. I'm saying there's a million advertisements out there now on the radio and television. We replace the windows if you're a veteran, if you're this, if you're that, there's almost no cost. They're all full of it, I know that. So if you're gonna go into a thing and it's gonna run into 1000, you get it, I'm not interested.\"  agent pressed  4(Not Interested)  instead of  66(How Much).  PC WI \n\nMAIN REASON  @02:03  cust said,  \"I said they're 50 years old. I live in Kings Point. It's a pretty old place. I mean, I don't live here that long, but the place is 50 years old, the windows and everything kind of changed their touch.\"  agent pressed  x(Exit)  instead of  proceed.  PC WI"
+          ],
+          "audits": [
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL"
+          ]
         }
       }
     },
@@ -254,14 +365,58 @@
       "week_label": "WEEK 4",
       "weekly_data": {
         "week1": {
-          "score": 0,
-          "qa": [],
-          "audits": []
+          "score": 75.06,
+          "qa": [
+            "GOOD CALL",
+            "Pitch   @ 00:35    Cust said \" Are you, is this a rec, is it well just so you're aware you have the wrong number because we aren't doing any type of f***ing remodeling so I'll know where you're getting that from. So I hope you got that on the recording.\"   The agent pressed 88 - Wrong Number instead of 41 - Imm No.   Date Posted: (SB) BR RV",
+            "Pre Transfer   @ 03:16   There was a major delay.   Date Posted: (SB) HW RV",
+            " Survey Benefits   @ 01:57   The agent failed to apply silent rule.   Date Posted: (SB) HW RV",
+            "TCPA   @ 03:15   Slight delay in applying silent rule;   @ 03:24   After applying silent rule the agent should dispo right away the call. - Tagged as timing Issue.   Date Posted: (SB) HW RV",
+            "Survey Benefits   @ 02:16   The agent slight delay in applying the silent rule.   Date Posted: (SB) HW RV",
+            "Survey Own Home   @ 01:19   Cust said \" Yeah, but I'm not interested in that. I had bad experience with home warranties and stuff, so I'm not gonna deal with that no more. Thank you.\"   The agent pressed 41 - Imm No instead of End call politely.   Date Posted: (SB) HW RV",
+            " Survey Add-Up   @ 01:59   There was a some delay.   Date Posted: (SB) HW RV"
+          ],
+          "audits": [
+            "GOOD CALL",
+            "There is a missed option at 00:17.   Date Posted: (SB) BR RV",
+            "GOOD CALL",
+            " The agent disposed the call LB instead of CB. (gender mismatched).   Date Posted: (SB) HW RV",
+            "The agent disposed the call LB instead of CB. (gender mismatched).",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "The agent disposed the call as NI2 instead of CB.   Date Posted: (SB) WI FR",
+            " The agent disposed the call as CB instead of NI2.   Date Posted: (SB) WI FR",
+            "There was a missed option @ 00:12.   Date Posted: (SB) WI FR"
+          ]
         },
         "week2": {
-          "score": 0,
-          "qa": [],
-          "audits": []
+          "score": 93.3,
+          "qa": [
+            "SURVEY - REPLACE - @1:42 Slight delay in pressing unnecessary hotkey_(SB-HW)",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GREETINGS - @00:15 Slight delay_(SB-HW)",
+            "PITCH - @00:30 Cx interrupted & said \"Yeah, I already got it done. I'm sorry. I just, yeah, I already got my bathroom done.\",  agent pressed    41(Imm No)  instead of    88(End Call)_(SB-HW)",
+            "PITCH - @00:43 Slight delay in applying the silent rule_(SB-HW)\n\nSURVEY - WALK IN TUB - @1:28 Slight delay in applying the silent rule_(SB-HW)",
+            "GOOD CALL"
+          ],
+          "audits": [
+            "Agent disposed the call as   DA  instead of  AM_(SB-HW)",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL"
+          ]
         },
         "week3": {
           "score": 0,
@@ -269,8 +424,15 @@
           "audits": []
         },
         "week4": {
-          "score": 0,
-          "qa": [],
+          "score": 91.09,
+          "qa": [
+            "Delay in disposing the call for more than 10 seconds.",
+            "HOME TYPE  @01:37  Slight delay in applying silent rule.   PC BR",
+            "GOOD CALL",
+            " HOME TYPE  @03:20  Bumping key.  PC BR ",
+            "GOOD CALL",
+            "CREDIT  @01:42  cust said,  \"Oh I see I was, I'll see what I was looking for, I was hoping that government, was any assistance. They're saying that, you know, you're retired, you can do it. I'm retired. I'm not working.\"  agent pressed  0(Credit) instead of  d(Defer).   PC BR"
+          ],
           "audits": []
         }
       }
