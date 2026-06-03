@@ -25,33 +25,34 @@
     .btn-del-agent {
       background: #ef4444; color: white; border: none; border-radius: 6px;
       width: 24px; height: 24px; font-size: 0.7rem; font-weight: bold; cursor: pointer;
-      opacity: 0; transition: 0.2s; display: flex; align-items: center; justify-content: center;
+      display: flex; align-items: center; justify-content: center; transition: 0.2s;
     }
-    .agent-item:hover .btn-del-agent { opacity: 1; }
-    .btn-del-agent:hover { background: #b91c1c; transform: scale(1.1); }
 
-    /* Main Area */
+    /* Main Editor */
     .editor-main { flex: 1; display: flex; flex-direction: column; background: white; }
     .editor-header { padding: 20px 40px; background: white; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
     .scroll-content { padding: 40px; overflow-y: auto; flex: 1; }
     
-    /* Buttons & Forms */
+    /* Tabs System */
+    .tabs-container { display: flex; gap: 10px; margin-bottom: 25px; background: #f1f5f9; padding: 10px; border-radius: 15px; }
+    .tab-btn { 
+      flex: 1; padding: 12px; border: none; border-radius: 10px; cursor: pointer; 
+      font-weight: 800; color: #64748b; background: transparent; transition: 0.3s; 
+    }
+    .tab-btn.active { background: var(--navy); color: var(--primary); }
+
+    /* Forms & Buttons */
     .btn-save { background: var(--navy); color: var(--primary); border: none; padding: 12px 25px; border-radius: 12px; font-weight: 800; cursor: pointer; }
     .btn-dashboard { background: transparent; color: var(--navy); border: 2px solid var(--navy); padding: 10px 20px; border-radius: 12px; font-weight: 800; text-decoration: none; font-size: 0.8rem; }
     .btn-add { background: var(--primary); color: var(--navy); border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; margin-top: 10px; }
-    .btn-import { background: transparent; color: #94a3b8; border: 1px solid #334155; padding: 8px; border-radius: 10px; font-size: 0.7rem; cursor: pointer; }
-    .btn-clear { background: #fee2e2; color: #ef4444; border: 1px solid #fecaca; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; }
-
     .form-section { background: #f8fafc; padding: 25px; border-radius: 20px; margin-bottom: 30px; border: 1px solid #e2e8f0; }
-    .score-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; background: #1e293b; padding: 25px; border-radius: 20px; }
-    .score-grid input { background: #020617; color: #f59e0b !important; border: 1px solid var(--primary); padding: 15px; border-radius: 12px; text-align: center; font-weight: 800; font-size: 1.3rem; width: 100%; }
     .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    input, textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; color: var(--navy); }
+    input, textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; color: var(--navy); font-family: inherit; }
     .row-number { background: var(--navy); color: var(--primary); font-weight: 800; padding: 12px; border-radius: 12px; min-width: 45px; text-align: center; }
 
     .json-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; padding: 50px; justify-content: center; align-items: center; }
     .json-content { background: var(--navy); width: 100%; max-width: 700px; border-radius: 25px; padding: 35px; border: 1px solid var(--primary); }
-    textarea.json-area { background: #020617; color: #10b981; border: none; height: 300px; font-family: monospace; width: 100%; padding: 20px; border-radius: 12px; }
+    textarea.json-area { background: #020617; color: #10b981; border: none; height: 300px; font-family: monospace; width: 100%; padding: 20px; border-radius: 12px; outline: none; }
   </style>
 </head>
 <body>
@@ -60,7 +61,7 @@
     <div id="agentList" class="agent-list"></div>
     <div style="padding: 20px; display: flex; flex-direction: column; gap: 10px;">
         <a href="index.html" class="btn-dashboard" style="text-align: center; border-color: #334155; color: #94a3b8; font-size: 0.7rem;">🏠 EXIT TO DASHBOARD</a>
-        <button onclick="showImportModal()" class="btn-import">📥 IMPORT JSON</button>
+        <button onclick="showImportModal()" style="background:transparent; color:#94a3b8; border:1px solid #334155; padding:8px; border-radius:10px; font-size:0.7rem; cursor:pointer;">📥 IMPORT JSON</button>
         <button onclick="addNewAgent()" class="btn-add">+ New Agent</button>
     </div>
   </div>
@@ -68,45 +69,44 @@
     <div class="editor-header">
       <h2 id="editingTitle" style="color:var(--navy);">Select Agent</h2>
       <div style="display:flex; gap:10px; align-items: center;">
-          <button class="btn-clear" onclick="clearPerformanceData()">🧹 Reset</button>
+          <button style="background:#fee2e2; color:#ef4444; border:1px solid #fecaca; padding:10px 20px; border-radius:10px; font-weight:700; cursor:pointer;" onclick="clearWeeklyData()">🧹 Reset Week</button>
           <button class="btn-save" onclick="showExport()">🚀 GENERATE JSON</button>
           <a href="index.html" class="btn-dashboard">View Dashboard</a>
       </div>
     </div>
     
     <div id="editorContent" class="scroll-content" style="display:none;">
+        <!-- Basic Info Section -->
         <div class="form-section">
             <h3>Basic Information</h3>
             <div class="grid-inputs">
                 <div><label>Agent Name</label><input type="text" id="editName" oninput="saveAndSync()"></div>
-                <div><label>Dashboard Password</label><input type="text" id="editPass" oninput="saveAndSync()"></div>
-            </div>
-            <div class="grid-inputs" style="margin-top:15px;">
-                <div><label>Month</label><input type="text" id="editMonth" oninput="saveAndSync()"></div>
-                <div><label>Week Label</label><input type="text" id="editWeek" oninput="saveAndSync()"></div>
+                <div><label>Password</label><input type="text" id="editPass" oninput="saveAndSync()"></div>
             </div>
         </div>
 
-        <div class="form-section">
-            <h3>MTD Weekly Scores</h3>
-            <div class="score-grid">
-                <div><label style="color:var(--primary)">W1</label><input type="number" id="w1" oninput="updateWeeklyScore('week1', this.value)"></div>
-                <div><label style="color:var(--primary)">W2</label><input type="number" id="w2" oninput="updateWeeklyScore('week2', this.value)"></div>
-                <div><label style="color:var(--primary)">W3</label><input type="number" id="w3" oninput="updateWeeklyScore('week3', this.value)"></div>
-                <div><label style="color:var(--primary)">W4</label><input type="number" id="w4" oninput="updateWeeklyScore('week4', this.value)"></div>
-            </div>
+        <!-- Weekly Navigation Tabs -->
+        <div class="tabs-container">
+            <button class="tab-btn active" id="btn-week1" onclick="switchTab('week1')">WEEK 1</button>
+            <button class="tab-btn" id="btn-week2" onclick="switchTab('week2')">WEEK 2</button>
+            <button class="tab-btn" id="btn-week3" onclick="switchTab('week3')">WEEK 3</button>
+            <button class="tab-btn" id="btn-week4" onclick="switchTab('week4')">WEEK 4</button>
         </div>
 
+        <!-- Weekly QA Content -->
         <div class="form-section">
-            <h3>QA & Audits</h3>
+            <h3 id="currentWeekTitle">QA Evaluations (WEEK 1)</h3>
             <div id="qaContainer"></div>
             <button class="btn-add" onclick="addRow('qa')">+ Add QA Feedback</button>
-            <div id="auditContainer" style="margin-top:30px;"></div>
+            
+            <h3 style="margin-top:40px;">Dispo Audits</h3>
+            <div id="auditContainer"></div>
             <button class="btn-add" onclick="addRow('audits')">+ Add Audit Entry</button>
         </div>
     </div>
   </div>
 
+  <!-- Modals -->
   <div id="exportModal" class="json-modal"><div class="json-content">
       <h2 style="color:var(--primary); margin:0;">✅ JSON Ready</h2>
       <textarea id="jsonOutput" class="json-area" readonly onclick="this.select()"></textarea>
@@ -121,6 +121,7 @@
   <script>
     let db = [];
     let selectedIndex = -1;
+    let currentWeek = 'week1';
 
     window.addEventListener('DOMContentLoaded', () => {
       const savedData = localStorage.getItem('qa_dashboard_mtd_data');
@@ -143,19 +144,27 @@
     function selectAgent(index) {
       selectedIndex = index;
       const a = db[index];
+      // Init weekly structure if not exists
+      if(!a.weekly_data) { a.weekly_data = { week1:{qa:[],audits:[]}, week2:{qa:[],audits:[]}, week3:{qa:[],audits:[]}, week4:{qa:[],audits:[]} }; }
+      
       document.getElementById('editorContent').style.display = 'block';
       document.getElementById('editingTitle').innerText = "Editing: " + a.name;
       document.getElementById('editName').value = a.name;
       document.getElementById('editPass').value = a.password;
-      document.getElementById('editMonth').value = a.month || "";
-      document.getElementById('editWeek').value = a.week_label || "";
-      document.getElementById('w1').value = a.weekly?.week1?.score || 0;
-      document.getElementById('w2').value = a.weekly?.week2?.score || 0;
-      document.getElementById('w3').value = a.weekly?.week3?.score || 0;
-      document.getElementById('w4').value = a.weekly?.week4?.score || 0;
-      renderList('qa', a.qa || []);
-      renderList('audits', a.audits || []);
+      
+      switchTab(currentWeek);
       renderSidebar();
+    }
+
+    function switchTab(week) {
+      currentWeek = week;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('btn-' + week).classList.add('active');
+      document.getElementById('currentWeekTitle').innerText = `QA Evaluations (${week.toUpperCase()})`;
+      
+      const data = db[selectedIndex].weekly_data[week];
+      renderList('qa', data.qa || []);
+      renderList('audits', data.audits || []);
     }
 
     function deleteAgent(index, event) {
@@ -172,31 +181,50 @@
       container.innerHTML = data.map((item, i) => `
         <div style="margin-bottom:12px; display:flex; gap:12px;">
             <div class="row-number">${i + 1}</div>
-            <textarea oninput="updateItem('${type}', ${i}, this.value)" style="flex:1;">${item}</textarea>
-            <button onclick="removeItem('${type}', ${i})" style="color:#ef4444; background:none; border:none; cursor:pointer;">✕</button>
+            <textarea oninput="updateItem('${type}', ${i}, this.value)" style="flex:1; min-height:80px;">${item}</textarea>
+            <button onclick="removeItem('${type}', ${i})" style="color:#ef4444; background:none; border:none; cursor:pointer; font-weight:800; font-size:1.2rem;">✕</button>
         </div>
       `).join('');
     }
 
-    function updateWeeklyScore(w, v) { db[selectedIndex].weekly[w].score = v || 0; saveToLocal(); }
-    function updateItem(t, i, v) { db[selectedIndex][t][i] = v; saveToLocal(); }
+    function updateItem(type, index, val) { db[selectedIndex].weekly_data[currentWeek][type][index] = val; saveToLocal(); }
+    
     function saveAndSync() {
       if(selectedIndex === -1) return;
       db[selectedIndex].name = document.getElementById('editName').value;
       db[selectedIndex].password = document.getElementById('editPass').value;
-      db[selectedIndex].month = document.getElementById('editMonth').value.toUpperCase();
-      db[selectedIndex].week_label = document.getElementById('editWeek').value.toUpperCase();
       saveToLocal(); renderSidebar();
     }
-    function addRow(t) { if(!db[selectedIndex][t]) db[selectedIndex][t] = []; db[selectedIndex][t].push("NEW ENTRY"); renderList(t, db[selectedIndex][t]); saveToLocal(); }
-    function removeItem(t, i) { db[selectedIndex][t].splice(i, 1); renderList(t, db[selectedIndex][t]); saveToLocal(); }
+
+    function addRow(type) {
+      db[selectedIndex].weekly_data[currentWeek][type].push("GOOD CALL"); 
+      renderList(type, db[selectedIndex].weekly_data[currentWeek][type]);
+      saveToLocal();
+    }
+
+    function removeItem(type, index) { 
+      db[selectedIndex].weekly_data[currentWeek][type].splice(index, 1); 
+      renderList(type, db[selectedIndex].weekly_data[currentWeek][type]); 
+      saveToLocal(); 
+    }
+
     function showExport() { document.getElementById('jsonOutput').value = JSON.stringify(db, null, 2); document.getElementById('exportModal').style.display = 'flex'; }
     function showImportModal() { document.getElementById('importModal').style.display = 'flex'; }
     function processImport() { try { db = JSON.parse(document.getElementById('jsonInput').value); saveToLocal(); renderSidebar(); closeModal('importModal'); alert("Imported!"); } catch(e) { alert("Error!"); } }
     function copyJSON() { navigator.clipboard.writeText(document.getElementById('jsonOutput').value); alert("Copied!"); }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-    function addNewAgent() { db.push({ name: "New Agent", password: "123", weekly: { week1:{score:0}, week2:{score:0}, week3:{score:0}, week4:{score:0} }, qa: [], audits: [] }); saveToLocal(); renderSidebar(); }
-    function clearPerformanceData() { if(confirm("Reset?")) { db[selectedIndex].weekly = { week1:{score:0}, week2:{score:0}, week3:{score:0}, week4:{score:0} }; db[selectedIndex].qa = []; db[selectedIndex].audits = []; selectAgent(selectedIndex); saveToLocal(); } }
+    
+    function addNewAgent() { 
+      db.push({ name: "New Agent", password: "123", weekly_data: { week1:{qa:[],audits:[]}, week2:{qa:[],audits:[]}, week3:{qa:[],audits:[]}, week4:{qa:[],audits:[]} } }); 
+      saveToLocal(); renderSidebar(); 
+    }
+
+    function clearWeeklyData() { 
+      if(confirm(`Reset data for ${currentWeek.toUpperCase()}?`)) { 
+        db[selectedIndex].weekly_data[currentWeek] = { qa: [], audits: [] }; 
+        switchTab(currentWeek); saveToLocal(); 
+      } 
+    }
   </script>
 </body>
 </html>
