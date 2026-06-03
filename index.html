@@ -39,7 +39,7 @@
     .kpi-2 { background: var(--primary); color: var(--text-dark); } 
     .kpi-3 { background: #334155; color: white; }
     .kpi-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; color: #ffffff !important; letter-spacing: 1px; }
-    .kpi-value { font-size: 1.8rem; font-weight: 900; line-height: 1; }
+    .kpi-value { font-size: 1.8rem; font-weight: 900; line-height: 1; text-transform: uppercase; }
 
     .dashboard-tabs { display: flex; gap: 8px; margin-bottom: 20px; background: #1e293b; padding: 8px; border-radius: 16px; border: 1px solid var(--border); }
     .dash-tab-btn { flex: 1; padding: 12px; border: none; border-radius: 10px; background: transparent; color: #94a3b8; font-weight: 800; font-size: 0.7rem; cursor: pointer; transition: 0.2s; }
@@ -67,12 +67,9 @@
     .modal-content { background:var(--card); padding:40px; border-radius:30px; width:340px; text-align:center; border: 2px solid var(--primary); }
     .modal-content input { width:100%; padding:15px; margin:20px 0; border:2px solid var(--border); background: #020617; color:white; border-radius:15px; text-align:center; font-size: 1.5rem; font-weight: 800; outline: none; }
     .btn-verify { background: var(--primary); color: var(--text-dark); padding: 15px; border:none; border-radius:15px; width: 100%; font-weight:800; cursor:pointer; }
-    
-    @media (max-width: 600px) { .kpi-row { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
-
   <header class="header-main">
     <div style="width: 80px;"></div>
     <h1>AGENT ANALYTICS PORTAL</h1>
@@ -80,12 +77,8 @@
   </header>
 
   <nav class="nav-bar"><div id="agentPills" class="nav-inner"></div></nav>
-  
-  <div class="content-container">
-    <div id="dashboardView"></div>
-  </div>
+  <div class="content-container"><div id="dashboardView"></div></div>
 
-  <!-- Agent Password Modal -->
   <div id="passwordModal" class="modal">
     <div class="modal-content">
       <h3 style="color:var(--primary); margin:0;">🔐 UNLOCK MTD SCORES</h3>
@@ -95,7 +88,6 @@
     </div>
   </div>
 
-  <!-- Admin Password Modal -->
   <div id="adminModal" class="modal">
     <div class="modal-content">
       <h3 style="color:var(--primary); margin:0;">🚨 ADMIN ACCESS</h3>
@@ -115,7 +107,7 @@
       fetch('data.json?t=' + new Date().getTime())
         .then(r => r.json())
         .then(data => { db = data; renderPills(db); })
-        .catch(() => { document.getElementById('dashboardView').innerHTML = `<div style="text-align:center; padding:50px; color:var(--primary);"><h3>⚠️ Syncing Data...</h3></div>`; });
+        .catch(() => { document.getElementById('dashboardView').innerHTML = `<div style="text-align:center; padding:50px; color:var(--primary);"><h3>⚠️ Syncing...</h3></div>`; });
     });
 
     function renderPills(agents) {
@@ -150,11 +142,11 @@
       const weekly = activeAgent.weekly_data[currentViewWeek];
       const qas = weekly.qa || [];
       const audits = weekly.audits || [];
-      const currentScore = weekly.score || 0;
+      const displayMonth = activeAgent.month || "MAY"; // Gikan sa Admin
 
       document.getElementById('dashboardView').innerHTML = `
         <div class="kpi-row">
-            <div class="kpi-box kpi-1"><div class="kpi-label">WEEKLY SCORE</div><div class="kpi-value">${currentScore}%</div></div>
+            <div class="kpi-box kpi-1"><div class="kpi-label">MONTH</div><div class="kpi-value">${displayMonth}</div></div>
             <div class="kpi-box kpi-2"><div class="kpi-label">QA EVALS</div><div class="kpi-value" style="color:var(--text-dark)">${qas.length}</div></div>
             <div class="kpi-box kpi-3"><div class="kpi-label">AUDITS</div><div class="kpi-value">${audits.length}</div></div>
         </div>
