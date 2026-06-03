@@ -24,6 +24,7 @@
       background: transparent; color: #94a3b8; font-size: 0.7rem; font-weight: 700;
       padding: 8px 12px; border: 1px solid #334155; border-radius: 8px; cursor: pointer; transition: 0.3s;
     }
+    .admin-btn:hover { border-color: var(--primary); color: var(--primary); }
 
     .nav-bar { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--primary); padding: 12px 0; position: sticky; top: 0; z-index: 100; overflow-x: auto; }
     .nav-inner { display: flex; justify-content: center; gap: 10px; padding: 0 15px; }
@@ -33,7 +34,6 @@
     
     .content-container { max-width: 900px; margin: 30px auto; padding: 0 20px 80px; }
     
-    /* KPI Styles */
     .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
     .kpi-box { padding: 20px 10px; border-radius: 24px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 125px; transition: 0.3s; }
     .kpi-1 { background: var(--card); border: 2px solid var(--primary); } 
@@ -42,61 +42,67 @@
     .kpi-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; color: #ffffff !important; letter-spacing: 1px; }
     .kpi-value { font-size: 1.8rem; font-weight: 900; line-height: 1; }
 
-    /* Dashboard Tab Buttons */
-    .dashboard-tabs { display: flex; gap: 8px; margin-bottom: 20px; background: #1e293b; padding: 8px; border-radius: 16px; }
-    .dash-tab-btn { flex: 1; padding: 10px; border: none; border-radius: 10px; background: transparent; color: #94a3b8; font-weight: 800; font-size: 0.7rem; cursor: pointer; transition: 0.2s; }
+    .dashboard-tabs { display: flex; gap: 8px; margin-bottom: 20px; background: #1e293b; padding: 8px; border-radius: 16px; border: 1px solid var(--border); }
+    .dash-tab-btn { flex: 1; padding: 12px; border: none; border-radius: 10px; background: transparent; color: #94a3b8; font-weight: 800; font-size: 0.7rem; cursor: pointer; transition: 0.2s; }
     .dash-tab-btn.active { background: var(--primary); color: var(--text-dark); }
 
-    .main-card { background: var(--card); border-radius: 32px; overflow: hidden; color: var(--text-light); }
+    .main-card { background: var(--card); border-radius: 32px; overflow: hidden; color: var(--text-light); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
     .card-head { padding: 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: #1e293b; }
     .card-head h2 { margin: 0; font-size: 1.5rem; font-weight: 800; color: var(--primary); }
 
-    .mtd-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; background: #020617; padding: 15px; border-radius: 16px; border: 1px solid var(--primary); margin-top: 15px; }
+    .mtd-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; background: #020617; padding: 15px; border-radius: 16px; border: 1px solid var(--primary); margin-top: 15px; width: 100%; }
     .mtd-item { text-align: center; }
-    .mtd-label { font-size: 0.6rem; color: #94a3b8; font-weight: 700; }
+    .mtd-label { font-size: 0.6rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; }
     .mtd-val { font-size: 0.8rem; font-weight: 800; color: white; }
 
     .table-block { padding: 30px; border-bottom: 1px solid var(--border); }
-    .table-block h3 { color: var(--primary); font-size: 0.9rem; margin-bottom: 15px; text-transform: uppercase; }
+    .table-block h3 { color: var(--primary); font-size: 0.9rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
     table { width: 100%; border-collapse: collapse; }
-    td { padding: 15px 10px; border-top: 1px solid var(--border); color: #cbd5e1; font-size: 0.9rem; }
-    .quote-style { font-weight: 600; color: #fde68a; background: #334155; padding: 2px 8px; border-radius: 6px; border-left: 3px solid var(--primary); }
+    td { padding: 15px 10px; border-top: 1px solid var(--border); color: #cbd5e1; font-size: 0.95rem; line-height: 1.5; }
+    .quote-style { font-weight: 600; color: #fde68a; background: #334155; padding: 2px 8px; border-radius: 6px; border-left: 3px solid var(--primary); display: inline-block; margin: 2px 0; }
 
-    .modal { display: none; position: fixed; inset: 0; background:rgba(2, 6, 23, 0.95); z-index: 200; justify-content:center; align-items:center; }
+    .modal { display: none; position: fixed; inset: 0; background:rgba(2, 6, 23, 0.95); backdrop-filter:blur(10px); z-index: 200; justify-content:center; align-items:center; }
     .modal-content { background:var(--card); padding:40px; border-radius:30px; width:340px; text-align:center; border: 2px solid var(--primary); }
-    .modal-content input { width:100%; padding:15px; margin:20px 0; border:2px solid var(--border); background: #020617; color:white; border-radius:15px; text-align:center; font-size: 1.2rem; font-weight: 800; }
+    .modal-content input { width:100%; padding:15px; margin:20px 0; border:2px solid var(--border); background: #020617; color:white; border-radius:15px; text-align:center; font-size: 1.5rem; font-weight: 800; outline: none; }
     .btn-verify { background: var(--primary); color: var(--text-dark); padding: 15px; border:none; border-radius:15px; width: 100%; font-weight:800; cursor:pointer; }
+    
+    @media (max-width: 600px) { .kpi-row { grid-template-columns: 1fr; } .card-head { flex-direction: column; gap: 15px; text-align: center; } }
   </style>
 </head>
 <body>
+
   <header class="header-main">
     <div style="width: 80px;"></div>
     <h1>AGENT ANALYTICS PORTAL</h1>
     <button onclick="openAdminModal()" class="admin-btn">ADMIN</button>
   </header>
+
   <nav class="nav-bar"><div id="agentPills" class="nav-inner"></div></nav>
-  <div class="content-container"><div id="dashboardView"></div></div>
+  
+  <div class="content-container">
+    <div id="dashboardView"></div>
+  </div>
 
   <!-- Agent Password Modal -->
   <div id="passwordModal" class="modal">
     <div class="modal-content">
-      <h3 style="color:var(--primary); margin:0;">🔐 UNLOCK SCORES</h3>
+      <h3 style="color:var(--primary); margin:0;">🔐 UNLOCK MTD SCORES</h3>
       <input type="password" id="pwInput" placeholder="••••" />
       <button class="btn-verify" onclick="verifyAndShowScores()">VERIFY ACCESS</button>
-      <p onclick="closeModal('passwordModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.8rem;">Cancel</p>
+      <p onclick="closeModal('passwordModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
     </div>
   </div>
 
-  <!-- Admin Modal -->
+  <!-- Admin Password Modal -->
   <div id="adminModal" class="modal">
     <div class="modal-content">
       <h3 style="color:var(--primary); margin:0;">🚨 ADMIN ACCESS</h3>
       <input type="password" id="adminPwInput" placeholder="••••" />
       <button class="btn-verify" onclick="verifyAdmin()">ACCESS EDITOR</button>
-      <p onclick="closeModal('adminModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.8rem;">Cancel</p>
+      <p onclick="closeModal('adminModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
     </div>
   </div>
-<script>
+  <script>
     let db = [];
     let activeAgent = null;
     let currentViewWeek = 'week1';
@@ -106,7 +112,7 @@
       fetch('data.json?t=' + new Date().getTime())
         .then(r => r.json())
         .then(data => { db = data; renderPills(db); })
-        .catch(() => { document.getElementById('dashboardView').innerHTML = `<div style="text-align:center; padding:50px; color:var(--primary);"><h3>⚠️ Syncing...</h3></div>`; });
+        .catch(() => { document.getElementById('dashboardView').innerHTML = `<div style="text-align:center; padding:50px; color:var(--primary);"><h3>⚠️ Syncing Data...</h3></div>`; });
     });
 
     function renderPills(agents) {
@@ -133,18 +139,19 @@
 
     function renderDashboard() {
       if(!activeAgent.weekly_data) {
-          activeAgent.weekly_data = { week1:{qa:[],audits:[]}, week2:{qa:[],audits:[]}, week3:{qa:[],audits:[]}, week4:{qa:[],audits:[]} };
+          activeAgent.weekly_data = { week1:{score:0,qa:[],audits:[]}, week2:{score:0,qa:[],audits:[]}, week3:{score:0,qa:[],audits:[]}, week4:{score:0,qa:[],audits:[]} };
       }
       
       const weekly = activeAgent.weekly_data[currentViewWeek];
       const qas = weekly.qa || [];
       const audits = weekly.audits || [];
+      const currentScore = weekly.score || 0;
 
       document.getElementById('dashboardView').innerHTML = `
         <div class="kpi-row">
-            <div class="kpi-box kpi-1"><div class="kpi-label">PERIOD</div><div class="kpi-value">${currentViewWeek.toUpperCase()}</div></div>
-            <div class="kpi-box kpi-2"><div class="kpi-label">WEEKLY QA</div><div class="kpi-value">${qas.length}</div></div>
-            <div class="kpi-box kpi-3"><div class="kpi-label">AUDITS</div><div class="kpi-value">${audits.length}</div></div>
+            <div class="kpi-box kpi-1"><div class="kpi-label">WEEKLY SCORE</div><div class="kpi-value">${currentScore}%</div></div>
+            <div class="kpi-box kpi-2"><div class="kpi-label">LONG CALLS</div><div class="kpi-value" style="color:var(--text-dark)">${qas.length}</div></div>
+            <div class="kpi-box kpi-3"><div class="kpi-label">DISPO AUDITS</div><div class="kpi-value">${audits.length}</div></div>
         </div>
 
         <div class="dashboard-tabs">
@@ -158,7 +165,7 @@
             <div class="card-head">
                 <div><h2>${activeAgent.name}</h2></div>
                 <div class="btn-group">
-                    <button class="unlock-btn" onclick="openAgentModal()">🔐 UNLOCK SCORES</button>
+                    <button class="unlock-btn" onclick="openAgentModal()">🔐 UNLOCK MTD SCORES</button>
                     <div id="scoreBreakdown" style="display:none;"></div>
                 </div>
             </div>
@@ -168,11 +175,11 @@
     }
 
     function renderTable(title, data) {
-      if(data.length === 0) return `<div class="table-block"><h3>${title}</h3><p style="color:#64748b; font-size:0.8rem;">No entries for this week.</p></div>`;
+      if(data.length === 0) return `<div class="table-block"><h3>${title}</h3><p style="color:#64748b; font-size:0.85rem;">No entries recorded for this week.</p></div>`;
       return `<div class="table-block"><h3>${title}</h3><table><tbody>
         ${data.map((item, i) => {
           let formatted = item.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
-          return `<tr><td style="width:30px; color:var(--primary); font-weight:800;">${i+1}</td><td>${formatted}</td></tr>`;
+          return `<tr><td style="width:35px; color:var(--primary); font-weight:800;">${i+1}</td><td>${formatted}</td></tr>`;
         }).join('')}
       </tbody></table></div>`;
     }
@@ -183,14 +190,16 @@
 
     function verifyAdmin() {
       if (document.getElementById('adminPwInput').value === "Jeikaaru-08!") { window.location.href = "admin.html"; } 
-      else { alert("❌ Access Denied"); }
+      else { alert("❌ Unauthorized Access"); }
     }
 
     function verifyAndShowScores() {
-      if(activeAgent && document.getElementById('pwInput').value.trim() === activeAgent.password.toString().trim()) {
-          const w = activeAgent.weekly || { week1:{score:0}, week2:{score:0}, week3:{score:0}, week4:{score:0} };
-          const s1 = parseFloat(w.week1?.score || 0), s2 = parseFloat(w.week2?.score || 0), s3 = parseFloat(w.week3?.score || 0), s4 = parseFloat(w.week4?.score || 0);
-          const mtd = (([s1, s2, s3, s4].filter(s => s > 0).reduce((a,b) => a+b, 0)) / ([s1, s2, s3, s4].filter(s => s > 0).length || 1)).toFixed(2);
+      const inputPw = document.getElementById('pwInput').value.trim();
+      if(activeAgent && inputPw === activeAgent.password.toString().trim()) {
+          const wd = activeAgent.weekly_data;
+          const s1 = parseFloat(wd.week1.score || 0), s2 = parseFloat(wd.week2.score || 0), s3 = parseFloat(wd.week3.score || 0), s4 = parseFloat(wd.week4.score || 0);
+          const allS = [s1, s2, s3, s4].filter(s => s > 0);
+          const mtd = allS.length > 0 ? (allS.reduce((a,b) => a+b, 0) / allS.length).toFixed(2) : "0.00";
 
           document.getElementById('scoreBreakdown').innerHTML = `
             <div class="mtd-grid">
@@ -198,13 +207,13 @@
                 <div class="mtd-item"><div class="mtd-label">W2</div><div class="mtd-val">${s2}%</div></div>
                 <div class="mtd-item"><div class="mtd-label">W3</div><div class="mtd-val">${s3}%</div></div>
                 <div class="mtd-item"><div class="mtd-label">W4</div><div class="mtd-val">${s4}%</div></div>
-                <div class="mtd-item" style="border-left:1px solid #334155"><div class="mtd-label" style="color:var(--primary)">MTD</div><div class="mtd-val" style="color:var(--primary)">${mtd}%</div></div>
+                <div class="mtd-item" style="border-left:1px solid #334155"><div class="mtd-label" style="color:var(--primary)">MTD</div><div class="mtd-val" style="color:var(--primary); font-size:1rem;">${mtd}%</div></div>
             </div>`;
           document.getElementById('scoreBreakdown').style.display = 'block'; 
           document.querySelector('.unlock-btn').style.display = 'none'; 
           closeModal('passwordModal');
-      } else { alert('❌ Incorrect Code'); }
+      } else { alert('❌ Incorrect Access Code'); }
     }
-</script>
+  </script>
 </body>
 </html>
