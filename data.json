@@ -1,206 +1,279 @@
-[
-  {
-    "name": "J. Años",
-    "password": "Jowsip2026",
-    "weekly": {
-      "week1": {
-        "score": "92.64"
+{
+  "theme": {
+    "primary": "#005500",
+    "bg": "#3f4145",
+    "card": "#0f172a"
+  },
+  "agents": [
+    {
+      "name": "J. Años",
+      "password": "Jowsip2026",
+      "weekly": {
+        "week1": {
+          "score": "92.64"
+        },
+        "week2": {
+          "score": "93.18"
+        },
+        "week3": {
+          "score": 0
+        },
+        "week4": {
+          "score": "78.64"
+        }
       },
-      "week2": {
-        "score": "93.18"
-      },
-      "week3": {
-        "score": 0
-      },
-      "week4": {
-        "score": "78.64"
+      "qa": [
+        "INTRO  @0:02  Unnecessary hotkey.  WI ",
+        "GOOD CALL",
+        "GOOD CALL",
+        "GOOD CALL",
+        "Tagging a SALE call into a NON-SALE call.  WI ",
+        "INTRO  @0:40  cust said,  \"I'm under the weather today. I have COVID.\"  agent pressed  b(Busy)  instead of  v(Very busy).  PC "
+      ],
+      "audits": [
+        "Agent disposed the call as NI3 instead of CB.  WI",
+        "GOOD CALL",
+        "GOOD CALL",
+        "GOOD CALL"
+      ],
+      "month": "MAY",
+      "week_label": "WEEK 4",
+      "weekly_data": {
+        "week1": {
+          "score": 62.92,
+          "qa": [
+            " Pitch   @ 00:45   Cust said \" All right Matt. \"   The agent pressed 41 - Imm No instead of proceed.   Date Posted: (SB) WI FR",
+            "Note:  Survey Own Home: Cust said \" Mhm-uh \"   Survey Home Type   @ 02:31   Cust said \" No, a stick built home, a stick built brick home \"   The agent pressed 32 - Unsure (Own Home screen) instead of proceed.   Date Posted: (SB) WI FR ",
+            "GOOD CALL",
+            "GOOD CALL",
+            "Greetings   @ 00:16   Slight delay.   Date Posted: (SB) WI FR",
+            "TCPA   after ^ Defer   @ 03:06   Cust said \" Well if you're just trying to sell me Windows. I can't afford it so I don't wanna waste your time or my time. I'm retired. I'm on a fixed it.(stopped) then proceed \" I'm on a fixed income and I can't afford, Like a ton for windows. \"   The agent pressed 64 - Don't Need Now instead of 41 - Imm No.   @ 03:53   Cust said \" Well, you didn't answer my question. I don't want to waste my time and I don't want to waste their time. They're gonna try to just sell me thousands of dollars' worth of windows. I'm telling you right now I can't do it, so let's not waste any time.\"   The agent pressed $ How Much + 32 Quick Repeat instead of 43 - Final No. Compliance: Call Agressiveness - CAT2.   Date Posted: (SB) WI FR",
+            "GOOD CALL",
+            "Pitch   @ 00:40   Cust interrupted and said \" Okay, the mistake was mine, I guess, because I have a broken window. So all I was looking for was glass replacement. So I made the assumption that's what I was doing when I put in that type of thing. I just needed a window the glass replaced. But now I'm getting. Now I'm getting phone calls from all sorts of places that want me to replace all the windows in my house. I, I don't want that.\"   The agent pressed 41 - Imm No instead of End the call politely. (Not Qualified).   NOTE: @ 01:25   Cust interrupted and said \" No, it's, it's amazing. It's amazing. It really is amazing. You guys are amazing. So what I need is a piece of glass. And, I get calls wanting. I don't need that...\"   The agent pressed 42 - Imm No instead of End the call politely. (Not Qualified).   Date Posted: (SB) WI FR\n\nThis call should have been disposed as NQ.   Date Posted: (SB) WI FR"
+          ],
+          "audits": [
+            "The agent disposed the call as AM instead of DA.   Date Posted: (SB) WI FR ",
+            " The agent disposed the call as AM instead of CB.   (SB) WI FR ",
+            "The agent disposed the call as AM instead of CB.  (SB) WI FR",
+            "The agent disposed the call as CB instead of DA.   (SB) WI FR",
+            "GOOD CALL",
+            "GOOD CALL",
+            "The agent delayed 6 seconds in disposing the call.   (SB) WI FR",
+            "The agent disposed the call as DA instead of CB. (SB) WI FR",
+            "The agent disposed the call as DA instead of CB; delayed 6 seconds in disposing the call.   (SB) WI FR ",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL"
+          ]
+        },
+        "week2": {
+          "score": 86.56,
+          "qa": [
+            "GOOD CALL",
+            "PITCH - @00:20 Cx interrupted and then @00:41 cx said \"Okay.\",  agent pressed    1(Yes - Pitch)  instead of    31(LR - Pitch)_(SB-BR)",
+            "SURVEY -  OWN HOME - @1:35 Slight delay_(SB-BR)",
+            "GOOD CALL",
+            "PITCH - @1:11 Bumping key_(SB-WI)",
+            "GOOD CALL",
+            "GREETINGS - @00:11 Slight delay_(SB-WI)",
+            "GOOD CALL"
+          ],
+          "audits": [
+            "Agent disposed the call as  DA  instead of  AM_(SB-WI)",
+            "Agent disposed the call as  DA  instead of  AM_(SB-WI)",
+            "Agent disposed the call as  DA  instead of  AM ; Delay dispo for more than 5 secs_(SB-WI)",
+            "Agent disposed the call as  DA  instead of  AM ; Delay dispo for more than 5 secs_(SB-WI)",
+            "Agent disposed the call as  DA  instead of  AM_(SB-WI)",
+            "Agent disposed the call as  DA  instead of  AM ; Delay dispo for more than 5 secs_(SB-WI)",
+            "GOOD CALL",
+            "GOOD CALL",
+            "Missed option_(SB-WI)",
+            "Agent disposed the call as  DA  instead of   AM_(SB-WI)",
+            "GOOD CALL",
+            "GOOD CALL"
+          ]
+        },
+        "week3": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week4": {
+          "score": 78.64,
+          "qa": [
+            "INTRO  @0:02  Unnecessary hotkey.  WI",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "Tagging a SALE call into a NON-SALE call.  WI",
+            "INTRO  @0:40  cust said,  \"I'm under the weather today. I have COVID.\"  agent pressed  b(Busy)  instead of  v(Very busy).  PC BR"
+          ],
+          "audits": [
+            "Agent disposed the call as NI3 instead of CB.  WI",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL"
+          ]
+        }
       }
     },
-    "qa": [
-      "INTRO  @0:02  Unnecessary hotkey.  WI ",
-      "GOOD CALL",
-      "GOOD CALL",
-      "GOOD CALL",
-      "Tagging a SALE call into a NON-SALE call.  WI ",
-      "INTRO  @0:40  cust said,  \"I'm under the weather today. I have COVID.\"  agent pressed  b(Busy)  instead of  v(Very busy).  PC "
-    ],
-    "audits": [
-      "Agent disposed the call as NI3 instead of CB.  WI",
-      "GOOD CALL",
-      "GOOD CALL",
-      "GOOD CALL"
-    ],
-    "month": "MAY",
-    "week_label": "WEEK 4",
-    "weekly_data": {
-      "week1": {
-        "score": 62.92,
-        "qa": [
-          " Pitch   @ 00:45   Cust said \" All right Matt. \"   The agent pressed 41 - Imm No instead of proceed.   Date Posted: (SB) WI FR",
-          "Note:  Survey Own Home: Cust said \" Mhm-uh \"   Survey Home Type   @ 02:31   Cust said \" No, a stick built home, a stick built brick home \"   The agent pressed 32 - Unsure (Own Home screen) instead of proceed.   Date Posted: (SB) WI FR ",
-          "GOOD CALL",
-          "GOOD CALL",
-          "Greetings   @ 00:16   Slight delay.   Date Posted: (SB) WI FR",
-          "TCPA   after ^ Defer   @ 03:06   Cust said \" Well if you're just trying to sell me Windows. I can't afford it so I don't wanna waste your time or my time. I'm retired. I'm on a fixed it.(stopped) then proceed \" I'm on a fixed income and I can't afford, Like a ton for windows. \"   The agent pressed 64 - Don't Need Now instead of 41 - Imm No.   @ 03:53   Cust said \" Well, you didn't answer my question. I don't want to waste my time and I don't want to waste their time. They're gonna try to just sell me thousands of dollars' worth of windows. I'm telling you right now I can't do it, so let's not waste any time.\"   The agent pressed $ How Much + 32 Quick Repeat instead of 43 - Final No. Compliance: Call Agressiveness - CAT2.   Date Posted: (SB) WI FR",
-          "GOOD CALL",
-          "Pitch   @ 00:40   Cust interrupted and said \" Okay, the mistake was mine, I guess, because I have a broken window. So all I was looking for was glass replacement. So I made the assumption that's what I was doing when I put in that type of thing. I just needed a window the glass replaced. But now I'm getting. Now I'm getting phone calls from all sorts of places that want me to replace all the windows in my house. I, I don't want that.\"   The agent pressed 41 - Imm No instead of End the call politely. (Not Qualified).   NOTE: @ 01:25   Cust interrupted and said \" No, it's, it's amazing. It's amazing. It really is amazing. You guys are amazing. So what I need is a piece of glass. And, I get calls wanting. I don't need that...\"   The agent pressed 42 - Imm No instead of End the call politely. (Not Qualified).   Date Posted: (SB) WI FR\n\nThis call should have been disposed as NQ.   Date Posted: (SB) WI FR"
-        ],
-        "audits": [
-          "The agent disposed the call as AM instead of DA.   Date Posted: (SB) WI FR ",
-          " The agent disposed the call as AM instead of CB.   (SB) WI FR ",
-          "The agent disposed the call as AM instead of CB.  (SB) WI FR",
-          "The agent disposed the call as CB instead of DA.   (SB) WI FR",
-          "GOOD CALL",
-          "GOOD CALL",
-          "The agent delayed 6 seconds in disposing the call.   (SB) WI FR",
-          "The agent disposed the call as DA instead of CB. (SB) WI FR",
-          "The agent disposed the call as DA instead of CB; delayed 6 seconds in disposing the call.   (SB) WI FR ",
-          "GOOD CALL",
-          "GOOD CALL",
-          "GOOD CALL"
-        ]
+    {
+      "name": "S. Fuentes",
+      "password": "10988343",
+      "month": "MAY",
+      "week_label": "WEEK 4",
+      "weekly": {
+        "week1": {
+          "score": "93.98"
+        },
+        "week2": {
+          "score": "81.90"
+        },
+        "week3": {
+          "score": "88.68"
+        },
+        "week4": {
+          "score": "66.36"
+        }
       },
-      "week2": {
-        "score": 86.56,
-        "qa": [
-          "GOOD CALL",
-          "PITCH - @00:20 Cx interrupted and then @00:41 cx said \"Okay.\",  agent pressed    1(Yes - Pitch)  instead of    31(LR - Pitch)_(SB-BR)",
-          "SURVEY -  OWN HOME - @1:35 Slight delay_(SB-BR)",
-          "GOOD CALL",
-          "PITCH - @1:11 Bumping key_(SB-WI)",
-          "GOOD CALL",
-          "GREETINGS - @00:11 Slight delay_(SB-WI)",
-          "GOOD CALL"
-        ],
-        "audits": [
-          "Agent disposed the call as  DA  instead of  AM_(SB-WI)",
-          "Agent disposed the call as  DA  instead of  AM_(SB-WI)",
-          "Agent disposed the call as  DA  instead of  AM ; Delay dispo for more than 5 secs_(SB-WI)",
-          "Agent disposed the call as  DA  instead of  AM ; Delay dispo for more than 5 secs_(SB-WI)",
-          "Agent disposed the call as  DA  instead of  AM_(SB-WI)",
-          "Agent disposed the call as  DA  instead of  AM ; Delay dispo for more than 5 secs_(SB-WI)",
-          "GOOD CALL",
-          "GOOD CALL",
-          "Missed option_(SB-WI)",
-          "Agent disposed the call as  DA  instead of   AM_(SB-WI)",
-          "GOOD CALL",
-          "GOOD CALL"
-        ]
+      "qa": [
+        "GOOD CALL",
+        "GOOD CALL",
+        "GOOD CALL",
+        "CREDIT  @03:14  Slight delay.  PC BR\n\nTCPA  @04:08  cust said,  \"Yeah, if they call me and I don't answer and they don't leave a voicemail, I'm gonna think it's not important and I'm not gonna call the number back.\"  agent pressed  60(What Partners)  instead of  d(Defer)  ;  @05:34  after  3(I guess, i think so, i suppose, Maybe)  cust said,  \"i guess.\"  agent proceed the call instead of  3(I guess, i think so, i suppose, Maybe) 2nd rnd  --Autofail--  PC BR\n\n NO Affirmation in TCPA. PC BR",
+        "TCPA  @02:50 Bumping key.  PC BR",
+        "GOOD CALL"
+      ],
+      "audits": [],
+      "weekly_data": {
+        "week1": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week2": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week3": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week4": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        }
+      }
+    },
+    {
+      "name": "L. Guansing",
+      "password": "5560guansinG!",
+      "weekly": {
+        "week1": {
+          "score": "85.52"
+        },
+        "week2": {
+          "score": "85.88"
+        },
+        "week3": {
+          "score": 0
+        },
+        "week4": {
+          "score": "88.68"
+        }
       },
-      "week3": {
-        "score": 0,
-        "qa": [],
-        "audits": []
+      "qa": [
+        "HOMETYPE  @01:31 after r(Repeat that 2nd rnd)  cust said,  \"I'm sorry, I've had throat surgery, so this might not be a good time, thank you.\"  agent pressed  64(Don't Need Now)  instead of  b(Busy). WI",
+        "GOOD CALL",
+        "GOOD CALL",
+        "GREETINGS after 41(Imm No x1)  @0:30  cust said,  \"Well, I just got, I had to dirt after one of the hurricanes down here, I had to break a window to get back in the house. So that was all fine and good, anderson window came out, they did their measurements, blah blah blah, talked me into buying 2,2,2 other, 3 other windows, small, not big, and I got a total bill of $17,000. Can you imagine? And I, I asked, I asked everybody, in between Tampa and Sarasota and down here in Inglewood, I, I asked friends, neighbors. Have you ever bought a window? Well, yeah, occasionally, you know, found two guys that bought windows. Well, how much were they? Well, one window was about 6, maybe 700. The other one was around 5. I said, well, I bought 4,4 windows for 17,000, and the guy said, Anderson? I said, yeah, yeah they brag about being the best. They ought to brag about being the most expensive.\"  agent  end the call instead   $(How Much)  +  7(What's About).  WI",
+        "GOOD CALL",
+        "PITCH  @01:04  after r(Repeat) cust said,  \"I don't, I don't think I remember it. I don't write it down. I'm saying there's a million advertisements out there now on the radio and television. We replace the windows if you're a veteran, if you're this, if you're that, there's almost no cost. They're all full of it, I know that. So if you're gonna go into a thing and it's gonna run into 1000, you get it, I'm not interested.\"  agent pressed  4(Not Interested)  instead of  66(How Much).  PC WI\n\nMAIN REASON  @02:03  cust said,  \"I said they're 50 years old. I live in Kings Point. It's a pretty old place. I mean, I don't live here that long, but the place is 50 years old, the windows and everything kind of changed their touch.\"  agent pressed  x(Exit)  instead of  proceed.  PC WI"
+      ],
+      "audits": [
+        "GOOD CALL",
+        "GOOD CALL",
+        "GOOD CALL",
+        "GOOD CALL"
+      ],
+      "month": "MAY",
+      "week_label": "WEEK 4",
+      "weekly_data": {
+        "week1": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week2": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week3": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week4": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        }
+      }
+    },
+    {
+      "name": "C. Omandam",
+      "password": "sybille27",
+      "weekly": {
+        "week1": {
+          "score": "75.06"
+        },
+        "week2": {
+          "score": "93.30"
+        },
+        "week3": {
+          "score": 0
+        },
+        "week4": {
+          "score": "91.09"
+        }
       },
-      "week4": {
-        "score": 78.64,
-        "qa": [
-          "INTRO  @0:02  Unnecessary hotkey.  WI",
-          "GOOD CALL",
-          "GOOD CALL",
-          "GOOD CALL",
-          "Tagging a SALE call into a NON-SALE call.  WI",
-          "INTRO  @0:40  cust said,  \"I'm under the weather today. I have COVID.\"  agent pressed  b(Busy)  instead of  v(Very busy).  PC BR"
-        ],
-        "audits": [
-          "Agent disposed the call as NI3 instead of CB.  WI",
-          "GOOD CALL",
-          "GOOD CALL",
-          "GOOD CALL"
-        ]
+      "qa": [
+        " Delay in disposing the call for more than 10 seconds. PC BR",
+        "HOME TYPE  @01:37  Slight delay in applying silent rule.   PC BR",
+        "GOOD CALL",
+        "HOME TYPE  @03:20  Bumping key.  PC BR",
+        "GOOD CALL",
+        "CREDIT  @01:42  cust said,  \"Oh I see I was, I'll see what I was looking for, I was hoping that government, was any assistance. They're saying that, you know, you're retired, you can do it. I'm retired. I'm not working.\"  agent pressed  0(Credit) instead of  d(Defer).   PC BR"
+      ],
+      "audits": [],
+      "month": "MAY",
+      "week_label": "WEEK 4",
+      "weekly_data": {
+        "week1": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week2": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week3": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week4": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        }
       }
     }
-  },
-  {
-    "name": "S. Fuentes",
-    "password": "10988343",
-    "month": "MAY",
-    "week_label": "WEEK 4",
-    "weekly": {
-      "week1": {
-        "score": "93.98"
-      },
-      "week2": {
-        "score": "81.90"
-      },
-      "week3": {
-        "score": "88.68"
-      },
-      "week4": {
-        "score": "66.36"
-      }
-    },
-    "qa": [
-      "GOOD CALL",
-      "GOOD CALL",
-      "GOOD CALL",
-      "CREDIT  @03:14  Slight delay.  PC BR\n\nTCPA  @04:08  cust said,  \"Yeah, if they call me and I don't answer and they don't leave a voicemail, I'm gonna think it's not important and I'm not gonna call the number back.\"  agent pressed  60(What Partners)  instead of  d(Defer)  ;  @05:34  after  3(I guess, i think so, i suppose, Maybe)  cust said,  \"i guess.\"  agent proceed the call instead of  3(I guess, i think so, i suppose, Maybe) 2nd rnd  --Autofail--  PC BR\n\n NO Affirmation in TCPA. PC BR",
-      "TCPA  @02:50 Bumping key.  PC BR",
-      "GOOD CALL"
-    ],
-    "audits": []
-  },
-  {
-    "name": "L. Guansing",
-    "password": "5560guansinG!",
-    "weekly": {
-      "week1": {
-        "score": "85.52"
-      },
-      "week2": {
-        "score": "85.88"
-      },
-      "week3": {
-        "score": 0
-      },
-      "week4": {
-        "score": "88.68"
-      }
-    },
-    "qa": [
-      "HOMETYPE  @01:31 after r(Repeat that 2nd rnd)  cust said,  \"I'm sorry, I've had throat surgery, so this might not be a good time, thank you.\"  agent pressed  64(Don't Need Now)  instead of  b(Busy). WI",
-      "GOOD CALL",
-      "GOOD CALL",
-      "GREETINGS after 41(Imm No x1)  @0:30  cust said,  \"Well, I just got, I had to dirt after one of the hurricanes down here, I had to break a window to get back in the house. So that was all fine and good, anderson window came out, they did their measurements, blah blah blah, talked me into buying 2,2,2 other, 3 other windows, small, not big, and I got a total bill of $17,000. Can you imagine? And I, I asked, I asked everybody, in between Tampa and Sarasota and down here in Inglewood, I, I asked friends, neighbors. Have you ever bought a window? Well, yeah, occasionally, you know, found two guys that bought windows. Well, how much were they? Well, one window was about 6, maybe 700. The other one was around 5. I said, well, I bought 4,4 windows for 17,000, and the guy said, Anderson? I said, yeah, yeah they brag about being the best. They ought to brag about being the most expensive.\"  agent  end the call instead   $(How Much)  +  7(What's About).  WI",
-      "GOOD CALL",
-      "PITCH  @01:04  after r(Repeat) cust said,  \"I don't, I don't think I remember it. I don't write it down. I'm saying there's a million advertisements out there now on the radio and television. We replace the windows if you're a veteran, if you're this, if you're that, there's almost no cost. They're all full of it, I know that. So if you're gonna go into a thing and it's gonna run into 1000, you get it, I'm not interested.\"  agent pressed  4(Not Interested)  instead of  66(How Much).  PC WI\n\nMAIN REASON  @02:03  cust said,  \"I said they're 50 years old. I live in Kings Point. It's a pretty old place. I mean, I don't live here that long, but the place is 50 years old, the windows and everything kind of changed their touch.\"  agent pressed  x(Exit)  instead of  proceed.  PC WI"
-    ],
-    "audits": [
-      "GOOD CALL",
-      "GOOD CALL",
-      "GOOD CALL",
-      "GOOD CALL"
-    ],
-    "month": "MAY",
-    "week_label": "WEEK 4"
-  },
-  {
-    "name": "C. Omandam",
-    "password": "sybille27",
-    "weekly": {
-      "week1": {
-        "score": "75.06"
-      },
-      "week2": {
-        "score": "93.30"
-      },
-      "week3": {
-        "score": 0
-      },
-      "week4": {
-        "score": "91.09"
-      }
-    },
-    "qa": [
-      " Delay in disposing the call for more than 10 seconds. PC BR",
-      "HOME TYPE  @01:37  Slight delay in applying silent rule.   PC BR",
-      "GOOD CALL",
-      "HOME TYPE  @03:20  Bumping key.  PC BR",
-      "GOOD CALL",
-      "CREDIT  @01:42  cust said,  \"Oh I see I was, I'll see what I was looking for, I was hoping that government, was any assistance. They're saying that, you know, you're retired, you can do it. I'm retired. I'm not working.\"  agent pressed  0(Credit) instead of  d(Defer).   PC BR"
-    ],
-    "audits": [],
-    "month": "MAY",
-    "week_label": "WEEK 4"
-  }
-]
+  ]
+}
