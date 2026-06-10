@@ -35,7 +35,7 @@
     .editor-header { padding: 20px 40px; background: white; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
     .scroll-content { padding: 40px; overflow-y: auto; flex: 1; }
     
-    /* Theme Box */
+    /* Theme Customizer */
     .theme-box { background: #1e293b; padding: 20px; border-radius: 20px; margin-bottom: 25px; border: 2px solid var(--primary); color: white; }
     .preset-btn { border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.65rem; font-weight: 800; transition: 0.2s; }
     .preset-btn:hover { transform: translateY(-2px); filter: brightness(1.2); }
@@ -54,9 +54,6 @@
     label { display: block; font-weight: 700; font-size: 0.7rem; margin-bottom: 8px; color: #94a3b8; text-transform: uppercase; }
     input, textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; color: var(--navy); font-family: inherit; }
     .row-number { background: var(--navy); color: var(--primary); font-weight: 800; padding: 12px; border-radius: 12px; min-width: 45px; text-align: center; }
-
-    /* QA Item Box */
-    .qa-item-box { margin-bottom:20px; background:#fff; padding:15px; border-radius:12px; border:1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
 
     .json-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; padding: 50px; justify-content: center; align-items: center; }
     .json-content { background: var(--navy); width: 100%; max-width: 700px; border-radius: 25px; padding: 35px; border: 1px solid var(--primary); }
@@ -84,6 +81,7 @@
     </div>
     
     <div class="scroll-content">
+        <!-- AUTOMATIC THEME PRESETS -->
         <div class="theme-box">
             <h3 style="margin:0; font-size:0.85rem; color:var(--primary); letter-spacing:1px;">🎨 AUTO-THEME PRESETS</h3>
             <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
@@ -127,12 +125,9 @@
                     <label style="color:var(--primary); font-size: 0.7rem; font-weight: 800; margin: 0;">WEEKLY SCORE (%)</label>
                     <input type="number" id="weeklyScoreInput" style="background:#020617; color:var(--primary); border:1px solid var(--primary); font-size: 1rem; text-align: center; font-weight: 800; width: 80px; padding: 5px; border-radius: 8px;" oninput="updateWeeklyScore(this.value)">
                 </div>
-                <h3 style="color:var(--navy); font-size:0.8rem;">QA Feedback & Recordings</h3>
                 <div id="qaContainer"></div>
                 <button class="btn-add" onclick="addRow('qa')">+ Add QA Feedback</button>
-                
-                <h3 style="margin-top:40px; color:var(--navy); font-size:0.8rem;">Dispo Audits</h3>
-                <div id="auditContainer"></div>
+                <div id="auditContainer" style="margin-top:30px;"></div>
                 <button class="btn-add" onclick="addRow('audits')">+ Add Audit Entry</button>
             </div>
         </div>
@@ -144,15 +139,22 @@
       <textarea id="jsonOutput" class="json-area" readonly onclick="this.select()"></textarea>
       <div style="display:flex; gap:10px; margin-top:25px;"><button class="btn-save" style="flex:1;" onclick="copyJSON()">Copy Code</button><button class="btn-save" style="background:#334155; color:white;" onclick="closeModal('exportModal')">Close</button></div>
   </div></div>
+
+  <div id="importModal" class="json-modal"><div class="json-content">
+      <h2 style="color:var(--primary); margin:0;">📥 Import JSON</h2>
+      <textarea id="jsonInput" class="json-area" placeholder="Paste JSON here..."></textarea>
+      <div style="display:flex; gap:10px; margin-top:25px;"><button class="btn-save" style="flex:1; background:#10b981; color:white;" onclick="processImport()">IMPORT</button><button class="btn-save" style="background:#334155; color:white;" onclick="closeModal('importModal')">Cancel</button></div>
+  </div></div>
   <script>
     let db = { theme: { primary: "#f59e0b", bg: "#fef3c7", card: "#0f172a" }, agents: [] };
     let selectedIndex = -1;
     let currentWeek = 'week1';
 
     window.addEventListener('DOMContentLoaded', () => {
-      const savedData = localStorage.getItem('qa_dashboard_mtd_data_v4');
+      const savedData = localStorage.getItem('qa_dashboard_mtd_data_v3');
       if (savedData) { 
         db = JSON.parse(savedData); 
+        if(!db.theme) db.theme = { primary: "#f59e0b", bg: "#fef3c7", card: "#0f172a" };
         applyThemeInputs(); renderSidebar(); 
       } else { 
         fetch('data.json').then(r => r.json()).then(data => { 
@@ -162,18 +164,20 @@
       }
     });
 
-    function saveToLocal() { localStorage.setItem('qa_dashboard_mtd_data_v4', JSON.stringify(db)); }
+    function saveToLocal() { localStorage.setItem('qa_dashboard_mtd_data_v3', JSON.stringify(db)); }
     function applyThemeInputs() {
       document.getElementById('themePrimary').value = db.theme.primary;
       document.getElementById('themeBg').value = db.theme.bg;
       document.getElementById('themeCard').value = db.theme.card;
     }
+
     function setTheme(p, b, c) {
       document.getElementById('themePrimary').value = p;
       document.getElementById('themeBg').value = b;
       document.getElementById('themeCard').value = c;
       saveAndSync();
     }
+
     function renderSidebar() {
       const list = document.getElementById('agentList');
       list.innerHTML = db.agents.map((a, i) => `
@@ -205,34 +209,8 @@
       renderList('qa', data.qa || []); renderList('audits', data.audits || []);
     }
 
-    function renderList(type, data) {
-      const container = document.getElementById(type === 'qa' ? 'qaContainer' : 'auditContainer');
-      container.innerHTML = data.map((item, i) => {
-        const text = typeof item === 'object' ? item.text : item;
-        const link = typeof item === 'object' ? item.link : "";
-        return `
-        <div class="qa-item-box">
-            <div style="display:flex; gap:12px; margin-bottom:10px;">
-                <div class="row-number" style="min-width:35px; height:35px; font-size:0.7rem;">${i + 1}</div>
-                <textarea oninput="updateItem('${type}', ${i}, 'text', this.value)" style="flex:1; min-height:80px;">${text}</textarea>
-                <button onclick="removeItem('${type}', ${i})" style="color:#ef4444; background:none; border:none; cursor:pointer; font-weight:800;">✕</button>
-            </div>
-            ${type === 'qa' ? `
-            <div style="display:flex; align-items:center; gap:10px; margin-left:47px;">
-                <label style="font-size:0.6rem; color:#64748b; margin:0; white-space:nowrap;">LINK:</label>
-                <input type="text" value="${link}" oninput="updateItem('${type}', ${i}, 'link', this.value)" placeholder="Recording URL" style="font-size:0.75rem; padding:6px; border:1px solid #ddd; border-radius:6px;">
-            </div>` : ''}
-        </div>`;
-      }).join('');
-    }
-
-    function updateItem(type, index, field, val) {
-      let entry = db.agents[selectedIndex].weekly_data[currentWeek][type][index];
-      if (typeof entry !== 'object') { db.agents[selectedIndex].weekly_data[currentWeek][type][index] = { text: entry, link: "" }; }
-      db.agents[selectedIndex].weekly_data[currentWeek][type][index][field] = val;
-      saveToLocal();
-    }
     function updateWeeklyScore(val) { db.agents[selectedIndex].weekly_data[currentWeek].score = parseFloat(val) || 0; saveToLocal(); }
+    
     function saveAndSync() {
       db.theme.primary = document.getElementById('themePrimary').value;
       db.theme.bg = document.getElementById('themeBg').value;
@@ -244,18 +222,32 @@
       }
       saveToLocal(); renderSidebar();
     }
-    function addRow(type) {
-      const entry = type === 'qa' ? { text: "NEW ENTRY", link: "" } : { text: "NEW ENTRY" };
-      db.agents[selectedIndex].weekly_data[currentWeek][type].push(entry);
-      renderList(type, db.agents[selectedIndex].weekly_data[currentWeek][type]);
-      saveToLocal();
-    }
-    function removeItem(type, index) { db.agents[selectedIndex].weekly_data[currentWeek][type].splice(index, 1); renderList(type, db.agents[selectedIndex].weekly_data[currentWeek][type]); saveToLocal(); }
+
     function deleteAgent(index, event) {
       event.stopPropagation();
-      if (confirm(`Remove Agent?`)) { db.agents.splice(index, 1); renderSidebar(); saveToLocal(); }
+      if (confirm(`Remove "${db.agents[index].name}"?`)) {
+        db.agents.splice(index, 1);
+        if (selectedIndex === index) { selectedIndex = -1; document.getElementById('editorContent').style.display = 'none'; }
+        saveToLocal(); renderSidebar();
+      }
     }
+
+    function renderList(type, data) {
+      const container = document.getElementById(type === 'qa' ? 'qaContainer' : 'auditContainer');
+      container.innerHTML = data.map((item, i) => `
+        <div style="margin-bottom:12px; display:flex; gap:12px;">
+            <div class="row-number" style="min-width:35px; height:35px; font-size:0.7rem;">${i + 1}</div>
+            <textarea oninput="updateItem('${type}', ${i}, this.value)" style="flex:1; min-height:60px;">${item}</textarea>
+            <button onclick="removeItem('${type}', ${i})" style="color:#ef4444; background:none; border:none; cursor:pointer; font-weight:800;">✕</button>
+        </div>`).join('');
+    }
+
+    function updateItem(type, index, val) { db.agents[selectedIndex].weekly_data[currentWeek][type][index] = val; saveToLocal(); }
+    function addRow(type) { db.agents[selectedIndex].weekly_data[currentWeek][type].push("GOOD CALL"); renderList(type, db.agents[selectedIndex].weekly_data[currentWeek][type]); saveToLocal(); }
+    function removeItem(type, index) { db.agents[selectedIndex].weekly_data[currentWeek][type].splice(index, 1); renderList(type, db.agents[selectedIndex].weekly_data[currentWeek][type]); saveToLocal(); }
     function showExport() { document.getElementById('jsonOutput').value = JSON.stringify(db, null, 2); document.getElementById('exportModal').style.display = 'flex'; }
+    function showImportModal() { document.getElementById('importModal').style.display = 'flex'; }
+    function processImport() { try { db = JSON.parse(document.getElementById('jsonInput').value); saveToLocal(); renderSidebar(); applyThemeInputs(); closeModal('importModal'); alert("Imported!"); } catch(e) { alert("Error!"); } }
     function copyJSON() { navigator.clipboard.writeText(document.getElementById('jsonOutput').value); alert("Copied!"); }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     function addNewAgent() { db.agents.push({ name: "New Agent", password: "123", month: "MAY", weekly_data: { week1:{score:0,qa:[],audits:[]}, week2:{score:0,qa:[],audits:[]}, week3:{score:0,qa:[],audits:[]}, week4:{score:0,qa:[],audits:[]} } }); saveToLocal(); renderSidebar(); }
