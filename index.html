@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>QA Analytics Portal</title>
+  <title>QA Pro | Analytics Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://googleapis.com" rel="stylesheet">
   <style>
@@ -10,6 +10,7 @@
     * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #000; margin: 0; padding: 0; }
     
+    /* FIX: USA RA KA HEADER */
     .header-main { background: #020617; padding: 15px 30px; color: var(--primary); border-bottom: 5px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
     .header-main h1 { margin: 0; font-size: 1.1rem; font-weight: 800; letter-spacing: 2px; flex: 1; text-align: center; }
     .admin-btn { background: transparent; color: #94a3b8; font-size: 0.7rem; font-weight: 700; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; text-decoration: none; }
@@ -22,9 +23,11 @@
     .content-container { max-width: 900px; margin: 30px auto; padding: 0 20px 80px; }
     .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
     .kpi-box { padding: 20px 10px; border-radius: 24px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 125px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    
+    /* AUDITS VISIBILITY FIX: Gihimo natong mas dark ang background */
     .kpi-1 { background: #0f172a; border: 2px solid var(--primary); } 
     .kpi-2 { background: var(--primary); } 
-    .kpi-3 { background: #1e293b; } 
+    .kpi-3 { background: #111827; } 
 
     .kpi-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; color: #ffffff !important; opacity: 0.9; }
     .kpi-2 .kpi-label { color: #000 !important; }
@@ -40,9 +43,9 @@
     td { padding: 15px 10px; border-top: 1px solid var(--border); color: #ffffff !important; font-size: 0.95rem; line-height: 1.6; vertical-align: top; }
     
     .quote-style { font-weight: 600; color: #fde68a; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 6px; border-left: 3px solid var(--primary); display: inline-block; }
-    .modal { display: none; position: fixed; inset: 0; background:rgba(2, 6, 23, 0.95); z-index: 200; justify-content:center; align-items:center; }
+    .modal { display: none; position: fixed; inset: 0; background:rgba(2,6,23,0.95); z-index: 200; justify-content:center; align-items:center; }
     .modal-content { background:#1e293b; padding:40px; border-radius:30px; width:340px; text-align:center; border: 2px solid var(--primary); }
-    .btn-verify { background: var(--primary); color: #000; padding: 12px; border:none; border-radius:12px; width: 100%; font-weight:800; cursor:pointer; }
+    .btn-verify { background: var(--primary); color: #000; padding: 15px; border:none; border-radius:12px; width: 100%; font-weight:800; cursor:pointer; }
     @media (max-width: 600px) { .kpi-row { grid-template-columns: 1fr; } .card-head { flex-direction: column; gap: 15px; text-align: center; } }
   </style>
 </head>
@@ -156,7 +159,7 @@
     }
 
     function renderTable(title, data, isQA) {
-      if(!data || data.length === 0) return `<div class="table-block"><h3 style="margin:0">${title}</h3><p style="color:#ffffff; font-size:0.8rem; margin-top:10px;">No entries recorded.</p></div>`;
+      if(!data || data.length === 0) return `<div class="table-block"><h3>${title}</h3><p style="color:#ffffff;">No entries recorded.</p></div>`;
       return `<div class="table-block"><h3>${title}</h3><table><tbody>
         ${data.map((item, i) => {
           let text = (typeof item === 'object') ? (item.text || "") : item;
@@ -164,12 +167,13 @@
           let mediaHtml = "";
           
           if (link && link.trim() !== "") {
-              const driveMatch = link.match(/[-\w]{25,}/);
-              if (driveMatch && (link.includes('drive.google') || link.includes('docs.google'))) {
-                  const fId = driveMatch[0]; // KANI ANG FIXED: match[0] para makuha ang ID mismo
-                  mediaHtml = `<div style="margin-top:15px; border-radius:12px; overflow:hidden; border:1.5px solid var(--primary); background:#000; height:150px; line-height:0;"><iframe src="https://google.com{fId}/preview" width="100%" height="150" style="border:none;" allow="autoplay"></iframe></div>`;
+              // FIX: PINAKA-LIG-ON NGA PAGKUHA SA GOOGLE DRIVE ID
+              const idMatch = link.match(/[-\w]{25,}/);
+              if (idMatch && (link.includes('drive.google') || link.includes('docs.google'))) {
+                  const fileId = idMatch[0]; // Kinuha ang string mismo para dili mag-error ang URL
+                  mediaHtml = `<div style="margin-top:15px; border-radius:12px; overflow:hidden; border:1px solid var(--primary); background:#000; height:150px; line-height:0;"><iframe src="https://google.com{fileId}/preview" width="100%" height="150" style="border:none;" allow="autoplay"></iframe></div>`;
               } else {
-                  mediaHtml = `<a href="${link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1.5px solid var(--primary); padding:6px 15px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 OPEN RECORDING</a>`;
+                  mediaHtml = `<a href="${link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1.5px solid var(--primary); padding:6px 12px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 OPEN LINK</a>`;
               }
           }
           let fText = text.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
@@ -182,7 +186,7 @@
     function openAgentModal() { document.getElementById('pwInput').value = ''; document.getElementById('passwordModal').style.display = 'flex'; }
     function openAdminModal() { document.getElementById('adminPwInput').value = ''; document.getElementById('adminModal').style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-    function verifyAdmin() { if (document.getElementById('adminPwInput').value === "Jeikaaru-08!") { window.location.href = "admin.html"; } else { alert("❌ Unauthorized"); } }
+    function verifyAdmin() { if (document.getElementById('adminPwInput').value === "Jeikaaru-08!") { window.location.href = "admin.html"; } else { alert("❌ Denied"); } }
     function verifyAndShowScores() { if(activeAgent && document.getElementById('pwInput').value.trim() === activeAgent.password.toString().trim()) { isUnlocked = true; renderDashboard(); closeModal('passwordModal'); } else { alert('❌ Incorrect Access Code'); } }
   </script>
 </body>
