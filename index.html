@@ -39,7 +39,7 @@
     .kpi-value { font-size: 1.8rem; font-weight: 900; line-height: 1; text-transform: uppercase; color: #ffffff !important; }
 
     .dashboard-tabs { display: flex; gap: 8px; margin-bottom: 20px; background: var(--card); padding: 8px; border-radius: 16px; border: 1px solid var(--border); }
-    .dash-tab-btn { flex: 1; padding: 12px; border: none; border-radius: 10px; background: transparent; color: #94a3b8; font-weight: 800; font-size: 0.7rem; cursor: pointer; transition: 0.2s; }
+    .dash-tab-btn { flex: 1; padding: 12px; border: none; border-radius: 10px; background: transparent; color: #94a3b8; font-weight: 800; font-size: 0.7rem; cursor: pointer; }
     .dash-tab-btn.active { background: var(--primary); color: var(--text-dark); }
 
     .main-card { background: var(--card); border-radius: 32px; overflow: hidden; color: var(--text-light); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
@@ -74,8 +74,12 @@
     <h1>AGENT ANALYTICS PORTAL</h1>
     <button onclick="openAdminModal()" class="admin-btn">ADMIN</button>
   </header>
+
   <nav class="nav-bar"><div id="agentPills" class="nav-inner"></div></nav>
-  <div class="content-container"><div id="dashboardView"></div></div>
+  
+  <div class="content-container">
+    <div id="dashboardView"></div>
+  </div>
 
   <div id="passwordModal" class="modal">
     <div class="modal-content">
@@ -195,16 +199,14 @@
           
           let mediaHtml = "";
           if (link) {
-              if (link.includes('://google.com')) {
-                  const fileId = link.match(/[-\w]{25,}/);
-                  if (fileId) {
-                      // KANI ANG USAB: Imbes nga audio tag, gamit ta og Iframe Preview Player
-                      const embedUrl = `https://://google.com/file/d/${fileId}/preview`;
-                      mediaHtml = `
-                        <div style="margin-top:15px; border-radius:12px; overflow:hidden; border:1.5px solid var(--primary); background:rgba(0,0,0,0.2);">
-                            <iframe src="${embedUrl}" width="100%" height="150" allow="autoplay" style="border:none;"></iframe>
-                        </div>`;
-                  }
+              const fileIdMatch = link.match(/[-\w]{25,}/);
+              if (fileIdMatch && (link.includes('://google.com') || link.includes('://google.com'))) {
+                  const fileId = fileIdMatch[0]; // KANI ANG FIXED: Gikuha ang string gikan sa array
+                  const embedUrl = `https://://google.com/file/d/${fileId}/preview`;
+                  mediaHtml = `
+                    <div style="margin-top:15px; border-radius:12px; overflow:hidden; border:1px solid var(--primary); background:rgba(0,0,0,0.2);">
+                        <iframe src="${embedUrl}" width="100%" height="150" allow="autoplay" style="border:none;"></iframe>
+                    </div>`;
               } else {
                   mediaHtml = `<a href="${link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); font-size:0.7rem; font-weight:800; border:1.5px solid var(--primary); padding:6px 15px; border-radius:8px; text-decoration:none; background:rgba(245,158,11,0.1);">🔗 OPEN RECORDING LINK</a>`;
               }
