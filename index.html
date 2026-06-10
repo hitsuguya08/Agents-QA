@@ -8,63 +8,58 @@
   <style>
     :root {
       --primary: #f59e0b;    --bg: #0f172a;
-      --card: #1e293b;       --text-light: #f8fafc;
+      --card: #1e293b;       --text-light: #ffffff;
       --text-dark: #0f172a;  --border: rgba(255,255,255,0.1);
     }
     * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: var(--text-light); margin: 0; padding: 0; transition: 0.5s; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fef3c7; color: var(--text-dark); margin: 0; padding: 0; }
     
     .header-main { 
       background: #020617; padding: 15px 30px; color: var(--primary); 
       border-bottom: 5px solid var(--primary); display: flex; justify-content: space-between; align-items: center;
     }
     .header-main h1 { margin: 0; font-size: 1.1rem; font-weight: 800; letter-spacing: 2px; flex: 1; text-align: center; }
-    
     .admin-btn { background: transparent; color: #94a3b8; font-size: 0.7rem; font-weight: 700; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; }
 
-    .nav-bar { background: #0f172a; opacity: 0.95; backdrop-filter: blur(10px); border-bottom: 1px solid var(--primary); padding: 12px 0; position: sticky; top: 0; z-index: 100; overflow-x: auto; }
-    .nav-inner { display: flex; justify-content: center; gap: 10px; padding: 0 15px; }
-    .agent-pill { padding: 8px 18px; border-radius: 30px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: #94a3b8; font-weight: 700; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; gap: 8px; white-space: nowrap; transition: 0.3s; }
-    .agent-pill.active { background: var(--primary); color: var(--text-dark); border-color: var(--primary); }
+    .nav-bar { background: #0f172a; border-bottom: 1px solid var(--primary); padding: 12px 0; position: sticky; top: 0; z-index: 100; }
+    .nav-inner { display: flex; justify-content: center; gap: 10px; padding: 0 15px; flex-wrap: wrap; }
+    .agent-pill { padding: 8px 18px; border-radius: 30px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: #94a3b8; font-weight: 700; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+    .agent-pill.active { background: var(--primary); color: #000; border-color: var(--primary); }
     
     .content-container { max-width: 900px; margin: 30px auto; padding: 0 20px 80px; }
     
     .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
-    .kpi-box { padding: 20px 10px; border-radius: 24px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 125px; transition: 0.3s; }
-    .kpi-1 { background: var(--card); border: 2px solid var(--primary); } 
-    .kpi-2 { background: var(--primary); color: var(--text-dark); } 
-    .kpi-3 { background: rgba(255,255,255,0.1); color: white; }
+    .kpi-box { padding: 20px 10px; border-radius: 24px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 125px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    .kpi-1 { background: #0f172a; border: 2px solid var(--primary); color: white; } 
+    .kpi-2 { background: var(--primary); color: #000; } 
+    .kpi-3 { background: #334155; color: white; } /* Gihimo natong dark gray para makita ang white text */
 
-    .kpi-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; color: #ffffff !important; opacity: 0.9; }
+    .kpi-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; color: #ffffff !important; opacity: 0.8; }
+    .kpi-2 .kpi-label { color: #000 !important; }
     .kpi-value { font-size: 1.8rem; font-weight: 900; line-height: 1; text-transform: uppercase; color: #ffffff !important; }
+    .kpi-2 .kpi-value { color: #000 !important; }
 
-    .dashboard-tabs { display: flex; gap: 8px; margin-bottom: 20px; background: #020617; padding: 8px; border-radius: 16px; border: 1px solid var(--border); }
+    .dashboard-tabs { display: flex; gap: 8px; margin-bottom: 20px; background: #0f172a; padding: 8px; border-radius: 16px; }
     .dash-tab-btn { flex: 1; padding: 12px; border: none; border-radius: 10px; background: transparent; color: #94a3b8; font-weight: 800; font-size: 0.7rem; cursor: pointer; }
-    .dash-tab-btn.active { background: var(--primary); color: var(--text-dark); }
+    .dash-tab-btn.active { background: var(--primary); color: #000; }
 
-    .main-card { background: var(--card); border-radius: 32px; overflow: hidden; color: #ffffff; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-    .card-head { padding: 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
-
-    .mtd-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 16px; border: 1px solid var(--primary); margin-top: 15px; width: 100%; }
-    .mtd-val { font-size: 1rem; font-weight: 800; color: white; }
-
+    .main-card { background: #0f172a; border-radius: 32px; overflow: hidden; color: #ffffff; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+    .card-head { padding: 30px; border-bottom: 1px solid var(--border); }
+    
+    .mtd-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 16px; border: 1px solid var(--primary); margin-top: 15px; }
     .table-block { padding: 30px; border-bottom: 1px solid var(--border); }
     .table-block h3 { color: var(--primary); font-size: 0.9rem; margin-bottom: 15px; text-transform: uppercase; }
     table { width: 100%; border-collapse: collapse; }
+    td { padding: 15px 10px; border-top: 1px solid var(--border); color: #ffffff !important; font-size: 0.95rem; line-height: 1.6; vertical-align: top; }
     
-    /* VISIBILITY FIX PARA SA AUDITS UG FEEDBACK */
-    td { padding: 15px 10px; border-top: 1px solid var(--border); color: #ffffff !important; font-size: 0.95rem; line-height: 1.6; }
-    .table-block p { color: #ffffff !important; }
-
-    .quote-style { font-weight: 600; color: #fde68a; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 6px; border-left: 3px solid var(--primary); display: inline-block; margin: 2px 0; }
-    .modal { display: none; position: fixed; inset: 0; background:rgba(2, 6, 23, 0.95); z-index: 200; justify-content:center; align-items:center; }
+    .quote-style { font-weight: 600; color: #fde68a; background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 8px; border-left: 4px solid var(--primary); display: inline-block; margin: 2px 0; }
+    .modal { display: none; position: fixed; inset: 0; background:rgba(2,6,23,0.95); z-index: 200; justify-content:center; align-items:center; }
     .modal-content { background:#1e293b; padding:40px; border-radius:30px; width:340px; text-align:center; border: 2px solid var(--primary); }
-    .btn-verify { background: var(--primary); color: var(--text-dark); padding: 15px; border:none; border-radius:15px; width: 100%; font-weight:800; cursor:pointer; }
+    .btn-verify { background: var(--primary); color: #000; padding: 15px; border:none; border-radius:15px; width: 100%; font-weight:800; cursor:pointer; }
     @media (max-width: 600px) { .kpi-row { grid-template-columns: 1fr; } .card-head { flex-direction: column; gap: 15px; text-align: center; } }
   </style>
 </head>
 <body>
-
   <header class="header-main">
     <div style="width: 80px;"></div>
     <h1>AGENT ANALYTICS PORTAL</h1>
@@ -72,22 +67,17 @@
   </header>
 
   <nav class="nav-bar"><div id="agentPills" class="nav-inner"></div></nav>
-  
-  <div class="content-container">
-    <div id="dashboardView"></div>
-  </div>
+  <div class="content-container"><div id="dashboardView"></div></div>
 
-  <!-- Agent Password Modal -->
   <div id="passwordModal" class="modal">
     <div class="modal-content">
-      <h3 style="color:var(--primary); margin:0;">🔐 UNLOCK MTD SCORES</h3>
+      <h3 style="color:var(--primary); margin:0;">🔐 UNLOCK SCORES</h3>
       <input type="password" id="pwInput" style="width:100%; padding:15px; margin:20px 0; background:#000; color:#fff; border:1px solid #444; text-align:center; font-size:1.5rem; border-radius:15px;" placeholder="••••" />
       <button class="btn-verify" onclick="verifyAndShowScores()">VERIFY ACCESS</button>
       <p onclick="closeModal('passwordModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
     </div>
   </div>
 
-  <!-- Admin Modal -->
   <div id="adminModal" class="modal">
     <div class="modal-content">
       <h3 style="color:var(--primary); margin:0;">🚨 ADMIN ACCESS</h3>
@@ -111,14 +101,12 @@
           if(db.theme) applyTheme(db.theme);
           renderPills(db.agents); 
         })
-        .catch(() => { document.getElementById('dashboardView').innerHTML = `<h3 style="color:var(--primary); text-align:center; padding:50px;">⚠️ Syncing Data...</h3>`; });
+        .catch(() => { document.getElementById('dashboardView').innerHTML = `<h3 style="color:var(--primary); text-align:center; padding:50px;">Syncing...</h3>`; });
     });
 
     function applyTheme(t) {
       const r = document.documentElement;
       r.style.setProperty('--primary', t.primary);
-      r.style.setProperty('--bg', t.bg);
-      r.style.setProperty('--card', t.card);
     }
 
     function renderPills(agents) {
@@ -143,12 +131,12 @@
       if(!activeAgent.weekly_data) { activeAgent.weekly_data = { week1:{score:0,qa:[],audits:[]}, week2:{score:0,qa:[],audits:[]}, week3:{score:0,qa:[],audits:[]}, week4:{score:0,qa:[],audits:[]} }; }
       const weekly = activeAgent.weekly_data[currentViewWeek];
       const qas = weekly.qa || []; const audits = weekly.audits || [];
-      const displayMonth = activeAgent.month || "MAY";
+      const monthDisplay = activeAgent.month || "MAY";
 
       document.getElementById('dashboardView').innerHTML = `
         <div class="kpi-row">
-            <div class="kpi-box kpi-1"><div class="kpi-label">MONTH</div><div class="kpi-value">${displayMonth}</div></div>
-            <div class="kpi-box kpi-2"><div class="kpi-label">QA EVALS</div><div class="kpi-value" style="color:var(--text-dark)">${qas.length}</div></div>
+            <div class="kpi-box kpi-1"><div class="kpi-label">MONTH</div><div class="kpi-value">${monthDisplay}</div></div>
+            <div class="kpi-box kpi-2"><div class="kpi-label">QA EVALS</div><div class="kpi-value">${qas.length}</div></div>
             <div class="kpi-box kpi-3"><div class="kpi-label">AUDITS</div><div class="kpi-value">${audits.length}</div></div>
         </div>
         <div class="dashboard-tabs">
@@ -158,16 +146,14 @@
             <button class="dash-tab-btn ${currentViewWeek === 'week4' ? 'active' : ''}" onclick="switchDashboardWeek('week4')">WEEK 4</button>
         </div>
         <div class="main-card">
-            <div class="card-head" style="flex-direction: column; align-items: flex-start; gap: 20px; padding: 30px;">
-                <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
-                    <h2 style="margin:0; color:var(--primary)">${activeAgent.name}</h2>
-                    <div class="btn-group">
-                        <button class="inquire-btn" onclick="sendInquiry()">✉️ CLARIFY FEEDBACK</button>
-                        ${!isUnlocked ? '<button class="unlock-btn" onclick="openAgentModal()">🔐 UNLOCK MTD SCORES</button>' : ''}
-                    </div>
+            <div class="card-head" style="display:flex; justify-content:space-between; align-items:center;">
+                <h2 style="margin:0; color:var(--primary)">${activeAgent.name}</h2>
+                <div style="display:flex; gap:10px;">
+                    <button style="background:transparent; color:var(--primary); border:1px solid var(--primary); padding:8px 15px; border-radius:10px; cursor:pointer; font-size:0.7rem; font-weight:800;" onclick="sendInquiry()">✉️ CLARIFY FEEDBACK</button>
+                    ${!isUnlocked ? '<button class="btn-verify" style="width:auto; padding:10px 20px; font-size:0.75rem;" onclick="openAgentModal()">🔐 UNLOCK SCORES</button>' : ''}
                 </div>
-                <div id="unlockArea" style="width: 100%;">${isUnlocked ? renderScoreGrid() : ''}</div>
             </div>
+            <div style="padding:0 30px;">${isUnlocked ? renderScoreGrid() : ''}</div>
             ${renderTable('QA Feedback (' + currentViewWeek.toUpperCase() + ')', qas, true)}
             ${renderTable('Dispo Audits', audits, false)}
         </div>`;
@@ -175,15 +161,15 @@
 
     function renderScoreGrid() {
       const wd = activeAgent.weekly_data;
-      const s1 = parseFloat(wd.week1.score || 0), s2 = parseFloat(wd.week2.score || 0), s3 = parseFloat(wd.week3.score || 0), s4 = parseFloat(wd.week4.score || 0);
-      const allS = [s1, s2, s3, s4].filter(s => s > 0);
+      const s1 = wd.week1.score || 0, s2 = wd.week2.score || 0, s3 = wd.week3.score || 0, s4 = wd.week4.score || 0;
+      const allS = [s1, s2, s3, s4].map(Number).filter(s => s > 0);
       const mtd = allS.length > 0 ? (allS.reduce((a,b) => a+b, 0) / allS.length).toFixed(2) : "0.00";
       return `<div class="mtd-grid">
-            <div class="mtd-item"><div style="font-size:0.6rem; color:#94a3b8;">W1</div><div class="mtd-val">${s1}%</div></div>
-            <div class="mtd-item"><div style="font-size:0.6rem; color:#94a3b8;">W2</div><div class="mtd-val">${s2}%</div></div>
-            <div class="mtd-item"><div style="font-size:0.6rem; color:#94a3b8;">W3</div><div class="mtd-val">${s3}%</div></div>
-            <div class="mtd-item"><div style="font-size:0.6rem; color:#94a3b8;">W4</div><div class="mtd-val">${s4}%</div></div>
-            <div class="mtd-item" style="border-left:2px solid var(--primary)"><div style="font-size:0.6rem; color:var(--primary);">MTD</div><div class="mtd-val" style="color:var(--primary); font-size:1.1rem;">${mtd}%</div></div>
+            <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W1</div><div style="font-weight:800;">${s1}%</div></div>
+            <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W2</div><div style="font-weight:800;">${s2}%</div></div>
+            <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W3</div><div style="font-weight:800;">${s3}%</div></div>
+            <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W4</div><div style="font-weight:800;">${s4}%</div></div>
+            <div style="text-align:center; border-left:2px solid var(--primary); padding-left:10px;"><div style="font-size:0.6rem; color:var(--primary);">MTD</div><div style="color:var(--primary); font-weight:800;">${mtd}%</div></div>
         </div>`;
     }
 
@@ -193,19 +179,19 @@
         ${data.map((item, i) => {
           let text = (typeof item === 'object') ? (item.text || "") : item;
           let link = (isQA && typeof item === 'object') ? (item.link || "") : "";
-          let mediaHtml = "";
+          let playerHtml = "";
           
           if (link && link.trim() !== "") {
-              const fileIdMatch = link.match(/[-\w]{25,}/);
-              if (fileIdMatch && (link.includes('://google.com') || link.includes('://google.com'))) {
-                  const fileId = fileIdMatch[0]; // KANI ANG FIXED: Gikuha ang string mismo
-                  mediaHtml = `<div style="margin-top:15px; border-radius:12px; overflow:hidden; border:1px solid var(--primary); background:#000; height:150px;"><iframe src="https://://google.com/file/d/${fileId}/preview" width="100%" height="150" style="border:none;" allow="autoplay"></iframe></div>`;
+              const driveMatch = link.match(/[-\w]{25,}/);
+              if (driveMatch && (link.includes('://google.com') || link.includes('://google.com'))) {
+                  const fileId = driveMatch[0]; // KANI ANG FIXED: Gikuha ang string gikan sa array
+                  playerHtml = `<div style="margin-top:15px; border-radius:12px; overflow:hidden; border:1px solid var(--primary); background:#000; height:150px;"><iframe src="https://://google.com/file/d/${fileId}/preview" width="100%" height="150" style="border:none;" allow="autoplay"></iframe></div>`;
               } else {
-                  mediaHtml = `<a href="${link}" target="_blank" class="inquire-btn" style="display:inline-block; margin-top:10px; color:var(--primary); border:1px solid var(--primary); text-decoration:none; font-size:0.7rem;">🔗 OPEN RECORDING</a>`;
+                  playerHtml = `<a href="${link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1px solid var(--primary); padding:6px 12px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800;">🔗 OPEN LINK</a>`;
               }
           }
           let fText = text.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
-          return `<tr><td style="width:35px; color:var(--primary); font-weight:800; vertical-align:top;">${i+1}</td><td style="color:#ffffff;"><div>${fText}</div>${mediaHtml}</td></tr>`;
+          return `<tr><td style="width:35px; color:var(--primary); font-weight:800;">${i+1}</td><td><div>${fText}</div>${playerHtml}</td></tr>`;
         }).join('')}
       </tbody></table></div>`;
     }
@@ -215,7 +201,7 @@
     function openAdminModal() { document.getElementById('adminPwInput').value = ''; document.getElementById('adminModal').style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     function verifyAdmin() { if (document.getElementById('adminPwInput').value === "Jeikaaru-08!") { window.location.href = "admin.html"; } else { alert("❌ Unauthorized"); } }
-    function verifyAndShowScores() { if(activeAgent && document.getElementById('pwInput').value.trim() === activeAgent.password.toString().trim()) { isUnlocked = true; renderDashboard(); closeModal('passwordModal'); } else { alert('❌ Incorrect Access Code'); } }
+    function verifyAndShowScores() { if(activeAgent && document.getElementById('pwInput').value.trim() === activeAgent.password.toString().trim()) { isUnlocked = true; renderDashboard(); closeModal('passwordModal'); } else { alert('❌ Incorrect'); } }
   </script>
 </body>
 </html>
