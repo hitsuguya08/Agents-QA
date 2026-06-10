@@ -6,15 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://googleapis.com" rel="stylesheet">
   <style>
-    :root {
-      --primary: #f59e0b;    --bg: #fef3c7;
-      --card: #0f172a;       --text-light: #ffffff;
-      --border: rgba(255,255,255,0.1);
-    }
+    :root { --primary: #f59e0b; --bg: #fef3c7; --card: #0f172a; --border: rgba(255,255,255,0.1); }
     * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #000; margin: 0; padding: 0; }
     
-    /* Header Fixed */
+    /* USA RA KA HEADER LOGIC */
     .header-main { 
       background: #020617; padding: 15px 30px; color: var(--primary); 
       border-bottom: 5px solid var(--primary); display: flex; justify-content: space-between; align-items: center;
@@ -24,16 +20,17 @@
 
     .nav-bar { background: #0f172a; border-bottom: 1px solid var(--primary); padding: 12px 0; position: sticky; top: 0; z-index: 100; }
     .nav-inner { display: flex; justify-content: center; gap: 10px; padding: 0 15px; flex-wrap: wrap; }
-    .agent-pill { padding: 8px 18px; border-radius: 30px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: #94a3b8; font-weight: 700; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+    .agent-pill { padding: 8px 18px; border-radius: 30px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: #94a3b8; font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: 0.3s; white-space: nowrap; }
     .agent-pill.active { background: var(--primary); color: #000; border-color: var(--primary); }
     
     .content-container { max-width: 900px; margin: 30px auto; padding: 0 20px 80px; }
     .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
     .kpi-box { padding: 20px 10px; border-radius: 24px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 125px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
     
+    /* AUDITS BOX VISIBILITY FIX */
     .kpi-1 { background: #0f172a; border: 2px solid var(--primary); } 
     .kpi-2 { background: var(--primary); } 
-    .kpi-3 { background: #1e293b; } /* Dark Gray background para sa Audits */
+    .kpi-3 { background: #1e293b; border: 1px solid rgba(255,255,255,0.1); } 
 
     .kpi-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; color: #ffffff !important; opacity: 0.9; }
     .kpi-2 .kpi-label { color: #000 !important; }
@@ -54,7 +51,8 @@
     td { padding: 15px 10px; border-top: 1px solid var(--border); color: #ffffff !important; font-size: 0.95rem; line-height: 1.6; vertical-align: top; }
     
     .quote-style { font-weight: 600; color: #fde68a; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 6px; border-left: 3px solid var(--primary); display: inline-block; }
-    .modal { display: none; position: fixed; inset: 0; background:rgba(0,0,0,0.95); z-index: 200; justify-content:center; align-items:center; }
+
+    .modal { display: none; position: fixed; inset: 0; background:rgba(2,6,23,0.95); z-index: 200; justify-content:center; align-items:center; }
     .modal-content { background:#1e293b; padding:40px; border-radius:30px; width:340px; text-align:center; border: 2px solid var(--primary); }
     .btn-verify { background: var(--primary); color: #000; padding: 15px; border:none; border-radius:15px; width: 100%; font-weight:800; cursor:pointer; }
     @media (max-width: 600px) { .kpi-row { grid-template-columns: 1fr; } .card-head { flex-direction: column; gap: 15px; text-align: center; } }
@@ -72,7 +70,7 @@
 
   <div id="passwordModal" class="modal">
     <div class="modal-content">
-      <h3 style="color:var(--primary); margin:0;">🔐 UNLOCK SCORES</h3>
+      <h3 style="color:var(--primary); margin:0;">🔐 UNLOCK MTD SCORES</h3>
       <input type="password" id="pwInput" style="width:100%; padding:15px; margin:20px 0; background:#000; color:#fff; border:1px solid #444; text-align:center; font-size:1.5rem; border-radius:15px;" placeholder="••••" />
       <button class="btn-verify" onclick="verifyAndShowScores()">VERIFY ACCESS</button>
       <p onclick="closeModal('passwordModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
@@ -144,7 +142,7 @@
         <div class="main-card">
             <div class="card-head">
                 <h2 style="margin:0; color:var(--primary)">${a.name}</h2>
-                <div style="display:flex; gap:10px;">
+                <div class="btn-group">
                     <button style="background:transparent; color:var(--primary); border:1px solid var(--primary); padding:8px 15px; border-radius:10px; cursor:pointer; font-size:0.7rem; font-weight:800;" onclick="sendInquiry()">✉️ CLARIFY FEEDBACK</button>
                     ${!isUnlocked ? '<button class="btn-verify" style="width:auto; padding:10px 20px; font-size:0.75rem;" onclick="openAgentModal()">🔐 UNLOCK SCORES</button>' : ''}
                 </div>
@@ -157,14 +155,14 @@
 
     function renderScoreGrid() {
       const wd = activeAgent.weekly_data;
-      const s1 = wd.week1.score || 0, s2 = wd.week2.score || 0, s3 = wd.week3.score || 0, s4 = wd.week4.score || 0;
-      const allS = [s1, s2, s3, s4].map(Number).filter(v => v > 0);
-      const mtd = allS.length > 0 ? (allS.reduce((a,b) => a+b, 0) / allS.length).toFixed(2) : "0.00";
+      const s = [wd.week1.score||0, wd.week2.score||0, wd.week3.score||0, wd.week4.score||0];
+      const valid = s.map(Number).filter(v => v > 0);
+      const mtd = valid.length > 0 ? (valid.reduce((a,b) => a+b, 0) / valid.length).toFixed(2) : "0.00";
       return `<div class="mtd-grid">
-            <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W1</div><div style="font-weight:800;">${s1}%</div></div>
-            <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W2</div><div style="font-weight:800;">${s2}%</div></div>
-            <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W3</div><div style="font-weight:800;">${s3}%</div></div>
-            <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W4</div><div style="font-weight:800;">${s4}%</div></div>
+            <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W1</div><div style="font-weight:800;">${s[0]}%</div></div>
+            <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W2</div><div style="font-weight:800;">${s[1]}%</div></div>
+            <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W3</div><div style="font-weight:800;">${s[2]}%</div></div>
+            <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W4</div><div style="font-weight:800;">${s[3]}%</div></div>
             <div style="text-align:center; border-left:2px solid var(--primary); padding-left:10px;"><div style="font-size:0.6rem; color:var(--primary);">MTD</div><div style="color:var(--primary); font-weight:800;">${mtd}%</div></div>
         </div>`;
     }
@@ -178,22 +176,17 @@
           let mediaHtml = "";
           
           if (link && link.trim() !== "") {
-              let fId = "";
-              // MAS SIGURADO NGA EXTRACTION SA GOOGLE DRIVE ID
-              if (link.includes('/d/')) {
-                  fId = link.split('/d/')[1].split('/')[0];
-              } else if (link.includes('id=')) {
-                  fId = link.split('id=')[1].split('&')[0];
-              }
-              
-              if (fId && (link.includes('://google.com') || link.includes('://google.com'))) {
-                  mediaHtml = `<div style="margin-top:15px; border-radius:12px; overflow:hidden; border:1px solid var(--primary); background:#000; height:150px; line-height:0;"><iframe src="https://://google.com/file/d/${fId}/preview" width="100%" height="150" style="border:none;" allow="autoplay"></iframe></div>`;
+              // PINAKA-LIG-ON NGA PAGKUHA SA ID
+              const driveMatch = link.match(/[-\w]{25,}/);
+              if (driveMatch && (link.includes('drive.google') || link.includes('docs.google'))) {
+                  const fileId = driveMatch[0]; // KANI ANG FIXED: Naggamit na og [0] para sa string
+                  mediaHtml = `<div style="margin-top:15px; border-radius:12px; overflow:hidden; border:1px solid var(--primary); background:#000; height:150px; line-height:0;"><iframe src="https://google.com{fileId}/preview" width="100%" height="150" style="border:none;" allow="autoplay"></iframe></div>`;
               } else {
                   mediaHtml = `<a href="${link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1px solid var(--primary); padding:6px 15px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 OPEN LINK</a>`;
               }
           }
           let fText = text.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
-          return `<tr><td style="width:35px; color:var(--primary); font-weight:800; vertical-align:top;">${i+1}</td><td><div style="color:#ffffff;">${fText}</div>${mediaHtml}</td></tr>`;
+          return `<tr><td style="width:35px; color:var(--primary); font-weight:800; vertical-align:top;">${i+1}</td><td style="color:#ffffff;"><div>${fText}</div>${mediaHtml}</td></tr>`;
         }).join('')}
       </tbody></table></div>`;
     }
