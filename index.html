@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>QA Pro | Analytics & MTD Portal</title>
+  <title>QA Analytics Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://googleapis.com" rel="stylesheet">
   <style>
@@ -10,13 +10,10 @@
     * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #000; margin: 0; padding: 0; }
     
-    /* USA RA KA HEADER LOGIC */
-    .header-main { 
-      background: #020617; padding: 15px 30px; color: var(--primary); 
-      border-bottom: 5px solid var(--primary); display: flex; justify-content: space-between; align-items: center;
-    }
+    /* SINGLE HEADER STYLING */
+    .header-main { background: #020617; padding: 15px 30px; color: var(--primary); border-bottom: 5px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
     .header-main h1 { margin: 0; font-size: 1.1rem; font-weight: 800; letter-spacing: 2px; flex: 1; text-align: center; }
-    .admin-btn { background: transparent; color: #94a3b8; font-size: 0.7rem; font-weight: 700; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; }
+    .admin-btn { background: transparent; color: #94a3b8; font-size: 0.7rem; font-weight: 700; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; text-decoration: none; }
 
     .nav-bar { background: #0f172a; border-bottom: 1px solid var(--primary); padding: 12px 0; position: sticky; top: 0; z-index: 100; }
     .nav-inner { display: flex; justify-content: center; gap: 10px; padding: 0 15px; flex-wrap: wrap; }
@@ -27,10 +24,10 @@
     .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
     .kpi-box { padding: 20px 10px; border-radius: 24px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 125px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
     
-    /* AUDITS BOX VISIBILITY FIX */
+    /* BOX COLORS */
     .kpi-1 { background: #0f172a; border: 2px solid var(--primary); } 
     .kpi-2 { background: var(--primary); } 
-    .kpi-3 { background: #1e293b; border: 1px solid rgba(255,255,255,0.1); } 
+    .kpi-3 { background: #1e293b; } 
 
     .kpi-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; color: #ffffff !important; opacity: 0.9; }
     .kpi-2 .kpi-label { color: #000 !important; }
@@ -51,10 +48,9 @@
     td { padding: 15px 10px; border-top: 1px solid var(--border); color: #ffffff !important; font-size: 0.95rem; line-height: 1.6; vertical-align: top; }
     
     .quote-style { font-weight: 600; color: #fde68a; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 6px; border-left: 3px solid var(--primary); display: inline-block; }
-
-    .modal { display: none; position: fixed; inset: 0; background:rgba(2,6,23,0.95); z-index: 200; justify-content:center; align-items:center; }
+    .modal { display: none; position: fixed; inset: 0; background:rgba(2, 6, 23, 0.95); z-index: 200; justify-content:center; align-items:center; }
     .modal-content { background:#1e293b; padding:40px; border-radius:30px; width:340px; text-align:center; border: 2px solid var(--primary); }
-    .btn-verify { background: var(--primary); color: #000; padding: 15px; border:none; border-radius:15px; width: 100%; font-weight:800; cursor:pointer; }
+    .btn-verify { background: var(--primary); color: #000; padding: 12px; border:none; border-radius:12px; width: 100%; font-weight:800; cursor:pointer; }
     @media (max-width: 600px) { .kpi-row { grid-template-columns: 1fr; } .card-head { flex-direction: column; gap: 15px; text-align: center; } }
   </style>
 </head>
@@ -70,7 +66,7 @@
 
   <div id="passwordModal" class="modal">
     <div class="modal-content">
-      <h3 style="color:var(--primary); margin:0;">🔐 UNLOCK MTD SCORES</h3>
+      <h3 style="color:var(--primary); margin:0;">🔐 UNLOCK SCORES</h3>
       <input type="password" id="pwInput" style="width:100%; padding:15px; margin:20px 0; background:#000; color:#fff; border:1px solid #444; text-align:center; font-size:1.5rem; border-radius:15px;" placeholder="••••" />
       <button class="btn-verify" onclick="verifyAndShowScores()">VERIFY ACCESS</button>
       <p onclick="closeModal('passwordModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
@@ -142,7 +138,7 @@
         <div class="main-card">
             <div class="card-head">
                 <h2 style="margin:0; color:var(--primary)">${a.name}</h2>
-                <div class="btn-group">
+                <div style="display:flex; gap:10px;">
                     <button style="background:transparent; color:var(--primary); border:1px solid var(--primary); padding:8px 15px; border-radius:10px; cursor:pointer; font-size:0.7rem; font-weight:800;" onclick="sendInquiry()">✉️ CLARIFY FEEDBACK</button>
                     ${!isUnlocked ? '<button class="btn-verify" style="width:auto; padding:10px 20px; font-size:0.75rem;" onclick="openAgentModal()">🔐 UNLOCK SCORES</button>' : ''}
                 </div>
@@ -176,13 +172,18 @@
           let mediaHtml = "";
           
           if (link && link.trim() !== "") {
-              // PINAKA-LIG-ON NGA PAGKUHA SA ID
-              const driveMatch = link.match(/[-\w]{25,}/);
-              if (driveMatch && (link.includes('drive.google') || link.includes('docs.google'))) {
-                  const fileId = driveMatch[0]; // KANI ANG FIXED: Naggamit na og [0] para sa string
-                  mediaHtml = `<div style="margin-top:15px; border-radius:12px; overflow:hidden; border:1px solid var(--primary); background:#000; height:150px; line-height:0;"><iframe src="https://google.com{fileId}/preview" width="100%" height="150" style="border:none;" allow="autoplay"></iframe></div>`;
+              // DIRECT EXTRACTION PARA HINDI MAGKAMALI
+              let fileId = "";
+              if (link.includes('/d/')) {
+                  fileId = link.split('/d/')[1].split('/')[0].split('?')[0];
+              } else if (link.includes('id=')) {
+                  fileId = link.split('id=')[1].split('&')[0];
+              }
+              
+              if (fileId && (link.includes('drive.google') || link.includes('docs.google'))) {
+                  mediaHtml = '<div style="margin-top:15px; border-radius:12px; overflow:hidden; border:1px solid var(--primary); background:#000; height:150px; line-height:0;"><iframe src="https://google.com' + fileId + '/preview" width="100%" height="150" style="border:none;" allow="autoplay"></iframe></div>';
               } else {
-                  mediaHtml = `<a href="${link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1px solid var(--primary); padding:6px 15px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 OPEN LINK</a>`;
+                  mediaHtml = '<a href="' + link + '" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1px solid var(--primary); padding:6px 15px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 OPEN LINK</a>';
               }
           }
           let fText = text.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
