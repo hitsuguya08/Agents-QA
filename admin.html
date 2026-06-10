@@ -255,3 +255,186 @@
   </script>
 </body>
 </html>
+<body>
+  <div class="sidebar">
+    <div class="sidebar-header"><h2 style="color:var(--primary); font-size:0.9rem;">QA ADMIN PANEL</h2></div>
+    <div id="agentList" class="agent-list"></div>
+    <div style="padding: 20px; display: flex; flex-direction: column; gap: 10px;">
+        <button onclick="addNewAgent()" class="btn-add">+ New Agent</button>
+        <button onclick="showExport()" class="btn-save" style="background:var(--primary); color:var(--navy);">🚀 GENERATE JSON</button>
+    </div>
+  </div>
+
+  <div class="editor-main">
+    <div class="editor-header">
+      <h2 id="editingTitle" style="color:var(--navy);">Theme & Data Editor</h2>
+      <a href="index.html" style="text-decoration:none; color:var(--navy); font-weight:800; font-size:0.8rem; border:2px solid var(--navy); padding:8px 15px; border-radius:10px;">View Dashboard</a>
+    </div>
+    
+    <div class="scroll-content">
+        <!-- GLOBAL THEME CUSTOMIZER WITH MORE SCHEMES -->
+        <div class="theme-box">
+            <h3 style="margin:0; font-size:0.85rem; color:var(--primary); letter-spacing:1px;">🎨 SELECT AUTOMATIC COLOR SCHEME</h3>
+            <div class="preset-container">
+                <button class="preset-btn" onclick="setTheme('#f59e0b', '#fef3c7', '#0f172a')" style="background:#f59e0b; color:#0f172a;">AMBER GOLD</button>
+                <button class="preset-btn" onclick="setTheme('#10b981', '#ecfdf5', '#064e3b')" style="background:#10b981; color:white;">EMERALD</button>
+                <button class="preset-btn" onclick="setTheme('#3b82f6', '#eff6ff', '#1e3a8a')" style="background:#3b82f6; color:white;">OCEAN BLUE</button>
+                <button class="preset-btn" onclick="setTheme('#8b5cf6', '#f5f3ff', '#2e1065')" style="background:#8b5cf6; color:white;">ROYAL VIBE</button>
+                <button class="preset-btn" onclick="setTheme('#ec4899', '#fdf2f8', '#500724')" style="background:#ec4899; color:white;">ROSE PETAL</button>
+                <button class="preset-btn" onclick="setTheme('#06b6d4', '#ecfeff', '#083344')" style="background:#06b6d4; color:white;">CYAN FROST</button>
+                <button class="preset-btn" onclick="setTheme('#f97316', '#fff7ed', '#431407')" style="background:#f97316; color:white;">SUNSET</button>
+                <button class="preset-btn" onclick="setTheme('#ffffff', '#111827', '#1f2937')" style="background:#374151; color:white;">DARK MODE</button>
+                <button class="preset-btn" onclick="setTheme('#ef4444', '#fef2f2', '#450a0a')" style="background:#ef4444; color:white;">CRIMSON</button>
+                <button class="preset-btn" onclick="setTheme('#22c55e', '#f0fdf4', '#052e16')" style="background:#22c55e; color:white;">FOREST</button>
+            </div>
+            <div class="theme-grid">
+                <div><label>Primary</label><input type="color" id="themePrimary" class="color-input" onchange="saveAndSync()"></div>
+                <div><label>Background</label><input type="color" id="themeBg" class="color-input" onchange="saveAndSync()"></div>
+                <div><label>Card Color</label><input type="color" id="themeCard" class="color-input" onchange="saveAndSync()"></div>
+            </div>
+        </div>
+
+        <div id="editorContent" style="display:none;">
+            <div class="form-section">
+                <h3>Agent Information</h3>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+                    <div><label>Agent Name</label><input type="text" id="editName" oninput="saveAndSync()"></div>
+                    <div><label>Password</label><input type="text" id="editPass" oninput="saveAndSync()"></div>
+                </div>
+                <div style="margin-top:15px;"><label>Month</label><input type="text" id="editMonth" oninput="saveAndSync()" placeholder="JUNE"></div>
+            </div>
+
+            <div class="tabs-container">
+                <button class="tab-btn active" id="btn-week1" onclick="switchTab('week1')">WEEK 1</button>
+                <button class="tab-btn" id="btn-week2" onclick="switchTab('week2')">WEEK 2</button>
+                <button class="tab-btn" id="btn-week3" onclick="switchTab('week3')">WEEK 3</button>
+                <button class="tab-btn" id="btn-week4" onclick="switchTab('week4')">WEEK 4</button>
+            </div>
+
+            <div class="form-section">
+                <h3 id="currentWeekTitle">WEEK 1 DATA</h3>
+                <label>Weekly QA Score (%)</label>
+                <input type="number" id="weeklyScoreInput" style="width:100px; font-weight:800;" oninput="updateWeeklyScore(this.value)">
+                
+                <h3 style="margin-top:30px; font-size:0.8rem;">QA Feedback</h3>
+                <div id="qaContainer"></div>
+                <button class="btn-add" onclick="addRow('qa')">+ Add Feedback</button>
+
+                <h3 style="margin-top:30px; font-size:0.8rem;">Dispo Audits</h3>
+                <div id="auditContainer"></div>
+                <button class="btn-add" onclick="addRow('audits')">+ Add Audit</button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div id="exportModal" class="json-modal"><div class="json-content">
+      <h2 style="color:var(--primary); margin:0;">✅ JSON Ready</h2>
+      <textarea id="jsonOutput" class="json-area" readonly onclick="this.select()"></textarea>
+      <div style="display:flex; gap:10px; margin-top:25px;"><button class="btn-save" style="flex:1;" onclick="copyJSON()">Copy Code</button><button class="btn-save" style="background:#334155; color:white;" onclick="closeModal()">Close</button></div>
+  </div></div>
+  <script>
+    let db = { theme: { primary: "#f59e0b", bg: "#fef3c7", card: "#0f172a" }, agents: [] };
+    let selectedIndex = -1;
+    let currentWeek = 'week1';
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedData = localStorage.getItem('qa_dashboard_v5_data');
+      if (savedData) { 
+        db = JSON.parse(savedData); applyThemeInputs(); renderSidebar(); 
+      } else {
+        fetch('data.json').then(r => r.json()).then(data => {
+            db = data.agents ? data : { theme: db.theme, agents: data };
+            saveToLocal(); renderSidebar(); applyThemeInputs();
+        }).catch(() => { renderSidebar(); });
+      }
+    });
+
+    function saveToLocal() { localStorage.setItem('qa_dashboard_v5_data', JSON.stringify(db)); }
+    function applyThemeInputs() {
+      document.getElementById('themePrimary').value = db.theme.primary;
+      document.getElementById('themeBg').value = db.theme.bg;
+      document.getElementById('themeCard').value = db.theme.card;
+    }
+    function setTheme(p, b, c) {
+      db.theme = { primary: p, bg: b, card: c };
+      applyThemeInputs(); saveAndSync();
+    }
+    function renderSidebar() {
+      const list = document.getElementById('agentList');
+      list.innerHTML = db.agents.map((a, i) => `
+        <div class="agent-item ${i === selectedIndex ? 'active' : ''}" onclick="selectAgent(${i})">
+          <span>${a.name}</span>
+          <button class="btn-del-agent" onclick="deleteAgent(${i}, event)">✕</button>
+        </div>`).join('');
+    }
+    function selectAgent(index) {
+      selectedIndex = index;
+      const a = db.agents[index];
+      if(!a.weekly_data) a.weekly_data = { week1:{score:0,qa:[],audits:[]}, week2:{score:0,qa:[],audits:[]}, week3:{score:0,qa:[],audits:[]}, week4:{score:0,qa:[],audits:[]} };
+      document.getElementById('editorContent').style.display = 'block';
+      document.getElementById('editingTitle').innerText = "Editing: " + a.name;
+      document.getElementById('editName').value = a.name;
+      document.getElementById('editPass').value = a.password;
+      document.getElementById('editMonth').value = a.month || "JUNE";
+      switchTab(currentWeek); renderSidebar();
+    }
+    function switchTab(week) {
+      currentWeek = week;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('btn-' + week).classList.add('active');
+      const data = db.agents[selectedIndex].weekly_data[week];
+      document.getElementById('weeklyScoreInput').value = data.score || 0;
+      renderList('qa', data.qa || []); renderList('audits', data.audits || []);
+    }
+    function renderList(type, data) {
+      const container = document.getElementById(type === 'qa' ? 'qaContainer' : 'auditContainer');
+      container.innerHTML = data.map((item, i) => {
+        const text = typeof item === 'object' ? item.text : item;
+        const link = typeof item === 'object' ? item.link : "";
+        return `<div style="background:white; padding:15px; border-radius:10px; margin-bottom:10px; border:1px solid #e2e8f0;">
+          <div style="display:flex; gap:10px;">
+            <textarea oninput="updateItem('${type}', ${i}, 'text', this.value)" style="flex:1; min-height:60px;">${text}</textarea>
+            <button onclick="removeItem('${type}', ${i})" style="color:red; border:none; background:none; cursor:pointer;">✕</button>
+          </div>
+          ${type==='qa'?`<input type="text" placeholder="Recording Link" value="${link}" oninput="updateItem('${type}', ${i}, 'link', this.value)" style="margin-top:10px; font-size:0.7rem;">`:''}
+        </div>`;
+      }).join('');
+    }
+    function updateItem(type, index, field, val) {
+      if(typeof db.agents[selectedIndex].weekly_data[currentWeek][type][index] !== 'object') {
+        db.agents[selectedIndex].weekly_data[currentWeek][type][index] = { text: db.agents[selectedIndex].weekly_data[currentWeek][type][index], link: "" };
+      }
+      db.agents[selectedIndex].weekly_data[currentWeek][type][index][field] = val; saveToLocal();
+    }
+    function addRow(type) {
+      db.agents[selectedIndex].weekly_data[currentWeek][type].push({ text: "New Entry", link: "" });
+      switchTab(currentWeek); saveToLocal();
+    }
+    function removeItem(type, index) {
+      db.agents[selectedIndex].weekly_data[currentWeek][type].splice(index, 1);
+      switchTab(currentWeek); saveToLocal();
+    }
+    function updateWeeklyScore(v) { db.agents[selectedIndex].weekly_data[currentWeek].score = parseFloat(v) || 0; saveToLocal(); }
+    function saveAndSync() {
+      db.theme.primary = document.getElementById('themePrimary').value;
+      db.theme.bg = document.getElementById('themeBg').value;
+      db.theme.card = document.getElementById('themeCard').value;
+      if(selectedIndex !== -1) {
+        db.agents[selectedIndex].name = document.getElementById('editName').value;
+        db.agents[selectedIndex].password = document.getElementById('editPass').value;
+        db.agents[selectedIndex].month = document.getElementById('editMonth').value.toUpperCase();
+      }
+      saveToLocal(); renderSidebar();
+    }
+    function addNewAgent() {
+      db.agents.push({ name: "New Agent", password: "123", month: "JUNE", weekly_data: { week1:{score:0,qa:[],audits:[]}, week2:{score:0,qa:[],audits:[]}, week3:{score:0,qa:[],audits:[]}, week4:{score:0,qa:[],audits:[]} } });
+      saveToLocal(); renderSidebar();
+    }
+    function deleteAgent(i, e) { e.stopPropagation(); if(confirm("Delete?")) { db.agents.splice(i, 1); saveToLocal(); renderSidebar(); } }
+    function showExport() { document.getElementById('jsonOutput').value = JSON.stringify(db, null, 2); document.getElementById('exportModal').style.display = 'flex'; }
+    function closeModal() { document.getElementById('exportModal').style.display = 'none'; }
+    function copyJSON() { navigator.clipboard.writeText(document.getElementById('jsonOutput').value); alert("Copied!"); }
+  </script>
+</body>
+</html>
