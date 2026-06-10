@@ -200,3 +200,199 @@
   </script>
 </body>
 </html>
+<body>
+
+  <header class="header-main">
+    <div style="width: 80px;"></div>
+    <h1>AGENT ANALYTICS PORTAL</h1>
+    <button onclick="openAdminModal()" class="admin-btn">ADMIN</button>
+  </header>
+
+  <nav class="nav-bar"><div id="agentPills" class="nav-inner"></div></nav>
+  
+  <div class="content-container">
+    <div id="dashboardView"></div>
+  </div>
+
+  <!-- Agent Password Modal -->
+  <div id="passwordModal" class="modal">
+    <div class="modal-content">
+      <h3 style="color:var(--primary); margin:0;">🔐 UNLOCK MTD SCORES</h3>
+      <input type="password" id="pwInput" placeholder="••••" />
+      <button class="btn-verify" onclick="verifyAndShowScores()">VERIFY ACCESS</button>
+      <p onclick="closeModal('passwordModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
+    </div>
+  </div>
+
+  <!-- Admin Password Modal -->
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
+      <h3 style="color:var(--primary); margin:0;">🚨 ADMIN ACCESS</h3>
+      <input type="password" id="adminPwInput" placeholder="••••" />
+      <button class="btn-verify" onclick="verifyAdmin()">ACCESS EDITOR</button>
+      <p onclick="closeModal('adminModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
+    </div>
+  </div>
+  <script>
+    let db = { theme: {}, agents: [] };
+    let activeAgent = null;
+    let currentViewWeek = 'week1';
+    let isUnlocked = false;
+    const MY_EMAIL = "hitsuguya08@gmail.com"; 
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Force cache-busting to ensure latest JSON
+      fetch('data.json?v=' + new Date().getTime())
+        .then(r => r.json())
+        .then(data => { 
+          db = data.agents ? data : { theme: { primary: "#f59e0b", bg: "#fef3c7", card: "#0f172a" }, agents: data };
+          applyTheme(db.theme);
+          renderPills(db.agents); 
+        })
+        .catch(() => { document.getElementById('dashboardView').innerHTML = `<div style="text-align:center; padding:50px; color:var(--primary);"><h3>⚠️ Syncing Data...</h3></div>`; });
+    });
+
+    function applyTheme(theme) {
+      if(!theme) return;
+      const root = document.documentElement;
+      root.style.setProperty('--primary', theme.primary);
+      root.style.setProperty('--bg', theme.bg);
+      root.style.setProperty('--card', theme.card);
+    }
+
+    function renderPills(agents) {
+      const box = document.getElementById('agentPills'); box.innerHTML = '';
+      agents.forEach((agent, i) => {
+        const pill = document.createElement('div'); pill.className = 'agent-pill';
+        pill.innerHTML = `<div class="dot" style="background:var(--primary)"></div> ${agent.name}`;
+        pill.onclick = () => { selectAgent(agent, pill); };
+        box.appendChild(pill); if(i === 0) pill.click();
+      });
+    }
+
+    function selectAgent(agent, element) {
+      activeAgent = agent;
+      isUnlocked = false;
+      currentViewWeek = 'week1';
+      document.querySelectorAll('.agent-pill').forEach(el => el.classList.remove('active'));
+      element.classList.add('active');
+      renderDashboard();
+    }
+
+    function switchDashboardWeek(week) {
+        currentViewWeek = week;
+        renderDashboard();
+    }
+
+    function renderDashboard() {
+      if(!activeAgent.weekly_data) {
+          activeAgent.weekly_data = { week1:{score:0,qa:[],audits:[]}, week2:{score:0,qa:[],audits:[]}, week3:{score:0,qa:[],audits:[]}, week4:{score:0,qa:[],audits:[]} };
+      }
+      
+      const weekly = activeAgent.weekly_data[currentViewWeek];
+      const qas = weekly.qa || [];
+      const audits = weekly.audits || [];
+      const displayMonth = activeAgent.month || "MAY";
+
+      document.getElementById('dashboardView').innerHTML = `
+        <div class="kpi-row">
+            <div class="kpi-box kpi-1"><div class="kpi-label">MONTH</div><div class="kpi-value">${displayMonth}</div></div>
+            <div class="kpi-box kpi-2"><div class="kpi-label">QA EVALS</div><div class="kpi-value" style="color:var(--text-dark)">${qas.length}</div></div>
+            <div class="kpi-box kpi-3"><div class="kpi-label">AUDITS</div><div class="kpi-value">${audits.length}</div></div>
+        </div>
+
+        <div class="dashboard-tabs">
+            <button class="dash-tab-btn ${currentViewWeek === 'week1' ? 'active' : ''}" onclick="switchDashboardWeek('week1')">WEEK 1</button>
+            <button class="dash-tab-btn ${currentViewWeek === 'week2' ? 'active' : ''}" onclick="switchDashboardWeek('week2')">WEEK 2</button>
+            <button class="dash-tab-btn ${currentViewWeek === 'week3' ? 'active' : ''}" onclick="switchDashboardWeek('week3')">WEEK 3</button>
+            <button class="dash-tab-btn ${currentViewWeek === 'week4' ? 'active' : ''}" onclick="switchDashboardWeek('week4')">WEEK 4</button>
+        </div>
+
+        <div class="main-card">
+            <div class="card-head" style="flex-direction: column; align-items: flex-start; gap: 20px; padding: 30px;">
+                <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                    <h2 style="margin:0; color:var(--primary)">${activeAgent.name}</h2>
+                    <div class="btn-group">
+                        <button class="inquire-btn" onclick="sendInquiry()">✉️ CLARIFY FEEDBACK</button>
+                        ${!isUnlocked ? '<button class="unlock-btn" onclick="openAgentModal()">🔐 UNLOCK MTD SCORES</button>' : ''}
+                    </div>
+                </div>
+                <div id="unlockArea" style="width: 100%;">
+                    ${isUnlocked ? renderScoreGrid() : ''}
+                </div>
+            </div>
+            ${renderTable('QA Feedback (' + currentViewWeek.toUpperCase() + ')', qas, true)}
+            ${renderTable('Dispo Audits', audits, false)}
+        </div>`;
+    }
+
+    function renderScoreGrid() {
+      const wd = activeAgent.weekly_data;
+      const s1 = parseFloat(wd.week1.score || 0), s2 = parseFloat(wd.week2.score || 0), s3 = parseFloat(wd.week3.score || 0), s4 = parseFloat(wd.week4.score || 0);
+      const allS = [s1, s2, s3, s4].filter(s => s > 0);
+      const mtd = allS.length > 0 ? (allS.reduce((a,b) => a+b, 0) / allS.length).toFixed(2) : "0.00";
+
+      return `
+        <div class="mtd-grid">
+            <div class="mtd-item"><div class="mtd-label">W1</div><div class="mtd-val">${s1}%</div></div>
+            <div class="mtd-item"><div class="mtd-label">W2</div><div class="mtd-val">${s2}%</div></div>
+            <div class="mtd-item"><div class="mtd-label">W3</div><div class="mtd-val">${s3}%</div></div>
+            <div class="mtd-item"><div class="mtd-label">W4</div><div class="mtd-val">${s4}%</div></div>
+            <div class="mtd-item" style="border-left:2px solid var(--primary)"><div class="mtd-label" style="color:var(--primary)">MTD</div><div class="mtd-val" style="color:var(--primary); font-size:1.1rem;">${mtd}%</div></div>
+        </div>`;
+    }
+
+    function renderTable(title, data, isQA) {
+      if(!data || data.length === 0) return `<div class="table-block"><h3>${title}</h3><p style="color:#ffffff; font-size:0.85rem;">No entries recorded.</p></div>`;
+      
+      return `<div class="table-block"><h3>${title}</h3><table><tbody>
+        ${data.map((item, i) => {
+          // SIGURADUHIN NA NABABASA KAHIT STRING O OBJECT
+          let text = (item && typeof item === 'object') ? (item.text || "") : item;
+          let link = (isQA && item && typeof item === 'object') ? (item.link || "") : "";
+          
+          let mediaHtml = "";
+          if (link && link.trim() !== "") {
+              const driveMatch = link.match(/[-\w]{25,}/);
+              if (driveMatch && (link.includes('://google.com') || link.includes('://google.com'))) {
+                  const fileId = driveMatch[0]; // Kinuha ang ID mismo
+                  mediaHtml = `
+                    <div style="margin-top:15px; border-radius:12px; overflow:hidden; border:1px solid var(--primary); background:rgba(0,0,0,0.5); height: 150px;">
+                        <iframe src="https://://google.com/file/d/${fileId}/preview" width="100%" height="150" style="border:none;" allow="autoplay"></iframe>
+                    </div>`;
+              } else {
+                  mediaHtml = `<a href="${link}" target="_blank" class="inquire-btn" style="display:inline-block; margin-top:10px; text-decoration:none; font-size:0.7rem;">🔗 OPEN RECORDING</a>`;
+              }
+          }
+
+          let formattedText = text.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
+          return `<tr><td style="width:35px; color:var(--primary); font-weight:800; vertical-align:top;">${i+1}</td><td style="color:#ffffff;"><div>${formattedText}</div>${mediaHtml}</td></tr>`;
+        }).join('')}
+      </tbody></table></div>`;
+    }
+
+    function sendInquiry() {
+      const subject = encodeURIComponent(`QA Inquiry: ${activeAgent.name} (${currentViewWeek.toUpperCase()})`);
+      window.location.href = `mailto:${MY_EMAIL}?subject=${subject}`;
+    }
+
+    function openAgentModal() { document.getElementById('pwInput').value = ''; document.getElementById('passwordModal').style.display = 'flex'; }
+    function openAdminModal() { document.getElementById('adminPwInput').value = ''; document.getElementById('adminModal').style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+    function verifyAdmin() {
+      if (document.getElementById('adminPwInput').value === "Jeikaaru-08!") { window.location.href = "admin.html"; } 
+      else { alert("❌ Unauthorized Access"); }
+    }
+
+    function verifyAndShowScores() {
+      const inputPw = document.getElementById('pwInput').value.trim();
+      if(activeAgent && inputPw === activeAgent.password.toString().trim()) {
+          isUnlocked = true;
+          renderDashboard();
+          closeModal('passwordModal');
+      } else { alert('❌ Incorrect Access Code'); }
+    }
+  </script>
+</body>
+</html>
