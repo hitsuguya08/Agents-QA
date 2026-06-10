@@ -1,8 +1,8 @@
 {
   "theme": {
-    "primary": "#ef4444",
-    "bg": "#fef2f2",
-    "card": "#450a0a"
+    "primary": "#ffffff",
+    "bg": "#111827",
+    "card": "#1f2937"
   },
   "agents": [
     {
@@ -44,7 +44,7 @@
           "qa": [
             {
               "text": " Pitch   @ 00:45   Cust said \" All right Matt. \"   The agent pressed 41 - Imm No instead of proceed.   Date Posted: (SB) WI FR",
-              "link": "https://drive.google.com/file/d/15hFLgxnKNMgei_f4jhY6kqMRwAAgCrpa/view?usp=sharing"
+              "link": "https://drive.google.com/file/d/15hFLgxnKNMgei_f4jhY6kqMRwAAgCrpa/view"
             },
             "Note:  Survey Own Home: Cust said \" Mhm-uh \"   Survey Home Type   @ 02:31   Cust said \" No, a stick built home, a stick built brick home \"   The agent pressed 32 - Unsure (Own Home screen) instead of proceed.   Date Posted: (SB) WI FR ",
             "GOOD CALL",
