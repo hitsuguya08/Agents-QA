@@ -1,202 +1,444 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>QA Pro | Analytics & MTD Portal</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://googleapis.com" rel="stylesheet">
-  <style>
-    :root { --primary: #f59e0b; --bg: #fef3c7; --card: #0f172a; --border: rgba(255,255,255,0.1); }
-    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #000; margin: 0; padding: 0; }
-    
-    /* USA RA KA HEADER LOGIC */
-    .header-main { 
-      background: #020617; padding: 15px 30px; color: var(--primary); 
-      border-bottom: 5px solid var(--primary); display: flex; justify-content: space-between; align-items: center;
+{
+  "theme": {
+    "primary": "#ef4444",
+    "bg": "#fef2f2",
+    "card": "#450a0a"
+  },
+  "agents": [
+    {
+      "name": "J. Años",
+      "password": "Jowsip2026",
+      "weekly": {
+        "week1": {
+          "score": "92.64"
+        },
+        "week2": {
+          "score": "93.18"
+        },
+        "week3": {
+          "score": 0
+        },
+        "week4": {
+          "score": "78.64"
+        }
+      },
+      "qa": [
+        "INTRO  @0:02  Unnecessary hotkey.  WI ",
+        "GOOD CALL",
+        "GOOD CALL",
+        "GOOD CALL",
+        "Tagging a SALE call into a NON-SALE call.  WI ",
+        "INTRO  @0:40  cust said,  \"I'm under the weather today. I have COVID.\"  agent pressed  b(Busy)  instead of  v(Very busy).  PC "
+      ],
+      "audits": [
+        "Agent disposed the call as NI3 instead of CB.  WI",
+        "GOOD CALL",
+        "GOOD CALL",
+        "GOOD CALL"
+      ],
+      "month": "MAY",
+      "week_label": "WEEK 4",
+      "weekly_data": {
+        "week1": {
+          "score": 62.92,
+          "qa": [
+            {
+              "text": " Pitch   @ 00:45   Cust said \" All right Matt. \"   The agent pressed 41 - Imm No instead of proceed.   Date Posted: (SB) WI FR",
+              "link": "https://drive.google.com/file/d/15hFLgxnKNMgei_f4jhY6kqMRwAAgCrpa/view"
+            },
+            "Note:  Survey Own Home: Cust said \" Mhm-uh \"   Survey Home Type   @ 02:31   Cust said \" No, a stick built home, a stick built brick home \"   The agent pressed 32 - Unsure (Own Home screen) instead of proceed.   Date Posted: (SB) WI FR ",
+            "GOOD CALL",
+            "GOOD CALL",
+            "Greetings   @ 00:16   Slight delay.   Date Posted: (SB) WI FR",
+            "TCPA   after ^ Defer   @ 03:06   Cust said \" Well if you're just trying to sell me Windows. I can't afford it so I don't wanna waste your time or my time. I'm retired. I'm on a fixed it.(stopped) then proceed \" I'm on a fixed income and I can't afford, Like a ton for windows. \"   The agent pressed 64 - Don't Need Now instead of 41 - Imm No.   @ 03:53   Cust said \" Well, you didn't answer my question. I don't want to waste my time and I don't want to waste their time. They're gonna try to just sell me thousands of dollars' worth of windows. I'm telling you right now I can't do it, so let's not waste any time.\"   The agent pressed $ How Much + 32 Quick Repeat instead of 43 - Final No. Compliance: Call Agressiveness - CAT2.   Date Posted: (SB) WI FR",
+            "GOOD CALL",
+            "Pitch   @ 00:40   Cust interrupted and said \" Okay, the mistake was mine, I guess, because I have a broken window. So all I was looking for was glass replacement. So I made the assumption that's what I was doing when I put in that type of thing. I just needed a window the glass replaced. But now I'm getting. Now I'm getting phone calls from all sorts of places that want me to replace all the windows in my house. I, I don't want that.\"   The agent pressed 41 - Imm No instead of End the call politely. (Not Qualified).   NOTE: @ 01:25   Cust interrupted and said \" No, it's, it's amazing. It's amazing. It really is amazing. You guys are amazing. So what I need is a piece of glass. And, I get calls wanting. I don't need that...\"   The agent pressed 42 - Imm No instead of End the call politely. (Not Qualified).   Date Posted: (SB) WI FR\n\nThis call should have been disposed as NQ.   Date Posted: (SB) WI FR"
+          ],
+          "audits": [
+            "The agent disposed the call as AM instead of DA.   Date Posted: (SB) WI FR ",
+            " The agent disposed the call as AM instead of CB.   (SB) WI FR ",
+            "The agent disposed the call as AM instead of CB.  (SB) WI FR",
+            "The agent disposed the call as CB instead of DA.   (SB) WI FR",
+            "GOOD CALL",
+            "GOOD CALL",
+            "The agent delayed 6 seconds in disposing the call.   (SB) WI FR",
+            "The agent disposed the call as DA instead of CB. (SB) WI FR",
+            "The agent disposed the call as DA instead of CB; delayed 6 seconds in disposing the call.   (SB) WI FR ",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL"
+          ]
+        },
+        "week2": {
+          "score": 86.56,
+          "qa": [
+            "GOOD CALL",
+            "PITCH - @00:20 Cx interrupted and then @00:41 cx said \"Okay.\",  agent pressed    1(Yes - Pitch)  instead of    31(LR - Pitch)_(SB-BR)",
+            "SURVEY -  OWN HOME - @1:35 Slight delay_(SB-BR)",
+            "GOOD CALL",
+            "PITCH - @1:11 Bumping key_(SB-WI)",
+            "GOOD CALL",
+            "GREETINGS - @00:11 Slight delay_(SB-WI)",
+            "GOOD CALL"
+          ],
+          "audits": [
+            "Agent disposed the call as  DA  instead of  AM_(SB-WI)",
+            "Agent disposed the call as  DA  instead of  AM_(SB-WI)",
+            "Agent disposed the call as  DA  instead of  AM ; Delay dispo for more than 5 secs_(SB-WI)",
+            "Agent disposed the call as  DA  instead of  AM ; Delay dispo for more than 5 secs_(SB-WI)",
+            "Agent disposed the call as  DA  instead of  AM_(SB-WI)",
+            "Agent disposed the call as  DA  instead of  AM ; Delay dispo for more than 5 secs_(SB-WI)",
+            "GOOD CALL",
+            "GOOD CALL",
+            "Missed option_(SB-WI)",
+            "Agent disposed the call as  DA  instead of   AM_(SB-WI)",
+            "GOOD CALL",
+            "GOOD CALL"
+          ]
+        },
+        "week3": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week4": {
+          "score": 78.64,
+          "qa": [
+            "INTRO  @0:02  Unnecessary hotkey.  WI",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "Tagging a SALE call into a NON-SALE call.  WI (FOR DISPUTE)",
+            "INTRO  @0:40  cust said,  \"I'm under the weather today. I have COVID.\"  agent pressed  b(Busy)  instead of  v(Very busy).  PC BR"
+          ],
+          "audits": [
+            "Agent disposed the call as NI3 instead of CB.  WI",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL"
+          ]
+        }
+      }
+    },
+    {
+      "name": "S. Fuentes",
+      "password": "10988343",
+      "month": "MAY",
+      "week_label": "WEEK 4",
+      "weekly": {
+        "week1": {
+          "score": "93.98"
+        },
+        "week2": {
+          "score": "81.90"
+        },
+        "week3": {
+          "score": "88.68"
+        },
+        "week4": {
+          "score": "66.36"
+        }
+      },
+      "qa": [
+        "GOOD CALL",
+        "GOOD CALL",
+        "GOOD CALL",
+        "CREDIT  @03:14  Slight delay.  PC BR\n\nTCPA  @04:08  cust said,  \"Yeah, if they call me and I don't answer and they don't leave a voicemail, I'm gonna think it's not important and I'm not gonna call the number back.\"  agent pressed  60(What Partners)  instead of  d(Defer)  ;  @05:34  after  3(I guess, i think so, i suppose, Maybe)  cust said,  \"i guess.\"  agent proceed the call instead of  3(I guess, i think so, i suppose, Maybe) 2nd rnd  --Autofail--  PC BR\n\n NO Affirmation in TCPA. PC BR",
+        "TCPA  @02:50 Bumping key.  PC BR",
+        "GOOD CALL"
+      ],
+      "audits": [],
+      "weekly_data": {
+        "week1": {
+          "score": 93.98,
+          "qa": [
+            "GOOD CALL",
+            "GREETINGS  @0:07  Slight delay in playing silent rule.  WIFR ",
+            "GOOD CALL",
+            " PITCH  @0:52  Slight delay.  WI ",
+            "PITCH  @01:00  & @01:11  Slight delay  ;  @02:56  Some delay applying silent rule.  WI",
+            "TCPA  @04:39  Slight delay  ;  @06:04  Slight delay.  WI",
+            "GOOD CALL",
+            "GOOD CALL"
+          ],
+          "audits": [
+            "GOOD CALL",
+            "Agent has a missed option.  WI",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL"
+          ]
+        },
+        "week2": {
+          "score": 81.9,
+          "qa": [
+            "TCPA @ 03:38 - slight delay - BR",
+            "GOOD CALL",
+            "GOOD CALL",
+            "Main Reason @ 01:37 cx said \"zero, zero\" Agent played 11 (Generic Reason) instead of 2 (Unknown); Own Home @ 01:54 - slight delay - PC BR",
+            "Main Reason @ 00:59 - slight delay; Walk In tub @ 01:36 - slight delay - PC BR ",
+            "Greetings @ 00:41 - some delay - PC BR",
+            "Main Reason @ 00:48 - slight delay; @ 01:13 - major delay - PC BR ",
+            "Pitch @ 00:41; @ 01:22 - slight delays - PC BR ",
+            "Pitch @ 00:57 - slight delay - PC BR\n\nOwn Home @ 01:36 - slight delay - PC BR",
+            "GOOD CALL"
+          ],
+          "audits": [
+            " Agent disposed the call as LB instead of BAD - BR ",
+            "GOOD CALL",
+            "Delay dispo for 27secs. - BR"
+          ]
+        },
+        "week3": {
+          "score": 88.68,
+          "qa": [
+            "GOOD CALL",
+            "SURVEY - CREDIT - @2:11 Slight delay in applying the silent rule_(PC-BR)",
+            "TCPA - @2:22 Some delay_(PC-BR)",
+            "GOOD CALL",
+            "SURVEY - MAIN REASON - @1:43 Slight delay in applying the silent rule_(PC-BR)",
+            "SURVEY - MAIN REASON - @1:25 Slight delay_(PC-BR)",
+            "SURVEY - HOME TYPE - @1:35 Slight delay in pressing unnecessary hotkey_(PC-BR)",
+            "PITCH - @00:53 Slight delay in applying the silent rule_(PC-BR)",
+            " TCPA - @3:39 Slight delay in applying the silent rule_(PC-BR)",
+            "SURVEY - MAIN REASON - @00:54 Some delay in applying the silent rule_(PC-BR)"
+          ],
+          "audits": []
+        },
+        "week4": {
+          "score": 66.36,
+          "qa": [
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "CREDIT  @03:14  Slight delay.  PC BR\n\nTCPA  @04:08  cust said,  \"Yeah, if they call me and I don't answer and they don't leave a voicemail, I'm gonna think it's not important and I'm not gonna call the number back.\"  agent pressed  60(What Partners)  instead of  d(Defer)  ;  @05:34  after  3(I guess, i think so, i suppose, Maybe)  cust said,  \"i guess.\"  agent proceed the call instead of  3(I guess, i think so, i suppose, Maybe) 2nd rnd  --Autofail--  PC BR\n\nNO Affirmation in TCPA. PC BR",
+            " TCPA  @02:50 Bumping key.  PC BR ",
+            "GOOD CALL"
+          ],
+          "audits": []
+        }
+      }
+    },
+    {
+      "name": "L. Guansing",
+      "password": "5560guansinG!",
+      "weekly": {
+        "week1": {
+          "score": "85.52"
+        },
+        "week2": {
+          "score": "85.88"
+        },
+        "week3": {
+          "score": 0
+        },
+        "week4": {
+          "score": "88.68"
+        }
+      },
+      "qa": [
+        "HOMETYPE  @01:31 after r(Repeat that 2nd rnd)  cust said,  \"I'm sorry, I've had throat surgery, so this might not be a good time, thank you.\"  agent pressed  64(Don't Need Now)  instead of  b(Busy). WI",
+        "GOOD CALL",
+        "GOOD CALL",
+        "GREETINGS after 41(Imm No x1)  @0:30  cust said,  \"Well, I just got, I had to dirt after one of the hurricanes down here, I had to break a window to get back in the house. So that was all fine and good, anderson window came out, they did their measurements, blah blah blah, talked me into buying 2,2,2 other, 3 other windows, small, not big, and I got a total bill of $17,000. Can you imagine? And I, I asked, I asked everybody, in between Tampa and Sarasota and down here in Inglewood, I, I asked friends, neighbors. Have you ever bought a window? Well, yeah, occasionally, you know, found two guys that bought windows. Well, how much were they? Well, one window was about 6, maybe 700. The other one was around 5. I said, well, I bought 4,4 windows for 17,000, and the guy said, Anderson? I said, yeah, yeah they brag about being the best. They ought to brag about being the most expensive.\"  agent  end the call instead   $(How Much)  +  7(What's About).  WI",
+        "GOOD CALL",
+        "PITCH  @01:04  after r(Repeat) cust said,  \"I don't, I don't think I remember it. I don't write it down. I'm saying there's a million advertisements out there now on the radio and television. We replace the windows if you're a veteran, if you're this, if you're that, there's almost no cost. They're all full of it, I know that. So if you're gonna go into a thing and it's gonna run into 1000, you get it, I'm not interested.\"  agent pressed  4(Not Interested)  instead of  66(How Much).  PC WI\n\nMAIN REASON  @02:03  cust said,  \"I said they're 50 years old. I live in Kings Point. It's a pretty old place. I mean, I don't live here that long, but the place is 50 years old, the windows and everything kind of changed their touch.\"  agent pressed  x(Exit)  instead of  proceed.  PC WI"
+      ],
+      "audits": [
+        "GOOD CALL",
+        "GOOD CALL",
+        "GOOD CALL",
+        "GOOD CALL"
+      ],
+      "month": "MAY",
+      "week_label": "WEEK 4",
+      "weekly_data": {
+        "week1": {
+          "score": 85.52,
+          "qa": [
+            "Pre-Transfer @ 03:23 - slight delay in applying silent rule - WI",
+            "GOOD CALL",
+            "Own Home @ 01:41 - slight delay - WI ",
+            "GOOD CALL",
+            "TCPA @ 03:47 - slight delay - WI",
+            "Greetings @ 00:19 - slight delay; @ 00:31 - bumping key - WI \n\nTCPA @ 02:37 - some delay - WI ",
+            "Own Home @ 01:51 - slight delay - WI ",
+            "Main Reason @ 00:59 cx said \"I can't afford anything now I'm and I probably won't ever be able to afford anything….\" Agent pressed 41 (Imm No) instead of 64 (Don't Need Now) - WI "
+          ],
+          "audits": [
+            "Agent has major delay @ 00:00 - 00:29 - WI",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "Agent disposed the call as NI1 instead of A - WI",
+            "GOOD CALL",
+            "Agent disposed the call as DA instead of A. Delay dispo for 20secs - WI ",
+            "GOOD CALL"
+          ]
+        },
+        "week2": {
+          "score": 85.58,
+          "qa": [
+            "TCPA - @3:22 Cx said \"Right.\",  agent pressed    24(Is that a YES)  instead of    1(Yes TCPA)_(SB-WI)",
+            "GOOD CALL",
+            "PITCH - @1:00 Cx said \"I wouldn't have any idea, but go ahead. I'm just riding around. I mean, you know, I'm just riding this way.\", agent had a slight delay in pressing    31(LR - Pitch)  instead of    1(Yes - Pitch)_(SB-WI)",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "SURVEY - MAIN REASON - @1:34 Major delay_(SB-WI)"
+          ],
+          "audits": [
+            " Missed option_(SB-WI)",
+            "Agent disposed the call as  CB  instead of  NI3_(SB-WI)",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "Agent disposed the call as  DA  instead of   CB_(SB-WI)",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL"
+          ]
+        },
+        "week3": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week4": {
+          "score": 88.68,
+          "qa": [
+            "HOMETYPE  @01:31 after r(Repeat that 2nd rnd)  cust said,  \"I'm sorry, I've had throat surgery, so this might not be a good time, thank you.\"  agent pressed  64(Don't Need Now)  instead of  b(Busy). WI",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GREETINGS after 41(Imm No x1)  @0:30  cust said,  \"Well, I just got, I had to dirt after one of the hurricanes down here, I had to break a window to get back in the house. So that was all fine and good, anderson window came out, they did their measurements, blah blah blah, talked me into buying 2,2,2 other, 3 other windows, small, not big, and I got a total bill of $17,000. Can you imagine? And I, I asked, I asked everybody, in between Tampa and Sarasota and down here in Inglewood, I, I asked friends, neighbors. Have you ever bought a window? Well, yeah, occasionally, you know, found two guys that bought windows. Well, how much were they? Well, one window was about 6, maybe 700. The other one was around 5. I said, well, I bought 4,4 windows for 17,000, and the guy said, Anderson? I said, yeah, yeah they brag about being the best. They ought to brag about being the most expensive.\"  agent  end the call instead   $(How Much)  +  7(What's About).  WI",
+            "GOOD CALL",
+            " PITCH  @01:04  after r(Repeat) cust said,  \"I don't, I don't think I remember it. I don't write it down. I'm saying there's a million advertisements out there now on the radio and television. We replace the windows if you're a veteran, if you're this, if you're that, there's almost no cost. They're all full of it, I know that. So if you're gonna go into a thing and it's gonna run into 1000, you get it, I'm not interested.\"  agent pressed  4(Not Interested)  instead of  66(How Much).  PC WI (FOR DISPUTE)\n\nMAIN REASON  @02:03  cust said,  \"I said they're 50 years old. I live in Kings Point. It's a pretty old place. I mean, I don't live here that long, but the place is 50 years old, the windows and everything kind of changed their touch.\"  agent pressed  x(Exit)  instead of  proceed.  PC WI"
+          ],
+          "audits": [
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL"
+          ]
+        }
+      }
+    },
+    {
+      "name": "C. Omandam",
+      "password": "sybille27",
+      "weekly": {
+        "week1": {
+          "score": "75.06"
+        },
+        "week2": {
+          "score": "93.30"
+        },
+        "week3": {
+          "score": 0
+        },
+        "week4": {
+          "score": "91.09"
+        }
+      },
+      "qa": [
+        " Delay in disposing the call for more than 10 seconds. PC BR",
+        "HOME TYPE  @01:37  Slight delay in applying silent rule.   PC BR",
+        "GOOD CALL",
+        "HOME TYPE  @03:20  Bumping key.  PC BR",
+        "GOOD CALL",
+        "CREDIT  @01:42  cust said,  \"Oh I see I was, I'll see what I was looking for, I was hoping that government, was any assistance. They're saying that, you know, you're retired, you can do it. I'm retired. I'm not working.\"  agent pressed  0(Credit) instead of  d(Defer).   PC BR"
+      ],
+      "audits": [],
+      "month": "MAY",
+      "week_label": "WEEK 4",
+      "weekly_data": {
+        "week1": {
+          "score": 75.06,
+          "qa": [
+            "GOOD CALL",
+            "Pitch   @ 00:35    Cust said \" Are you, is this a rec, is it well just so you're aware you have the wrong number because we aren't doing any type of f***ing remodeling so I'll know where you're getting that from. So I hope you got that on the recording.\"   The agent pressed 88 - Wrong Number instead of 41 - Imm No.   Date Posted: (SB) BR RV",
+            "Pre Transfer   @ 03:16   There was a major delay.   Date Posted: (SB) HW RV",
+            " Survey Benefits   @ 01:57   The agent failed to apply silent rule.   Date Posted: (SB) HW RV",
+            "TCPA   @ 03:15   Slight delay in applying silent rule;   @ 03:24   After applying silent rule the agent should dispo right away the call. - Tagged as timing Issue.   Date Posted: (SB) HW RV",
+            "Survey Benefits   @ 02:16   The agent slight delay in applying the silent rule.   Date Posted: (SB) HW RV",
+            "Survey Own Home   @ 01:19   Cust said \" Yeah, but I'm not interested in that. I had bad experience with home warranties and stuff, so I'm not gonna deal with that no more. Thank you.\"   The agent pressed 41 - Imm No instead of End call politely.   Date Posted: (SB) HW RV",
+            " Survey Add-Up   @ 01:59   There was a some delay.   Date Posted: (SB) HW RV"
+          ],
+          "audits": [
+            "GOOD CALL",
+            "There is a missed option at 00:17.   Date Posted: (SB) BR RV",
+            "GOOD CALL",
+            " The agent disposed the call LB instead of CB. (gender mismatched).   Date Posted: (SB) HW RV",
+            "The agent disposed the call LB instead of CB. (gender mismatched).",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "The agent disposed the call as NI2 instead of CB.   Date Posted: (SB) WI FR",
+            " The agent disposed the call as CB instead of NI2.   Date Posted: (SB) WI FR",
+            "There was a missed option @ 00:12.   Date Posted: (SB) WI FR"
+          ]
+        },
+        "week2": {
+          "score": 93.3,
+          "qa": [
+            "SURVEY - REPLACE - @1:42 Slight delay in pressing unnecessary hotkey_(SB-HW)",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GREETINGS - @00:15 Slight delay_(SB-HW)",
+            "PITCH - @00:30 Cx interrupted & said \"Yeah, I already got it done. I'm sorry. I just, yeah, I already got my bathroom done.\",  agent pressed    41(Imm No)  instead of    88(End Call)_(SB-HW)",
+            "PITCH - @00:43 Slight delay in applying the silent rule_(SB-HW)\n\nSURVEY - WALK IN TUB - @1:28 Slight delay in applying the silent rule_(SB-HW)",
+            "GOOD CALL"
+          ],
+          "audits": [
+            "Agent disposed the call as   DA  instead of  AM_(SB-HW)",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL"
+          ]
+        },
+        "week3": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week4": {
+          "score": 91.09,
+          "qa": [
+            "Delay in disposing the call for more than 10 seconds.",
+            "HOME TYPE  @01:37  Slight delay in applying silent rule.   PC BR",
+            "GOOD CALL",
+            " HOME TYPE  @03:20  Bumping key.  PC BR ",
+            "GOOD CALL",
+            "CREDIT  @01:42  cust said,  \"Oh I see I was, I'll see what I was looking for, I was hoping that government, was any assistance. They're saying that, you know, you're retired, you can do it. I'm retired. I'm not working.\"  agent pressed  0(Credit) instead of  d(Defer).   PC BR"
+          ],
+          "audits": []
+        }
+      }
     }
-    .header-main h1 { margin: 0; font-size: 1.1rem; font-weight: 800; letter-spacing: 2px; flex: 1; text-align: center; }
-    .admin-btn { background: transparent; color: #94a3b8; font-size: 0.7rem; font-weight: 700; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; }
-
-    .nav-bar { background: #0f172a; border-bottom: 1px solid var(--primary); padding: 12px 0; position: sticky; top: 0; z-index: 100; }
-    .nav-inner { display: flex; justify-content: center; gap: 10px; padding: 0 15px; flex-wrap: wrap; }
-    .agent-pill { padding: 8px 18px; border-radius: 30px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: #94a3b8; font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: 0.3s; white-space: nowrap; }
-    .agent-pill.active { background: var(--primary); color: #000; border-color: var(--primary); }
-    
-    .content-container { max-width: 900px; margin: 30px auto; padding: 0 20px 80px; }
-    .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
-    .kpi-box { padding: 20px 10px; border-radius: 24px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 125px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-    
-    /* AUDITS BOX VISIBILITY FIX */
-    .kpi-1 { background: #0f172a; border: 2px solid var(--primary); } 
-    .kpi-2 { background: var(--primary); } 
-    .kpi-3 { background: #1e293b; border: 1px solid rgba(255,255,255,0.1); } 
-
-    .kpi-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; color: #ffffff !important; opacity: 0.9; }
-    .kpi-2 .kpi-label { color: #000 !important; }
-    .kpi-value { font-size: 1.8rem; font-weight: 900; line-height: 1; text-transform: uppercase; color: #ffffff !important; }
-    .kpi-2 .kpi-value { color: #000 !important; }
-
-    .dashboard-tabs { display: flex; gap: 8px; margin-bottom: 20px; background: #020617; padding: 8px; border-radius: 16px; }
-    .dash-tab-btn { flex: 1; padding: 12px; border: none; border-radius: 10px; background: transparent; color: #94a3b8; font-weight: 800; font-size: 0.7rem; cursor: pointer; }
-    .dash-tab-btn.active { background: var(--primary); color: #000; }
-
-    .main-card { background: #0f172a; border-radius: 32px; overflow: hidden; color: #ffffff; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-    .card-head { padding: 30px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-
-    .mtd-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 16px; border: 1px solid var(--primary); margin-top: 15px; width: 100%; }
-    .table-block { padding: 30px; border-bottom: 1px solid var(--border); }
-    .table-block h3 { color: var(--primary); font-size: 0.9rem; margin-bottom: 15px; text-transform: uppercase; }
-    table { width: 100%; border-collapse: collapse; }
-    td { padding: 15px 10px; border-top: 1px solid var(--border); color: #ffffff !important; font-size: 0.95rem; line-height: 1.6; vertical-align: top; }
-    
-    .quote-style { font-weight: 600; color: #fde68a; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 6px; border-left: 3px solid var(--primary); display: inline-block; }
-
-    .modal { display: none; position: fixed; inset: 0; background:rgba(2,6,23,0.95); z-index: 200; justify-content:center; align-items:center; }
-    .modal-content { background:#1e293b; padding:40px; border-radius:30px; width:340px; text-align:center; border: 2px solid var(--primary); }
-    .btn-verify { background: var(--primary); color: #000; padding: 15px; border:none; border-radius:15px; width: 100%; font-weight:800; cursor:pointer; }
-    @media (max-width: 600px) { .kpi-row { grid-template-columns: 1fr; } .card-head { flex-direction: column; gap: 15px; text-align: center; } }
-  </style>
-</head>
-<body>
-  <header class="header-main">
-    <div style="width: 80px;"></div>
-    <h1>AGENT ANALYTICS PORTAL</h1>
-    <button onclick="openAdminModal()" class="admin-btn">ADMIN</button>
-  </header>
-
-  <nav class="nav-bar"><div id="agentPills" class="nav-inner"></div></nav>
-  <div class="content-container"><div id="dashboardView"></div></div>
-
-  <div id="passwordModal" class="modal">
-    <div class="modal-content">
-      <h3 style="color:var(--primary); margin:0;">🔐 UNLOCK MTD SCORES</h3>
-      <input type="password" id="pwInput" style="width:100%; padding:15px; margin:20px 0; background:#000; color:#fff; border:1px solid #444; text-align:center; font-size:1.5rem; border-radius:15px;" placeholder="••••" />
-      <button class="btn-verify" onclick="verifyAndShowScores()">VERIFY ACCESS</button>
-      <p onclick="closeModal('passwordModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
-    </div>
-  </div>
-
-  <div id="adminModal" class="modal">
-    <div class="modal-content">
-      <h3 style="color:var(--primary); margin:0;">🚨 ADMIN ACCESS</h3>
-      <input type="password" id="adminPwInput" style="width:100%; padding:15px; margin:20px 0; background:#000; color:#fff; border:1px solid #444; text-align:center; font-size:1.5rem; border-radius:15px;" placeholder="••••" />
-      <button class="btn-verify" onclick="verifyAdmin()">ACCESS EDITOR</button>
-      <p onclick="closeModal('adminModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
-    </div>
-  </div>
-  <script>
-    let db = { theme: {}, agents: [] };
-    let activeAgent = null;
-    let currentViewWeek = 'week1';
-    let isUnlocked = false;
-    const MY_EMAIL = "hitsuguya08@gmail.com"; 
-
-    window.addEventListener('DOMContentLoaded', () => {
-      fetch('data.json?v=' + new Date().getTime())
-        .then(r => r.json())
-        .then(data => { 
-          db = data.agents ? data : { theme: { primary: "#f59e0b" }, agents: data };
-          if(db.theme?.primary) document.documentElement.style.setProperty('--primary', db.theme.primary);
-          renderPills(db.agents); 
-        })
-        .catch(() => { document.getElementById('dashboardView').innerHTML = `<h3 style="color:var(--primary); text-align:center; padding:50px;">Syncing...</h3>`; });
-    });
-
-    function renderPills(agents) {
-      const box = document.getElementById('agentPills'); box.innerHTML = '';
-      agents.forEach((agent, i) => {
-        const pill = document.createElement('div'); pill.className = 'agent-pill';
-        pill.innerHTML = `<div class="dot" style="background:var(--primary); width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:8px;"></div> ${agent.name}`;
-        pill.onclick = () => { selectAgent(agent, pill); };
-        box.appendChild(pill); if(i === 0) pill.click();
-      });
-    }
-
-    function selectAgent(agent, element) {
-      activeAgent = agent; isUnlocked = false; currentViewWeek = 'week1';
-      document.querySelectorAll('.agent-pill').forEach(el => el.classList.remove('active'));
-      element.classList.add('active'); renderDashboard();
-    }
-
-    function switchDashboardWeek(week) { currentViewWeek = week; renderDashboard(); }
-
-    function renderDashboard() {
-      const a = activeAgent;
-      if(!a.weekly_data) { a.weekly_data = { week1:{score:0,qa:[],audits:[]}, week2:{score:0,qa:[],audits:[]}, week3:{score:0,qa:[],audits:[]}, week4:{score:0,qa:[],audits:[]} }; }
-      const weekly = a.weekly_data[currentViewWeek];
-      const qas = weekly.qa || []; const audits = weekly.audits || [];
-
-      document.getElementById('dashboardView').innerHTML = `
-        <div class="kpi-row">
-            <div class="kpi-box kpi-1"><div class="kpi-label">MONTH</div><div class="kpi-value">${a.month || 'MAY'}</div></div>
-            <div class="kpi-box kpi-2"><div class="kpi-label">QA EVALS</div><div class="kpi-value">${qas.length}</div></div>
-            <div class="kpi-box kpi-3"><div class="kpi-label">AUDITS</div><div class="kpi-value">${audits.length}</div></div>
-        </div>
-        <div class="dashboard-tabs">
-            <button class="dash-tab-btn ${currentViewWeek === 'week1' ? 'active' : ''}" onclick="switchDashboardWeek('week1')">WEEK 1</button>
-            <button class="dash-tab-btn ${currentViewWeek === 'week2' ? 'active' : ''}" onclick="switchDashboardWeek('week2')">WEEK 2</button>
-            <button class="dash-tab-btn ${currentViewWeek === 'week3' ? 'active' : ''}" onclick="switchDashboardWeek('week3')">WEEK 3</button>
-            <button class="dash-tab-btn ${currentViewWeek === 'week4' ? 'active' : ''}" onclick="switchDashboardWeek('week4')">WEEK 4</button>
-        </div>
-        <div class="main-card">
-            <div class="card-head">
-                <h2 style="margin:0; color:var(--primary)">${a.name}</h2>
-                <div class="btn-group">
-                    <button style="background:transparent; color:var(--primary); border:1px solid var(--primary); padding:8px 15px; border-radius:10px; cursor:pointer; font-size:0.7rem; font-weight:800;" onclick="sendInquiry()">✉️ CLARIFY FEEDBACK</button>
-                    ${!isUnlocked ? '<button class="btn-verify" style="width:auto; padding:10px 20px; font-size:0.75rem;" onclick="openAgentModal()">🔐 UNLOCK SCORES</button>' : ''}
-                </div>
-            </div>
-            <div style="padding:0 30px;">${isUnlocked ? renderScoreGrid() : ''}</div>
-            ${renderTable('QA Feedback (' + currentViewWeek.toUpperCase() + ')', qas, true)}
-            ${renderTable('Dispo Audits', audits, false)}
-        </div>`;
-    }
-
-    function renderScoreGrid() {
-      const wd = activeAgent.weekly_data;
-      const s = [wd.week1.score||0, wd.week2.score||0, wd.week3.score||0, wd.week4.score||0];
-      const valid = s.map(Number).filter(v => v > 0);
-      const mtd = valid.length > 0 ? (valid.reduce((a,b) => a+b, 0) / valid.length).toFixed(2) : "0.00";
-      return `<div class="mtd-grid">
-            <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W1</div><div style="font-weight:800;">${s[0]}%</div></div>
-            <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W2</div><div style="font-weight:800;">${s[1]}%</div></div>
-            <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W3</div><div style="font-weight:800;">${s[2]}%</div></div>
-            <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W4</div><div style="font-weight:800;">${s[3]}%</div></div>
-            <div style="text-align:center; border-left:2px solid var(--primary); padding-left:10px;"><div style="font-size:0.6rem; color:var(--primary);">MTD</div><div style="color:var(--primary); font-weight:800;">${mtd}%</div></div>
-        </div>`;
-    }
-
-    function renderTable(title, data, isQA) {
-      if(!data || data.length === 0) return `<div class="table-block"><h3>${title}</h3><p style="color:#ffffff;">No entries recorded.</p></div>`;
-      return `<div class="table-block"><h3>${title}</h3><table><tbody>
-        ${data.map((item, i) => {
-          let text = (typeof item === 'object') ? (item.text || "") : item;
-          let link = (isQA && typeof item === 'object') ? (item.link || "") : "";
-          let mediaHtml = "";
-          
-          if (link && link.trim() !== "") {
-              // PINAKA-LIG-ON NGA PAGKUHA SA ID
-              const driveMatch = link.match(/[-\w]{25,}/);
-              if (driveMatch && (link.includes('drive.google') || link.includes('docs.google'))) {
-                  const fileId = driveMatch[0]; // KANI ANG FIXED: Naggamit na og [0] para sa string
-                  mediaHtml = `<div style="margin-top:15px; border-radius:12px; overflow:hidden; border:1px solid var(--primary); background:#000; height:150px; line-height:0;"><iframe src="https://google.com{fileId}/preview" width="100%" height="150" style="border:none;" allow="autoplay"></iframe></div>`;
-              } else {
-                  mediaHtml = `<a href="${link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1px solid var(--primary); padding:6px 15px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 OPEN LINK</a>`;
-              }
-          }
-          let fText = text.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
-          return `<tr><td style="width:35px; color:var(--primary); font-weight:800; vertical-align:top;">${i+1}</td><td style="color:#ffffff;"><div>${fText}</div>${mediaHtml}</td></tr>`;
-        }).join('')}
-      </tbody></table></div>`;
-    }
-
-    function sendInquiry() { window.location.href = `mailto:${MY_EMAIL}?subject=QA Inquiry: ${activeAgent.name} (${currentViewWeek.toUpperCase()})`; }
-    function openAgentModal() { document.getElementById('pwInput').value = ''; document.getElementById('passwordModal').style.display = 'flex'; }
-    function openAdminModal() { document.getElementById('adminPwInput').value = ''; document.getElementById('adminModal').style.display = 'flex'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-    function verifyAdmin() { if (document.getElementById('adminPwInput').value === "Jeikaaru-08!") { window.location.href = "admin.html"; } else { alert("❌ Unauthorized"); } }
-    function verifyAndShowScores() { if(activeAgent && document.getElementById('pwInput').value.trim() === activeAgent.password.toString().trim()) { isUnlocked = true; renderDashboard(); closeModal('passwordModal'); } else { alert('❌ Incorrect Access Code'); } }
-  </script>
-</body>
-</html>
+  ]
+}
