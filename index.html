@@ -8,9 +8,9 @@
   <style>
     :root { --primary: #f59e0b; --bg: #fef3c7; --card: #0f172a; --border: rgba(255,255,255,0.1); }
     * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fef3c7; color: #000; margin: 0; padding: 0; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #000; margin: 0; padding: 0; }
     
-    /* FIX: USA RA KA HEADER SA TAAS */
+    /* HEADER STYLING */
     .header-main { background: #020617; padding: 15px 30px; color: var(--primary); border-bottom: 5px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
     .header-main h1 { margin: 0; font-size: 1.1rem; font-weight: 800; letter-spacing: 2px; flex: 1; text-align: center; }
     .admin-btn { background: transparent; color: #94a3b8; font-size: 0.7rem; font-weight: 700; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; text-decoration: none; }
@@ -23,6 +23,8 @@
     .content-container { max-width: 900px; margin: 30px auto; padding: 0 20px 80px; }
     .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
     .kpi-box { padding: 20px 10px; border-radius: 24px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 125px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    
+    /* KPI BOX COLORS */
     .kpi-1 { background: #0f172a; border: 2px solid var(--primary); } 
     .kpi-2 { background: var(--primary); } 
     .kpi-3 { background: #1e293b; } 
@@ -36,11 +38,16 @@
     .dash-tab-btn { flex: 1; padding: 12px; border: none; border-radius: 10px; background: transparent; color: #94a3b8; font-weight: 800; font-size: 0.7rem; cursor: pointer; }
     .dash-tab-btn.active { background: var(--primary); color: #000; }
 
-    .main-card { background: #0f172a; border-radius: 32px; overflow: hidden; color: #ffffff; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+    .main-card { background: #0f172a; border-radius: 32px; overflow: hidden; color: #ffffff; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
     .card-head { padding: 30px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-    td { padding: 15px 10px; border-top: 1px solid var(--border); color: #ffffff !important; font-size: 0.95rem; line-height: 1.6; vertical-align: top; }
+
+    .mtd-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 16px; border: 1px solid var(--primary); margin-top: 15px; width: 100%; }
+    .table-block { padding: 30px; border-bottom: 1px solid var(--border); }
+    .table-block h3 { color: var(--primary); font-size: 0.9rem; margin-bottom: 15px; text-transform: uppercase; }
+    table { width: 100%; border-collapse: collapse; }
+    td { padding: 18px 10px; border-top: 1px solid var(--border); color: #ffffff !important; font-size: 0.95rem; line-height: 1.6; vertical-align: top; }
     
-    .quote-style { font-weight: 600; color: #fde68a; background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 8px; border-left: 4px solid var(--primary); display: inline-block; }
+    .quote-style { font-weight: 600; color: #fde68a; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 6px; border-left: 3px solid var(--primary); display: inline-block; }
     .modal { display: none; position: fixed; inset: 0; background:rgba(0, 0, 0, 0.9); z-index: 200; justify-content:center; align-items:center; }
     .modal-content { background:#1e293b; padding:40px; border-radius:30px; width:340px; text-align:center; border: 2px solid var(--primary); }
     .btn-verify { background: var(--primary); color: #000; padding: 12px; border:none; border-radius:12px; width: 100%; font-weight:800; cursor:pointer; }
@@ -144,14 +151,14 @@
 
     function renderScoreGrid() {
       var wd = activeAgent.weekly_data;
-      var s = [wd.week1.score||0, wd.week2.score||0, wd.week3.score||0, wd.week4.score||0];
-      var valid = s.map(Number).filter(function(v) { return v > 0; });
+      var s1 = wd.week1.score || 0, s2 = wd.week2.score || 0, s3 = wd.week3.score || 0, s4 = wd.week4.score || 0;
+      var valid = [Number(s1), Number(s2), Number(s3), Number(s4)].filter(function(v) { return v > 0; });
       var mtd = valid.length > 0 ? (valid.reduce(function(a,b) { return a+b; }, 0) / valid.length).toFixed(2) : "0.00";
       return '<div class="mtd-grid">' +
-            '<div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W1</div><div style="font-weight:800;">' + s[0] + '%</div></div>' +
-            '<div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W2</div><div style="font-weight:800;">' + s[1] + '%</div></div>' +
-            '<div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W3</div><div style="font-weight:800;">' + s[2] + '%</div></div>' +
-            '<div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W4</div><div style="font-weight:800;">' + s[3] + '%</div></div>' +
+            '<div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W1</div><div style="font-weight:800;">' + s1 + '%</div></div>' +
+            '<div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W2</div><div style="font-weight:800;">' + s2 + '%</div></div>' +
+            '<div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W3</div><div style="font-weight:800;">' + s3 + '%</div></div>' +
+            '<div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W4</div><div style="font-weight:800;">' + s4 + '%</div></div>' +
             '<div style="text-align:center; border-left:2px solid var(--primary); padding-left:10px;"><div style="font-size:0.6rem; color:var(--primary);">MTD</div><div style="color:var(--primary); font-weight:800;">' + mtd + '%</div></div>' +
         '</div>';
     }
@@ -168,8 +175,8 @@
         if (link && link.trim() !== "") {
             var match = link.match(/[-\w]{25,}/);
             if (match && (link.indexOf('drive.google') !== -1 || link.indexOf('docs.google') !== -1)) {
-                var fileId = match[0];
-                mediaHtml = '<div style="margin-top:15px; border-radius:12px; overflow:hidden; border:1px solid var(--primary); background:#000; height:150px; line-height:0;"><iframe src="https://google.com' + fileId + '/preview" width="100%" height="150" style="border:none;" allow="autoplay"></iframe></div>';
+                var fileId = match[0]; // KANI ANG PINAKA-IMPORTANTE NGA FIX [0]
+                mediaHtml = '<div style="margin-top:15px; border-radius:12px; overflow:hidden; border:1.5px solid var(--primary); background:#000; height:150px; line-height:0;"><iframe src="https://google.com' + fileId + '/preview" width="100%" height="150" style="border:none;" allow="autoplay"></iframe></div>';
             } else {
                 mediaHtml = '<a href="' + link + '" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1px solid var(--primary); padding:6px 15px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 OPEN RECORDING</a>';
             }
