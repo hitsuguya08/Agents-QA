@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://googleapis.com" rel="stylesheet">
   <style>
-    /* Default CSS Variables - Kini pulihan sa JavaScript gikan sa JSON */
     :root {
       --primary: #f59e0b;    --bg: #fef3c7;
       --card: #0f172a;       --text-light: #f8fafc;
@@ -64,6 +63,13 @@
     td { padding: 15px 10px; border-top: 1px solid var(--border); color: #ffffff; font-size: 0.95rem; line-height: 1.6; }
     .quote-style { font-weight: 600; color: #fde68a; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 6px; border-left: 3px solid var(--primary); display: inline-block; margin: 2px 0; }
 
+    .btn-listen {
+      display: inline-block; margin-top: 12px; padding: 6px 15px; background: rgba(245, 158, 11, 0.15);
+      border: 1.5px solid var(--primary); color: var(--primary); border-radius: 8px;
+      text-decoration: none; font-size: 0.75rem; font-weight: 800; transition: 0.3s;
+    }
+    .btn-listen:hover { background: var(--primary); color: var(--text-dark); }
+
     .modal { display: none; position: fixed; inset: 0; background:rgba(0,0,0,0.9); backdrop-filter:blur(10px); z-index: 200; justify-content:center; align-items:center; }
     .modal-content { background:var(--card); padding:40px; border-radius:30px; width:340px; text-align:center; border: 2px solid var(--primary); }
     .modal-content input { width:100%; padding:15px; margin:20px 0; border:2px solid var(--border); background: rgba(0,0,0,0.3); color:white; border-radius:15px; text-align:center; font-size: 1.5rem; font-weight: 800; outline: none; }
@@ -111,7 +117,6 @@
       fetch('data.json?t=' + new Date().getTime())
         .then(r => r.json())
         .then(data => { 
-          // Check if data is new format or old
           db = data.agents ? data : { theme: { primary: "#f59e0b", bg: "#fef3c7", card: "#0f172a" }, agents: data };
           applyTheme(db.theme);
           renderPills(db.agents); 
@@ -188,8 +193,8 @@
                     ${isUnlocked ? renderScoreGrid() : ''}
                 </div>
             </div>
-            ${renderTable('QA Feedback (' + currentViewWeek.toUpperCase() + ')', qas)}
-            ${renderTable('Dispo Audits', audits)}
+            ${renderTable('QA Feedback (' + currentViewWeek.toUpperCase() + ')', qas, true)}
+            ${renderTable('Dispo Audits', audits, false)}
         </div>`;
     }
 
@@ -209,12 +214,21 @@
         </div>`;
     }
 
-    function renderTable(title, data) {
+    function renderTable(title, data, isQA) {
       if(data.length === 0) return `<div class="table-block"><h3>${title}</h3><p style="color:#94a3b8; font-size:0.85rem;">No entries recorded.</p></div>`;
       return `<div class="table-block"><h3>${title}</h3><table><tbody>
         ${data.map((item, i) => {
-          let f = item.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
-          return `<tr><td style="width:35px; color:var(--primary); font-weight:800;">${i+1}</td><td>${f}</td></tr>`;
+          const text = typeof item === 'object' ? item.text : item;
+          const link = (isQA && typeof item === 'object') ? item.link : "";
+          let f = text.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
+          return `
+            <tr>
+              <td style="width:35px; color:var(--primary); font-weight:800; vertical-align:top;">${i+1}</td>
+              <td>
+                <div>${f}</div>
+                ${link ? `<a href="${link}" target="_blank" class="btn-listen">🎧 LISTEN TO RECORDING</a>` : ''}
+              </td>
+            </tr>`;
         }).join('')}
       </tbody></table></div>`;
     }
