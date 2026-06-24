@@ -541,6 +541,39 @@
           "audits": []
         }
       }
+    },
+    {
+      "name": "R. Amodia",
+      "password": "060708",
+      "month": "JUNE",
+      "weekly_data": {
+        "week1": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week2": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week3": {
+          "score": 92.68,
+          "qa": [
+            {
+              "text": "New Entry",
+              "link": "",
+              "audioData": ""
+            }
+          ],
+          "audits": []
+        },
+        "week4": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        }
+      }
     }
   ]
 }
