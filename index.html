@@ -38,7 +38,6 @@
     .main-card { background: var(--card); border-radius: 32px; overflow: hidden; color: #ffffff; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
     .card-head { padding: 30px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
 
-    /* PROGRESS BAR STYLES */
     .progress-section { margin: 20px 30px; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 20px; border: 1px solid var(--border); }
     .progress-label-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 800; font-size: 0.8rem; }
     .progress-bar-bg { width: 100%; height: 14px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
@@ -50,6 +49,11 @@
     table { width: 100%; border-collapse: collapse; }
     td { padding: 15px 10px; border-top: 1px solid var(--border); color: #ffffff !important; font-size: 0.95rem; line-height: 1.6; vertical-align: top; }
     
+    /* NEW IN-APP AUDIO STYLING */
+    .audio-player-container { margin-top: 12px; background: #27272a; padding: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); width: 100%; max-width: 500px; }
+    .audio-player-container audio { width: 100%; height: 32px; outline: none; }
+    .audio-label { display: block; font-size: 0.6rem; color: var(--primary); font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
+
     .quote-style { font-weight: 600; color: #fde68a; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 6px; border-left: 3px solid var(--primary); display: inline-block; }
     .modal { display: none; position: fixed; inset: 0; background:rgba(0,0,0,0.95); z-index: 200; justify-content:center; align-items:center; }
     .modal-content { background:#1e293b; padding:40px; border-radius:30px; width:340px; text-align:center; border: 2px solid var(--primary); }
@@ -183,12 +187,11 @@
     function updateProgressBar() {
         const mtd = parseFloat(document.getElementById('mtdValue').innerText);
         const bar = document.getElementById('mtdBar');
+        if(!bar) return;
         bar.style.width = mtd + "%";
-        
-        // THRESHOLD FIX
-        if (mtd >= 90) bar.style.background = "#22c55e"; // Green
-        else if (mtd >= 75) bar.style.background = "#f59e0b"; // Yellow (75% to 89%)
-        else bar.style.background = "#ef4444"; // Red (Below 75%)
+        if (mtd >= 90) bar.style.background = "#22c55e";
+        else if (mtd >= 75) bar.style.background = "#f59e0b";
+        else bar.style.background = "#ef4444";
     }
 
     function renderTable(title, data, isQA) {
@@ -197,7 +200,20 @@
         ${data.map((item, i) => {
           let text = (typeof item === 'object') ? (item.text || "") : item;
           let link = (isQA && typeof item === 'object') ? (item.link || "") : "";
-          let mediaHtml = (link && link.trim() !== "") ? `<a href="${link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1px solid var(--primary); padding:6px 12px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 OPEN RECORDING</a>` : "";
+          let audioData = (isQA && typeof item === 'object') ? (item.audioData || "") : "";
+          
+          let mediaHtml = "";
+          // KON NAAY SULOD ANG GI-UPLOAD NGA AUDIO
+          if (audioData && audioData.trim() !== "") {
+              mediaHtml = `
+                <div class="audio-player-container">
+                    <span class="audio-label">🎧 Call Recording Preview:</span>
+                    <audio controls controlsList="nodownload"><source src="${audioData}" type="audio/mpeg"></audio>
+                </div>`;
+          } else if (link && link.trim() !== "") {
+              mediaHtml = `<a href="${link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1px solid var(--primary); padding:6px 12px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 OPEN EXTERNAL RECORDING</a>`;
+          }
+
           let fText = text.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
           return `<tr><td style="width:35px; color:var(--primary); font-weight:800; vertical-align:top;">${i+1}</td><td style="color:#ffffff;"><div>${fText}</div>${mediaHtml}</td></tr>`;
         }).join('')}
