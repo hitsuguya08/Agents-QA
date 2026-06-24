@@ -44,6 +44,11 @@
     label { display: block; font-weight: 700; font-size: 0.7rem; margin-bottom: 8px; color: #94a3b8; text-transform: uppercase; }
     input, textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; }
 
+    /* AUDIO UPLOAD BOX STYLE */
+    .audio-upload-zone { background: #f1f5f9; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 15px; margin-top: 10px; transition: 0.3s; }
+    .audio-upload-zone:hover { border-color: var(--primary); background: #f8fafc; }
+    .audio-preview-admin { width: 100%; margin-top: 10px; height: 32px; outline: none; }
+
     .json-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; padding: 50px; justify-content: center; align-items: center; }
     .json-content { background: var(--navy); width: 100%; max-width: 700px; border-radius: 25px; padding: 35px; border: 1px solid var(--primary); }
     textarea.json-area { background: #020617; color: #10b981; border: none; height: 300px; font-family: monospace; width: 100%; padding: 20px; border-radius: 12px; outline: none; }
@@ -58,15 +63,19 @@
         <button onclick="showExport()" class="btn-save" style="background:var(--primary); color:var(--navy);">🚀 GENERATE JSON</button>
     </div>
   </div>
+
   <div class="editor-main">
     <div class="editor-header">
-      <h2 id="editingTitle" style="color:var(--navy);">Admin Dashboard</h2>
-      <a href="index.html" style="text-decoration:none; color:var(--navy); font-weight:800; font-size:0.8rem; border:2px solid var(--navy); padding:8px 15px; border-radius:10px;">View Dashboard</a>
+      <h2 id="editingTitle" style="color:var(--navy);">Theme & Data Editor</h2>
+      <div style="display:flex; gap:10px; align-items:center;">
+          <button onclick="clearWeeklyData()" style="background:#fee2e2; color:#ef4444; border:1px solid #fecaca; padding:8px 15px; border-radius:10px; font-weight:800; cursor:pointer; font-size:0.75rem;">🧹 Reset Week</button>
+          <a href="index.html" style="text-decoration:none; color:var(--navy); font-weight:800; font-size:0.8rem; border:2px solid var(--navy); padding:8px 15px; border-radius:10px;">View Dashboard</a>
+      </div>
     </div>
     
     <div class="scroll-content">
         <div class="theme-box">
-            <h3 style="margin:0; font-size:0.85rem; color:var(--primary); letter-spacing:1px;">🎨 SELECT COLOR SCHEME</h3>
+            <h3 style="margin:0; font-size:0.85rem; color:var(--primary); letter-spacing:1px;">🎨 SELECT AUTOMATIC COLOR SCHEME</h3>
             <div class="preset-container">
                 <button class="preset-btn" onclick="setTheme('#f59e0b', '#fef3c7', '#0f172a')" style="background:#f59e0b; color:#0f172a;">AMBER GOLD</button>
                 <button class="preset-btn" onclick="setTheme('#10b981', '#ecfdf5', '#064e3b')" style="background:#10b981; color:white;">EMERALD</button>
@@ -93,7 +102,7 @@
                     <div><label>Agent Name</label><input type="text" id="editName" oninput="saveAndSync()"></div>
                     <div><label>Password</label><input type="text" id="editPass" oninput="saveAndSync()"></div>
                 </div>
-                <div style="margin-top:15px;"><label>Month</label><input type="text" id="editMonth" oninput="saveAndSync()"></div>
+                <div style="margin-top:15px;"><label>Month</label><input type="text" id="editMonth" oninput="saveAndSync()" placeholder="JUNE"></div>
             </div>
 
             <div class="tabs-container">
@@ -108,13 +117,13 @@
                 <label>Weekly QA Score (%)</label>
                 <input type="number" id="weeklyScoreInput" style="width:100px; font-weight:800;" oninput="updateWeeklyScore(this.value)">
                 
-                <h3 style="margin-top:30px; font-size:0.8rem;">QA Feedback</h3>
+                <h3 style="margin-top:30px; font-size:0.8rem;">QA Feedback & Call Recordings</h3>
                 <div id="qaContainer"></div>
-                <button class="btn-add" onclick="addRow('qa')">+ Add Feedback</button>
+                <button class="btn-add" onclick="addRow('qa')">+ Add Feedback Entry</button>
 
-                <h3 style="margin-top:30px; font-size:0.8rem;">Dispo Audits</h3>
+                <h3 style="margin-top:40px; font-size:0.8rem;">Dispo Audits</h3>
                 <div id="auditContainer"></div>
-                <button class="btn-add" onclick="addRow('audits')">+ Add Audit</button>
+                <button class="btn-add" onclick="addRow('audits')">+ Add Audit Entry</button>
             </div>
         </div>
     </div>
@@ -179,28 +188,85 @@
       document.getElementById('weeklyScoreInput').value = data.score || 0;
       renderList('qa', data.qa || []); renderList('audits', data.audits || []);
     }
+    
     function renderList(type, data) {
       const container = document.getElementById(type === 'qa' ? 'qaContainer' : 'auditContainer');
       container.innerHTML = data.map((item, i) => {
         const text = typeof item === 'object' ? item.text : item;
         const link = typeof item === 'object' ? item.link : "";
-        return `<div style="background:white; padding:15px; border-radius:10px; margin-bottom:10px; border:1px solid #e2e8f0;">
-          <div style="display:flex; gap:10px;">
+        const audioData = typeof item === 'object' ? (item.audioData || "") : "";
+        
+        return `<div style="background:white; padding:15px; border-radius:12px; margin-bottom:15px; border:1px solid #e2e8f0;">
+          <div style="display:flex; gap:10px; align-items: flex-start;">
+            <span style="font-weight:800; color:var(--navy); font-size:0.8rem; margin-top:10px;">${i+1}</span>
             <textarea oninput="updateItem('${type}', ${i}, 'text', this.value)" style="flex:1; min-height:60px;">${text}</textarea>
-            <button onclick="removeItem('${type}', ${i})" style="color:red; border:none; background:none; cursor:pointer;">✕</button>
+            <button onclick="removeItem('${type}', ${i})" style="color:red; border:none; background:none; cursor:pointer; font-weight:800; font-size:1rem; margin-top:8px;">✕</button>
           </div>
-          ${type==='qa'?`<input type="text" placeholder="Recording Link" value="${link}" oninput="updateItem('${type}', ${i}, 'link', this.value)" style="margin-top:10px; font-size:0.7rem;">`:''}
+          ${type==='qa'?`
+          <div class="audio-upload-zone">
+            <label style="font-size:0.6rem; color:#64748b; font-weight:800; display:block; margin-bottom:5px;">📁 UPLOAD AUDIO FILE (.MP3):</label>
+            <input type="file" accept="audio/*" onchange="handleAudioUpload(this, ${i})" style="font-size:0.7rem; border:none; padding:0; background:transparent;">
+            
+            <div id="previewBox-${i}" style="margin-top:10px; ${audioData ? '' : 'display:none;'}">
+                <audio id="player-${i}" src="${audioData}" controls class="audio-preview-admin"></audio>
+                <button onclick="removeUploadedAudio(${i})" style="background:#fee2e2; color:#ef4444; border:none; padding:3px 8px; border-radius:4px; font-size:0.6rem; font-weight:800; margin-top:5px; cursor:pointer;">Remove File</button>
+            </div>
+            
+            <div style="margin-top:10px; border-top:1px solid #e2e8f0; padding-top:10px;">
+                <label style="font-size:0.6rem; color:#64748b; font-weight:800;">OR PASTE EXTERNAL RECORDING URL:</label>
+                <input type="text" placeholder="https://google.com..." value="${link}" oninput="updateItem('${type}', ${i}, 'link', this.value)" style="margin-top:5px; font-size:0.7rem; padding:6px 10px; border-radius:6px;">
+            </div>
+          </div>`:''}
         </div>`;
       }).join('');
     }
+
+    function handleAudioUpload(input, index) {
+      const file = input.files[0];
+      if (!file) return;
+
+      // Limit file size to 25MB para dili mag-lag ang browser string handling
+      if (file.size > 25 * 1024 * 1024) {
+          alert("File is too large! Maximum limit is 25MB.");
+          input.value = "";
+          return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+          const base64Data = e.target.result;
+          
+          if(typeof db.agents[selectedIndex].weekly_data[currentWeek]['qa'][index] !== 'object') {
+              db.agents[selectedIndex].weekly_data[currentWeek]['qa'][index] = { text: db.agents[selectedIndex].weekly_data[currentWeek]['qa'][index], link: "", audioData: "" };
+          }
+          
+          db.agents[selectedIndex].weekly_data[currentWeek]['qa'][index]['audioData'] = base64Data;
+          saveToLocal();
+          
+          // I-show ang local preview player
+          document.getElementById(`previewBox-${index}`).style.display = "block";
+          document.getElementById(`player-${index}`).src = base64Data;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removeUploadedAudio(index) {
+        if(confirm("Remove uploaded audio file?")) {
+            db.agents[selectedIndex].weekly_data[currentWeek]['qa'][index]['audioData'] = "";
+            saveToLocal();
+            switchTab(currentWeek);
+        }
+    }
+
     function updateItem(type, index, field, val) {
       if(typeof db.agents[selectedIndex].weekly_data[currentWeek][type][index] !== 'object') {
-        db.agents[selectedIndex].weekly_data[currentWeek][type][index] = { text: db.agents[selectedIndex].weekly_data[currentWeek][type][index], link: "" };
+        db.agents[selectedIndex].weekly_data[currentWeek][type][index] = { text: db.agents[selectedIndex].weekly_data[currentWeek][type][index], link: "", audioData: "" };
       }
       db.agents[selectedIndex].weekly_data[currentWeek][type][index][field] = val; saveToLocal();
     }
     function addRow(type) {
-      db.agents[selectedIndex].weekly_data[currentWeek][type].push({ text: "GOOD CALL", link: "" });
+      const newObj = type === 'qa' ? { text: "New Entry", link: "", audioData: "" } : { text: "New Entry" };
+      db.agents[selectedIndex].weekly_data[currentWeek][type].push(newObj);
       switchTab(currentWeek); saveToLocal();
     }
     function removeItem(type, index) {
@@ -208,6 +274,15 @@
       switchTab(currentWeek); saveToLocal();
     }
     function updateWeeklyScore(v) { db.agents[selectedIndex].weekly_data[currentWeek].score = parseFloat(v) || 0; saveToLocal(); }
+    
+    function clearWeeklyData() {
+      if (selectedIndex === -1) return;
+      if (confirm(`Reset all data for this week?`)) {
+        db.agents[selectedIndex].weekly_data[currentWeek] = { score: 0, qa: [], audits: [] };
+        saveToLocal(); switchTab(currentWeek);
+      }
+    }
+
     function saveAndSync() {
       db.theme.primary = document.getElementById('themePrimary').value;
       db.theme.bg = document.getElementById('themeBg').value;
