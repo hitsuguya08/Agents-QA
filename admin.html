@@ -265,7 +265,7 @@
       db.agents[selectedIndex].weekly_data[currentWeek][type][index][field] = val; saveToLocal();
     }
     function addRow(type) {
-      const newObj = type === 'qa' ? { text: "New Entry", link: "", audioData: "" } : { text: "New Entry" };
+      const newObj = type === 'qa' ? { text: "GOOD CALL", link: "", audioData: "" } : { text: "New Entry" };
       db.agents[selectedIndex].weekly_data[currentWeek][type].push(newObj);
       switchTab(currentWeek); saveToLocal();
     }
