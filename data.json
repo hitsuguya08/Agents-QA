@@ -561,7 +561,32 @@
           "score": 92.68,
           "qa": [
             {
-              "text": "New Entry",
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "SURVEY - MAIN REASON - @00:58 Slight delay in applying the silent rule ; @1:07 Slight delay - SB_BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "NEXT STEP - @2:22 Not seamless - SB_BR\nTCPA - @3:18 Slight delay in applying the silent rule - SB_BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "SURVEY - MAIN REASON - @1:16 Unnecessary hotkey - SB_BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "TCPA - @4:14 After 41 script, cx said \"I said, I'm busy now. I'm ok, I cannot…\",  agent pressed last round of   B(Busy)  instead of     43(Final No) ; @4:27 Slight delay in applying the silent rule - SB_BR",
               "link": "",
               "audioData": ""
             }
