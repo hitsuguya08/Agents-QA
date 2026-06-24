@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>QA Pro | Analytics Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://googleapis.com" rel="stylesheet">
+  <link href="https://googleapis.com family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
   <style>
     :root { --primary: #f59e0b; --bg: #fef3c7; --card: #0f172a; --border: rgba(255,255,255,0.1); }
     * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
@@ -49,7 +49,6 @@
     table { width: 100%; border-collapse: collapse; }
     td { padding: 15px 10px; border-top: 1px solid var(--border); color: #ffffff !important; font-size: 0.95rem; line-height: 1.6; vertical-align: top; }
     
-    /* NEW IN-APP AUDIO STYLING */
     .audio-player-container { margin-top: 12px; background: #27272a; padding: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); width: 100%; max-width: 500px; }
     .audio-player-container audio { width: 100%; height: 32px; outline: none; }
     .audio-label { display: block; font-size: 0.6rem; color: var(--primary); font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
@@ -203,7 +202,6 @@
           let audioData = (isQA && typeof item === 'object') ? (item.audioData || "") : "";
           
           let mediaHtml = "";
-          // KON NAAY SULOD ANG GI-UPLOAD NGA AUDIO
           if (audioData && audioData.trim() !== "") {
               mediaHtml = `
                 <div class="audio-player-container">
@@ -211,7 +209,7 @@
                     <audio controls controlsList="nodownload"><source src="${audioData}" type="audio/mpeg"></audio>
                 </div>`;
           } else if (link && link.trim() !== "") {
-              mediaHtml = `<a href="${link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1px solid var(--primary); padding:6px 12px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 OPEN EXTERNAL RECORDING</a>`;
+              mediaHtml = `<a href="${link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1px solid var(--primary); padding:6px 12px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 OPEN RECORDING</a>`;
           }
 
           let fText = text.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
