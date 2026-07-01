@@ -718,6 +718,64 @@
           "audits": []
         },
         "week4": {
+          "score": 92.68,
+          "qa": [
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "SURVEY - MAIN REASON - @00:58 Slight delay in applying the silent rule ; @1:07 Slight delay - SB_BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "NEXT STEP - @2:22 Not seamless - SB_BR.\nTCPA - @3:18 Slight delay in applying the silent rule - SB_BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "SURVEY - MAIN REASON - @1:16 Unnecessary hotkey - SB_BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "TCPA - @4:14 After 41 script, cx said \"I said, I'm busy now. I'm ok, I cannot…\",  agent pressed last round of   B(Busy)  instead of     43(Final No) ; @4:27 Slight delay in applying the silent rule - SB_BR",
+              "link": "",
+              "audioData": ""
+            }
+          ],
+          "audits": []
+        }
+      }
+    },
+    {
+      "name": "E. Torres",
+      "password": "ersantorres",
+      "month": "JUNE",
+      "weekly_data": {
+        "week1": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week2": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week3": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week4": {
           "score": 89.68,
           "qa": [
             {
@@ -731,7 +789,7 @@
               "audioData": ""
             },
             {
-              "text": "PITCH - @1:15 Slight delay ; @1:36 Cx said \"I said, I do own my home and it's not new, it's old.\",  agent pressed    ](No Problem)  +  unnecessary stopping the script  1(Yes - Pitch)  +    32(SR - Pitch)  instead of continuing the script   1(Yes - Pitch) .SB.WI\n",
+              "text": "PITCH - @1:15 Slight delay ; @1:36 Cx said \"I said, I do own my home and it's not new, it's old.\",  agent pressed    ](No Problem)  +  unnecessary stopping the script  1(Yes - Pitch)  +    32(SR - Pitch)  instead of continuing the script   1(Yes - Pitch) .SB.WI",
               "link": "",
               "audioData": ""
             },
