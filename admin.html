@@ -32,7 +32,6 @@
     .btn-save { background: var(--navy); color: var(--primary); border: none; padding: 12px 25px; border-radius: 12px; font-weight: 800; cursor: pointer; }
     .btn-add { background: var(--primary); color: var(--navy); border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; margin-top: 10px; }
     .form-section { background: #f8fafc; padding: 25px; border-radius: 20px; margin-bottom: 30px; border: 1px solid #e2e8f0; }
-    .metric-inputs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 15px; background: #f1f5f9; padding: 15px; border-radius: 12px; }
     .scorecard-inputs-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 15px; background: #f1f5f9; padding: 15px; border-radius: 12px; }
     label { display: block; font-weight: 700; font-size: 0.7rem; margin-bottom: 8px; color: #94a3b8; text-transform: uppercase; }
     input, textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; }
@@ -81,7 +80,6 @@
         </div>
 
         <div id="editorContent" style="display:none;">
-            <!-- GIBALHIN ANG TIBUOK MONTHLY SCORECARD INPUTS DINHI SA MAIN TOP CONTAINER -->
             <div class="form-section">
                 <h3>Agent Info & General Settings (Whole Month Scorecard)</h3>
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
@@ -124,7 +122,6 @@
             <div class="form-section">
                 <h3 id="currentWeekTitle">WEEK DATA</h3>
                 
-                <!-- KANI NA LANG NGA INPUT BOX ANG MABILIN KADA TAB SEMANA -->
                 <div style="max-width: 300px; background: #f1f5f9; padding: 15px; border-radius: 12px; margin-bottom: 20px;">
                     <label>Weekly QA Score (%)</label>
                     <input type="number" step="0.01" id="weeklyScoreInput" oninput="updateWeeklyMetric('score', this.value)" placeholder="85.50">
@@ -153,9 +150,8 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       const savedData = localStorage.getItem('qa_dashboard_v5_data');
-      if (savedData) { 
-        db = JSON.parse(savedData); applyThemeInputs(); renderSidebar(); 
-      } else {
+      if (savedData) { db = JSON.parse(savedData); applyThemeInputs(); renderSidebar(); } 
+      else {
         fetch('data.json').then(r => r.json()).then(data => {
             db = data.agents ? data : { theme: db.theme, agents: data };
             saveToLocal(); renderSidebar(); applyThemeInputs();
@@ -185,12 +181,10 @@
       document.getElementById('editorContent').style.display = 'block';
       document.getElementById('editingTitle').innerText = "Editing: " + a.name;
       
-      // I-LOAD ANG MGA MAIN LEVEL LABELS NGA DILI MA-BLANKO KADA SWITCH OG TABS
       document.getElementById('editName').value = a.name || ""; 
       document.getElementById('editPass').value = a.password || "";
       document.getElementById('editMonth').value = a.month || "JUNE";
       
-      // I-LOAD ANG MGA STATICS GIKAN SA MAIN SCORES MATRICES
       document.getElementById('mainMonthInput').value = a.scorecard_month || "MAY";
       document.getElementById('mainFScrInput').value = a.f_scr || 0;
       document.getElementById('mainPhoneTimeInput').value = a.phone_time || 0;
@@ -205,7 +199,6 @@
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       document.getElementById('btn-' + week).classList.add('active');
       const data = db.agents[selectedIndex].weekly_data[week] || { score:0, qa:[], audits:[] };
-      
       document.getElementById('weeklyScoreInput').value = data.score || 0;
       renderList('qa', data.qa || []); renderList('audits', data.audits || []);
     }
@@ -215,12 +208,13 @@
       container.innerHTML = data.map((item, i) => {
         const text = typeof item === 'object' ? item.text : item;
         const link = typeof item === 'object' ? item.link : "";
-        return `<div style="background:white; padding:15px; border-radius:10px; margin-bottom:10px; border:1px solid #e2e8f0;">
-          <div style="display:flex; gap:10px;">
+        return `<div style="background:white; padding:15px; border-radius:10px; margin-bottom:10px; border:1px solid #e2e8f0; display:flex; flex-direction:column; gap:8px;">
+          <div style="font-weight:800; color:var(--primary); font-size:0.9rem;"># ${i+1}</div>
+          <div style="display:flex; gap:10px; align-items:flex-start;">
             <textarea oninput="updateItem('${type}', ${i}, 'text', this.value)" style="flex:1; min-height:60px;">${text}</textarea>
-            <button onclick="removeItem('${type}', ${i})" style="color:red; border:none; background:none; cursor:pointer;">✕</button>
+            <button onclick="removeItem('${type}', ${i})" style="color:red; border:none; background:none; cursor:pointer; font-weight:bold; font-size:1.1rem; padding:5px;">✕</button>
           </div>
-          ${type==='qa'?`<input type="text" placeholder="Recording Link" value="${link}" oninput="updateItem('${type}', ${i}, 'link', this.value)" style="margin-top:10px; font-size:0.7rem;">`:''}
+          ${type==='qa'?`<input type="text" placeholder="Recording Link" value="${link}" oninput="updateItem('${type}', ${i}, 'link', this.value)" style="font-size:0.75rem;">`:''}
         </div>`;
       }).join('');
     }
@@ -229,13 +223,9 @@
       if(!db.agents[selectedIndex].weekly_data[currentWeek][type][index]) return;
       db.agents[selectedIndex].weekly_data[currentWeek][type][index][field] = val; saveToLocal();
     }
-    function addRow(type) { db.agents[selectedIndex].weekly_data[currentWeek][type].push({ text: "New Entry", link: "" }); switchTab(currentWeek); saveToLocal(); }
+    function addRow(type) { db.agents[selectedIndex].weekly_data[currentWeek][type].push({ text: "", link: "" }); switchTab(currentWeek); saveToLocal(); }
     function removeItem(type, index) { db.agents[selectedIndex].weekly_data[currentWeek][type].splice(index, 1); switchTab(currentWeek); saveToLocal(); }
-    
-    function updateWeeklyMetric(field, v) { 
-      db.agents[selectedIndex].weekly_data[currentWeek][field] = parseFloat(v) || 0; 
-      saveToLocal(); 
-    }
+    function updateWeeklyMetric(field, v) { db.agents[selectedIndex].weekly_data[currentWeek][field] = parseFloat(v) || 0; saveToLocal(); }
 
     function clearWeeklyData() {
       if (selectedIndex === -1) return;
@@ -253,8 +243,6 @@
         db.agents[selectedIndex].name = document.getElementById('editName').value;
         db.agents[selectedIndex].password = document.getElementById('editPass').value;
         db.agents[selectedIndex].month = document.getElementById('editMonth').value.toUpperCase();
-        
-        // I-SAVE ANG SCORECARD MISMONG LEVEL SA AGENT PARA DILI KINAHANGLAN UG TAB SWITCH
         db.agents[selectedIndex].scorecard_month = document.getElementById('mainMonthInput').value.toUpperCase();
         db.agents[selectedIndex].f_scr = parseFloat(document.getElementById('mainFScrInput').value) || 0;
         db.agents[selectedIndex].phone_time = parseFloat(document.getElementById('mainPhoneTimeInput').value) || 0;
