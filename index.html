@@ -89,7 +89,7 @@
           let link = (isQA && typeof item === 'object') ? (item.link || "") : "";
           let mediaHtml = (link && link.trim() !== "") ? `<a href="${link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1px solid var(--primary); padding:6px 12px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 OPEN RECORDING</a>` : "";
           let fText = text.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
-          return `<tr><td style="width:35px; color:var(--primary); font-weight:800; vertical-align:top;">${i+1}</td><td style="color:#ffffff;"><div>${fText}</div>${mediaHtml}</td></tr>`;
+          return `<tr><td style="width:40px; color:var(--primary); font-size:1.1rem; font-weight:800; padding:15px 0; vertical-align:top; line-height:1;">${i+1}</td><td style="color:#ffffff; padding:15px 10px; vertical-align:top;"><div>${fText}</div>${mediaHtml}</td></tr>`;
         }).join('')}
       </tbody></table></div>`;
     }
@@ -133,15 +133,13 @@
       const a = activeAgent; 
       if(!a.weekly_data) {
           a.weekly_data = { 
-            week1:{month:"JUNE",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, 
-            week2:{month:"JUNE",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, 
-            week3:{month:"JUNE",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, 
-            week4:{month:"JUNE",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]} 
+            week1:{score:0,qa:[],audits:[]}, week2:{score:0,qa:[],audits:[]}, 
+            week3:{score:0,qa:[],audits:[]}, week4:{score:0,qa:[],audits:[]} 
           };
       }
       const weekly = a.weekly_data[currentViewWeek] || { qa: [], audits: [] };
       const qas = weekly.qa || []; const audits = weekly.audits || [];
-      const currentQAControlMonth = a.weekly_data['week1'].month || "JUNE"; 
+      const currentQAControlMonth = a.month || "JUNE"; 
 
       document.getElementById('dashboardView').innerHTML = `
         <div class="kpi-row">
@@ -171,17 +169,19 @@
     }
 
     function renderScoreSection() {
-      // GI-FIXED NAKO DINHI APIL ANG MGA EXTRACTED SCORES KADA WEEK 1 PARAS STATIC WHOLE MONTH MATRIX
-      const wdStatic = activeAgent.weekly_data['week1'] || {}; 
-      const fScr = wdStatic.f_scr !== undefined ? wdStatic.f_scr : 0; 
-      const phoneTime = wdStatic.phone_time !== undefined ? wdStatic.phone_time : 0;
-      const qaScore = wdStatic.qa_score !== undefined ? wdStatic.qa_score : 0;
-      const standardScore = wdStatic.score !== undefined ? wdStatic.score : 0; 
-      const previousScorecardMonth = wdStatic.month || "MAY"; 
+      // 1. BASAHON ANG MGA CORE METRICS DIRETSO GIKAN SA MAIN LEVEL SA AGENT
+      const fScr = activeAgent.f_scr !== undefined ? activeAgent.f_scr : 0; 
+      const phoneTime = activeAgent.phone_time !== undefined ? activeAgent.phone_time : 0;
+      const qaScore = activeAgent.qa_score !== undefined ? activeAgent.qa_score : 0;
+      const standardScore = activeAgent.score !== undefined ? activeAgent.score : 0; 
+      const previousScorecardMonth = activeAgent.scorecard_month || "MAY"; 
 
+      // 2. EXTRACTION LOGIC PARA SA MGA WEEKLY QA SCORES GRIDS PANEL
       const wd = activeAgent.weekly_data;
-      const s1 = wd.week1.score || 0; const s2 = wd.week2.score || 0;
-      const s3 = wd.week3.score || 0; const s4 = wd.week4.score || 0;
+      const s1 = wd.week1 ? (wd.week1.score || 0) : 0;
+      const s2 = wd.week2 ? (wd.week2.score || 0) : 0;
+      const s3 = wd.week3 ? (wd.week3.score || 0) : 0;
+      const s4 = wd.week4 ? (wd.week4.score || 0) : 0;
       
       const activeScores = [s1, s2, s3, s4].map(Number).filter(v => v > 0);
       const mtdAverage = activeScores.length > 0 ? (activeScores.reduce((a,b) => a+b, 0) / activeScores.length).toFixed(2) : "0.00";
