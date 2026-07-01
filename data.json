@@ -212,7 +212,7 @@
       "week_label": "WEEK 4",
       "weekly_data": {
         "week1": {
-          "score": 4,
+          "score": 87.93,
           "qa": [
             "TCPA @ 03:40 - slight delay - BR",
             "Walk In Tub @ 01:55; @ 02:02; @ 02:20; @ 03:08 - slight delays; @ 03:10 - bumping key - BR",
@@ -237,9 +237,9 @@
             "GOOD CALL",
             "GOOD CALL"
           ],
-          "f_scr": 1,
-          "phone_time": 2,
-          "qa_score": 3
+          "f_scr": 75.02,
+          "phone_time": 98.7,
+          "qa_score": 86.69
         },
         "week2": {
           "score": 92.68,
@@ -409,9 +409,9 @@
             "GOOD CALL"
           ],
           "audits": [],
-          "f_scr": 1,
-          "phone_time": 2,
-          "qa_score": 3
+          "f_scr": 80.17,
+          "phone_time": 100,
+          "qa_score": 86.48
         },
         "week2": {
           "score": 89.11,
@@ -512,7 +512,7 @@
       "month": "JUNE",
       "weekly_data": {
         "week1": {
-          "score": 59.7,
+          "score": 90.32,
           "qa": [
             {
               "text": "INTRODUCTION - @00:44 Major delay in pressing bumping key  + unnecessary hotkey -- PC.HW",
@@ -565,7 +565,10 @@
               "audioData": ""
             }
           ],
-          "audits": []
+          "audits": [],
+          "f_scr": 90.98,
+          "phone_time": 100,
+          "qa_score": 87.46
         },
         "week2": {
           "score": 80.77,
