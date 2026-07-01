@@ -32,7 +32,8 @@
     .btn-save { background: var(--navy); color: var(--primary); border: none; padding: 12px 25px; border-radius: 12px; font-weight: 800; cursor: pointer; }
     .btn-add { background: var(--primary); color: var(--navy); border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; margin-top: 10px; }
     .form-section { background: #f8fafc; padding: 25px; border-radius: 20px; margin-bottom: 30px; border: 1px solid #e2e8f0; }
-    .metric-inputs-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 15px; background: #f1f5f9; padding: 15px; border-radius: 12px; }
+    .metric-inputs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 15px; background: #f1f5f9; padding: 15px; border-radius: 12px; }
+    .scorecard-inputs-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 15px; background: #f1f5f9; padding: 15px; border-radius: 12px; }
     label { display: block; font-weight: 700; font-size: 0.7rem; margin-bottom: 8px; color: #94a3b8; text-transform: uppercase; }
     input, textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; }
     .json-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; padding: 50px; justify-content: center; align-items: center; }
@@ -80,14 +81,37 @@
         </div>
 
         <div id="editorContent" style="display:none;">
-            <!-- PERMANENT MAIN CONTAINER ALANG SA AGENT INFO -->
+            <!-- GIBALHIN ANG TIBUOK MONTHLY SCORECARD INPUTS DINHI SA MAIN TOP CONTAINER -->
             <div class="form-section">
-                <h3>Agent Info & General Settings</h3>
+                <h3>Agent Info & General Settings (Whole Month Scorecard)</h3>
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
                     <div><label>Agent Name</label><input type="text" id="editName" oninput="saveAndSync()"></div>
                     <div><label>Password / Access Code</label><input type="text" id="editPass" oninput="saveAndSync()"></div>
                 </div>
-                <div style="margin-top:15px;"><label>Current QA Month Display (Top Card Indicator)</label><input type="text" id="editMonth" oninput="saveAndSync()" placeholder="JUNE"></div>
+                <div style="margin-top:15px;"><label>Current QA Month Display (Top Card KPI Indicator)</label><input type="text" id="editMonth" oninput="saveAndSync()" placeholder="JUNE"></div>
+                
+                <div class="scorecard-inputs-grid">
+                    <div>
+                        <label>Previous Month Name</label>
+                        <input type="text" id="mainMonthInput" oninput="saveAndSync()" placeholder="MAY">
+                    </div>
+                    <div>
+                        <label>F_SCR Score (%)</label>
+                        <input type="number" step="0.01" id="mainFScrInput" oninput="saveAndSync()" placeholder="90.98">
+                    </div>
+                    <div>
+                        <label>Phone Time (%)</label>
+                        <input type="number" step="0.01" id="mainPhoneTimeInput" oninput="saveAndSync()" placeholder="100.00">
+                    </div>
+                    <div>
+                        <label>QA Score (%)</label>
+                        <input type="number" step="0.01" id="mainQaScoreInput" oninput="saveAndSync()" placeholder="87.46">
+                    </div>
+                    <div>
+                        <label>Standard Score (%)</label>
+                        <input type="number" step="0.01" id="mainStandardScoreInput" oninput="saveAndSync()" placeholder="90.32">
+                    </div>
+                </div>
             </div>
 
             <div class="tabs-container">
@@ -100,30 +124,13 @@
             <div class="form-section">
                 <h3 id="currentWeekTitle">WEEK DATA</h3>
                 
-                <div class="metric-inputs-grid">
-                    <div>
-                        <label>Previous Month Name</label>
-                        <input type="text" id="weeklyMonthInput" oninput="updateWeeklyMetric('month', this.value.toUpperCase())" placeholder="MAY">
-                    </div>
-                    <div>
-                        <label>F_SCR Score (%)</label>
-                        <input type="number" step="0.01" id="fScrInput" oninput="updateWeeklyMetric('f_scr', this.value)" placeholder="90.98">
-                    </div>
-                    <div>
-                        <label>Phone Time (%)</label>
-                        <input type="number" step="0.01" id="phoneTimeInput" oninput="updateWeeklyMetric('phone_time', this.value)" placeholder="100.00">
-                    </div>
-                    <div>
-                        <label>QA Score (%)</label>
-                        <input type="number" step="0.01" id="qaScoreInput" oninput="updateWeeklyMetric('qa_score', this.value)" placeholder="87.46">
-                    </div>
-                    <div>
-                        <label>Standard Score (%)</label>
-                        <input type="number" step="0.01" id="standardScoreInput" oninput="updateWeeklyMetric('score', this.value)" placeholder="90.32">
-                    </div>
+                <!-- KANI NA LANG NGA INPUT BOX ANG MABILIN KADA TAB SEMANA -->
+                <div style="max-width: 300px; background: #f1f5f9; padding: 15px; border-radius: 12px; margin-bottom: 20px;">
+                    <label>Weekly QA Score (%)</label>
+                    <input type="number" step="0.01" id="weeklyScoreInput" oninput="updateWeeklyMetric('score', this.value)" placeholder="85.50">
                 </div>
                 
-                <h3 style="margin-top:30px; font-size:0.8rem;">WEEK DATA (QA Feedback)</h3>
+                <h3 style="margin-top:20px; font-size:0.8rem;">WEEK DATA (QA Feedback)</h3>
                 <div id="qaContainer"></div>
                 <button class="btn-add" onclick="addRow('qa')">+ Add Feedback Entry</button>
 
@@ -174,13 +181,21 @@
 
     function selectAgent(index) {
       selectedIndex = index; const a = db.agents[index];
-      if(!a.weekly_data) a.weekly_data = { week1:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week2:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week3:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week4:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]} };
+      if(!a.weekly_data) a.weekly_data = { week1:{score:0,qa:[],audits:[]}, week2:{score:0,qa:[],audits:[]}, week3:{score:0,qa:[],audits:[]}, week4:{score:0,qa:[],audits:[]} };
       document.getElementById('editorContent').style.display = 'block';
       document.getElementById('editingTitle').innerText = "Editing: " + a.name;
       
-      document.getElementById('editName').value = a.name; 
-      document.getElementById('editPass').value = a.password;
+      // I-LOAD ANG MGA MAIN LEVEL LABELS NGA DILI MA-BLANKO KADA SWITCH OG TABS
+      document.getElementById('editName').value = a.name || ""; 
+      document.getElementById('editPass').value = a.password || "";
       document.getElementById('editMonth').value = a.month || "JUNE";
+      
+      // I-LOAD ANG MGA STATICS GIKAN SA MAIN SCORES MATRICES
+      document.getElementById('mainMonthInput').value = a.scorecard_month || "MAY";
+      document.getElementById('mainFScrInput').value = a.f_scr || 0;
+      document.getElementById('mainPhoneTimeInput').value = a.phone_time || 0;
+      document.getElementById('mainQaScoreInput').value = a.qa_score || 0;
+      document.getElementById('mainStandardScoreInput').value = a.score || 0;
       
       switchTab(currentWeek); renderSidebar();
     }
@@ -189,14 +204,9 @@
       currentWeek = week;
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       document.getElementById('btn-' + week).classList.add('active');
-      const data = db.agents[selectedIndex].weekly_data[week] || { month:"MAY", score:0, f_scr:0, phone_time:0, qa_score:0, qa:[], audits:[] };
+      const data = db.agents[selectedIndex].weekly_data[week] || { score:0, qa:[], audits:[] };
       
-      document.getElementById('weeklyMonthInput').value = data.month || "MAY";
-      document.getElementById('standardScoreInput').value = data.score || 0;
-      document.getElementById('fScrInput').value = data.f_scr || 0;
-      document.getElementById('phoneTimeInput').value = data.phone_time || 0;
-      document.getElementById('qaScoreInput').value = data.qa_score || 0;
-      
+      document.getElementById('weeklyScoreInput').value = data.score || 0;
       renderList('qa', data.qa || []); renderList('audits', data.audits || []);
     }
 
@@ -223,15 +233,14 @@
     function removeItem(type, index) { db.agents[selectedIndex].weekly_data[currentWeek][type].splice(index, 1); switchTab(currentWeek); saveToLocal(); }
     
     function updateWeeklyMetric(field, v) { 
-      if (field === 'month') db.agents[selectedIndex].weekly_data[currentWeek][field] = v;
-      else db.agents[selectedIndex].weekly_data[currentWeek][field] = parseFloat(v) || 0; 
+      db.agents[selectedIndex].weekly_data[currentWeek][field] = parseFloat(v) || 0; 
       saveToLocal(); 
     }
 
     function clearWeeklyData() {
       if (selectedIndex === -1) return;
       if (confirm(`Reset all data for this week?`)) {
-        db.agents[selectedIndex].weekly_data[currentWeek] = { month:"MAY", score: 0, f_scr: 0, phone_time: 0, qa_score: 0, qa: [], audits: [] };
+        db.agents[selectedIndex].weekly_data[currentWeek] = { score: 0, qa: [], audits: [] };
         saveToLocal(); switchTab(currentWeek);
       }
     }
@@ -244,12 +253,19 @@
         db.agents[selectedIndex].name = document.getElementById('editName').value;
         db.agents[selectedIndex].password = document.getElementById('editPass').value;
         db.agents[selectedIndex].month = document.getElementById('editMonth').value.toUpperCase();
+        
+        // I-SAVE ANG SCORECARD MISMONG LEVEL SA AGENT PARA DILI KINAHANGLAN UG TAB SWITCH
+        db.agents[selectedIndex].scorecard_month = document.getElementById('mainMonthInput').value.toUpperCase();
+        db.agents[selectedIndex].f_scr = parseFloat(document.getElementById('mainFScrInput').value) || 0;
+        db.agents[selectedIndex].phone_time = parseFloat(document.getElementById('mainPhoneTimeInput').value) || 0;
+        db.agents[selectedIndex].qa_score = parseFloat(document.getElementById('mainQaScoreInput').value) || 0;
+        db.agents[selectedIndex].score = parseFloat(document.getElementById('mainStandardScoreInput').value) || 0;
       }
       saveToLocal(); renderSidebar();
     }
 
     function addNewAgent() {
-      db.agents.push({ name: "New Agent", password: "123", month: "JUNE", weekly_data: { week1:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week2:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week3:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week4:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]} } });
+      db.agents.push({ name: "New Agent", password: "123", month: "JUNE", scorecard_month: "MAY", f_scr: 0, phone_time: 0, qa_score: 0, score: 0, weekly_data: { week1:{score:0,qa:[],audits:[]}, week2:{score:0,qa:[],audits:[]}, week3:{score:0,qa:[],audits:[]}, week4:{score:0,qa:[],audits:[]} } });
       saveToLocal(); renderSidebar();
     }
     function deleteAgent(i, e) { e.stopPropagation(); if(confirm("Delete Agent?")) { db.agents.splice(i, 1); saveToLocal(); renderSidebar(); } }
