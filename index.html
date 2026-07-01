@@ -147,9 +147,11 @@
     }
 
     function renderScoreSection() {
-      const wdStatic = activeAgent.weekly_data['week1']; 
-      const fScr = wdStatic.f_scr || 0; const phoneTime = wdStatic.phone_time || 0;
-      const qaScore = wdStatic.qa_score || 0; const standardScore = wdStatic.score || 0; 
+      const wdStatic = activeAgent.weekly_data['week1'] || {}; 
+      const fScr = wdStatic.f_scr !== undefined ? wdStatic.f_scr : 0; 
+      const phoneTime = wdStatic.phone_time !== undefined ? wdStatic.phone_time : 0;
+      const qaScore = wdStatic.qa_score !== undefined ? wdStatic.qa_score : 0;
+      const standardScore = wdStatic.score !== undefined ? wdStatic.score : 0; 
       const previousScorecardMonth = wdStatic.month || "MAY"; 
 
       const wd = activeAgent.weekly_data;
@@ -176,10 +178,10 @@
             </table>
             <div style="font-size:0.65rem; color:#94a3b8; font-weight:800; margin-top:20px; margin-bottom:5px; text-transform:uppercase;">📅 Weekly Scores for Current Month:</div>
             <div class="mtd-grid">
-                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W1</div><div style="font-weight:800; color:white;">${s1}%</div></div>
-                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W2</div><div style="font-weight:800; color:white;">${s2}%</div></div>
-                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W3</div><div style="font-weight:800; color:white;">${s3}%</div></div>
-                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W4</div><div style="font-weight:800; color:white;">${s4}%</div></div>
+                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W1</div><div style="font-weight:800; color:white;">${wd.week1.score || 0}%</div></div>
+                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W2</div><div style="font-weight:800; color:white;">${wd.week2.score || 0}%</div></div>
+                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W3</div><div style="font-weight:800; color:white;">${wd.week3.score || 0}%</div></div>
+                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W4</div><div style="font-weight:800; color:white;">${wd.week4.score || 0}%</div></div>
                 <div style="text-align:center; border-left:2px solid var(--primary); padding-left:10px;"><div style="font-size:0.6rem; color:var(--primary);">MTD</div><div style="color:var(--primary); font-weight:800;">${mtdAverage}%</div></div>
             </div>
         </div><div style="margin-bottom:20px;"></div>`;
