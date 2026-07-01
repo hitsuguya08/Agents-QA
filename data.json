@@ -35,7 +35,7 @@
       "audits": [],
       "weekly_data": {
         "week1": {
-          "score": 76.02,
+          "score": 90.32,
           "qa": [
             "GOOD CALL",
             "Greetings @ 00:14 - slight delay; Pitch @ 00:58 - slight delay - PC BR",
@@ -48,7 +48,10 @@
             "Main Reason @ 01:32 - slight delay; Home Type @ 02:38 - slight delay - PC BR",
             "GOOD CALL"
           ],
-          "audits": []
+          "audits": [],
+          "f_scr": 90.98,
+          "phone_time": 100,
+          "qa_score": 87.46
         },
         "week2": {
           "score": 82.95,
@@ -168,7 +171,11 @@
           ],
           "audits": []
         }
-      }
+      },
+      "f_scr": 56.92,
+      "phone_time": 100,
+      "qa_score": 82.73,
+      "score": 83.6
     },
     {
       "name": "L. Guansing",
@@ -349,7 +356,11 @@
           ],
           "audits": []
         }
-      }
+      },
+      "f_scr": 75.02,
+      "phone_time": 98.7,
+      "qa_score": 86.69,
+      "score": 87.93
     },
     {
       "name": "C. Omandam",
@@ -483,7 +494,11 @@
           ],
           "audits": []
         }
-      }
+      },
+      "f_scr": 80.17,
+      "phone_time": 100,
+      "qa_score": 86.48,
+      "score": 88.56
     },
     {
       "name": "J. Aniñon",
@@ -664,7 +679,11 @@
           ],
           "audits": []
         }
-      }
+      },
+      "f_scr": 90.98,
+      "phone_time": 100,
+      "qa_score": 87.46,
+      "score": 90.32
     },
     {
       "name": "R. Amodia",
