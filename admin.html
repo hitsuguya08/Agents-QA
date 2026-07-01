@@ -2,145 +2,101 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QA Admin | Elite Editor MTD</title>
+  <title>QA Pro | Analytics Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://googleapis.com" rel="stylesheet">
   <style>
-    :root { --primary: #f59e0b; --navy: #0f172a; --slate: #1e293b; --bg: #fef3c7; }
-    * { box-sizing: border-box; }
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); margin: 0; display: flex; height: 100vh; overflow: hidden; }
-    .sidebar { width: 280px; background: var(--navy); color: white; display: flex; flex-direction: column; border-right: 2px solid var(--primary); }
-    .sidebar-header { padding: 25px; border-bottom: 1px solid var(--slate); text-align: center; }
-    .agent-list { flex: 1; overflow-y: auto; padding: 10px; }
-    .agent-item { padding: 15px; margin-bottom: 8px; border-radius: 12px; cursor: pointer; transition: 0.3s; color: #94a3b8; display: flex; justify-content: space-between; align-items: center; }
-    .agent-item:hover { background: var(--slate); color: white; }
-    .agent-item.active { background: var(--primary); color: var(--navy); font-weight: 800; }
-    .btn-del-agent { background: #ef4444; color: white; border: none; border-radius: 6px; width: 24px; height: 24px; font-size: 0.7rem; font-weight: bold; cursor: pointer; opacity: 0; }
-    .agent-item:hover .btn-del-agent { opacity: 1; }
-    .editor-main { flex: 1; display: flex; flex-direction: column; background: white; }
-    .editor-header { padding: 20px 40px; background: white; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
-    .scroll-content { padding: 40px; overflow-y: auto; flex: 1; }
-    .theme-box { background: #1e293b; padding: 25px; border-radius: 24px; margin-bottom: 30px; border: 2px solid var(--primary); color: white; }
-    .preset-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; margin-top: 15px; }
-    .preset-btn { border: none; padding: 10px; border-radius: 10px; cursor: pointer; font-size: 0.65rem; font-weight: 800; transition: 0.2s; text-align: center; }
-    .preset-btn:hover { transform: translateY(-3px); filter: brightness(1.2); }
-    .theme-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
-    .color-input { width: 100%; height: 40px; border: none; border-radius: 8px; cursor: pointer; background: #020617; padding: 4px; }
-    .tabs-container { display: flex; gap: 10px; margin-bottom: 25px; background: #f1f5f9; padding: 10px; border-radius: 15px; }
-    .tab-btn { flex: 1; padding: 12px; border: none; border-radius: 10px; cursor: pointer; font-weight: 800; color: #64748b; background: transparent; }
-    .tab-btn.active { background: var(--navy); color: var(--primary); }
-    .btn-save { background: var(--navy); color: var(--primary); border: none; padding: 12px 25px; border-radius: 12px; font-weight: 800; cursor: pointer; }
-    .btn-add { background: var(--primary); color: var(--navy); border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; margin-top: 10px; }
-    .form-section { background: #f8fafc; padding: 25px; border-radius: 20px; margin-bottom: 30px; border: 1px solid #e2e8f0; }
-    .metric-inputs-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 15px; background: #f1f5f9; padding: 15px; border-radius: 12px; }
-    label { display: block; font-weight: 700; font-size: 0.7rem; margin-bottom: 8px; color: #94a3b8; text-transform: uppercase; }
-    input, textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; }
-    .json-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; padding: 50px; justify-content: center; align-items: center; }
-    .json-content { background: var(--navy); width: 100%; max-width: 700px; border-radius: 25px; padding: 35px; border: 1px solid var(--primary); }
-    textarea.json-area { background: #020617; color: #10b981; border: none; height: 300px; font-family: monospace; width: 100%; padding: 20px; border-radius: 12px; outline: none; }
+    :root { --primary: #f59e0b; --bg: #fef3c7; --card: #0f172a; --border: rgba(255,255,255,0.1); }
+    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #000; margin: 0; padding: 0; transition: 0.5s; }
+    .header-main { background: #020617; padding: 15px 30px; color: var(--primary); border-bottom: 5px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
+    .header-main h1 { margin: 0; font-size: 1.1rem; font-weight: 800; letter-spacing: 2px; flex: 1; text-align: center; }
+    .admin-btn { background: transparent; color: #94a3b8; font-size: 0.7rem; font-weight: 700; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; text-decoration: none; }
+    .nav-bar { background: var(--card); border-bottom: 1px solid var(--primary); padding: 12px 0; position: sticky; top: 0; z-index: 100; overflow-x: auto; }
+    .nav-inner { display: flex; justify-content: center; gap: 10px; padding: 0 15px; }
+    .agent-pill { padding: 8px 18px; border-radius: 30px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: #94a3b8; font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: 0.3s; white-space: nowrap; }
+    .agent-pill.active { background: var(--primary); color: #000; border-color: var(--primary); }
+    .content-container { max-width: 900px; margin: 30px auto; padding: 0 20px 80px; }
+    .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
+    .kpi-box { padding: 20px 10px; border-radius: 24px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 125px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    .kpi-1 { background: var(--card); border: 2px solid var(--primary); } 
+    .kpi-2 { background: var(--primary); } 
+    .kpi-3 { background: #1e293b; } 
+    .kpi-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; color: #ffffff !important; opacity: 0.9; }
+    .kpi-2 .kpi-label { color: #000 !important; }
+    .kpi-value { font-size: 1.8rem; font-weight: 900; line-height: 1; text-transform: uppercase; color: #ffffff !important; }
+    .kpi-2 .kpi-value { color: #000 !important; }
+    .dashboard-tabs { display: flex; gap: 8px; margin-bottom: 20px; background: #020617; padding: 8px; border-radius: 16px; }
+    .dash-tab-btn { flex: 1; padding: 12px; border: none; border-radius: 10px; background: transparent; color: #94a3b8; font-weight: 800; font-size: 0.7rem; cursor: pointer; transition: 0.2s; }
+    .dash-tab-btn.active { background: var(--primary); color: #000; }
+    .main-card { background: var(--card); border-radius: 32px; overflow: hidden; color: #ffffff; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+    .card-head { padding: 30px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .progress-section { margin: 20px 30px; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 20px; border: 1px solid var(--border); }
+    .progress-label-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 800; font-size: 0.8rem; }
+    .progress-bar-bg { width: 100%; height: 14px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; width: 0%; border-radius: 10px; transition: 1.5s cubic-bezier(0.1, 0, 0.3, 1); }
+    .breakdown-table { width: 100%; border-collapse: collapse; margin-top: 10px; background: rgba(0,0,0,0.2); border-radius: 16px; overflow: hidden; border: 1px solid var(--primary); }
+    .breakdown-table th { background: rgba(0,0,0,0.4); padding: 12px; font-size: 0.65rem; color: #94a3b8; font-weight: 800; text-transform: uppercase; text-align: center; }
+    .breakdown-table td { padding: 14px; text-align: center; font-weight: 800; font-size: 0.95rem; border-top: 1px solid var(--border); color: #fff !important; }
+    .mtd-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 16px; border: 1px solid var(--primary); margin-top: 10px; width: 100%; }
+    .status-badge-green { background: #22c55e; color: #000; padding: 4px 10px; border-radius: 6px; display: inline-block; }
+    .status-badge-yellow { background: #f59e0b; color: #000; padding: 4px 10px; border-radius: 6px; display: inline-block; }
+    .status-badge-red { background: #ef4444; color: #fff; padding: 4px 10px; border-radius: 6px; display: inline-block; }
+    .table-block { padding: 30px; border-bottom: 1px solid var(--border); }
+    .table-block h3 { color: var(--primary); font-size: 0.9rem; margin-bottom: 15px; text-transform: uppercase; }
+    table { width: 100%; border-collapse: collapse; }
+    td { padding: 15px 10px; border-top: 1px solid var(--border); color: #ffffff !important; font-size: 0.95rem; line-height: 1.6; vertical-align: top; }
+    .quote-style { font-weight: 600; color: #fde68a; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 6px; border-left: 3px solid var(--primary); display: inline-block; }
+    .modal { display: none; position: fixed; inset: 0; background:rgba(0,0,0,0.95); z-index: 200; justify-content:center; align-items:center; }
+    .modal-content { background:var(--card); padding:40px; border-radius:30px; width:340px; text-align:center; border: 2px solid var(--primary); }
+    .btn-verify { background: var(--primary); color: #000; padding: 12px; border:none; border-radius:12px; width: 100%; font-weight:800; cursor:pointer; }
+    @media (max-width: 600px) { .kpi-row { grid-template-columns: 1fr; } .card-head { flex-direction: column; gap: 15px; text-align: center; } }
   </style>
 </head>
 <body>
-  <div class="sidebar">
-    <div class="sidebar-header"><h2 style="color:var(--primary); font-size:0.9rem;">QA ADMIN PANEL</h2></div>
-    <div id="agentList" class="agent-list"></div>
-    <div style="padding: 20px; display: flex; flex-direction: column; gap: 10px;">
-        <button onclick="addNewAgent()" class="btn-add">+ New Agent</button>
-        <button onclick="showExport()" class="btn-save" style="background:var(--primary); color:var(--navy);">🚀 GENERATE JSON</button>
+  <header class="header-main">
+    <div style="width: 80px;"></div>
+    <h1>AGENT ANALYTICS PORTAL</h1>
+    <button onclick="openAdminModal()" class="admin-btn">ADMIN</button>
+  </header>
+  <nav class="nav-bar"><div id="agentPills" class="nav-inner"></div></nav>
+  <div class="content-container"><div id="dashboardView"></div></div>
+
+  <div id="passwordModal" class="modal">
+    <div class="modal-content">
+      <h3 style="color:var(--primary); margin:0;">🔐 UNLOCK MTD SCORES</h3>
+      <input type="password" id="pwInput" style="width:100%; padding:15px; margin:20px 0; background:#000; color:#fff; border:1px solid #444; text-align:center; font-size:1.5rem; border-radius:15px;" placeholder="••••" />
+      <button class="btn-verify" onclick="verifyAndShowScores()">VERIFY ACCESS</button>
+      <p onclick="closeModal('passwordModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
     </div>
   </div>
 
-  <div class="editor-main">
-    <div class="editor-header">
-      <h2 id="editingTitle" style="color:var(--navy);">Theme & Data Editor</h2>
-      <div style="display:flex; gap:10px; align-items:center;">
-          <button onclick="clearWeeklyData()" style="background:#fee2e2; color:#ef4444; border:1px solid #fecaca; padding:8px 15px; border-radius:10px; font-weight:800; cursor:pointer; font-size:0.75rem;">🧹 Reset Week</button>
-          <a href="index.html" style="text-decoration:none; color:var(--navy); font-weight:800; font-size:0.8rem; border:2px solid var(--navy); padding:8px 15px; border-radius:10px;">View Dashboard</a>
-      </div>
-    </div>
-    
-    <div class="scroll-content">
-        <div class="theme-box">
-            <h3 style="margin:0; font-size:0.85rem; color:var(--primary); letter-spacing:1px;">🎨 SELECT AUTOMATIC COLOR SCHEME</h3>
-            <div class="preset-container">
-                <button class="preset-btn" onclick="setTheme('#f59e0b', '#fef3c7', '#0f172a')" style="background:#f59e0b; color:#0f172a;">AMBER GOLD</button>
-                <button class="preset-btn" onclick="setTheme('#10b981', '#ecfdf5', '#064e3b')" style="background:#10b981; color:white;">EMERALD</button>
-                <button class="preset-btn" onclick="setTheme('#3b82f6', '#eff6ff', '#1e3a8a')" style="background:#3b82f6; color:white;">OCEAN BLUE</button>
-                <button class="preset-btn" onclick="setTheme('#8b5cf6', '#f5f3ff', '#2e1065')" style="background:#8b5cf6; color:white;">ROYAL VIBE</button>
-                <button class="preset-btn" onclick="setTheme('#ec4899', '#fdf2f8', '#500724')" style="background:#ec4899; color:white;">ROSE PETAL</button>
-                <button class="preset-btn" onclick="setTheme('#06b6d4', '#ecfeff', '#083344')" style="background:#06b6d4; color:white;">CYAN FROST</button>
-                <button class="preset-btn" onclick="setTheme('#f97316', '#fff7ed', '#431407')" style="background:#f97316; color:white;">SUNSET</button>
-                <button class="preset-btn" onclick="setTheme('#ffffff', '#111827', '#1f2937')" style="background:#374151; color:white;">DARK MODE</button>
-            </div>
-            <div class="theme-grid">
-                <div><label>Primary</label><input type="color" id="themePrimary" class="color-input" onchange="saveAndSync()"></div>
-                <div><label>Background</label><input type="color" id="themeBg" class="color-input" onchange="saveAndSync()"></div>
-                <div><label>Card Color</label><input type="color" id="themeCard" class="color-input" onchange="saveAndSync()"></div>
-            </div>
-        </div>
-
-        <div id="editorContent" style="display:none;">
-            <div class="form-section">
-                <!-- STATIC TOP PANELS COMPLIANT SA IMONG SCREENSHOT -->
-                <h3>Agent Info & Previous Month Scorecard (Whole Month)</h3>
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
-                    <div><label>Agent Name</label><input type="text" id="editName" oninput="saveAndSync()"></div>
-                    <div><label>Password / Access Code</label><input type="text" id="editPass" oninput="saveAndSync()"></div>
-                </div>
-                <div style="margin-top:15px;"><label>Current Month (For QA Block Display)</label><input type="text" id="editMonth" oninput="saveAndSync()" placeholder="JUNE"></div>
-            </div>
-
-            <div class="tabs-container">
-                <button class="tab-btn active" id="btn-week1" onclick="switchTab('week1')">WEEK 1 FEEDBACK</button>
-                <button class="tab-btn" id="btn-week2" onclick="switchTab('week2')">WEEK 2 FEEDBACK</button>
-                <button class="tab-btn" id="btn-week3" onclick="switchTab('week3')">WEEK 3 FEEDBACK</button>
-                <button class="tab-btn" id="btn-week4" onclick="switchTab('week4')">WEEK 4 FEEDBACK</button>
-            </div>
-
-            <div class="form-section">
-                <h3 id="currentWeekTitle">WEEK DATA</h3>
-                
-                <div class="metric-inputs-grid">
-                    <div>
-                        <label>Previous Month Name</label>
-                        <input type="text" id="weeklyMonthInput" oninput="updateWeeklyMetric('month', this.value.toUpperCase())" placeholder="MAY">
-                    </div>
-                    <div>
-                        <label>F_SCR Score (%)</label>
-                        <input type="number" step="0.01" id="fScrInput" oninput="updateWeeklyMetric('f_scr', this.value)" placeholder="90.98">
-                    </div>
-                    <div>
-                        <label>Phone Time (%)</label>
-                        <input type="number" step="0.01" id="phoneTimeInput" oninput="updateWeeklyMetric('phone_time', this.value)" placeholder="100.00">
-                    </div>
-                    <div>
-                        <label>QA Score (%)</label>
-                        <input type="number" step="0.01" id="qaScoreInput" oninput="updateWeeklyMetric('qa_score', this.value)" placeholder="87.46">
-                    </div>
-                    <div>
-                        <label>Standard Score (%)</label>
-                        <input type="number" step="0.01" id="standardScoreInput" oninput="updateWeeklyMetric('score', this.value)" placeholder="90.32">
-                    </div>
-                </div>
-                
-                <h3 style="margin-top:30px; font-size:0.8rem;">WEEK DATA (QA Feedback)</h3>
-                <div id="qaContainer"></div>
-                <button class="btn-add" onclick="addRow('qa')">+ Add Feedback Entry</button>
-
-                <h3 style="margin-top:30px; font-size:0.8rem;">Dispo Audits</h3>
-                <div id="auditContainer"></div>
-                <button class="btn-add" onclick="addRow('audits')">+ Add Audit Entry</button>
-            </div>
-        </div>
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
+      <h3 style="color:var(--primary); margin:0;">🚨 ADMIN ACCESS</h3>
+      <input type="password" id="adminPwInput" style="width:100%; padding:15px; margin:20px 0; background:#000; color:#fff; border:1px solid #444; text-align:center; font-size:1.5rem; border-radius:15px;" placeholder="••••" />
+      <button class="btn-verify" onclick="verifyAdmin()">ACCESS EDITOR</button>
+      <p onclick="closeModal('adminModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
     </div>
   </div>
 
-  <div id="exportModal" class="json-modal"><div class="json-content">
-      <h2 style="color:var(--primary); margin:0;">✅ JSON Ready</h2>
-      <textarea id="jsonOutput" class="json-area" readonly onclick="this.select()"></textarea>
-      <div style="display:flex; gap:10px; margin-top:25px;"><button class="btn-save" style="flex:1;" onclick="copyJSON()">Copy Code</button><button class="btn-save" style="background:#334155; color:white;" onclick="closeModal()">Close</button></div>
-  </div></div>
-    <script>
+  <script>
+    // FIXED NUMBERED TABLE RENDERER
+    function renderTable(title, data, isQA) {
+      if(!data || data.length === 0) return `<div class="table-block"><h3>${title}</h3><p style="color:#ffffff; font-size:0.8rem; margin-top:10px;">No entries recorded.</p></div>`;
+      return `<div class="table-block"><h3>${title}</h3><table><tbody>
+        ${data.map((item, i) => {
+          let text = (typeof item === 'object') ? (item.text || "") : item;
+          let link = (isQA && typeof item === 'object') ? (item.link || "") : "";
+          let mediaHtml = (link && link.trim() !== "") ? `<a href="${link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1px solid var(--primary); padding:6px 12px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 OPEN RECORDING</a>` : "";
+          let fText = text.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
+          
+          return `<tr><td style="width:40px; color:var(--primary); font-size:1.1rem; font-weight:800; padding:15px 0; vertical-align:top; line-height:1;">${i+1}</td><td style="color:#ffffff; padding:15px 10px; vertical-align:top;"><div>${fText}</div>${mediaHtml}</td></tr>`;
+        }).join('')}
+      </tbody></table></div>`;
+    }
+  </script>
+  <script>
     let db = { theme: {}, agents: [] };
     let activeAgent = null; let currentViewWeek = 'week1'; let isUnlocked = false;
 
@@ -217,7 +173,7 @@
     }
 
     function renderScoreSection() {
-      // PERMANENTENG GI-LOCK DIRETSO SA WEEK 1 KUNG ASA NIMO GISULAT ANG MATRIX SCORES
+      // GI-FIXED NAKO PAGBASA ANG SCORECARD MATRIX PURE GIKAN SA 'week1' ARON DILI MAG-0%
       const wdStatic = activeAgent.weekly_data['week1'] || {}; 
       const fScr = wdStatic.f_scr !== undefined ? wdStatic.f_scr : 0; 
       const phoneTime = wdStatic.phone_time !== undefined ? wdStatic.phone_time : 0;
@@ -249,8 +205,8 @@
             </table>
             <div style="font-size:0.65rem; color:#94a3b8; font-weight:800; margin-top:20px; margin-bottom:5px; text-transform:uppercase;">📅 Weekly Scores for Current Month:</div>
             <div class="mtd-grid">
-                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W1</div><div style="font-weight:800; color:white;">${s1}%</div></div>
-                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W2</div><div style="font-weight:800; color:white;">${s2}%</div></div>
+                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W1</div><div style="font-weight:800; color:white;">${wd.week1.score || 0}%</div></div>
+                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W2</div><div style="font-weight:800; color:white;">${wd.week2.score || 0}%</div></div>
                 <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W3</div><div style="font-weight:800; color:white;">${s3}%</div></div>
                 <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W4</div><div style="font-weight:800; color:white;">${s4}%</div></div>
                 <div style="text-align:center; border-left:2px solid var(--primary); padding-left:10px;"><div style="font-size:0.6rem; color:var(--primary);">MTD</div><div style="color:var(--primary); font-weight:800;">${mtdAverage}%</div></div>
