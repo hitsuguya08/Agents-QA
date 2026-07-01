@@ -1,239 +1,836 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>QA Pro | Analytics Portal</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://googleapis.com" rel="stylesheet">
-  <style>
-    :root { --primary: #f59e0b; --bg: #fef3c7; --card: #0f172a; --border: rgba(255,255,255,0.1); }
-    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #000; margin: 0; padding: 0; transition: 0.5s; }
-    .header-main { background: #020617; padding: 15px 30px; color: var(--primary); border-bottom: 5px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
-    .header-main h1 { margin: 0; font-size: 1.1rem; font-weight: 800; letter-spacing: 2px; flex: 1; text-align: center; }
-    .admin-btn { background: transparent; color: #94a3b8; font-size: 0.7rem; font-weight: 700; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; text-decoration: none; }
-    .nav-bar { background: var(--card); border-bottom: 1px solid var(--primary); padding: 12px 0; position: sticky; top: 0; z-index: 100; overflow-x: auto; }
-    .nav-inner { display: flex; justify-content: center; gap: 10px; padding: 0 15px; }
-    .agent-pill { padding: 8px 18px; border-radius: 30px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: #94a3b8; font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: 0.3s; white-space: nowrap; }
-    .agent-pill.active { background: var(--primary); color: #000; border-color: var(--primary); }
-    .content-container { max-width: 900px; margin: 30px auto; padding: 0 20px 80px; }
-    .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
-    .kpi-box { padding: 20px 10px; border-radius: 24px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 125px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-    .kpi-1 { background: var(--card); border: 2px solid var(--primary); } 
-    .kpi-2 { background: var(--primary); } 
-    .kpi-3 { background: #1e293b; } 
-    .kpi-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; color: #ffffff !important; opacity: 0.9; }
-    .kpi-2 .kpi-label { color: #000 !important; }
-    .kpi-value { font-size: 1.8rem; font-weight: 900; line-height: 1; text-transform: uppercase; color: #ffffff !important; }
-    .kpi-2 .kpi-value { color: #000 !important; }
-    .dashboard-tabs { display: flex; gap: 8px; margin-bottom: 20px; background: #020617; padding: 8px; border-radius: 16px; }
-    .dash-tab-btn { flex: 1; padding: 12px; border: none; border-radius: 10px; background: transparent; color: #94a3b8; font-weight: 800; font-size: 0.7rem; cursor: pointer; transition: 0.2s; }
-    .dash-tab-btn.active { background: var(--primary); color: #000; }
-    .main-card { background: var(--card); border-radius: 32px; overflow: hidden; color: #ffffff; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-    .card-head { padding: 30px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-    
-    /* PROGRESS SECTION & STATIC SCORECARD TABLE */
-    .progress-section { margin: 20px 30px; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 20px; border: 1px solid var(--border); }
-    .progress-label-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 800; font-size: 0.8rem; }
-    .progress-bar-bg { width: 100%; height: 14px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
-    .progress-bar-fill { height: 100%; width: 0%; border-radius: 10px; transition: 1.5s cubic-bezier(0.1, 0, 0.3, 1); }
-    
-    .breakdown-table { width: 100%; border-collapse: collapse; margin-top: 10px; background: rgba(0,0,0,0.2); border-radius: 16px; overflow: hidden; border: 1px solid var(--primary); }
-    .breakdown-table th { background: rgba(0,0,0,0.4); padding: 12px; font-size: 0.65rem; color: #94a3b8; font-weight: 800; text-transform: uppercase; text-align: center; }
-    .breakdown-table td { padding: 14px; text-align: center; font-weight: 800; font-size: 0.95rem; border-top: 1px solid var(--border); color: #fff !important; }
-    .status-badge-green { background: #22c55e; color: #000; padding: 4px 10px; border-radius: 6px; display: inline-block; }
-    .status-badge-yellow { background: #f59e0b; color: #000; padding: 4px 10px; border-radius: 6px; display: inline-block; }
-    .status-badge-red { background: #ef4444; color: #fff; padding: 4px 10px; border-radius: 6px; display: inline-block; }
-
-    .table-block { padding: 30px; border-bottom: 1px solid var(--border); }
-    .table-block h3 { color: var(--primary); font-size: 0.9rem; margin-bottom: 15px; text-transform: uppercase; }
-    table { width: 100%; border-collapse: collapse; }
-    td { padding: 15px 10px; border-top: 1px solid var(--border); color: #ffffff !important; font-size: 0.95rem; line-height: 1.6; vertical-align: top; }
-    .quote-style { font-weight: 600; color: #fde68a; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 6px; border-left: 3px solid var(--primary); display: inline-block; }
-    .modal { display: none; position: fixed; inset: 0; background:rgba(0,0,0,0.95); z-index: 200; justify-content:center; align-items:center; }
-    .modal-content { background:var(--card); padding:40px; border-radius:30px; width:340px; text-align:center; border: 2px solid var(--primary); }
-    .btn-verify { background: var(--primary); color: #000; padding: 12px; border:none; border-radius:12px; width: 100%; font-weight:800; cursor:pointer; }
-    @media (max-width: 600px) { .kpi-row { grid-template-columns: 1fr; } .card-head { flex-direction: column; gap: 15px; text-align: center; } }
-  </style>
-</head>
-<body>
-  <header class="header-main">
-    <div style="width: 80px;"></div>
-    <h1>AGENT ANALYTICS PORTAL</h1>
-    <button onclick="openAdminModal()" class="admin-btn">ADMIN</button>
-  </header>
-  <nav class="nav-bar"><div id="agentPills" class="nav-inner"></div></nav>
-  <div class="content-container"><div id="dashboardView"></div></div>
-
-  <div id="passwordModal" class="modal">
-    <div class="modal-content">
-      <h3 style="color:var(--primary); margin:0;">🔐 UNLOCK MTD SCORES</h3>
-      <input type="password" id="pwInput" style="width:100%; padding:15px; margin:20px 0; background:#000; color:#fff; border:1px solid #444; text-align:center; font-size:1.5rem; border-radius:15px;" placeholder="••••" />
-      <button class="btn-verify" onclick="verifyAndShowScores()">VERIFY ACCESS</button>
-      <p onclick="closeModal('passwordModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
-    </div>
-  </div>
-
-  <div id="adminModal" class="modal">
-    <div class="modal-content">
-      <h3 style="color:var(--primary); margin:0;">🚨 ADMIN ACCESS</h3>
-      <input type="password" id="adminPwInput" style="width:100%; padding:15px; margin:20px 0; background:#000; color:#fff; border:1px solid #444; text-align:center; font-size:1.5rem; border-radius:15px;" placeholder="••••" />
-      <button class="btn-verify" onclick="verifyAdmin()">ACCESS EDITOR</button>
-      <p onclick="closeModal('adminModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
-    </div>
-  </div>
-  <script>
-    let db = { theme: {}, agents: [] };
-    let activeAgent = null;
-    let currentViewWeek = 'week1';
-    let isUnlocked = false;
-
-    window.addEventListener('DOMContentLoaded', () => {
-      fetch('data.json?v=' + new Date().getTime())
-        .then(r => r.json())
-        .then(data => { 
-          db = data.agents ? data : { theme: { primary: "#f59e0b" }, agents: data };
-          if(db.theme?.primary) {
-              const root = document.documentElement;
-              root.style.setProperty('--primary', db.theme.primary);
-              root.style.setProperty('--bg', db.theme.bg || "#fef3c7");
-              root.style.setProperty('--card', db.theme.card || "#0f172a");
-          }
-          renderPills(db.agents); 
-        });
-    });
-
-    function renderPills(agents) {
-      const box = document.getElementById('agentPills'); box.innerHTML = '';
-      agents.forEach((agent, i) => {
-        const pill = document.createElement('div'); pill.className = 'agent-pill';
-        pill.innerHTML = `<div class="dot" style="background:var(--primary); width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:8px;"></div> ${agent.name}`;
-        pill.onclick = () => { selectAgent(agent, pill); };
-        box.appendChild(pill); if(i === 0) pill.click();
-      });
+{
+  "theme": {
+    "primary": "#06b6d4",
+    "bg": "#ecfeff",
+    "card": "#083344"
+  },
+  "agents": [
+    {
+      "name": "S. Fuentes",
+      "password": "10988343",
+      "month": "JUNE",
+      "week_label": "WEEK 4",
+      "weekly": {
+        "week1": {
+          "score": "93.98"
+        },
+        "week2": {
+          "score": "81.90"
+        },
+        "week3": {
+          "score": "88.68"
+        },
+        "week4": {
+          "score": "66.36"
+        }
+      },
+      "qa": [
+        "GOOD CALL",
+        "GOOD CALL",
+        "GOOD CALL",
+        "CREDIT  @03:14  Slight delay.  PC BR\n\nTCPA  @04:08  cust said,  \"Yeah, if they call me and I don't answer and they don't leave a voicemail, I'm gonna think it's not important and I'm not gonna call the number back.\"  agent pressed  60(What Partners)  instead of  d(Defer)  ;  @05:34  after  3(I guess, i think so, i suppose, Maybe)  cust said,  \"i guess.\"  agent proceed the call instead of  3(I guess, i think so, i suppose, Maybe) 2nd rnd  --Autofail--  PC BR\n\n NO Affirmation in TCPA. PC BR",
+        "TCPA  @02:50 Bumping key.  PC BR",
+        "GOOD CALL"
+      ],
+      "audits": [],
+      "weekly_data": {
+        "week1": {
+          "score": 90.32,
+          "qa": [
+            "GOOD CALL",
+            "Greetings @ 00:14 - slight delay; Pitch @ 00:58 - slight delay - PC BR",
+            "Credit @ 01:38 - slight delay; Next Step @ 02:05 - slight delay - PC BR ",
+            "Credit @ 01:56 - slight delay - PC BR \nTCPA @ 02:47 - slight delay - PC BR",
+            " TCPA @ 03:37 - slight delay - PC BR ",
+            "TCPA @ 04:02 - slight delay in applying silent rule - PC BR",
+            "Own Home @ 03:06 - slight delay; Credit @ 03:48 - slight delay - PC BR.\nTagging a SALE call into a NON-SALE call (i.e. NI6, NI7, NQ) - PC BR",
+            "GOOD CALL",
+            "Main Reason @ 01:32 - slight delay; Home Type @ 02:38 - slight delay - PC BR",
+            "GOOD CALL"
+          ],
+          "audits": [],
+          "f_scr": 90.98,
+          "phone_time": 100,
+          "qa_score": 87.46
+        },
+        "week2": {
+          "score": 82.95,
+          "qa": [
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "INTRODUCTION - @00:12 Cx said \"Hello?\",  agent pressed   Y(Yes) +  3(What about?)  instead of   ,(Repeat message) -- PC.BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "INTRO - @00:14 Slight delay -- PC.BR\nSURVEY - HOME TYPE - @1:49 Cx said \"It's a very large brick house, a 6 bedroom brick house.\",  agent had a slight delay in pressing   1(Yes)  instead of  2(No) --(Call avoidance) -- PC.BR\n\nPlease listen to the recording. This is the customer's main reason, which may be why you ended the call. However, because the customer's main reason was qualified, you should have continued the call.",
+              "link": "",
+              "audioData": "data:audio/mpeg;base64,//MoxAAMCaYQACgRRBAACgcPnO6stCEbz6///+jf36JX/7u7w4wGgKAAgHgBw/F6RCBQysHwfW9QIOl/DCpTCwA4IjkROZiL//MoxAoOIaIkIkBevGrqFTWWXP67jb3L7/98LlmhzK/+MbqrtQ2cPK2/s4XviGGiZIKmzKa6ur6v//6aYWAFDSEamHLbpo+X//MoxAwLsaIoAjhevv8i/n/3//D/wkRGt71iWuYkOImiLVj351eTw9Xt3f//6v+qHBCBMiEuZqbmta0996f/rz/r9edro9yZ//MoxBgLkZ4kAEBevF43mm4NH8S5vi2IWzwITneA461rnPpqADMiAAKATCEkjhFafR/K//pX/R2////+/svNTFwCQpeUUY3///MoxCQLGZoxljBOGP///+2lTqLTVXYCMBQIgZmpdl6P5ecg5l9fveCeVTvUvKWR/669xlEiiBMjTVPlNhQb8V/f2FP6K/+j//MoxDIMyaIsLjhWvvUqhD7U8Cuo+5oUKJXM2Ndnu610ftIfnVlB+yvvr926MyJdMGrOoit94eZo7fuRqgWUqporLBsD0Ixo//MoxDkQcZocAHievCQdNii3qm1fqh2gXN4PPetMOuK59KPyei8+bKbZn8vb+SSonlmRm83pTw7N0BuQsH+TZ1EnibjTiodL//MoxDIOOaIgAFhevAuTALhmR90A/u/QV3Chx2pcSktzXX+tP+f1f//7fv+vp2ZRpwEAgUQWHf6Pb+L//6kOd3PMJHpg6gKD//MoxDQL6YY5lhhKUORurqnxy9/0g8puV6+c45ffLOtexTeY9o8elf363apolmtxIcd9bLeHoRJskZf93/+r/V0OVU4PJVd9//MoxD8OaaIgAlhevv/YYuzf6bMRWdPZ9ProzA3S7I6qtSZd/7FVS5zKeNje7azBXGVIoADptY51m9oMD78YFRgIsIqU9Wu5//MoxEARGbIcAGCevF1f//0KCCCAcwYBVA9/jW3Cej1/9vy/n+v//V/6kLr3orWeMlkILEmBkLiEeucxXT/9n//0z9vRAGGS//MoxDYMuYYs7khafAY8BoEM1XNXej6V130f73/+v/l/f5Hn72suXFANkKdiFwqPY3/7P3/3f/+lSmJgbCqiehSNa+6+mn/0//MoxD4L2ZYxjjhWvPX///2/u53efclJHUKUJAnTzyQ4eR3M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8sUKGBhHI1ZgYJxIMTpEoqlMQU1FMy45OS41VVVVVVVVVVVV//MoxN8LeZ4kAEBevFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//MoxOwS6cIYAHjgvFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//MoxNsMCZokVhhSvFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//MoxOMHsZ1osBAGnVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJQ="
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": " PITCH - @00:58 Slight delay in applying the silent rule -- PC.BR",
+              "link": "",
+              "audioData": ""
+            }
+          ],
+          "audits": []
+        },
+        "week3": {
+          "score": 88.34,
+          "qa": [
+            {
+              "text": "HOMETYPE  @02:47  Bumping key.  PC BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "MAIN REASON  @01:21 cust interrupted,  \"Yeah, I already done all that drill. That's one that's, that's what I'm saying. I already done that a couple of years ago, so I'm good. Thanks for calling.\"  agent pressed 4(Final No)  instead of   88(Disqualified). PC BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "INTRO  @0:13  Bumping key.  PC BR\nCREDIT @02:30  Slight delay.  PC BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "TCPA  @03:29  cust said, \"You, you know what, not right now. I, I, I've got a lot going on right now. I, I just had, a death in the family this morning. I got funeral arrangements to make and a bunch of other things that, like I said, now is not really a good time for all of this. It's something for the future.\"  agent pressed  58(Hesitant)  instead of  ending the call. PC BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "CREDIT  @02:03  Some delay. PC BR",
+              "link": "",
+              "audioData": ""
+            }
+          ],
+          "audits": []
+        },
+        "week4": {
+          "score": 92.34,
+          "qa": [
+            {
+              "text": "Transfer @ 04:03 cx said \"I'm at work right now so better off like at five.\" Agent played 2 (No 2nd Rnd) instead of 2 (No 1st Rnd) - PC BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "Credit @ 01:51 - slight delay - PC BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "Pitch @ 01:00 - slight delay - PC BR ",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "Greetings @ 00:17 - slight delay - PC BR \nMain Reason @ 01:38 - slight delay in applying silent rule - PC BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "Pitch @ 00:48 - slight delay - PC BR",
+              "link": "",
+              "audioData": ""
+            }
+          ],
+          "audits": []
+        }
+      },
+      "f_scr": 56.92,
+      "phone_time": 100,
+      "qa_score": 82.73,
+      "score": 83.6
+    },
+    {
+      "name": "L. Guansing",
+      "password": "5560guansinG!",
+      "weekly": {
+        "week1": {
+          "score": "85.52"
+        },
+        "week2": {
+          "score": "85.88"
+        },
+        "week3": {
+          "score": 0
+        },
+        "week4": {
+          "score": "88.68"
+        }
+      },
+      "qa": [
+        "HOMETYPE  @01:31 after r(Repeat that 2nd rnd)  cust said,  \"I'm sorry, I've had throat surgery, so this might not be a good time, thank you.\"  agent pressed  64(Don't Need Now)  instead of  b(Busy). WI",
+        "GOOD CALL",
+        "GOOD CALL",
+        "GREETINGS after 41(Imm No x1)  @0:30  cust said,  \"Well, I just got, I had to dirt after one of the hurricanes down here, I had to break a window to get back in the house. So that was all fine and good, anderson window came out, they did their measurements, blah blah blah, talked me into buying 2,2,2 other, 3 other windows, small, not big, and I got a total bill of $17,000. Can you imagine? And I, I asked, I asked everybody, in between Tampa and Sarasota and down here in Inglewood, I, I asked friends, neighbors. Have you ever bought a window? Well, yeah, occasionally, you know, found two guys that bought windows. Well, how much were they? Well, one window was about 6, maybe 700. The other one was around 5. I said, well, I bought 4,4 windows for 17,000, and the guy said, Anderson? I said, yeah, yeah they brag about being the best. They ought to brag about being the most expensive.\"  agent  end the call instead   $(How Much)  +  7(What's About).  WI",
+        "GOOD CALL",
+        "PITCH  @01:04  after r(Repeat) cust said,  \"I don't, I don't think I remember it. I don't write it down. I'm saying there's a million advertisements out there now on the radio and television. We replace the windows if you're a veteran, if you're this, if you're that, there's almost no cost. They're all full of it, I know that. So if you're gonna go into a thing and it's gonna run into 1000, you get it, I'm not interested.\"  agent pressed  4(Not Interested)  instead of  66(How Much).  PC WI\n\nMAIN REASON  @02:03  cust said,  \"I said they're 50 years old. I live in Kings Point. It's a pretty old place. I mean, I don't live here that long, but the place is 50 years old, the windows and everything kind of changed their touch.\"  agent pressed  x(Exit)  instead of  proceed.  PC WI"
+      ],
+      "audits": [
+        "GOOD CALL",
+        "GOOD CALL",
+        "GOOD CALL",
+        "GOOD CALL"
+      ],
+      "month": "JUNE",
+      "week_label": "WEEK 4",
+      "weekly_data": {
+        "week1": {
+          "score": 90.68,
+          "qa": [
+            "TCPA @ 03:40 - slight delay - BR",
+            "Walk In Tub @ 01:55; @ 02:02; @ 02:20; @ 03:08 - slight delays; @ 03:10 - bumping key - BR",
+            "GOOD CALL",
+            "Own Home @ 01:16 - slight delay; Credit @ 02:01 - slight delay - BR ",
+            "GOOD CALL",
+            "Walk In Tub @ 02:10; @ 02:51 - slight delays - BR \nTCPA @ 04:36 cx said \"Okay, I just want the information, yes.\" Agent slight delay in pressing 32 (Quick Repeat) instead of proceed the call - BR",
+            " Pitch @ 00:52 - silent delay in applying silent rule - BR ",
+            "Pre-Transfer @ 03:42 - silent delay in applying silent rule - BR"
+          ],
+          "audits": [
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL",
+            "GOOD CALL"
+          ]
+        },
+        "week2": {
+          "score": 92.68,
+          "qa": [
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "TCPA - @2:08 Cx said \"Ok, yeah. Sounds good.\",  agent pressed    24(Is that a YES)  instead of    1(Yes TCPA)  -- SB.WI",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "SURVEY - MAIN REASON - @00:58 Slight delay in applying the silent rule -- SB.WI",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "INTRO - @00:04 Major delay -- SB.WI",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "PITCH - @2:14 Major delay -- SB.WI (DISPUTED)",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            }
+          ],
+          "audits": []
+        },
+        "week3": {
+          "score": 92.68,
+          "qa": [
+            {
+              "text": "INTRO  @0:04 Some delay. WIFR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "PRE TRANSFER  @03:46  Slight delay  ;  @04:00  Slight delay.  WIFR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "HANDOFF  @03:22   No bleep for 20 seconds, agent pressed  7(Q5 - Trx Failed)  instead of  8(Redial).  WIFR ",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "TCPA  @04:30  Slight delay.  WI",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            }
+          ],
+          "audits": []
+        },
+        "week4": {
+          "score": 91.34,
+          "qa": [
+            {
+              "text": "WI Mobile/Log @ 01:55 - slight delay - WI\nTCPA @ 02:52 cx said \"Yes, I understand that and to let you know I had a private life for many, many years due to the job that I had with the government and nobody ever called me. I never got any scam calls or anybody else could contact me until the Biden administration came along and that mob of idiots opened up the special ops community's information to the world, so we don't have any privacy anymore.\" Agent slight delay in pressing I (I Understand 2nd Rnd) + 32 (Quick Repeat) instead of \\ (Scam) + 32 (Quick Repeat) - WI",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "TCPA @ 02:23 - slight delay - WI ",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "Greetings @ 00:40 - slight delay; Pitch @ @ 01:32; @ 01:42; @ 01:53 - slight delays - WI",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "Main Reason @  01:50 - slight delay - WI",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "TCPA @ 03:06 - slight delay - WI",
+              "link": "",
+              "audioData": ""
+            }
+          ],
+          "audits": []
+        }
+      },
+      "f_scr": 75.02,
+      "phone_time": 98.7,
+      "qa_score": 86.69,
+      "score": 87.93
+    },
+    {
+      "name": "C. Omandam",
+      "password": "sybille27",
+      "weekly": {
+        "week1": {
+          "score": "75.06"
+        },
+        "week2": {
+          "score": "93.30"
+        },
+        "week3": {
+          "score": 0
+        },
+        "week4": {
+          "score": "91.09"
+        }
+      },
+      "qa": [
+        " Delay in disposing the call for more than 10 seconds. PC BR",
+        "HOME TYPE  @01:37  Slight delay in applying silent rule.   PC BR",
+        "GOOD CALL",
+        "HOME TYPE  @03:20  Bumping key.  PC BR",
+        "GOOD CALL",
+        "CREDIT  @01:42  cust said,  \"Oh I see I was, I'll see what I was looking for, I was hoping that government, was any assistance. They're saying that, you know, you're retired, you can do it. I'm retired. I'm not working.\"  agent pressed  0(Credit) instead of  d(Defer).   PC BR"
+      ],
+      "audits": [],
+      "month": "JUNE",
+      "week_label": "WEEK 4",
+      "weekly_data": {
+        "week1": {
+          "score": 77.93,
+          "qa": [
+            "Credit @ 02:06 - slight delay - PC BR",
+            "Pitch @ 01:19 - slight delay - PC BR \nMain Reason @ 01:47 - slight delay in applying silent rule - PC BR\n",
+            "Delay dispo for 17secs. - PC BR",
+            "Home Type @ 02:20 - slight delay - PC BR\nTCPA @ 04:18 - slight delay - PC BR",
+            "GOOD CALL",
+            "Delay dispo for 17secs. - PC BR ",
+            "Main Reason @ 00:57 cx said \"No, my best is very good for me. I don't want to change.\" Agent played 11 (Generic Reason) instead of 4 (Not Interested); Own Home @ 01:17 - slight delay - PC BR",
+            "Delay dispo for 25secs. - PC BR",
+            "Credit @ 03:31 @ 03:31 - slight delay - PC BR",
+            "GOOD CALL"
+          ],
+          "audits": []
+        },
+        "week2": {
+          "score": 89.11,
+          "qa": [
+            {
+              "text": "Delay dispo for 21 secs -- PC.BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "PITCH - @00:45 Cx said \"Ok, actually at this time I don't know. I don't talk to several different people. I don't know if it's the same people keep calling me about the same thing, different number or whatever, but at this time I'm postponing it because I'm working on something else.\",  agent had a slight delay in pressing   54(No time)  instead of   57(No need) -- PC.BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "TCPA - @3:19 Cx said \"Yeah, no, I don't think we're interested. I appreciate your help though.\",  agent pressed   58(Hesitant)  instead of   4(Final no) -- PC.BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "SURVEY - MAIN REASON - @00:57 Slight delay in applying the silent rule -- PC.BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            }
+          ],
+          "audits": []
+        },
+        "week3": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week4": {
+          "score": 95.02,
+          "qa": [
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "Main Reason @ 00:59 cx said \"I have no plans of renewing, renewing...the, the bathroom but, my house needs repairs.\" Agent played 11 (Generic Reason) instead of 4 (Not Interested); Walk In Tub @ 01:50 - slight delay - PC BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "TCPA @ 03:48 - slight delay - PC BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "Own Home @ 01:21 - slight delay; Credit @ 02:16 - slight delay - PC BR",
+              "link": "",
+              "audioData": ""
+            }
+          ],
+          "audits": []
+        }
+      },
+      "f_scr": 80.17,
+      "phone_time": 100,
+      "qa_score": 86.48,
+      "score": 88.56
+    },
+    {
+      "name": "J. Aniñon",
+      "password": "jannah",
+      "month": "JUNE",
+      "weekly_data": {
+        "week1": {
+          "score": 59.7,
+          "qa": [
+            {
+              "text": "INTRODUCTION - @00:44 Major delay in pressing bumping key  + unnecessary hotkey -- PC.HW",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "SURVEY - OWN HOME - @1:31 Cx said \"Yes, they do.\",  agent pressed    1(Yes)  instead of   2(No) --(auto fail) -- PC.HW\nNot Qualified tagged as SALE -- PC.HW",
+              "link": "",
+              "audioData": "data:audio/mpeg;base64,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"
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "INTRODUCTION - @00:03 Slight delay -- PC.HW",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "SURVEY - ADD UP - @1:30 Bumping key -- PC.HW",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "PITCH - @00:40 Major delay in applying the silent rule ; @00:55 Slight delay -- PC.HW",
+              "link": "",
+              "audioData": ""
+            }
+          ],
+          "audits": []
+        },
+        "week2": {
+          "score": 80.77,
+          "qa": [
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "INTRO  @0:36 Slight delay.  PC HW\nOWN HOME  @01:32 after r(Repeat)  cust said,  \"Yeah, I did till it burnt down.\"  agent proceed instead of ending the call.  PC HW",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GREETINGS  @0:02 Bumping key  ;  INTRO after b(Busy)  @0:23  cust said,  \"Okay\"  agent pressed  1(Good)  instead of  3(Who/What about).  PC HW",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "BENEFITS  @02:33  cust said,  \"That's why I said you gotta talk to her, but, you know, because she does, you know, I just give her money every month, you know, to help the bills, and she get care of everything. That's why I said, you know, I, you know, I don't know anything, you know, I mean, my house, but you know, I, I just moved back.\"  agent pressed  2(No)  instead of  ending the call  **same concern @01:31**.  PC HW",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "REPLACE  @01:22  cust interrupted and said,  \"You might go, hello, yeah, we got AC, we got new dry washer and dryer refrigerator and new fireplace.\"  with the verbal collision of agent pressing 1(Yes) then stop the script  +  slight delay in pressing 1(Yes) again **proceeds to benefits**  instead of  1(Yes)  ;  @01:48  Slight delay.  PC HW",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "INTRO  @0:12  bumping key.  PC HW\nDelay in disposing the call for more than 10 seconds. PC HW",
+              "link": "",
+              "audioData": ""
+            }
+          ],
+          "audits": []
+        },
+        "week3": {
+          "score": 96.68,
+          "qa": [
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "TCPA/Transfer @ 03:09; @ 03:20 - slight delays - PC HW",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "Transfer @ 03:52 - slight delay - PC HW",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "Pitch @ 01:06; @ 01:30 - slight delays - PC HW",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "Replace @ 01:37 - slight delay - PC HW",
+              "link": "",
+              "audioData": ""
+            }
+          ],
+          "audits": []
+        },
+        "week4": {
+          "score": 89.68,
+          "qa": [
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "PITCH - @00:55 Slight delay ; @1:00 Bumping key .PC.HW",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "PITCH - @00:44 Some delay .PC.HW",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "SURVEY - VALUE - @1:34 Slight delay in applying the silent rule ; @1:41 After H(Hello), cx said \"Yeah.\",  agent pressed  1(Yes)  instead of   3(Unsure) .PC.HW",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GREETINGS - @00:30 Some delay .PC.HW",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            }
+          ],
+          "audits": []
+        }
+      },
+      "f_scr": 90.98,
+      "phone_time": 100,
+      "qa_score": 87.46,
+      "score": 90.32
+    },
+    {
+      "name": "R. Amodia",
+      "password": "skye2024",
+      "month": "JUNE",
+      "weekly_data": {
+        "week1": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week2": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week3": {
+          "score": 92.68,
+          "qa": [
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "SURVEY - MAIN REASON - @00:58 Slight delay in applying the silent rule ; @1:07 Slight delay - SB_BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "NEXT STEP - @2:22 Not seamless - SB_BR\nTCPA - @3:18 Slight delay in applying the silent rule - SB_BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "SURVEY - MAIN REASON - @1:16 Unnecessary hotkey - SB_BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "TCPA - @4:14 After 41 script, cx said \"I said, I'm busy now. I'm ok, I cannot…\",  agent pressed last round of   B(Busy)  instead of     43(Final No) ; @4:27 Slight delay in applying the silent rule - SB_BR",
+              "link": "",
+              "audioData": ""
+            }
+          ],
+          "audits": []
+        },
+        "week4": {
+          "score": 92.68,
+          "qa": [
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "SURVEY - MAIN REASON - @00:58 Slight delay in applying the silent rule ; @1:07 Slight delay - SB_BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "NEXT STEP - @2:22 Not seamless - SB_BR.\nTCPA - @3:18 Slight delay in applying the silent rule - SB_BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "SURVEY - MAIN REASON - @1:16 Unnecessary hotkey - SB_BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "TCPA - @4:14 After 41 script, cx said \"I said, I'm busy now. I'm ok, I cannot…\",  agent pressed last round of   B(Busy)  instead of     43(Final No) ; @4:27 Slight delay in applying the silent rule - SB_BR",
+              "link": "",
+              "audioData": ""
+            }
+          ],
+          "audits": []
+        }
+      }
+    },
+    {
+      "name": "E. Torres",
+      "password": "ersantorres",
+      "month": "JUNE",
+      "weekly_data": {
+        "week1": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week2": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week3": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week4": {
+          "score": 89.68,
+          "qa": [
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "PITCH - @00:55 Slight delay .SB.BR\nSURVEY - MAIN REASON - @2:00 Slight delay .SB.BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "PITCH - @1:15 Slight delay ; @1:36 Cx said \"I said, I do own my home and it's not new, it's old.\",  agent pressed    ](No Problem)  +  unnecessary stopping the script  1(Yes - Pitch)  +    32(SR - Pitch)  instead of continuing the script   1(Yes - Pitch) .SB.WI",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "PITCH - @00:22 Unnecessary stopping .SB.WI",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "PITCH - @00:32 Cx interrupted & said \"Let me stop you there. I've never requested a price on home windows.\",  agent pressed    41(Imm No)  instead of    >(WI - How Get Number) ; @00:59 Bumping key .SB.WI",
+              "link": "",
+              "audioData": ""
+            }
+          ],
+          "audits": []
+        }
+      }
     }
-
-    function selectAgent(agent, element) {
-      activeAgent = agent; isUnlocked = false; currentViewWeek = 'week1';
-      document.querySelectorAll('.agent-pill').forEach(el => el.classList.remove('active'));
-      element.classList.add('active'); renderDashboard();
-    }
-
-    function switchDashboardWeek(week) { currentViewWeek = week; renderDashboard(); }
-
-    function renderDashboard() {
-      const a = activeAgent;
-      const weekly = a.weekly_data[currentViewWeek];
-      const qas = weekly.qa || []; const audits = weekly.audits || [];
-      
-      // CURRENT MONTH INDICATOR (Para sa top box label)
-      const currentQAControlMonth = a.month || "JUNE";
-
-      document.getElementById('dashboardView').innerHTML = `
-        <div class="kpi-row">
-            <div class="kpi-box kpi-1"><div class="kpi-label">MONTH</div><div class="kpi-value">${currentQAControlMonth}</div></div>
-            <div class="kpi-box kpi-2"><div class="kpi-label">QA EVALS</div><div class="kpi-value">${qas.length}</div></div>
-            <div class="kpi-box kpi-3"><div class="kpi-label">AUDITS</div><div class="kpi-value">${audits.length}</div></div>
-        </div>
-        <div class="dashboard-tabs">
-            <button class="dash-tab-btn ${currentViewWeek === 'week1' ? 'active' : ''}" onclick="switchDashboardWeek('week1')">WEEK 1</button>
-            <button class="dash-tab-btn ${currentViewWeek === 'week2' ? 'active' : ''}" onclick="switchDashboardWeek('week2')">WEEK 2</button>
-            <button class="dash-tab-btn ${currentViewWeek === 'week3' ? 'active' : ''}" onclick="switchDashboardWeek('week3')">WEEK 3</button>
-            <button class="dash-tab-btn ${currentViewWeek === 'week4' ? 'active' : ''}" onclick="switchDashboardWeek('week4')">WEEK 4</button>
-        </div>
-        <div class="main-card">
-            <div class="card-head">
-                <h2 style="margin:0; color:var(--primary)">${a.name}</h2>
-                <div class="btn-group">
-                    <button style="background:transparent; color:var(--primary); border:1px solid var(--primary); padding:8px 15px; border-radius:10px; cursor:pointer; font-size:0.7rem; font-weight:800;" onclick="window.location.href='mailto:hitsuguya08@gmail.com'">✉️ CLARIFY FEEDBACK</button>
-                    ${!isUnlocked ? '<button class="btn-verify" style="width:auto; padding:10px 20px; font-size:0.75rem;" onclick="openAgentModal()">🔐 UNLOCK MTD SCORES</button>' : ''}
-                </div>
-            </div>
-            ${isUnlocked ? renderScoreSection() : ''}
-            ${renderTable('QA Feedback (' + currentViewWeek.toUpperCase() + ')', qas, true)}
-            ${renderTable('Dispo Audits', audits, false)}
-        </div>`;
-      
-      if(isUnlocked) { setTimeout(updateProgressBar, 100); }
-    }
-
-    function renderScoreSection() {
-      // LABELS AND DATA EXTRACTED FROM MAIN AGENT LEVEL OR WEEK 1 TO STAY STATIC
-      // Nagsiguro kini nga whole previous month data ug dili ma-apektuhan sa tab switching
-      const wdStatic = activeAgent.weekly_data['week1']; 
-      
-      const fScr = wdStatic.f_scr || 0;
-      const phoneTime = wdStatic.phone_time || 0;
-      const qaScore = wdStatic.qa_score || 0;
-      const standardScore = wdStatic.score || 0; 
-      const previousScorecardMonth = wdStatic.month || "MAY"; 
-
-      let badgeStyle = "status-badge-red";
-      if (standardScore >= 90) badgeStyle = "status-badge-green";
-      else if (standardScore >= 75) badgeStyle = "status-badge-yellow";
-
-      return `
-        <div class="progress-section">
-            <div class="progress-label-row">
-                <span>WHOLE MONTH PERFORMANCE OVERVIEW</span>
-                <span id="mtdValue" style="color:var(--primary)">${standardScore}%</span>
-            </div>
-            <div class="progress-bar-bg"><div id="mtdBar" class="progress-bar-fill"></div></div>
-        </div>
-        
-        <div style="padding: 0 30px 20px 30px;">
-            <div style="font-size:0.65rem; color:#94a3b8; font-weight:800; margin-bottom:5px; text-transform:uppercase; letter-spacing:0.5px;">
-                📈 Scorecard Tracking for Whole Month of: <span style="color:var(--primary); font-size:0.75rem;">${previousScorecardMonth}</span>
-            </div>
-            <table class="breakdown-table">
-                <thead>
-                    <tr>
-                        <th>F_SCR</th>
-                        <th>Phone Time</th>
-                        <th>QA</th>
-                        <th>Standard Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>${fScr}%</td>
-                        <td>${phoneTime}%</td>
-                        <td>${qaScore}%</td>
-                        <td><span class="${badgeStyle}">${standardScore}%</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>`;
-    }
-
-    function updateProgressBar() {
-        const mtd = parseFloat(document.getElementById('mtdValue').innerText);
-        const bar = document.getElementById('mtdBar');
-        if(!bar) return;
-        bar.style.width = mtd + "%";
-        if (mtd >= 90) bar.style.background = "#22c55e";
-        else if (mtd >= 75) bar.style.background = "#f59e0b";
-        else bar.style.background = "#ef4444";
-    }
-
-    function renderTable(title, data, isQA) {
-      if(!data || data.length === 0) return `<div class="table-block"><h3>${title}</h3><p style="color:#ffffff; font-size:0.8rem; margin-top:10px;">No entries recorded.</p></div>`;
-      return `<div class="table-block"><h3>${title}</h3><table><tbody>
-        ${data.map((item, i) => {
-          let text = (typeof item === 'object') ? (item.text || "") : item;
-          let link = (isQA && typeof item === 'object') ? (item.link || "") : "";
-          let mediaHtml = (link && link.trim() !== "") ? `<a href="${link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1px solid var(--primary); padding:6px 12px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 OPEN RECORDING</a>` : "";
-          let fText = text.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
-          return `<tr><td style="width:35px; color:var(--primary); font-weight:800; vertical-align:top;">${i+1}</td><td style="color:#ffffff;"><div>${fText}</div>${mediaHtml}</td></tr>`;
-        }).join('')}
-      </tbody></table></div>`;
-    }
-
-    function openAgentModal() { document.getElementById('pwInput').value = ''; document.getElementById('passwordModal').style.display = 'flex'; }
-    function openAdminModal() { document.getElementById('adminPwInput').value = ''; document.getElementById('adminModal').style.display = 'flex'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-    function verifyAdmin() { if (document.getElementById('adminPwInput').value === "Jeikaaru-08!") { window.location.href = "admin.html"; } else { alert("❌ Unauthorized"); } }
-    function verifyAndShowScores() { if(activeAgent && document.getElementById('pwInput').value.trim() === activeAgent.password.toString().trim()) { isUnlocked = true; renderDashboard(); closeModal('passwordModal'); } else { alert('❌ Incorrect Access Code'); } }
-  </script>
-</body>
-</html>
+  ]
+}
