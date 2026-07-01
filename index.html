@@ -31,20 +31,17 @@
     .dash-tab-btn.active { background: var(--primary); color: #000; }
     .main-card { background: var(--card); border-radius: 32px; overflow: hidden; color: #ffffff; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
     .card-head { padding: 30px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-    
-    /* PROGRESS SECTION & STATIC SCORECARD TABLE */
     .progress-section { margin: 20px 30px; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 20px; border: 1px solid var(--border); }
     .progress-label-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 800; font-size: 0.8rem; }
     .progress-bar-bg { width: 100%; height: 14px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
     .progress-bar-fill { height: 100%; width: 0%; border-radius: 10px; transition: 1.5s cubic-bezier(0.1, 0, 0.3, 1); }
-    
     .breakdown-table { width: 100%; border-collapse: collapse; margin-top: 10px; background: rgba(0,0,0,0.2); border-radius: 16px; overflow: hidden; border: 1px solid var(--primary); }
     .breakdown-table th { background: rgba(0,0,0,0.4); padding: 12px; font-size: 0.65rem; color: #94a3b8; font-weight: 800; text-transform: uppercase; text-align: center; }
     .breakdown-table td { padding: 14px; text-align: center; font-weight: 800; font-size: 0.95rem; border-top: 1px solid var(--border); color: #fff !important; }
+    .mtd-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 16px; border: 1px solid var(--primary); margin-top: 10px; width: 100%; }
     .status-badge-green { background: #22c55e; color: #000; padding: 4px 10px; border-radius: 6px; display: inline-block; }
     .status-badge-yellow { background: #f59e0b; color: #000; padding: 4px 10px; border-radius: 6px; display: inline-block; }
     .status-badge-red { background: #ef4444; color: #fff; padding: 4px 10px; border-radius: 6px; display: inline-block; }
-
     .table-block { padding: 30px; border-bottom: 1px solid var(--border); }
     .table-block h3 { color: var(--primary); font-size: 0.9rem; margin-bottom: 15px; text-transform: uppercase; }
     table { width: 100%; border-collapse: collapse; }
@@ -84,14 +81,10 @@
   </div>
   <script>
     let db = { theme: {}, agents: [] };
-    let activeAgent = null;
-    let currentViewWeek = 'week1';
-    let isUnlocked = false;
+    let activeAgent = null; let currentViewWeek = 'week1'; let isUnlocked = false;
 
     window.addEventListener('DOMContentLoaded', () => {
-      fetch('data.json?v=' + new Date().getTime())
-        .then(r => r.json())
-        .then(data => { 
+      fetch('data.json?v=' + new Date().getTime()).then(r => r.json()).then(data => { 
           db = data.agents ? data : { theme: { primary: "#f59e0b" }, agents: data };
           if(db.theme?.primary) {
               const root = document.documentElement;
@@ -122,12 +115,9 @@
     function switchDashboardWeek(week) { currentViewWeek = week; renderDashboard(); }
 
     function renderDashboard() {
-      const a = activeAgent;
-      const weekly = a.weekly_data[currentViewWeek];
+      const a = activeAgent; const weekly = a.weekly_data[currentViewWeek];
       const qas = weekly.qa || []; const audits = weekly.audits || [];
-      
-      // CURRENT MONTH INDICATOR (Para sa top box label)
-      const currentQAControlMonth = a.month || "JUNE";
+      const currentQAControlMonth = activeAgent.weekly_data['week1'].month || "JUNE"; 
 
       document.getElementById('dashboardView').innerHTML = `
         <div class="kpi-row">
@@ -153,20 +143,21 @@
             ${renderTable('QA Feedback (' + currentViewWeek.toUpperCase() + ')', qas, true)}
             ${renderTable('Dispo Audits', audits, false)}
         </div>`;
-      
       if(isUnlocked) { setTimeout(updateProgressBar, 100); }
     }
 
     function renderScoreSection() {
-      // LABELS AND DATA EXTRACTED FROM MAIN AGENT LEVEL OR WEEK 1 TO STAY STATIC
-      // Nagsiguro kini nga whole previous month data ug dili ma-apektuhan sa tab switching
       const wdStatic = activeAgent.weekly_data['week1']; 
-      
-      const fScr = wdStatic.f_scr || 0;
-      const phoneTime = wdStatic.phone_time || 0;
-      const qaScore = wdStatic.qa_score || 0;
-      const standardScore = wdStatic.score || 0; 
+      const fScr = wdStatic.f_scr || 0; const phoneTime = wdStatic.phone_time || 0;
+      const qaScore = wdStatic.qa_score || 0; const standardScore = wdStatic.score || 0; 
       const previousScorecardMonth = wdStatic.month || "MAY"; 
+
+      const wd = activeAgent.weekly_data;
+      const s1 = wd.week1.score || 0; const s2 = wd.week2.score || 0;
+      const s3 = wd.week3.score || 0; const s4 = wd.week4.score || 0;
+      
+      const activeScores = [s1, s2, s3, s4].map(Number).filter(v => v > 0);
+      const mtdAverage = activeScores.length > 0 ? (activeScores.reduce((a,b) => a+b, 0) / activeScores.length).toFixed(2) : "0.00";
 
       let badgeStyle = "status-badge-red";
       if (standardScore >= 90) badgeStyle = "status-badge-green";
@@ -174,46 +165,24 @@
 
       return `
         <div class="progress-section">
-            <div class="progress-label-row">
-                <span>WHOLE MONTH PERFORMANCE OVERVIEW</span>
-                <span id="mtdValue" style="color:var(--primary)">${standardScore}%</span>
-            </div>
+            <div class="progress-label-row"><span>PREVIOUS MONTH PERFORMANCE OVERVIEW</span><span id="mtdValue" style="color:var(--primary)">${standardScore}%</span></div>
             <div class="progress-bar-bg"><div id="mtdBar" class="progress-bar-fill"></div></div>
         </div>
-        
-        <div style="padding: 0 30px 20px 30px;">
-            <div style="font-size:0.65rem; color:#94a3b8; font-weight:800; margin-bottom:5px; text-transform:uppercase; letter-spacing:0.5px;">
-                📈 Scorecard Tracking for Whole Month of: <span style="color:var(--primary); font-size:0.75rem;">${previousScorecardMonth}</span>
-            </div>
+        <div style="padding: 0 30px;">
+            <div style="font-size:0.65rem; color:#94a3b8; font-weight:800; margin-bottom:5px; text-transform:uppercase;">📊 Whole Month Scorecard for: <span style="color:var(--primary); font-size:0.75rem;">${previousScorecardMonth}</span></div>
             <table class="breakdown-table">
-                <thead>
-                    <tr>
-                        <th>F_SCR</th>
-                        <th>Phone Time</th>
-                        <th>QA</th>
-                        <th>Standard Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>${fScr}%</td>
-                        <td>${phoneTime}%</td>
-                        <td>${qaScore}%</td>
-                        <td><span class="${badgeStyle}">${standardScore}%</span></td>
-                    </tr>
-                </tbody>
+                <thead><tr><th>F_SCR</th><th>Phone Time</th><th>QA</th><th>Standard Score</th></tr></thead>
+                <tbody><tr><td>${fScr}%</td><td>${phoneTime}%</td><td>${qaScore}%</td><td><span class="${badgeStyle}">${standardScore}%</span></td></tr></tbody>
             </table>
-        </div>`;
-    }
-
-    function updateProgressBar() {
-        const mtd = parseFloat(document.getElementById('mtdValue').innerText);
-        const bar = document.getElementById('mtdBar');
-        if(!bar) return;
-        bar.style.width = mtd + "%";
-        if (mtd >= 90) bar.style.background = "#22c55e";
-        else if (mtd >= 75) bar.style.background = "#f59e0b";
-        else bar.style.background = "#ef4444";
+            <div style="font-size:0.65rem; color:#94a3b8; font-weight:800; margin-top:20px; margin-bottom:5px; text-transform:uppercase;">📅 Weekly Scores for Current Month:</div>
+            <div class="mtd-grid">
+                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W1</div><div style="font-weight:800; color:white;">${s1}%</div></div>
+                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W2</div><div style="font-weight:800; color:white;">${s2}%</div></div>
+                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W3</div><div style="font-weight:800; color:white;">${s3}%</div></div>
+                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W4</div><div style="font-weight:800; color:white;">${s4}%</div></div>
+                <div style="text-align:center; border-left:2px solid var(--primary); padding-left:10px;"><div style="font-size:0.6rem; color:var(--primary);">MTD</div><div style="color:var(--primary); font-weight:800;">${mtdAverage}%</div></div>
+            </div>
+        </div><div style="margin-bottom:20px;"></div>`;
     }
 
     function renderTable(title, data, isQA) {
@@ -227,6 +196,12 @@
           return `<tr><td style="width:35px; color:var(--primary); font-weight:800; vertical-align:top;">${i+1}</td><td style="color:#ffffff;"><div>${fText}</div>${mediaHtml}</td></tr>`;
         }).join('')}
       </tbody></table></div>`;
+    }
+
+    function updateProgressBar() {
+        const mtd = parseFloat(document.getElementById('mtdValue').innerText); const bar = document.getElementById('mtdBar'); if(!bar) return;
+        bar.style.width = mtd + "%";
+        if (mtd >= 90) bar.style.background = "#22c55e"; else if (mtd >= 75) bar.style.background = "#f59e0b"; else bar.style.background = "#ef4444";
     }
 
     function openAgentModal() { document.getElementById('pwInput').value = ''; document.getElementById('passwordModal').style.display = 'flex'; }
