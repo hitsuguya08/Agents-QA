@@ -36,7 +36,6 @@
     .progress-bar-bg { width: 100%; height: 14px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
     .progress-bar-fill { height: 100%; width: 0%; border-radius: 10px; transition: 1.5s cubic-bezier(0.1, 0, 0.3, 1); }
     
-    /* STYLE PARA SA MGA BAG-ONG COLUMNS TABLE */
     .breakdown-table { width: 100%; border-collapse: collapse; margin-top: 15px; background: rgba(0,0,0,0.2); border-radius: 16px; overflow: hidden; border: 1px solid var(--primary); }
     .breakdown-table th { background: rgba(0,0,0,0.4); padding: 12px; font-size: 0.65rem; color: #94a3b8; font-weight: 800; text-transform: uppercase; text-align: center; }
     .breakdown-table td { padding: 14px; text-align: center; font-weight: 800; font-size: 0.95rem; border-top: 1px solid var(--border); color: #fff !important; }
@@ -124,10 +123,11 @@
       const a = activeAgent;
       const weekly = a.weekly_data[currentViewWeek];
       const qas = weekly.qa || []; const audits = weekly.audits || [];
+      const currentMonth = weekly.month || "JUNE"; // MO-DIPENDE NA SA SAKTONG METRIC MONTH DATA
 
       document.getElementById('dashboardView').innerHTML = `
         <div class="kpi-row">
-            <div class="kpi-box kpi-1"><div class="kpi-label">MONTH</div><div class="kpi-value">${a.month || 'JUNE'}</div></div>
+            <div class="kpi-box kpi-1"><div class="kpi-label">MONTH</div><div class="kpi-value">${currentMonth}</div></div>
             <div class="kpi-box kpi-2"><div class="kpi-label">QA EVALS</div><div class="kpi-value">${qas.length}</div></div>
             <div class="kpi-box kpi-3"><div class="kpi-label">AUDITS</div><div class="kpi-value">${audits.length}</div></div>
         </div>
@@ -156,16 +156,11 @@
     function renderScoreSection() {
       const wd = activeAgent.weekly_data[currentViewWeek];
       
-      // MGA BAG-ONG METRICS BREAKDOWN VALUES FROM DATA
       const fScr = wd.f_scr || 0;
       const phoneTime = wd.phone_time || 0;
       const qaScore = wd.qa_score || 0;
+      const standardScore = wd.score || 0; 
       
-      // AUTOMATED COMPILATION PARA SA STANDARD SCORE
-      const metricsArray = [fScr, phoneTime, qaScore].filter(v => v > 0);
-      const standardScore = metricsArray.length > 0 ? (metricsArray.reduce((a,b) => a+b, 0) / metricsArray.length).toFixed(2) : "0.00";
-      
-      // DYNAMIC COLOR BADGE PARA SA STANDARD SCORE
       let badgeStyle = "status-badge-red";
       if (standardScore >= 90) badgeStyle = "status-badge-green";
       else if (standardScore >= 75) badgeStyle = "status-badge-yellow";
@@ -179,7 +174,6 @@
             <div class="progress-bar-bg"><div id="mtdBar" class="progress-bar-fill"></div></div>
         </div>
         
-        <!-- BAG-ONG TABLE LAYOUT SAKTO SA IMONG EXCEL PRESET IMAGE -->
         <div style="padding: 0 30px 20px 30px;">
             <table class="breakdown-table">
                 <thead>
