@@ -32,10 +32,9 @@
     .btn-save { background: var(--navy); color: var(--primary); border: none; padding: 12px 25px; border-radius: 12px; font-weight: 800; cursor: pointer; }
     .btn-add { background: var(--primary); color: var(--navy); border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; margin-top: 10px; }
     .form-section { background: #f8fafc; padding: 25px; border-radius: 20px; margin-bottom: 30px; border: 1px solid #e2e8f0; }
-    .metric-inputs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 15px; background: #f1f5f9; padding: 15px; border-radius: 12px; }
+    .metric-inputs-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 15px; background: #f1f5f9; padding: 15px; border-radius: 12px; }
     label { display: block; font-weight: 700; font-size: 0.7rem; margin-bottom: 8px; color: #94a3b8; text-transform: uppercase; }
     input, textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; }
-    .audio-upload-zone { background: #f1f5f9; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 15px; margin-top: 10px; }
     .json-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; padding: 50px; justify-content: center; align-items: center; }
     .json-content { background: var(--navy); width: 100%; max-width: 700px; border-radius: 25px; padding: 35px; border: 1px solid var(--primary); }
     textarea.json-area { background: #020617; color: #10b981; border: none; height: 300px; font-family: monospace; width: 100%; padding: 20px; border-radius: 12px; outline: none; }
@@ -87,7 +86,6 @@
                     <div><label>Agent Name</label><input type="text" id="editName" oninput="saveAndSync()"></div>
                     <div><label>Password</label><input type="text" id="editPass" oninput="saveAndSync()"></div>
                 </div>
-                <div style="margin-top:15px;"><label>Month</label><input type="text" id="editMonth" oninput="saveAndSync()" placeholder="JUNE"></div>
             </div>
 
             <div class="tabs-container">
@@ -100,15 +98,15 @@
             <div class="form-section">
                 <h3 id="currentWeekTitle">WEEK DATA</h3>
                 
-                <!-- GIDUGANGAN OG INPUTS PARA SA MGA BAG-ONG METRICS -->
+                <!-- GIDUGANGAN OG MONTH INPUT APIL SA METRICS GRID -->
                 <div class="metric-inputs-grid">
                     <div>
-                        <label>Weekly MTD Score (%)</label>
-                        <input type="number" step="0.01" id="weeklyScoreInput" oninput="updateWeeklyMetric('score', this.value)">
+                        <label>Month Text</label>
+                        <input type="text" id="weeklyMonthInput" oninput="updateWeeklyMetric('month', this.value.toUpperCase())" placeholder="JUNE">
                     </div>
                     <div>
                         <label>F_SCR Score (%)</label>
-                        <input type="number" step="0.01" id="fScrInput" oninput="updateWeeklyMetric('f_scr', this.value)" placeholder="90.00">
+                        <input type="number" step="0.01" id="fScrInput" oninput="updateWeeklyMetric('f_scr', this.value)" placeholder="96.37">
                     </div>
                     <div>
                         <label>Phone Time (%)</label>
@@ -116,11 +114,12 @@
                     </div>
                     <div>
                         <label>QA Score (%)</label>
-                        <input type="number" step="0.01" id="qaScoreInput" oninput="updateWeeklyMetric('qa_score', this.value)" placeholder="85.00">
+                        <input type="number" step="0.01" id="qaScoreInput" oninput="updateWeeklyMetric('qa_score', this.value)" placeholder="81.82">
                     </div>
-                </div>
-                <div style="margin-top:15px; background:#e2e8f0; padding:12px; border-radius:8px; font-weight:800; font-size:0.75rem; color:var(--navy);">
-                    💡 Note: Ang "Standard Score" awtomatiko nga makwenta sa Dashboard base sa average niining tulo ka metrics!
+                    <div>
+                        <label>Standard Score (%)</label>
+                        <input type="number" step="0.01" id="standardScoreInput" oninput="updateWeeklyMetric('score', this.value)" placeholder="86.91">
+                    </div>
                 </div>
                 
                 <h3 style="margin-top:30px; font-size:0.8rem;">QA Feedback</h3>
@@ -178,12 +177,11 @@
     function selectAgent(index) {
       selectedIndex = index;
       const a = db.agents[index];
-      if(!a.weekly_data) a.weekly_data = { week1:{score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week2:{score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week3:{score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week4:{score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]} };
+      if(!a.weekly_data) a.weekly_data = { week1:{month:"JUNE",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week2:{month:"JUNE",score:0,f_scr:0,phone_time:0,qa:[],audits:[]}, week3:{month:"JUNE",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week4:{month:"JUNE",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]} };
       document.getElementById('editorContent').style.display = 'block';
       document.getElementById('editingTitle').innerText = "Editing: " + a.name;
       document.getElementById('editName').value = a.name;
       document.getElementById('editPass').value = a.password;
-      document.getElementById('editMonth').value = a.month || "JUNE";
       switchTab(currentWeek); renderSidebar();
     }
     function switchTab(week) {
@@ -192,7 +190,8 @@
       document.getElementById('btn-' + week).classList.add('active');
       const data = db.agents[selectedIndex].weekly_data[week];
       
-      document.getElementById('weeklyScoreInput').value = data.score || 0;
+      document.getElementById('weeklyMonthInput').value = data.month || "JUNE";
+      document.getElementById('standardScoreInput').value = data.score || 0;
       document.getElementById('fScrInput').value = data.f_scr || 0;
       document.getElementById('phoneTimeInput').value = data.phone_time || 0;
       document.getElementById('qaScoreInput').value = data.qa_score || 0;
@@ -228,7 +227,11 @@
       switchTab(currentWeek); saveToLocal();
     }
     function updateWeeklyMetric(field, v) { 
-      db.agents[selectedIndex].weekly_data[currentWeek][field] = parseFloat(v) || 0; 
+      if (field === 'month') {
+        db.agents[selectedIndex].weekly_data[currentWeek][field] = v;
+      } else {
+        db.agents[selectedIndex].weekly_data[currentWeek][field] = parseFloat(v) || 0; 
+      }
       saveToLocal(); 
     }
     function saveAndSync() {
@@ -238,12 +241,11 @@
       if(selectedIndex !== -1) {
         db.agents[selectedIndex].name = document.getElementById('editName').value;
         db.agents[selectedIndex].password = document.getElementById('editPass').value;
-        db.agents[selectedIndex].month = document.getElementById('editMonth').value.toUpperCase();
       }
       saveToLocal(); renderSidebar();
     }
     function addNewAgent() {
-      db.agents.push({ name: "New Agent", password: "123", month: "JUNE", weekly_data: { week1:{score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week2:{score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week3:{score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week4:{score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]} } });
+      db.agents.push({ name: "New Agent", password: "123", weekly_data: { week1:{month:"JUNE",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week2:{month:"JUNE",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week3:{month:"JUNE",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week4:{month:"JUNE",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]} } });
       saveToLocal(); renderSidebar();
     }
     function deleteAgent(i, e) { e.stopPropagation(); if(confirm("Delete Agent?")) { db.agents.splice(i, 1); saveToLocal(); renderSidebar(); } }
