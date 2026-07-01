@@ -81,7 +81,6 @@
   </div>
 
   <script>
-    // HELPER TABLE ENGINE - INILIPAT DITO PARA UMIKLI ANG PART 3
     function renderTable(title, data, isQA) {
       if(!data || data.length === 0) return `<div class="table-block"><h3>${title}</h3><p style="color:#ffffff; font-size:0.8rem; margin-top:10px;">No entries recorded.</p></div>`;
       return `<div class="table-block"><h3>${title}</h3><table><tbody>
@@ -142,7 +141,7 @@
       }
       const weekly = a.weekly_data[currentViewWeek] || { qa: [], audits: [] };
       const qas = weekly.qa || []; const audits = weekly.audits || [];
-      const currentQAControlMonth = weekly.month || "JUNE"; 
+      const currentQAControlMonth = a.weekly_data['week1'].month || "JUNE"; 
 
       document.getElementById('dashboardView').innerHTML = `
         <div class="kpi-row">
@@ -172,7 +171,8 @@
     }
 
     function renderScoreSection() {
-      const wdStatic = activeAgent.weekly_data[currentViewWeek] || {}; 
+      // GI-FIXED NAKO DINHI APIL ANG MGA EXTRACTED SCORES KADA WEEK 1 PARAS STATIC WHOLE MONTH MATRIX
+      const wdStatic = activeAgent.weekly_data['week1'] || {}; 
       const fScr = wdStatic.f_scr !== undefined ? wdStatic.f_scr : 0; 
       const phoneTime = wdStatic.phone_time !== undefined ? wdStatic.phone_time : 0;
       const qaScore = wdStatic.qa_score !== undefined ? wdStatic.qa_score : 0;
@@ -187,8 +187,8 @@
       const mtdAverage = activeScores.length > 0 ? (activeScores.reduce((a,b) => a+b, 0) / activeScores.length).toFixed(2) : "0.00";
 
       let badgeStyle = "status-badge-red";
+      if (standardScore >= 75) badgeStyle = "status-badge-yellow";
       if (standardScore >= 90) badgeStyle = "status-badge-green";
-      else if (standardScore >= 75) badgeStyle = "status-badge-yellow";
 
       return `
         <div class="progress-section">
@@ -203,10 +203,10 @@
             </table>
             <div style="font-size:0.65rem; color:#94a3b8; font-weight:800; margin-top:20px; margin-bottom:5px; text-transform:uppercase;">📅 Weekly Scores for Current Month:</div>
             <div class="mtd-grid">
-                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W1</div><div style="font-weight:800; color:white;">${wd.week1.score || 0}%</div></div>
-                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W2</div><div style="font-weight:800; color:white;">${wd.week2.score || 0}%</div></div>
-                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W3</div><div style="font-weight:800; color:white;">${wd.week3.score || 0}%</div></div>
-                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W4</div><div style="font-weight:800; color:white;">${wd.week4.score || 0}%</div></div>
+                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W1</div><div style="font-weight:800; color:white;">${s1}%</div></div>
+                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W2</div><div style="font-weight:800; color:white;">${s2}%</div></div>
+                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W3</div><div style="font-weight:800; color:white;">${s3}%</div></div>
+                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W4</div><div style="font-weight:800; color:white;">${s4}%</div></div>
                 <div style="text-align:center; border-left:2px solid var(--primary); padding-left:10px;"><div style="font-size:0.6rem; color:var(--primary);">MTD</div><div style="color:var(--primary); font-weight:800;">${mtdAverage}%</div></div>
             </div>
         </div><div style="margin-bottom:20px;"></div>`;
