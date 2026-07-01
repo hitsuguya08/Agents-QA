@@ -4,58 +4,53 @@
   <meta charset="UTF-8" />
   <title>QA Pro | Analytics Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://googleapis.com family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+  <link href="https://googleapis.com" rel="stylesheet">
   <style>
     :root { --primary: #f59e0b; --bg: #fef3c7; --card: #0f172a; --border: rgba(255,255,255,0.1); }
     * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #000; margin: 0; padding: 0; transition: 0.5s; }
-    
     .header-main { background: #020617; padding: 15px 30px; color: var(--primary); border-bottom: 5px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
     .header-main h1 { margin: 0; font-size: 1.1rem; font-weight: 800; letter-spacing: 2px; flex: 1; text-align: center; }
     .admin-btn { background: transparent; color: #94a3b8; font-size: 0.7rem; font-weight: 700; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; text-decoration: none; }
-
     .nav-bar { background: var(--card); border-bottom: 1px solid var(--primary); padding: 12px 0; position: sticky; top: 0; z-index: 100; overflow-x: auto; }
     .nav-inner { display: flex; justify-content: center; gap: 10px; padding: 0 15px; }
     .agent-pill { padding: 8px 18px; border-radius: 30px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: #94a3b8; font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: 0.3s; white-space: nowrap; }
     .agent-pill.active { background: var(--primary); color: #000; border-color: var(--primary); }
-    
     .content-container { max-width: 900px; margin: 30px auto; padding: 0 20px 80px; }
     .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
     .kpi-box { padding: 20px 10px; border-radius: 24px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 125px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
     .kpi-1 { background: var(--card); border: 2px solid var(--primary); } 
     .kpi-2 { background: var(--primary); } 
     .kpi-3 { background: #1e293b; } 
-
     .kpi-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; color: #ffffff !important; opacity: 0.9; }
     .kpi-2 .kpi-label { color: #000 !important; }
     .kpi-value { font-size: 1.8rem; font-weight: 900; line-height: 1; text-transform: uppercase; color: #ffffff !important; }
     .kpi-2 .kpi-value { color: #000 !important; }
-
     .dashboard-tabs { display: flex; gap: 8px; margin-bottom: 20px; background: #020617; padding: 8px; border-radius: 16px; }
     .dash-tab-btn { flex: 1; padding: 12px; border: none; border-radius: 10px; background: transparent; color: #94a3b8; font-weight: 800; font-size: 0.7rem; cursor: pointer; transition: 0.2s; }
     .dash-tab-btn.active { background: var(--primary); color: #000; }
-
     .main-card { background: var(--card); border-radius: 32px; overflow: hidden; color: #ffffff; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
     .card-head { padding: 30px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-
     .progress-section { margin: 20px 30px; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 20px; border: 1px solid var(--border); }
     .progress-label-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 800; font-size: 0.8rem; }
     .progress-bar-bg { width: 100%; height: 14px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
     .progress-bar-fill { height: 100%; width: 0%; border-radius: 10px; transition: 1.5s cubic-bezier(0.1, 0, 0.3, 1); }
+    
+    /* STYLE PARA SA MGA BAG-ONG COLUMNS TABLE */
+    .breakdown-table { width: 100%; border-collapse: collapse; margin-top: 15px; background: rgba(0,0,0,0.2); border-radius: 16px; overflow: hidden; border: 1px solid var(--primary); }
+    .breakdown-table th { background: rgba(0,0,0,0.4); padding: 12px; font-size: 0.65rem; color: #94a3b8; font-weight: 800; text-transform: uppercase; text-align: center; }
+    .breakdown-table td { padding: 14px; text-align: center; font-weight: 800; font-size: 0.95rem; border-top: 1px solid var(--border); color: #fff !important; }
+    .status-badge-green { background: #22c55e; color: #000; padding: 4px 10px; border-radius: 6px; display: inline-block; }
+    .status-badge-yellow { background: #f59e0b; color: #000; padding: 4px 10px; border-radius: 6px; display: inline-block; }
+    .status-badge-red { background: #ef4444; color: #fff; padding: 4px 10px; border-radius: 6px; display: inline-block; }
 
-    .mtd-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 16px; border: 1px solid var(--primary); margin-top: 15px; width: 100%; }
     .table-block { padding: 30px; border-bottom: 1px solid var(--border); }
     .table-block h3 { color: var(--primary); font-size: 0.9rem; margin-bottom: 15px; text-transform: uppercase; }
     table { width: 100%; border-collapse: collapse; }
     td { padding: 15px 10px; border-top: 1px solid var(--border); color: #ffffff !important; font-size: 0.95rem; line-height: 1.6; vertical-align: top; }
-    
-    .audio-player-container { margin-top: 12px; background: #27272a; padding: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); width: 100%; max-width: 500px; }
-    .audio-player-container audio { width: 100%; height: 32px; outline: none; }
-    .audio-label { display: block; font-size: 0.6rem; color: var(--primary); font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
-
     .quote-style { font-weight: 600; color: #fde68a; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 6px; border-left: 3px solid var(--primary); display: inline-block; }
     .modal { display: none; position: fixed; inset: 0; background:rgba(0,0,0,0.95); z-index: 200; justify-content:center; align-items:center; }
-    .modal-content { background:#1e293b; padding:40px; border-radius:30px; width:340px; text-align:center; border: 2px solid var(--primary); }
+    .modal-content { background:var(--card); padding:40px; border-radius:30px; width:340px; text-align:center; border: 2px solid var(--primary); }
     .btn-verify { background: var(--primary); color: #000; padding: 12px; border:none; border-radius:12px; width: 100%; font-weight:800; cursor:pointer; }
     @media (max-width: 600px) { .kpi-row { grid-template-columns: 1fr; } .card-head { flex-direction: column; gap: 15px; text-align: center; } }
   </style>
@@ -159,27 +154,51 @@
     }
 
     function renderScoreSection() {
-      const wd = activeAgent.weekly_data;
-      const s = [wd.week1.score||0, wd.week2.score||0, wd.week3.score||0, wd.week4.score||0];
-      const valid = s.map(Number).filter(v => v > 0);
-      const mtd = valid.length > 0 ? (valid.reduce((a,b) => a+b, 0) / valid.length).toFixed(2) : "0.00";
+      const wd = activeAgent.weekly_data[currentViewWeek];
+      
+      // MGA BAG-ONG METRICS BREAKDOWN VALUES FROM DATA
+      const fScr = wd.f_scr || 0;
+      const phoneTime = wd.phone_time || 0;
+      const qaScore = wd.qa_score || 0;
+      
+      // AUTOMATED COMPILATION PARA SA STANDARD SCORE
+      const metricsArray = [fScr, phoneTime, qaScore].filter(v => v > 0);
+      const standardScore = metricsArray.length > 0 ? (metricsArray.reduce((a,b) => a+b, 0) / metricsArray.length).toFixed(2) : "0.00";
+      
+      // DYNAMIC COLOR BADGE PARA SA STANDARD SCORE
+      let badgeStyle = "status-badge-red";
+      if (standardScore >= 90) badgeStyle = "status-badge-green";
+      else if (standardScore >= 75) badgeStyle = "status-badge-yellow";
 
       return `
         <div class="progress-section">
             <div class="progress-label-row">
-                <span>MONTH-TO-DATE PERFORMANCE</span>
-                <span id="mtdValue" style="color:var(--primary)">${mtd}%</span>
+                <span>WEEKLY PERFORMANCE OVERVIEW</span>
+                <span id="mtdValue" style="color:var(--primary)">${standardScore}%</span>
             </div>
             <div class="progress-bar-bg"><div id="mtdBar" class="progress-bar-fill"></div></div>
         </div>
-        <div style="padding: 0 30px;">
-            <div class="mtd-grid">
-                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W1</div><div style="font-weight:800;">${wd.week1.score}%</div></div>
-                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W2</div><div style="font-weight:800;">${wd.week2.score}%</div></div>
-                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W3</div><div style="font-weight:800;">${wd.week3.score}%</div></div>
-                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W4</div><div style="font-weight:800;">${wd.week4.score}%</div></div>
-                <div style="text-align:center; border-left:2px solid var(--primary); padding-left:10px;"><div style="font-size:0.6rem; color:var(--primary);">MTD</div><div style="color:var(--primary); font-weight:800;">${mtd}%</div></div>
-            </div>
+        
+        <!-- BAG-ONG TABLE LAYOUT SAKTO SA IMONG EXCEL PRESET IMAGE -->
+        <div style="padding: 0 30px 20px 30px;">
+            <table class="breakdown-table">
+                <thead>
+                    <tr>
+                        <th>F_SCR</th>
+                        <th>Phone Time</th>
+                        <th>QA</th>
+                        <th>Standard Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>${fScr}%</td>
+                        <td>${phoneTime}%</td>
+                        <td>${qaScore}%</td>
+                        <td><span class="${badgeStyle}">${standardScore}%</span></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>`;
     }
 
@@ -194,24 +213,12 @@
     }
 
     function renderTable(title, data, isQA) {
-      if(!data || data.length === 0) return `<div class="table-block"><h3>${title}</h3><p style="color:#ffffff;">No entries recorded.</p></div>`;
+      if(!data || data.length === 0) return `<div class="table-block"><h3>${title}</h3><p style="color:#ffffff; font-size:0.8rem; margin-top:10px;">No entries recorded.</p></div>`;
       return `<div class="table-block"><h3>${title}</h3><table><tbody>
         ${data.map((item, i) => {
           let text = (typeof item === 'object') ? (item.text || "") : item;
           let link = (isQA && typeof item === 'object') ? (item.link || "") : "";
-          let audioData = (isQA && typeof item === 'object') ? (item.audioData || "") : "";
-          
-          let mediaHtml = "";
-          if (audioData && audioData.trim() !== "") {
-              mediaHtml = `
-                <div class="audio-player-container">
-                    <span class="audio-label">🎧 Call Recording Preview:</span>
-                    <audio controls controlsList="nodownload"><source src="${audioData}" type="audio/mpeg"></audio>
-                </div>`;
-          } else if (link && link.trim() !== "") {
-              mediaHtml = `<a href="${link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1px solid var(--primary); padding:6px 12px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 OPEN RECORDING</a>`;
-          }
-
+          let mediaHtml = (link && link.trim() !== "") ? `<a href="${link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1px solid var(--primary); padding:6px 12px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 OPEN RECORDING</a>` : "";
           let fText = text.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
           return `<tr><td style="width:35px; color:var(--primary); font-weight:800; vertical-align:top;">${i+1}</td><td style="color:#ffffff;"><div>${fText}</div>${mediaHtml}</td></tr>`;
         }).join('')}
