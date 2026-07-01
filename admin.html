@@ -80,14 +80,14 @@
         </div>
 
         <div id="editorContent" style="display:none;">
-            <!-- GIBALIK ANG KINAHANGLAN NGA AGENT INFO SA PERMANENTENG LUGAR -->
+            <!-- PERMANENT MAIN CONTAINER ALANG SA AGENT INFO -->
             <div class="form-section">
-                <h3>Agent Info & Previous Month Scorecard (Whole Month)</h3>
+                <h3>Agent Info & General Settings</h3>
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
                     <div><label>Agent Name</label><input type="text" id="editName" oninput="saveAndSync()"></div>
                     <div><label>Password / Access Code</label><input type="text" id="editPass" oninput="saveAndSync()"></div>
                 </div>
-                <div style="margin-top:15px;"><label>Current Month (For QA Block Display)</label><input type="text" id="editMonth" oninput="saveAndSync()" placeholder="JUNE"></div>
+                <div style="margin-top:15px;"><label>Current QA Month Display (Top Card Indicator)</label><input type="text" id="editMonth" oninput="saveAndSync()" placeholder="JUNE"></div>
             </div>
 
             <div class="tabs-container">
@@ -140,141 +140,122 @@
       <textarea id="jsonOutput" class="json-area" readonly onclick="this.select()"></textarea>
       <div style="display:flex; gap:10px; margin-top:25px;"><button class="btn-save" style="flex:1;" onclick="copyJSON()">Copy Code</button><button class="btn-save" style="background:#334155; color:white;" onclick="closeModal()">Close</button></div>
   </div></div>
-    <script>
-    let db = { theme: {}, agents: [] };
-    let activeAgent = null; let currentViewWeek = 'week1'; let isUnlocked = false;
+  <script>
+    let db = { theme: { primary: "#f59e0b", bg: "#fef3c7", card: "#0f172a" }, agents: [] };
+    let selectedIndex = -1; let currentWeek = 'week1';
 
     window.addEventListener('DOMContentLoaded', () => {
-      fetch('data.json?v=' + new Date().getTime()).then(r => r.json()).then(data => { 
-          db = data.agents ? data : { theme: { primary: "#f59e0b" }, agents: data };
-          if(db.theme?.primary) {
-              const root = document.documentElement;
-              root.style.setProperty('--primary', db.theme.primary);
-              root.style.setProperty('--bg', db.theme.bg || "#fef3c7");
-              root.style.setProperty('--card', db.theme.card || "#0f172a");
-          }
-          renderPills(db.agents); 
-        });
+      const savedData = localStorage.getItem('qa_dashboard_v5_data');
+      if (savedData) { 
+        db = JSON.parse(savedData); applyThemeInputs(); renderSidebar(); 
+      } else {
+        fetch('data.json').then(r => r.json()).then(data => {
+            db = data.agents ? data : { theme: db.theme, agents: data };
+            saveToLocal(); renderSidebar(); applyThemeInputs();
+        }).catch(() => { renderSidebar(); });
+      }
     });
 
-    function renderPills(agents) {
-      const box = document.getElementById('agentPills'); box.innerHTML = '';
-      agents.forEach((agent, i) => {
-        const pill = document.createElement('div'); pill.className = 'agent-pill';
-        pill.innerHTML = `<div class="dot" style="background:var(--primary); width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:8px;"></div> ${agent.name}`;
-        pill.onclick = () => { selectAgent(agent, pill); };
-        box.appendChild(pill); if(i === 0) pill.click();
-      });
+    function saveToLocal() { localStorage.setItem('qa_dashboard_v5_data', JSON.stringify(db)); }
+    function applyThemeInputs() {
+      document.getElementById('themePrimary').value = db.theme.primary;
+      document.getElementById('themeBg').value = db.theme.bg;
+      document.getElementById('themeCard').value = db.theme.card;
+    }
+    function setTheme(p, b, c) { db.theme = { primary: p, bg: b, card: c }; applyThemeInputs(); saveAndSync(); }
+    
+    function renderSidebar() {
+      const list = document.getElementById('agentList');
+      list.innerHTML = db.agents.map((a, i) => `
+        <div class="agent-item ${i === selectedIndex ? 'active' : ''}" onclick="selectAgent(${i})">
+          <span>${a.name}</span><button class="btn-del-agent" onclick="deleteAgent(${i}, event)">✕</button>
+        </div>`).join('');
     }
 
-    function selectAgent(agent, element) {
-      activeAgent = agent; isUnlocked = false; currentViewWeek = 'week1';
-      document.querySelectorAll('.agent-pill').forEach(el => el.classList.remove('active'));
-      element.classList.add('active'); renderDashboard();
-    }
-
-    function switchDashboardWeek(week) { currentViewWeek = week; renderDashboard(); }
-
-    function renderDashboard() {
-      const a = activeAgent; 
-      if(!a.weekly_data) {
-          a.weekly_data = { 
-            week1:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, 
-            week2:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, 
-            week3:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, 
-            week4:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]} 
-          };
-      }
-      const weekly = a.weekly_data[currentViewWeek] || { qa: [], audits: [] };
-      const qas = weekly.qa || []; const audits = weekly.audits || [];
-      const currentQAControlMonth = a.month || "JUNE"; 
-
-      document.getElementById('dashboardView').innerHTML = `
-        <div class="kpi-row">
-            <div class="kpi-box kpi-1"><div class="kpi-label">MONTH</div><div class="kpi-value">${currentQAControlMonth}</div></div>
-            <div class="kpi-box kpi-2"><div class="kpi-label">QA EVALS</div><div class="kpi-value">${qas.length}</div></div>
-            <div class="kpi-box kpi-3"><div class="kpi-label">AUDITS</div><div class="kpi-value">${audits.length}</div></div>
-        </div>
-        <div class="dashboard-tabs">
-            <button class="dash-tab-btn ${currentViewWeek === 'week1' ? 'active' : ''}" onclick="switchDashboardWeek('week1')">WEEK 1</button>
-            <button class="dash-tab-btn ${currentViewWeek === 'week2' ? 'active' : ''}" onclick="switchDashboardWeek('week2')">WEEK 2</button>
-            <button class="dash-tab-btn ${currentViewWeek === 'week3' ? 'active' : ''}" onclick="switchDashboardWeek('week3')">WEEK 3</button>
-            <button class="dash-tab-btn ${currentViewWeek === 'week4' ? 'active' : ''}" onclick="switchDashboardWeek('week4')">WEEK 4</button>
-        </div>
-        <div class="main-card">
-            <div class="card-head">
-                <h2 style="margin:0; color:var(--primary)">${a.name}</h2>
-                <div class="btn-group">
-                    <button style="background:transparent; color:var(--primary); border:1px solid var(--primary); padding:8px 15px; border-radius:10px; cursor:pointer; font-size:0.7rem; font-weight:800;" onclick="window.location.href='mailto:hitsuguya08@gmail.com'">✉️ CLARIFY FEEDBACK</button>
-                    ${!isUnlocked ? '<button class="btn-verify" style="width:auto; padding:10px 20px; font-size:0.75rem;" onclick="openAgentModal()">🔐 UNLOCK MTD SCORES</button>' : ''}
-                </div>
-            </div>
-            ${isUnlocked ? renderScoreSection() : ''}
-            ${renderTable('QA Feedback (' + currentViewWeek.toUpperCase() + ')', qas, true)}
-            ${renderTable('Dispo Audits', audits, false)}
-        </div>`;
-      if(isUnlocked) { setTimeout(updateProgressBar, 100); }
-    }
-
-    function renderScoreSection() {
-      // 1. DYNAMIC MAPPING: KUNG UNSA NGA TAB ANG GI-CLICK, MAO MAO SAB ANG MO-LOAD DIRETSO SA MATRIX TABLE
-      const wdCurrent = activeAgent.weekly_data[currentViewWeek] || {}; 
-      const fScr = wdCurrent.f_scr !== undefined ? wdCurrent.f_scr : 0; 
-      const phoneTime = wdCurrent.phone_time !== undefined ? wdCurrent.phone_time : 0;
-      const qaScore = wdCurrent.qa_score !== undefined ? wdCurrent.qa_score : 0;
-      const standardScore = wdCurrent.score !== undefined ? wdCurrent.score : 0; 
-      const previousScorecardMonth = wdCurrent.month || "MAY"; 
-
-      // 2. FIXED EXTRACTION PARA SA CURRENT MONTH HORIZONTAL MTD GRIDS PANEL
-      const wd = activeAgent.weekly_data;
-      const s1 = wd.week1 ? (wd.week1.score || 0) : 0;
-      const s2 = wd.week2 ? (wd.week2.score || 0) : 0;
-      const s3 = wd.week3 ? (wd.week3.score || 0) : 0;
-      const s4 = wd.week4 ? (wd.week4.score || 0) : 0;
+    function selectAgent(index) {
+      selectedIndex = index; const a = db.agents[index];
+      if(!a.weekly_data) a.weekly_data = { week1:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week2:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week3:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week4:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]} };
+      document.getElementById('editorContent').style.display = 'block';
+      document.getElementById('editingTitle').innerText = "Editing: " + a.name;
       
-      const activeScores = [s1, s2, s3, s4].map(Number).filter(v => v > 0);
-      const mtdAverage = activeScores.length > 0 ? (activeScores.reduce((a,b) => a+b, 0) / activeScores.length).toFixed(2) : "0.00";
-
-      let badgeStyle = "status-badge-red";
-      if (standardScore >= 75) badgeStyle = "status-badge-yellow";
-      if (standardScore >= 90) badgeStyle = "status-badge-green";
-
-      return `
-        <div class="progress-section">
-            <div class="progress-label-row"><span>PREVIOUS MONTH PERFORMANCE OVERVIEW</span><span id="mtdValue" style="color:var(--primary)">${standardScore}%</span></div>
-            <div class="progress-bar-bg"><div id="mtdBar" class="progress-bar-fill"></div></div>
-        </div>
-        <div style="padding: 0 30px;">
-            <div style="font-size:0.65rem; color:#94a3b8; font-weight:800; margin-bottom:5px; text-transform:uppercase;">📊 Whole Month Scorecard for: <span style="color:var(--primary); font-size:0.75rem;">${previousScorecardMonth}</span></div>
-            <table class="breakdown-table">
-                <thead><tr><th>F_SCR</th><th>Phone Time</th><th>QA</th><th>Standard Score</th></tr></thead>
-                <tbody><tr><td>${fScr}%</td><td>${phoneTime}%</td><td>${qaScore}%</td><td><span class="${badgeStyle}">${standardScore}%</span></td></tr></tbody>
-            </table>
-            <div style="font-size:0.65rem; color:#94a3b8; font-weight:800; margin-top:20px; margin-bottom:5px; text-transform:uppercase;">📅 Weekly Scores for Current Month:</div>
-            <div class="mtd-grid">
-                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W1</div><div style="font-weight:800; color:white;">${s1}%</div></div>
-                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W2</div><div style="font-weight:800; color:white;">${s2}%</div></div>
-                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W3</div><div style="font-weight:800; color:white;">${s3}%</div></div>
-                <div style="text-align:center;"><div style="font-size:0.6rem; color:#94a3b8;">W4</div><div style="font-weight:800; color:white;">${s4}%</div></div>
-                <div style="text-align:center; border-left:2px solid var(--primary); padding-left:10px;"><div style="font-size:0.6rem; color:var(--primary);">MTD</div><div style="color:var(--primary); font-weight:800;">${mtdAverage}%</div></div>
-            </div>
-        </div><div style="margin-bottom:20px;"></div>`;
+      document.getElementById('editName').value = a.name; 
+      document.getElementById('editPass').value = a.password;
+      document.getElementById('editMonth').value = a.month || "JUNE";
+      
+      switchTab(currentWeek); renderSidebar();
     }
 
-    function updateProgressBar() {
-        const mtd = parseFloat(document.getElementById('mtdValue').innerText); const bar = document.getElementById('mtdBar'); if(!bar) return;
-        bar.style.width = mtd + "%";
-        if (mtd >= 90) bar.style.background = "#22c55e"; else if (mtd >= 75) bar.style.background = "#f59e0b"; else bar.style.background = "#ef4444";
+    function switchTab(week) {
+      currentWeek = week;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('btn-' + week).classList.add('active');
+      const data = db.agents[selectedIndex].weekly_data[week] || { month:"MAY", score:0, f_scr:0, phone_time:0, qa_score:0, qa:[], audits:[] };
+      
+      document.getElementById('weeklyMonthInput').value = data.month || "MAY";
+      document.getElementById('standardScoreInput').value = data.score || 0;
+      document.getElementById('fScrInput').value = data.f_scr || 0;
+      document.getElementById('phoneTimeInput').value = data.phone_time || 0;
+      document.getElementById('qaScoreInput').value = data.qa_score || 0;
+      
+      renderList('qa', data.qa || []); renderList('audits', data.audits || []);
     }
 
-    function openAgentModal() { document.getElementById('pwInput').value = ''; document.getElementById('passwordModal').style.display = 'flex'; }
-    function openAdminModal() { document.getElementById('adminPwInput').value = ''; document.getElementById('adminModal').style.display = 'flex'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-    function verifyAdmin() { if (document.getElementById('adminPwInput').value === "Jeikaaru-08!") { window.location.href = "admin.html"; } else { alert("❌ Unauthorized"); } }
-    function verifyAndShowScores() { if(activeAgent && document.getElementById('pwInput').value.trim() === activeAgent.password.toString().trim()) { isUnlocked = true; renderDashboard(); closeModal('passwordModal'); } else { alert('❌ Incorrect Access Code'); } }
+    function renderList(type, data) {
+      const container = document.getElementById(type === 'qa' ? 'qaContainer' : 'auditContainer');
+      container.innerHTML = data.map((item, i) => {
+        const text = typeof item === 'object' ? item.text : item;
+        const link = typeof item === 'object' ? item.link : "";
+        return `<div style="background:white; padding:15px; border-radius:10px; margin-bottom:10px; border:1px solid #e2e8f0;">
+          <div style="display:flex; gap:10px;">
+            <textarea oninput="updateItem('${type}', ${i}, 'text', this.value)" style="flex:1; min-height:60px;">${text}</textarea>
+            <button onclick="removeItem('${type}', ${i})" style="color:red; border:none; background:none; cursor:pointer;">✕</button>
+          </div>
+          ${type==='qa'?`<input type="text" placeholder="Recording Link" value="${link}" oninput="updateItem('${type}', ${i}, 'link', this.value)" style="margin-top:10px; font-size:0.7rem;">`:''}
+        </div>`;
+      }).join('');
+    }
+
+    function updateItem(type, index, field, val) {
+      if(!db.agents[selectedIndex].weekly_data[currentWeek][type][index]) return;
+      db.agents[selectedIndex].weekly_data[currentWeek][type][index][field] = val; saveToLocal();
+    }
+    function addRow(type) { db.agents[selectedIndex].weekly_data[currentWeek][type].push({ text: "New Entry", link: "" }); switchTab(currentWeek); saveToLocal(); }
+    function removeItem(type, index) { db.agents[selectedIndex].weekly_data[currentWeek][type].splice(index, 1); switchTab(currentWeek); saveToLocal(); }
+    
+    function updateWeeklyMetric(field, v) { 
+      if (field === 'month') db.agents[selectedIndex].weekly_data[currentWeek][field] = v;
+      else db.agents[selectedIndex].weekly_data[currentWeek][field] = parseFloat(v) || 0; 
+      saveToLocal(); 
+    }
+
+    function clearWeeklyData() {
+      if (selectedIndex === -1) return;
+      if (confirm(`Reset all data for this week?`)) {
+        db.agents[selectedIndex].weekly_data[currentWeek] = { month:"MAY", score: 0, f_scr: 0, phone_time: 0, qa_score: 0, qa: [], audits: [] };
+        saveToLocal(); switchTab(currentWeek);
+      }
+    }
+
+    function saveAndSync() {
+      db.theme.primary = document.getElementById('themePrimary').value;
+      db.theme.bg = document.getElementById('themeBg').value;
+      db.theme.card = document.getElementById('themeCard').value;
+      if(selectedIndex !== -1) {
+        db.agents[selectedIndex].name = document.getElementById('editName').value;
+        db.agents[selectedIndex].password = document.getElementById('editPass').value;
+        db.agents[selectedIndex].month = document.getElementById('editMonth').value.toUpperCase();
+      }
+      saveToLocal(); renderSidebar();
+    }
+
+    function addNewAgent() {
+      db.agents.push({ name: "New Agent", password: "123", month: "JUNE", weekly_data: { week1:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week2:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week3:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week4:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]} } });
+      saveToLocal(); renderSidebar();
+    }
+    function deleteAgent(i, e) { e.stopPropagation(); if(confirm("Delete Agent?")) { db.agents.splice(i, 1); saveToLocal(); renderSidebar(); } }
+    function showExport() { document.getElementById('jsonOutput').value = JSON.stringify(db, null, 2); document.getElementById('exportModal').style.display = 'flex'; }
+    function closeModal() { document.getElementById('exportModal').style.display = 'none'; }
+    function copyJSON() { navigator.clipboard.writeText(document.getElementById('jsonOutput').value); alert("Copied!"); }
   </script>
-</body>
-</html>
-
 </body>
 </html>
