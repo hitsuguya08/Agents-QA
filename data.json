@@ -133,8 +133,39 @@
           "audits": []
         },
         "week4": {
-          "score": 0,
-          "qa": [],
+          "score": 92.34,
+          "qa": [
+            {
+              "text": "Transfer @ 04:03 cx said \"I'm at work right now so better off like at five.\" Agent played 2 (No 2nd Rnd) instead of 2 (No 1st Rnd) - PC BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "Credit @ 01:51 - slight delay - PC BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "Pitch @ 01:00 - slight delay - PC BR ",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "Greetings @ 00:17 - slight delay - PC BR \nMain Reason @ 01:38 - slight delay in applying silent rule - PC BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "Pitch @ 00:48 - slight delay - PC BR",
+              "link": "",
+              "audioData": ""
+            }
+          ],
           "audits": []
         }
       }
@@ -201,7 +232,7 @@
           ]
         },
         "week2": {
-          "score": 87.36,
+          "score": 92.68,
           "qa": [
             {
               "text": "GOOD CALL",
@@ -229,7 +260,7 @@
               "audioData": ""
             },
             {
-              "text": "PITCH - @2:14 Major delay -- SB.WI (FOR DISPUTE)",
+              "text": "PITCH - @2:14 Major delay -- SB.WI (DISPUTED)",
               "link": "",
               "audioData": ""
             },
@@ -283,8 +314,39 @@
           "audits": []
         },
         "week4": {
-          "score": 0,
-          "qa": [],
+          "score": 91.34,
+          "qa": [
+            {
+              "text": "WI Mobile/Log @ 01:55 - slight delay - WI\nTCPA @ 02:52 cx said \"Yes, I understand that and to let you know I had a private life for many, many years due to the job that I had with the government and nobody ever called me. I never got any scam calls or anybody else could contact me until the Biden administration came along and that mob of idiots opened up the special ops community's information to the world, so we don't have any privacy anymore.\" Agent slight delay in pressing I (I Understand 2nd Rnd) + 32 (Quick Repeat) instead of \\ (Scam) + 32 (Quick Repeat) - WI",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "TCPA @ 02:23 - slight delay - WI ",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "Greetings @ 00:40 - slight delay; Pitch @ @ 01:32; @ 01:42; @ 01:53 - slight delays - WI",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "Main Reason @  01:50 - slight delay - WI",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "TCPA @ 03:06 - slight delay - WI",
+              "link": "",
+              "audioData": ""
+            }
+          ],
           "audits": []
         }
       }
@@ -386,8 +448,39 @@
           "audits": []
         },
         "week4": {
-          "score": 0,
-          "qa": [],
+          "score": 95.02,
+          "qa": [
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "Main Reason @ 00:59 cx said \"I have no plans of renewing, renewing...the, the bathroom but, my house needs repairs.\" Agent played 11 (Generic Reason) instead of 4 (Not Interested); Walk In Tub @ 01:50 - slight delay - PC BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "TCPA @ 03:48 - slight delay - PC BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "Own Home @ 01:21 - slight delay; Credit @ 02:16 - slight delay - PC BR",
+              "link": "",
+              "audioData": ""
+            }
+          ],
           "audits": []
         }
       }
@@ -536,8 +629,39 @@
           "audits": []
         },
         "week4": {
-          "score": 0,
-          "qa": [],
+          "score": 89.68,
+          "qa": [
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "PITCH - @00:55 Slight delay ; @1:00 Bumping key .PC.HW",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "PITCH - @00:44 Some delay .PC.HW",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "SURVEY - VALUE - @1:34 Slight delay in applying the silent rule ; @1:41 After H(Hello), cx said \"Yeah.\",  agent pressed  1(Yes)  instead of   3(Unsure) .PC.HW",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GREETINGS - @00:30 Some delay .PC.HW",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            }
+          ],
           "audits": []
         }
       }
@@ -594,8 +718,39 @@
           "audits": []
         },
         "week4": {
-          "score": 0,
-          "qa": [],
+          "score": 89.68,
+          "qa": [
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "PITCH - @00:55 Slight delay .SB.BR\nSURVEY - MAIN REASON - @2:00 Slight delay .SB.BR",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "PITCH - @1:15 Slight delay ; @1:36 Cx said \"I said, I do own my home and it's not new, it's old.\",  agent pressed    ](No Problem)  +  unnecessary stopping the script  1(Yes - Pitch)  +    32(SR - Pitch)  instead of continuing the script   1(Yes - Pitch) .SB.WI\n",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "PITCH - @00:22 Unnecessary stopping .SB.WI",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": "",
+              "audioData": ""
+            },
+            {
+              "text": "PITCH - @00:32 Cx interrupted & said \"Let me stop you there. I've never requested a price on home windows.\",  agent pressed    41(Imm No)  instead of    >(WI - How Get Number) ; @00:59 Bumping key .SB.WI",
+              "link": "",
+              "audioData": ""
+            }
+          ],
           "audits": []
         }
       }
