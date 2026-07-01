@@ -79,6 +79,22 @@
       <p onclick="closeModal('adminModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
     </div>
   </div>
+
+  <script>
+    // HELPER TABLE ENGINE - INILIPAT DITO PARA UMIKLI ANG PART 3
+    function renderTable(title, data, isQA) {
+      if(!data || data.length === 0) return `<div class="table-block"><h3>${title}</h3><p style="color:#ffffff; font-size:0.8rem; margin-top:10px;">No entries recorded.</p></div>`;
+      return `<div class="table-block"><h3>${title}</h3><table><tbody>
+        ${data.map((item, i) => {
+          let text = (typeof item === 'object') ? (item.text || "") : item;
+          let link = (isQA && typeof item === 'object') ? (item.link || "") : "";
+          let mediaHtml = (link && link.trim() !== "") ? `<a href="${link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1px solid var(--primary); padding:6px 12px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 OPEN RECORDING</a>` : "";
+          let fText = text.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
+          return `<tr><td style="width:35px; color:var(--primary); font-weight:800; vertical-align:top;">${i+1}</td><td style="color:#ffffff;"><div>${fText}</div>${mediaHtml}</td></tr>`;
+        }).join('')}
+      </tbody></table></div>`;
+    }
+  </script>
   <script>
     let db = { theme: {}, agents: [] };
     let activeAgent = null; let currentViewWeek = 'week1'; let isUnlocked = false;
@@ -115,9 +131,18 @@
     function switchDashboardWeek(week) { currentViewWeek = week; renderDashboard(); }
 
     function renderDashboard() {
-      const a = activeAgent; const weekly = a.weekly_data[currentViewWeek];
+      const a = activeAgent; 
+      if(!a.weekly_data) {
+          a.weekly_data = { 
+            week1:{month:"JUNE",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, 
+            week2:{month:"JUNE",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, 
+            week3:{month:"JUNE",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, 
+            week4:{month:"JUNE",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]} 
+          };
+      }
+      const weekly = a.weekly_data[currentViewWeek] || { qa: [], audits: [] };
       const qas = weekly.qa || []; const audits = weekly.audits || [];
-      const currentQAControlMonth = activeAgent.weekly_data['week1'].month || "JUNE"; 
+      const currentQAControlMonth = weekly.month || "JUNE"; 
 
       document.getElementById('dashboardView').innerHTML = `
         <div class="kpi-row">
@@ -147,7 +172,7 @@
     }
 
     function renderScoreSection() {
-      const wdStatic = activeAgent.weekly_data['week1'] || {}; 
+      const wdStatic = activeAgent.weekly_data[currentViewWeek] || {}; 
       const fScr = wdStatic.f_scr !== undefined ? wdStatic.f_scr : 0; 
       const phoneTime = wdStatic.phone_time !== undefined ? wdStatic.phone_time : 0;
       const qaScore = wdStatic.qa_score !== undefined ? wdStatic.qa_score : 0;
@@ -185,19 +210,6 @@
                 <div style="text-align:center; border-left:2px solid var(--primary); padding-left:10px;"><div style="font-size:0.6rem; color:var(--primary);">MTD</div><div style="color:var(--primary); font-weight:800;">${mtdAverage}%</div></div>
             </div>
         </div><div style="margin-bottom:20px;"></div>`;
-    }
-
-    function renderTable(title, data, isQA) {
-      if(!data || data.length === 0) return `<div class="table-block"><h3>${title}</h3><p style="color:#ffffff; font-size:0.8rem; margin-top:10px;">No entries recorded.</p></div>`;
-      return `<div class="table-block"><h3>${title}</h3><table><tbody>
-        ${data.map((item, i) => {
-          let text = (typeof item === 'object') ? (item.text || "") : item;
-          let link = (isQA && typeof item === 'object') ? (item.link || "") : "";
-          let mediaHtml = (link && link.trim() !== "") ? `<a href="${link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1px solid var(--primary); padding:6px 12px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 OPEN RECORDING</a>` : "";
-          let fText = text.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
-          return `<tr><td style="width:35px; color:var(--primary); font-weight:800; vertical-align:top;">${i+1}</td><td style="color:#ffffff;"><div>${fText}</div>${mediaHtml}</td></tr>`;
-        }).join('')}
-      </tbody></table></div>`;
     }
 
     function updateProgressBar() {
