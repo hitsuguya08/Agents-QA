@@ -80,37 +80,14 @@
         </div>
 
         <div id="editorContent" style="display:none;">
-            <!-- GLOBAL WHOLE PREVIOUS MONTH SCORECARD FIELDS -->
             <div class="form-section">
+                <!-- STATIC TOP PANELS COMPLIANT SA IMONG SCREENSHOT -->
                 <h3>Agent Info & Previous Month Scorecard (Whole Month)</h3>
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
                     <div><label>Agent Name</label><input type="text" id="editName" oninput="saveAndSync()"></div>
                     <div><label>Password / Access Code</label><input type="text" id="editPass" oninput="saveAndSync()"></div>
                 </div>
-                <div style="margin-top:15px;"><label>Current Month (For QA Block)</label><input type="text" id="editMonth" oninput="saveAndSync()" placeholder="JUNE"></div>
-                
-                <div class="metric-inputs-grid">
-                    <div>
-                        <label>Previous Month Name</label>
-                        <input type="text" id="scorecardMonthInput" oninput="updateAgentGlobalMetric('scorecard_month', this.value.toUpperCase())" placeholder="MAY">
-                    </div>
-                    <div>
-                        <label>F_SCR Score (%)</label>
-                        <input type="number" step="0.01" id="fScrInput" oninput="updateAgentGlobalMetric('f_scr', this.value)" placeholder="96.37">
-                    </div>
-                    <div>
-                        <label>Phone Time (%)</label>
-                        <input type="number" step="0.01" id="phoneTimeInput" oninput="updateAgentGlobalMetric('phone_time', this.value)" placeholder="100.00">
-                    </div>
-                    <div>
-                        <label>QA Score (%)</label>
-                        <input type="number" step="0.01" id="qaScoreInput" oninput="updateAgentGlobalMetric('qa_score', this.value)" placeholder="81.82">
-                    </div>
-                    <div>
-                        <label>Standard Score (%)</label>
-                        <input type="number" step="0.01" id="standardScoreInput" oninput="updateAgentGlobalMetric('score', this.value)" placeholder="86.91">
-                    </div>
-                </div>
+                <div style="margin-top:15px;"><label>Current Month (For QA Block Display)</label><input type="text" id="editMonth" oninput="saveAndSync()" placeholder="JUNE"></div>
             </div>
 
             <div class="tabs-container">
@@ -122,13 +99,37 @@
 
             <div class="form-section">
                 <h3 id="currentWeekTitle">WEEK DATA</h3>
-                <h3 style="margin-top:10px; font-size:0.8rem;">QA Feedback</h3>
+                
+                <div class="metric-inputs-grid">
+                    <div>
+                        <label>Previous Month Name</label>
+                        <input type="text" id="weeklyMonthInput" oninput="updateWeeklyMetric('month', this.value.toUpperCase())" placeholder="MAY">
+                    </div>
+                    <div>
+                        <label>F_SCR Score (%)</label>
+                        <input type="number" step="0.01" id="fScrInput" oninput="updateWeeklyMetric('f_scr', this.value)" placeholder="90.98">
+                    </div>
+                    <div>
+                        <label>Phone Time (%)</label>
+                        <input type="number" step="0.01" id="phoneTimeInput" oninput="updateWeeklyMetric('phone_time', this.value)" placeholder="100.00">
+                    </div>
+                    <div>
+                        <label>QA Score (%)</label>
+                        <input type="number" step="0.01" id="qaScoreInput" oninput="updateWeeklyMetric('qa_score', this.value)" placeholder="87.46">
+                    </div>
+                    <div>
+                        <label>Standard Score (%)</label>
+                        <input type="number" step="0.01" id="standardScoreInput" oninput="updateWeeklyMetric('score', this.value)" placeholder="90.32">
+                    </div>
+                </div>
+                
+                <h3 style="margin-top:30px; font-size:0.8rem;">WEEK DATA (QA Feedback)</h3>
                 <div id="qaContainer"></div>
-                <button class="btn-add" onclick="addRow('qa')">+ Add Feedback</button>
+                <button class="btn-add" onclick="addRow('qa')">+ Add Feedback Entry</button>
 
                 <h3 style="margin-top:30px; font-size:0.8rem;">Dispo Audits</h3>
                 <div id="auditContainer"></div>
-                <button class="btn-add" onclick="addRow('audits')">+ Add Audit</button>
+                <button class="btn-add" onclick="addRow('audits')">+ Add Audit Entry</button>
             </div>
         </div>
     </div>
@@ -141,8 +142,7 @@
   </div></div>
   <script>
     let db = { theme: { primary: "#f59e0b", bg: "#fef3c7", card: "#0f172a" }, agents: [] };
-    let selectedIndex = -1;
-    let currentWeek = 'week1';
+    let selectedIndex = -1; let currentWeek = 'week1';
 
     window.addEventListener('DOMContentLoaded', () => {
       const savedData = localStorage.getItem('qa_dashboard_v5_data');
@@ -162,44 +162,41 @@
       document.getElementById('themeBg').value = db.theme.bg;
       document.getElementById('themeCard').value = db.theme.card;
     }
-    function setTheme(p, b, c) {
-      db.theme = { primary: p, bg: b, card: c };
-      applyThemeInputs(); saveAndSync();
-    }
+    function setTheme(p, b, c) { db.theme = { primary: p, bg: b, card: c }; applyThemeInputs(); saveAndSync(); }
+    
     function renderSidebar() {
       const list = document.getElementById('agentList');
       list.innerHTML = db.agents.map((a, i) => `
         <div class="agent-item ${i === selectedIndex ? 'active' : ''}" onclick="selectAgent(${i})">
-          <span>${a.name}</span>
-          <button class="btn-del-agent" onclick="deleteAgent(${i}, event)">✕</button>
+          <span>${a.name}</span><button class="btn-del-agent" onclick="deleteAgent(${i}, event)">✕</button>
         </div>`).join('');
     }
+
     function selectAgent(index) {
-      selectedIndex = index;
-      const a = db.agents[index];
-      if(!a.weekly_data) a.weekly_data = { week1:{qa:[],audits:[]}, week2:{qa:[],audits:[]}, week3:{qa:[],audits:[]}, week4:{qa:[],audits:[]} };
+      selectedIndex = index; const a = db.agents[index];
+      if(!a.weekly_data) a.weekly_data = { week1:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week2:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week3:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week4:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]} };
       document.getElementById('editorContent').style.display = 'block';
       document.getElementById('editingTitle').innerText = "Editing: " + a.name;
-      document.getElementById('editName').value = a.name;
-      document.getElementById('editPass').value = a.password;
+      document.getElementById('editName').value = a.name; document.getElementById('editPass').value = a.password;
       document.getElementById('editMonth').value = a.month || "JUNE";
-      
-      // LOAD THE GLOBAL AGENT MONTHLY METRICS
-      document.getElementById('scorecardMonthInput').value = a.scorecard_month || "MAY";
-      document.getElementById('fScrInput').value = a.f_scr || 0;
-      document.getElementById('phoneTimeInput').value = a.phone_time || 0;
-      document.getElementById('qaScoreInput').value = a.qa_score || 0;
-      document.getElementById('standardScoreInput').value = a.score || 0;
-
       switchTab(currentWeek); renderSidebar();
     }
+
     function switchTab(week) {
       currentWeek = week;
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       document.getElementById('btn-' + week).classList.add('active');
-      const data = db.agents[selectedIndex].weekly_data[week];
+      const data = db.agents[selectedIndex].weekly_data[week] || { month:"MAY", score:0, f_scr:0, phone_time:0, qa_score:0, qa:[], audits:[] };
+      
+      document.getElementById('weeklyMonthInput').value = data.month || "MAY";
+      document.getElementById('standardScoreInput').value = data.score || 0;
+      document.getElementById('fScrInput').value = data.f_scr || 0;
+      document.getElementById('phoneTimeInput').value = data.phone_time || 0;
+      document.getElementById('qaScoreInput').value = data.qa_score || 0;
+      
       renderList('qa', data.qa || []); renderList('audits', data.audits || []);
     }
+
     function renderList(type, data) {
       const container = document.getElementById(type === 'qa' ? 'qaContainer' : 'auditContainer');
       container.innerHTML = data.map((item, i) => {
@@ -214,28 +211,28 @@
         </div>`;
       }).join('');
     }
+
     function updateItem(type, index, field, val) {
-      if(typeof db.agents[selectedIndex].weekly_data[currentWeek][type][index] !== 'object') {
-        db.agents[selectedIndex].weekly_data[currentWeek][type][index] = { text: db.agents[selectedIndex].weekly_data[currentWeek][type][index], link: "" };
-      }
+      if(!db.agents[selectedIndex].weekly_data[currentWeek][type][index]) return;
       db.agents[selectedIndex].weekly_data[currentWeek][type][index][field] = val; saveToLocal();
     }
-    function addRow(type) {
-      db.agents[selectedIndex].weekly_data[currentWeek][type].push({ text: "New Entry", link: "" });
-      switchTab(currentWeek); saveToLocal();
-    }
-    function removeItem(type, index) {
-      db.agents[selectedIndex].weekly_data[currentWeek][type].splice(index, 1);
-      switchTab(currentWeek); saveToLocal();
-    }
-    function updateAgentGlobalMetric(field, v) { 
-      if (field === 'scorecard_month') {
-        db.agents[selectedIndex][field] = v;
-      } else {
-        db.agents[selectedIndex][field] = parseFloat(v) || 0; 
-      }
+    function addRow(type) { db.agents[selectedIndex].weekly_data[currentWeek][type].push({ text: "New Entry", link: "" }); switchTab(currentWeek); saveToLocal(); }
+    function removeItem(type, index) { db.agents[selectedIndex].weekly_data[currentWeek][type].splice(index, 1); switchTab(currentWeek); saveToLocal(); }
+    
+    function updateWeeklyMetric(field, v) { 
+      if (field === 'month') db.agents[selectedIndex].weekly_data[currentWeek][field] = v;
+      else db.agents[selectedIndex].weekly_data[currentWeek][field] = parseFloat(v) || 0; 
       saveToLocal(); 
     }
+
+    function clearWeeklyData() {
+      if (selectedIndex === -1) return;
+      if (confirm(`Reset all data for this week?`)) {
+        db.agents[selectedIndex].weekly_data[currentWeek] = { month:"MAY", score: 0, f_scr: 0, phone_time: 0, qa_score: 0, qa: [], audits: [] };
+        saveToLocal(); switchTab(currentWeek);
+      }
+    }
+
     function saveAndSync() {
       db.theme.primary = document.getElementById('themePrimary').value;
       db.theme.bg = document.getElementById('themeBg').value;
@@ -247,21 +244,15 @@
       }
       saveToLocal(); renderSidebar();
     }
+
     function addNewAgent() {
-      db.agents.push({ name: "New Agent", password: "123", month: "JUNE", scorecard_month: "MAY", score:0, f_scr:0, phone_time:0, qa_score:0, weekly_data: { week1:{qa:[],audits:[]}, week2:{qa:[],audits:[]}, week3:{qa:[],audits:[]}, week4:{qa:[],audits:[]} } });
+      db.agents.push({ name: "New Agent", password: "123", month: "JUNE", weekly_data: { week1:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week2:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week3:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]}, week4:{month:"MAY",score:0,f_scr:0,phone_time:0,qa_score:0,qa:[],audits:[]} } });
       saveToLocal(); renderSidebar();
     }
     function deleteAgent(i, e) { e.stopPropagation(); if(confirm("Delete Agent?")) { db.agents.splice(i, 1); saveToLocal(); renderSidebar(); } }
     function showExport() { document.getElementById('jsonOutput').value = JSON.stringify(db, null, 2); document.getElementById('exportModal').style.display = 'flex'; }
     function closeModal() { document.getElementById('exportModal').style.display = 'none'; }
     function copyJSON() { navigator.clipboard.writeText(document.getElementById('jsonOutput').value); alert("Copied!"); }
-    function clearWeeklyData() {
-      if (selectedIndex === -1) return;
-      if (confirm(`Reset all data for this week?`)) {
-        db.agents[selectedIndex].weekly_data[currentWeek] = { qa: [], audits: [] };
-        saveToLocal(); switchTab(currentWeek);
-      }
-    }
   </script>
 </body>
 </html>
