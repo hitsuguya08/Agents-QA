@@ -212,7 +212,7 @@
       "week_label": "WEEK 4",
       "weekly_data": {
         "week1": {
-          "score": 90.68,
+          "score": 4,
           "qa": [
             "TCPA @ 03:40 - slight delay - BR",
             "Walk In Tub @ 01:55; @ 02:02; @ 02:20; @ 03:08 - slight delays; @ 03:10 - bumping key - BR",
@@ -236,7 +236,10 @@
             "GOOD CALL",
             "GOOD CALL",
             "GOOD CALL"
-          ]
+          ],
+          "f_scr": 1,
+          "phone_time": 2,
+          "qa_score": 3
         },
         "week2": {
           "score": 92.68,
@@ -392,7 +395,7 @@
       "week_label": "WEEK 4",
       "weekly_data": {
         "week1": {
-          "score": 77.93,
+          "score": 4,
           "qa": [
             "Credit @ 02:06 - slight delay - PC BR",
             "Pitch @ 01:19 - slight delay - PC BR \nMain Reason @ 01:47 - slight delay in applying silent rule - PC BR\n",
@@ -405,7 +408,10 @@
             "Credit @ 03:31 @ 03:31 - slight delay - PC BR",
             "GOOD CALL"
           ],
-          "audits": []
+          "audits": [],
+          "f_scr": 1,
+          "phone_time": 2,
+          "qa_score": 3
         },
         "week2": {
           "score": 89.11,
