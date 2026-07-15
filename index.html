@@ -50,6 +50,9 @@
     .modal { display: none; position: fixed; inset: 0; background:rgba(0,0,0,0.95); z-index: 200; justify-content:center; align-items:center; }
     .modal-content { background:var(--card); padding:40px; border-radius:30px; width:340px; text-align:center; border: 2px solid var(--primary); }
     .btn-verify { background: var(--primary); color: #000; padding: 12px; border:none; border-radius:12px; width: 100%; font-weight:800; cursor:pointer; }
+    
+    /* STYLE ALANG SA UPDATED AUDIO PLAYBAR CONTAINER */
+    audio.dashboard-player { width: 100%; max-width: 450px; display: block; margin-top: 12px; border-radius: 8px; outline: none; background: #f1f5f9; }
     @media (max-width: 600px) { .kpi-row { grid-template-columns: 1fr; } .card-head { flex-direction: column; gap: 15px; text-align: center; } }
   </style>
 </head>
@@ -81,15 +84,100 @@
   </div>
 
   <script>
+    // UPDATED TABLE RENDERER: APIL NA ANG DESIGN SA AUDIO CONTROLS PLAYER BAR
     function renderTable(title, data, isQA) {
       if(!data || data.length === 0) return `<div class="table-block"><h3>${title}</h3><p style="color:#ffffff; font-size:0.8rem; margin-top:10px;">No entries recorded.</p></div>`;
       return `<div class="table-block"><h3>${title}</h3><table><tbody>
         ${data.map((item, i) => {
           let text = (typeof item === 'object') ? (item.text || "") : item;
           let link = (isQA && typeof item === 'object') ? (item.link || "") : "";
-          let mediaHtml = (link && link.trim() !== "") ? `<a href="${link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary); border:1px solid var(--primary); padding:6px 12px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 OPEN RECORDING</a>` : "";
+          
+          // GIBALIK ANG SAKTONG BOLD NUMBERING (1, 2, 3...)
+          let numBlock = `<td style="width:40px; color:var(--primary); font-size:1.1rem; font-weight:800; padding:15px 0; vertical-align:top; line-height:1;">${i+1}</td>`;
+          
           let fText = text.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
-          return `<tr><td style="width:40px; color:var(--primary); font-size:1.1rem; font-weight:800; padding:15px 0; vertical-align:top; line-height:1;">${i+1}</td><td style="color:#ffffff; padding:15px 10px; vertical-align:top;"><div>${fText}</div>${mediaHtml}</td></tr>`;
+          
+          // AUDIO CONTROLS LAYER GENERATOR
+          let mediaHtml = "";
+          if (link && link.trim() !== "") {
+              // Convert Google Drive link to direct stream download streaming structure if applicable
+              let streamUrl = link.trim();
+              if (streamUrl.includes("://google.com")) {
+                  let fileId = streamUrl.split("/file/d/")[1].split("/")[0];
+                  streamUrl = `https://google.com{fileId}`;
+              }
+              
+              mediaHtml = `
+                <div style="margin-top:12px; display:flex; flex-direction:column; gap:8px;">
+                    <audio controls class="dashboard-player" src="${streamUrl}" preload="none"></audio>
+                    <a href="${link}" target="_blank" style="display:inline-block; max-width:160px; text-align:center; color:var(--primary); border:1px solid var(--primary); padding:6px 12px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 BACKUP AUDIO LINK</a>
+                </div>`;
+          }
+          
+          return `<tr>${numBlock}<td style="color:#ffffff; padding:15px 10px; vertical-align:top;"><div>${fText}</div>${mediaHtml}</td></tr>`;
+        }).join('')}
+      </tbody></table></div>`;
+    }
+  </script>
+<body>
+  <header class="header-main">
+    <div style="width: 80px;"></div>
+    <h1>AGENT ANALYTICS PORTAL</h1>
+    <button onclick="openAdminModal()" class="admin-btn">ADMIN</button>
+  </header>
+  <nav class="nav-bar"><div id="agentPills" class="nav-inner"></div></nav>
+  <div class="content-container"><div id="dashboardView"></div></div>
+
+  <div id="passwordModal" class="modal">
+    <div class="modal-content">
+      <h3 style="color:var(--primary); margin:0;">🔐 UNLOCK MTD SCORES</h3>
+      <input type="password" id="pwInput" style="width:100%; padding:15px; margin:20px 0; background:#000; color:#fff; border:1px solid #444; text-align:center; font-size:1.5rem; border-radius:15px;" placeholder="••••" />
+      <button class="btn-verify" onclick="verifyAndShowScores()">VERIFY ACCESS</button>
+      <p onclick="closeModal('passwordModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
+    </div>
+  </div>
+
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
+      <h3 style="color:var(--primary); margin:0;">🚨 ADMIN ACCESS</h3>
+      <input type="password" id="adminPwInput" style="width:100%; padding:15px; margin:20px 0; background:#000; color:#fff; border:1px solid #444; text-align:center; font-size:1.5rem; border-radius:15px;" placeholder="••••" />
+      <button class="btn-verify" onclick="verifyAdmin()">ACCESS EDITOR</button>
+      <p onclick="closeModal('adminModal')" style="color:#94a3b8; cursor:pointer; margin-top:20px; font-size:0.85rem;">Cancel</p>
+    </div>
+  </div>
+
+  <script>
+    // UPDATED TABLE RENDERER: APIL NA ANG DESIGN SA AUDIO CONTROLS PLAYER BAR
+    function renderTable(title, data, isQA) {
+      if(!data || data.length === 0) return `<div class="table-block"><h3>${title}</h3><p style="color:#ffffff; font-size:0.8rem; margin-top:10px;">No entries recorded.</p></div>`;
+      return `<div class="table-block"><h3>${title}</h3><table><tbody>
+        ${data.map((item, i) => {
+          let text = (typeof item === 'object') ? (item.text || "") : item;
+          let link = (isQA && typeof item === 'object') ? (item.link || "") : "";
+          
+          // GIBALIK ANG SAKTONG BOLD NUMBERING (1, 2, 3...)
+          let numBlock = `<td style="width:40px; color:var(--primary); font-size:1.1rem; font-weight:800; padding:15px 0; vertical-align:top; line-height:1;">${i+1}</td>`;
+          
+          let fText = text.replace(/"([^"]+)"/g, '<span class="quote-style">"$1"</span>');
+          
+          // AUDIO CONTROLS LAYER GENERATOR
+          let mediaHtml = "";
+          if (link && link.trim() !== "") {
+              // Convert Google Drive link to direct stream download streaming structure if applicable
+              let streamUrl = link.trim();
+              if (streamUrl.includes("://google.com")) {
+                  let fileId = streamUrl.split("/file/d/")[1].split("/")[0];
+                  streamUrl = `https://google.com{fileId}`;
+              }
+              
+              mediaHtml = `
+                <div style="margin-top:12px; display:flex; flex-direction:column; gap:8px;">
+                    <audio controls class="dashboard-player" src="${streamUrl}" preload="none"></audio>
+                    <a href="${link}" target="_blank" style="display:inline-block; max-width:160px; text-align:center; color:var(--primary); border:1px solid var(--primary); padding:6px 12px; border-radius:8px; text-decoration:none; font-size:0.7rem; font-weight:800; background:rgba(255,255,255,0.05);">🔗 BACKUP AUDIO LINK</a>
+                </div>`;
+          }
+          
+          return `<tr>${numBlock}<td style="color:#ffffff; padding:15px 10px; vertical-align:top;"><div>${fText}</div>${mediaHtml}</td></tr>`;
         }).join('')}
       </tbody></table></div>`;
     }
@@ -169,14 +257,12 @@
     }
 
     function renderScoreSection() {
-      // 1. BASAHON ANG MGA CORE METRICS DIRETSO GIKAN SA MAIN LEVEL SA AGENT
       const fScr = activeAgent.f_scr !== undefined ? activeAgent.f_scr : 0; 
       const phoneTime = activeAgent.phone_time !== undefined ? activeAgent.phone_time : 0;
       const qaScore = activeAgent.qa_score !== undefined ? activeAgent.qa_score : 0;
       const standardScore = activeAgent.score !== undefined ? activeAgent.score : 0; 
       const previousScorecardMonth = activeAgent.scorecard_month || "MAY"; 
 
-      // 2. EXTRACTION LOGIC PARA SA MGA WEEKLY QA SCORES GRIDS PANEL
       const wd = activeAgent.weekly_data;
       const s1 = wd.week1 ? (wd.week1.score || 0) : 0;
       const s2 = wd.week2 ? (wd.week2.score || 0) : 0;
