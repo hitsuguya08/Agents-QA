@@ -35,7 +35,7 @@
       "audits": [],
       "weekly_data": {
         "week1": {
-          "score": 97.36,
+          "score": 97.02,
           "qa": [
             {
               "text": "TCPA - @4:06 Cx said \"That's ok, yeah, because like I said, I'm not buying anything right now. I'm paying for a roof.\",  agent pressed  3(I guess, I think so…)   instead of   4(Final no) (3rd objection) .PC-BR",
@@ -56,42 +56,13 @@
             {
               "text": "GOOD CALL",
               "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
             }
           ],
           "audits": []
         },
         "week2": {
-          "score": 93.68,
-          "qa": [
-            {
-              "text": "OWN HOME  @01:30  slight delay.  PC BR",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": "PITCH  @01:24  cust said,  \"No, I don't actually have plan. My house is new. We, we just bought this house, so everything is new, so I don't need to remodel. Thank you.\"  agent pressed  4(Not Interested)  instead of  end call.  PC BR",
-              "link": ""
-            },
-            {
-              "text": "TCPA  @03:06  cust said,  \"I'll tell you, I'll tell you what, you can give them my email, they can email me some estimates, but I'm with a customer right now, so I need to go. Thank you.\"  agent pressed  57(No Need)  instead of  b(Busy).  PC",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            }
-          ],
+          "score": 0,
+          "qa": [],
           "audits": []
         },
         "week3": {
@@ -105,11 +76,11 @@
           "audits": []
         }
       },
-      "f_scr": 59.27,
+      "f_scr": 56.92,
       "phone_time": 100,
-      "qa_score": 84.91,
-      "score": 85.37,
-      "scorecard_month": "JUNE"
+      "qa_score": 82.73,
+      "score": 83.6,
+      "scorecard_month": "MAY"
     },
     {
       "name": "L. Guansing",
@@ -146,7 +117,7 @@
       "week_label": "WEEK 4",
       "weekly_data": {
         "week1": {
-          "score": 94.36,
+          "score": 93.68,
           "qa": [
             {
               "text": "GOOD CALL",
@@ -163,46 +134,13 @@
             {
               "text": "INTRO - @00:04 Some delay .PC-BR\nSURVEY - MAIN REASON - @2:18 Cx said \"No, we're not looking to get new windows right now though.\",   agent pressed   64(Don't Need Now)  instead of   43(Final No) (3rd objection) .PC-BR\n",
               "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
             }
           ],
           "audits": []
         },
         "week2": {
-          "score": 98.7,
-          "qa": [
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": " TCPA  @02:37  after r(Repeat that)  cust said,  \"Yeah, no problem.\"  agent pressed  24(Is that a yes?)  instead of  proceed.  WI",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            }
-          ],
+          "score": 0,
+          "qa": [],
           "audits": []
         },
         "week3": {
@@ -216,11 +154,11 @@
           "audits": []
         }
       },
-      "f_scr": 97.36,
-      "phone_time": 94.14,
-      "qa_score": 91.77,
-      "score": 92.8,
-      "scorecard_month": "JUNE"
+      "f_scr": 75.02,
+      "phone_time": 98.7,
+      "qa_score": 86.69,
+      "score": 87.93,
+      "scorecard_month": "MAY"
     },
     {
       "name": "C. Omandam",
@@ -252,7 +190,7 @@
       "week_label": "WEEK 4",
       "weekly_data": {
         "week1": {
-          "score": 87.68,
+          "score": 97.68,
           "qa": [
             {
               "text": "GOOD CALL",
@@ -265,50 +203,13 @@
             {
               "text": "GOOD CALL",
               "link": ""
-            },
-            {
-              "text": "PITCH - @1:03 Cx said \"No, let me tell you, I already renovated my bathrooms. I did that like 2 years ago, so I never really inquired on any bathroom renovations, honestly.\",  agent pressed  #(How get number)  instead of  88(Disqualified) .PC-BR ",
-              "link": ""
-            },
-            {
-              "text": "INTRO  - @00:17 Cx said \"Horrible.\",  agent pressed   3(Who/What about?)  instead of  4(Not good/interested)",
-              "link": ""
-            },
-            {
-              "text": "INTRO - @00:13 Cx said \"I'm doing well, sir. I'm actually, sitting at my desk sir. What do we got?\",  agent had a slight delay in pressing  58(Hesitant)  instead of  3(Who/What about?) .PC-BR",
-              "link": ""
             }
           ],
           "audits": []
         },
         "week2": {
-          "score": 97.36,
-          "qa": [
-            {
-              "text": "TCPA  @02:57  Slight delay.  PC BR",
-              "link": ""
-            },
-            {
-              "text": "MAIN REASON  @01:38  cust said,  \"Well, being that I'm at work right now, I'm gonna have to tell you goodbye because I mean we're working, but I understand.\"  agent pressed  b(Busy)  instead of  ending the call   **already used how get and 57**.  PC BR",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            }
-          ],
+          "score": 0,
+          "qa": [],
           "audits": []
         },
         "week3": {
@@ -322,11 +223,11 @@
           "audits": []
         }
       },
-      "f_scr": 94.92,
+      "f_scr": 80.17,
       "phone_time": 100,
-      "qa_score": 90.02,
-      "score": 92.51,
-      "scorecard_month": "JUNE"
+      "qa_score": 86.48,
+      "score": 88.56,
+      "scorecard_month": "MAY"
     },
     {
       "name": "J. Aniñon",
@@ -334,7 +235,7 @@
       "month": "JULY",
       "weekly_data": {
         "week1": {
-          "score": 96.68,
+          "score": 97.68,
           "qa": [
             {
               "text": "GOOD CALL",
@@ -355,34 +256,13 @@
             {
               "text": "GOOD CALL",
               "link": ""
-            },
-            {
-              "text": "TCPA  @02:50  Slight delay.  PC HW",
-              "link": ""
             }
           ],
           "audits": []
         },
         "week2": {
-          "score": 65.34,
-          "qa": [
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": "Greetings @ 00:13 - slight delay - PC HW",
-              "link": ""
-            },
-            {
-              "text": "Intro @ 00:03 - slight delay - PC HW \nOwn Home @ 00:59 cx said \"I'm currently losing it through a divorce.\" Agent slight delay in playing 3 (Unsure); Benefits @ 01:55 cx said \"Ahh possibly, but like I said, I don't think I'm gonna be having a home here. I'm gonna be looking at renting, so, I'm probably not gonna be interested at this point. Like I said, because I'm losing the property through the divorce, so, might be something I might entertain later down the road when I get back into my own home. \" Agent played 57 (No need) instead of end call - 88 (Disqualified) --- same concern - PC HW\nNot Interested tagged as SALE (Q6) --- Autofail (Cat.4) - PC HW ",
-              "link": "https://on.soundcloud.com/YGCm8q6cBi9O8nHtwI"
-            },
-            {
-              "text": "Pitch @ 00:23 - slight delay - PC HW\nReplace @ 01:36 - slight delay; Benefits @ 01:58 - slight delay - PC HW",
-              "link": ""
-            }
-          ],
+          "score": 0,
+          "qa": [],
           "audits": []
         },
         "week3": {
@@ -396,11 +276,11 @@
           "audits": []
         }
       },
-      "f_scr": 100,
+      "f_scr": 90.98,
       "phone_time": 100,
-      "qa_score": 81.71,
-      "score": 87.2,
-      "scorecard_month": "JUNE"
+      "qa_score": 87.46,
+      "score": 90.32,
+      "scorecard_month": "MAY"
     },
     {
       "name": "R. Amodia",
@@ -421,50 +301,13 @@
             {
               "text": "Intro @ 00:02 - slight delay in applying silent rule; Pitch @ 01:07 - slight delay - BR\nPre-Transfer @ 03:58 - some delay in applying silent rule - BR",
               "link": ""
-            },
-            {
-              "text": "Pitch @ 01:16 - some delay in applying silent rule - WI\nMain Reason @ 01:51 - some delay - WI ",
-              "link": ""
-            },
-            {
-              "text": "TCPA @ 02:58; @ 04:01 - slight delays - WI",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
             }
           ],
           "audits": []
         },
         "week2": {
-          "score": 69.43,
-          "qa": [
-            {
-              "text": "PRE-TRANSFER - @3:32 Aftter TFbusy script, cx said \"I really need to get in the shower and stuff, so, you're really inconveniencing me and pushing, but ok.\",  agent had a slight delay in pressing   3(SR - Transfer)  instead of   1(Transfer) - SB.BR",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": "PITCH - @00:57 Slight delay - SB.BR\nNEXT STEP - @2:17 Slight delay - SB.BR\nTCPA - @3:57 - 4:01 - Talking over - SB.BR",
-              "link": ""
-            },
-            {
-              "text": "SURVEY - MAIN REASON - @1:27 Too soon in pressing (timing issue) - SB.BR\nPRE-TRANSFER - @3:35 Slight delay in applying the silent rule - SB.BR",
-              "link": ""
-            },
-            {
-              "text": "PITCH - @00:39 Cx said \"My first question is. Is the work done by a local contractor?\",  agent had a slight delay in pressing   41(Imm No)  instead of    /(SH-Superior Home)  +  32(SR - Pitch)  ;  @1:05 Slight delay - SB.BR\nSURVEY - OWN HOME - @1:38 Cx said \"I'm buying it. I can't say it's paid for, but about half of it is.\",  agent had a slight delay in pressing      5(Not Qualified)  instead of   1(Yes - Own) (call avoidance) - SB.BR",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            }
-          ],
+          "score": 0,
+          "qa": [],
           "audits": []
         },
         "week3": {
@@ -478,7 +321,7 @@
           "audits": []
         }
       },
-      "scorecard_month": "",
+      "scorecard_month": "MAY",
       "f_scr": 0,
       "phone_time": 0,
       "qa_score": 0,
