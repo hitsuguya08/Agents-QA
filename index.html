@@ -165,8 +165,8 @@
       document.getElementById('dashboardView').innerHTML = `
         <div class="kpi-row">
             <div class="kpi-box kpi-1"><div class="kpi-label">MONTH</div><div class="kpi-value">${currentQAControlMonth}</div></div>
-            <div class="kpi-box kpi-2"><div class="kpi-label">QA EVALS</div><div class="kpi-value">${qas.length}</div></div>
-            <div class="kpi-box kpi-3"><div class="kpi-label">AUDITS</div><div class="kpi-value">${audits.length}</div></div>
+            <div class="kpi-box kpi-2"><div class="kpi-label">LONG CALLS</div><div class="kpi-value">${qas.length}</div></div>
+            <div class="kpi-box kpi-3"><div class="kpi-label">DISPO AUDITS</div><div class="kpi-value">${audits.length}</div></div>
         </div>
         <div class="dashboard-tabs">
             <button class="dash-tab-btn ${currentViewWeek === 'week1' ? 'active' : ''}" onclick="switchDashboardWeek('week1')">WEEK 1</button>
