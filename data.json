@@ -134,6 +134,14 @@
             {
               "text": "PITCH  @01:22  Slight delay.   PC HW",
               "link": ""
+            },
+            {
+              "text": "MAIN REASON  @01:13  Bumping key.  BR",
+              "link": ""
+            },
+            {
+              "text": "Good call.",
+              "link": ""
             }
           ],
           "audits": []
@@ -319,7 +327,7 @@
           ]
         },
         "week4": {
-          "score": 99.34,
+          "score": 97.36,
           "qa": [
             {
               "text": "GOOD CALL",
@@ -327,6 +335,22 @@
             },
             {
               "text": "PRE TRANSFER  @02:44  Slight delay.  WI ",
+              "link": ""
+            },
+            {
+              "text": "PRE TRANSFER  @03:15  cust said,  \"Can you hold on a minute? I'm expecting guests and no, I don't want anybody calling me and today.\"  agent pressed  64(Don't need Now)  instead of  :(Tf Busy).  WI ",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
               "link": ""
             }
           ],
@@ -459,7 +483,7 @@
           "audits": []
         },
         "week4": {
-          "score": 97.34,
+          "score": 97.36,
           "qa": [
             {
               "text": "GOOD CALL",
@@ -467,6 +491,22 @@
             },
             {
               "text": "REPLACE  after  65(How does it Work) @01:40  cust said,  \"Well, that's what I have insurance for.\"  agent proceed the call instead of 4(Not Interested).  PC HW",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "INTRO  @0:18  Slight delay.  PC HW",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
               "link": ""
             }
           ],
@@ -575,7 +615,7 @@
           "audits": []
         },
         "week4": {
-          "score": 93.34,
+          "score": 78.34,
           "qa": [
             {
               "text": "Greetings @ 00:23 - slight delay - PC HW\nReplace @ 01:35 - major delay - PC HW\nTransfer @ 03:35 - slight delay in applying silent rule - PC HW",
@@ -583,6 +623,22 @@
             },
             {
               "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "Intro @ 00:04 - major delay; Greetings @ 00:22 - major delay - PC HW\nValue @ 04:04; @ 05:22 - slight delays - PC HW ",
+              "link": ""
+            },
+            {
+              "text": "Pitch @ 00:46 - slight delay - PC \nHWBenefits @ 02:00 - slight delay - PC HW",
+              "link": ""
+            },
+            {
+              "text": "Greetings @ 00:19 - slight delay - PC BR\nCredit @ 04:11 - some delay - PC BR",
+              "link": ""
+            },
+            {
+              "text": "Intro @ 00:02 - some delay - PC BR ",
               "link": ""
             }
           ],
@@ -740,7 +796,7 @@
           ]
         },
         "week4": {
-          "score": 87.5,
+          "score": 77.5,
           "qa": [
             {
               "text": "PITCH - @1:06 Bumping key. SB..BR\nDelay dispo for more than 10 secs. SB..BR",
@@ -752,6 +808,18 @@
             },
             {
               "text": "SURVEY - OWN HOME - @1:39 Cust said \"Own.\",  agent pressed  33(QO - Home)  instead of   1(Yes-own). SB..BR",
+              "link": ""
+            },
+            {
+              "text": "SURVEY- WALK IN TUB - @1:28 Some delay in pressing unnecessary hotkey  ;  HOME TYPE - @1:48 Slight delay. SB..BR\n",
+              "link": ""
+            },
+            {
+              "text": "PITCH - @00:47 Cust said \"Actually I can't do it now my mom just passed away and I have a lot of expenses\",  agent pressed   64(Don't need now)  instead of  S(Sorry)  +   V(Very busy)  ;  @1:06 Cust said \"Right, go ahead.\",  agent had a some delay in pressing   42(Imm no)  instead of  Proceed --(NOTE for the missed option). SB..BR",
+              "link": ""
+            },
+            {
+              "text": "PITCH - @00:47 Slight delay. SB..BR",
               "link": ""
             }
           ],
