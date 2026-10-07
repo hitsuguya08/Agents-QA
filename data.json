@@ -261,7 +261,7 @@
           "audits": []
         },
         "week4": {
-          "score": 96,
+          "score": 96.68,
           "qa": [
             {
               "text": "Walk in tub @ 01:34 - slight delay - BR",
@@ -277,6 +277,14 @@
             },
             {
               "text": "Greetings @ 00:24 - bumping key - BR",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "SURVEY - WALK IN TUB - @2:15 Cust said \"No, it's not big enough. The bathroom that I have that I'm interested in doing is just basically a small shower, just a walk-in shower, small one, and maybe some new vanities. But like I said, I can't, I'm not doing anything until next year because it's really a lot bigger project than it sounds. I've already been talking to other people.\",  agent pressed  42(Imm no)  instead of  43(Final no) --(3rd objection) (1st @00:47, 2nd @1:20) - BR",
               "link": ""
             }
           ],
@@ -632,8 +640,33 @@
           "audits": []
         },
         "week4": {
-          "score": 0,
-          "qa": [],
+          "score": 65.02,
+          "qa": [
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "PITCH - @1:05 Bumping key - BR",
+              "link": ""
+            },
+            {
+              "text": "SURVEY - CREDIT - @2:11 Slight delay - BR\nTCPA - @3:17 Cust said \"Yeah, I guess I don't know what you're talking about.\",  agent pressed   32(Quick Repeat)  instead of   31(LR - TCPA) --(auto fail)  ;  PRE-TRANSFER - @3:48 Slight delay in applying the silent rule - BR\nFailed to play  31(LR - TCPA) - BR",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GREETINGS - @00:10 Cust said \"Hang on, hold one second.\",  agent pressed  3(Repeat Intro)  instead of  O(Okay) and wait for the cust to be back on the line - BR",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ],
           "audits": []
         }
       },
@@ -647,7 +680,7 @@
       "name": "J. Villarta",
       "password": "topdial2019",
       "month": "SEPTEMBER",
-      "scorecard_month": "",
+      "scorecard_month": "AUGUST",
       "f_scr": 0,
       "phone_time": 0,
       "qa_score": 0,
@@ -719,8 +752,33 @@
           "audits": []
         },
         "week4": {
-          "score": 0,
-          "qa": [],
+          "score": 87.68,
+          "qa": [
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "PITCH - @2:33 Some delay - BR",
+              "link": ""
+            },
+            {
+              "text": "PITCH - @00:53 Cust said \"It's not something I don't wanna do it right now, you know, because the house's new. It's something I don't wanna do it right now.\",  agent pressed   64(Don't need now)  instead of   88(End call) - BR",
+              "link": ""
+            },
+            {
+              "text": "PITCH - @1:06 After 64 script, cust said \"Ok.\",  agent pressed    32(SR - Pitch)  instead of    1(Yes - Pitch) - BR ",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "PITCH - @00:43 Cust said \"But I just wanna tell you I just got two new doors and it wiped me out on my money. So, I just can't afford it. I'm sorry but I had to get the doors. They were falling literally off the hinges, literally.\",  agent had a slight delay in pressing    $(How much)  +  32(SR - Pitch)  instead of   41(Imm no)  ;  @1:17 Slight delay in applying the silent rule - BR ",
+              "link": ""
+            }
+          ],
           "audits": []
         }
       }
