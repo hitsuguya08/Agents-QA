@@ -1,14 +1,14 @@
 {
   "theme": {
-    "primary": "#f59e0b",
-    "bg": "#fef3c7",
-    "card": "#0f172a"
+    "primary": "#3b82f6",
+    "bg": "#eff6ff",
+    "card": "#1e3a8a"
   },
   "agents": [
     {
       "name": "S. Fuentes",
       "password": "10988343",
-      "month": "OCTOBER",
+      "month": "NOVEMBER",
       "week_label": "WEEK 4",
       "weekly": {
         "week1": {
@@ -35,131 +35,56 @@
       "audits": [],
       "weekly_data": {
         "week1": {
-          "score": 99.02,
+          "score": 92.68,
           "qa": [
             {
-              "text": "GOOD CALL.",
+              "text": "GOOD CALL",
               "link": ""
             },
             {
-              "text": "GOOD CALL.",
+              "text": " SURVEY - MAIN REASON - @1:28 Cust said \"Not at the moment sir, not at the moment  we are not interested at the moment.\",  agent pressed  57(No need)  instead of   4(Negative response). FL",
               "link": ""
             },
             {
-              "text": "Pitch @1:25 - Slight delay",
+              "text": "SURVEY - FL - @2:59 Cust said \"Do I have any what?\",  agent pressed  16(Other)  instead of   ,(Repeat message)/A(Ask). FL",
               "link": ""
             },
             {
-              "text": "GOOD CALL.",
+              "text": "SURVEY - MAIN REASON - @1:04 Slight delay in applying the silent rule. FL",
               "link": ""
             },
             {
-              "text": "GOOD CALL.",
+              "text": "PITCH - @00:55 Slight delay. FL",
               "link": ""
             },
             {
-              "text": "Survey-Own Home @1:35 - After Location, cx said \"We're in Georgia, that's a long way. I don't wanna do that.\" agent could have pressed ) (Company) at this point when the cx paused; @1:44 - Slight delay. ",
+              "text": "GOOD CALL",
               "link": ""
             }
           ],
           "audits": []
         },
         "week2": {
-          "score": 83.34,
-          "qa": [
-            {
-              "text": "GOOD CALL.",
-              "link": ""
-            },
-            {
-              "text": "Full Replacement @ 02:45 - major delay - PC FL",
-              "link": ""
-            },
-            {
-              "text": "Greetings @ 00:14; @ 00:26 - slight delays - PC FL",
-              "link": ""
-            },
-            {
-              "text": "Pitch @ 00:56 - major delay - PC FL\nMain Reason @ 02:03 - some delay - PC FL ",
-              "link": ""
-            },
-            {
-              "text": "TCPA @ 05:17 - bumping key - PC BR",
-              "link": ""
-            },
-            {
-              "text": "Main Reason @ 01:51 - slight delay; Home Type @ 03:49 - slight delay - PC BR\nTransfer @ 05:28 - slight delay in applying silent rule; @ 05:36 - slight delay - PC BR",
-              "link": ""
-            }
-          ],
+          "score": 0,
+          "qa": [],
           "audits": []
         },
         "week3": {
-          "score": 85.84,
-          "qa": [
-            {
-              "text": "TCPA - @2:58 Cust said \"It is.\",  agent unnecessary stopped the script   1(Yes) then go back pressed   3(I guess, I think so..)  instead of   continuing the script   1(Yes) - PC.BR",
-              "link": ""
-            },
-            {
-              "text": "SURVEY - MAIN REASON - @1:19 Slight delay - PC.BR",
-              "link": ""
-            },
-            {
-              "text": "SURVEY - MAIN REASON - @1:47 Failed to apply the silent rule - PC.BR",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL.",
-              "link": ""
-            },
-            {
-              "text": "INTRO - @00:34 Cust said \"Yes, how can I help you? How are you?\",  agent pressed  3(Who/what about)  instead of  2(How are you?) - PC.BR ",
-              "link": ""
-            },
-            {
-              "text": "PITCH - @1:11-1:15 Talking over - PC.BR",
-              "link": ""
-            }
-          ],
+          "score": 0,
+          "qa": [],
           "audits": []
         },
         "week4": {
-          "score": 95.68,
-          "qa": [
-            {
-              "text": "Main Reason @ 01:31 - slight delay; Credit @ 02:27 - slight delay - PC BR\nTCPA @ 03:33 - slight delay - PC BR ",
-              "link": ""
-            },
-            {
-              "text": "Transfer @ 02:48 - slight delay in playing unnecessary K (Is that okay) - PC BR ",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL.",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL.",
-              "link": ""
-            },
-            {
-              "text": "FL Type @ 02:31 - slight delay - PC FL",
-              "link": ""
-            },
-            {
-              "text": "Own Home @ 01:37 - slight delay - PC FL",
-              "link": ""
-            }
-          ],
+          "score": 0,
+          "qa": [],
           "audits": []
         }
       },
-      "f_scr": 63.64,
+      "f_scr": 68.81,
       "phone_time": 100,
-      "qa_score": 91.57,
-      "score": 90.46,
-      "scorecard_month": "SEPTEMBER"
+      "qa_score": 90.97,
+      "score": 90.56,
+      "scorecard_month": "OCTOBER"
     },
     {
       "name": "L. Guansing",
@@ -192,18 +117,26 @@
         "GOOD CALL",
         "GOOD CALL"
       ],
-      "month": "OCTOBER",
+      "month": "NOVEMBER",
       "week_label": "WEEK 4",
       "weekly_data": {
         "week1": {
-          "score": 75.27,
+          "score": 85.34,
           "qa": [
             {
-              "text": "GREETINGS - @00:09 Cust said \"I'm ok and yourself?\",  agent pressed  1(Good)  instead of  2(How are you) - BR \nTCPA - @3:27 After R(repeat that), cust said \"No, I just said, my brother passed in New York. I'm going to New York tomorrow morning for the services. So, I probably won't be back until next week around this time. So can you call me then?\",  agent pressed   64(Don't need now)  instead of   S(Sorry)  + @(Scheduling)  ;  @3:56 After 64 script, cust said \"Ok, thank you sir appreciate that.\",  agent pressed   32(Quick Repeat)  instead of   X(Thanks bye) --(call aggressive) - BR",
+              "text": "PITCH - @00:17 Cust interrupted then @00:26 cust said \"Are you sellng Windows or what?\",  agent pressed  7(What's about)  instead of      31(LR - Pitch). WI\nSURVEY - MAIN REASON - @1:43 Slight delay in applying the silent rule. WI",
               "link": ""
             },
             {
-              "text": "SURVEY - MAIN REASON - @1:14 Slight delay  ;  @1:27 Excessive used of  R(Repeat that) - BR",
+              "text": "SURVEY - MAIN REASON - @1:23 Cust said \"I said, I'm not sure, that's a good question.\",  agent pressed   33(QO - Main)  instead of  32(Benefit). WI",
+              "link": ""
+            },
+            {
+              "text": "PITCH - @1:29 Slight delay in applying the silent rule. WI",
+              "link": ""
+            },
+            {
+              "text": "SURVEY - MAIN REASON - @1:41 Cust said \"I don't want new Windows.\",  agent pressed   42(Imm no)  instead of   43(Final no) --(3rd objection) (1st @00:42 & 2nd @00:59). WI",
               "link": ""
             },
             {
@@ -211,116 +144,33 @@
               "link": ""
             },
             {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": "SURVEY - WALK IN TUB - @2:15 Cust said \"No, it's not big enough. The bathroom that I have that I'm interested in doing is just basically a small shower, just a walk-in shower, small one, and maybe some new vanities. But like I said, I can't, I'm not doing anything until next year because it's really a lot bigger project than it sounds. I've already been talking to other people.\",  agent pressed  42(Imm no)  instead of  43(Final no) --(3rd objection) (1st @00:47, 2nd @1:20) - BR",
+              "text": "SURVEY - MAIN REASON - @00:57 Slight delay in applying the silent rule  ;  @1:34 - 2:12 (37 secs) after cust was talking the agent pressed Repeat That -- (Tagged as Missed). WI",
               "link": ""
             }
           ],
           "audits": []
         },
         "week2": {
-          "score": 90.34,
-          "qa": [
-            {
-              "text": "Greetings @ 00:12 - slight delay - BR\nWalk in tub @ 02:19 - slight delay - BR",
-              "link": ""
-            },
-            {
-              "text": "Greetings @ 00:15 - slight delay - BR\nCredit @ 02:33 - slight delay - BR\nTCPA @ 03:30 - slight delay - BR",
-              "link": ""
-            },
-            {
-              "text": "Walk in tub @ 01:50 - slight delay; Credit @ 02:18 - slight delay - BR",
-              "link": ""
-            },
-            {
-              "text": "Walk in tub @ 03:35 - bumping key - BR\nPre-Transfer @ 07:23 - slight delay in applying silent rule - BR",
-              "link": ""
-            },
-            {
-              "text": "Greetings @ 00:25 - slight delay in applying silent rule - BR\nHome Type @ 02:03 - bumping key - BR ",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL.",
-              "link": ""
-            }
-          ],
+          "score": 0,
+          "qa": [],
           "audits": []
         },
         "week3": {
-          "score": 93.68,
-          "qa": [
-            {
-              "text": "SURVEY - OWN HOME - @1:23 Bumping key - WI",
-              "link": ""
-            },
-            {
-              "text": "PITCH - @00:58 Bumping key - WI ",
-              "link": ""
-            },
-            {
-              "text": "GREETINGS - @00:18 Unnecessary H(Hello) - WI \nSURVEY - MAIN REASON - @1:41 After 41 script, cust said \"I would lose time.\",  agent pressed  43(Final no)  instead of  42(Imm no) - WI",
-              "link": ""
-            },
-            {
-              "text": "GREETINGS - @00:15 Slight delay - WI",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL.",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL.",
-              "link": ""
-            }
-          ],
+          "score": 0,
+          "qa": [],
           "audits": []
         },
         "week4": {
-          "score": 99.34,
-          "qa": [
-            {
-              "text": "Pre-Transfer @ 02:39 - slight delay - WI",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL.",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL.",
-              "link": ""
-            },
-            {
-              "text": "Client Branding @ 01:46 - some delay - WI ",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL.",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL.",
-              "link": ""
-            }
-          ],
+          "score": 0,
+          "qa": [],
           "audits": []
         }
       },
-      "f_scr": 45.99,
-      "phone_time": 97.42,
-      "qa_score": 90.81,
-      "score": 87.65,
-      "scorecard_month": "SEPTEMBER"
+      "f_scr": 65.4,
+      "phone_time": 91.43,
+      "qa_score": 89.16,
+      "score": 87.24,
+      "scorecard_month": "OCTOBER"
     },
     {
       "name": "C. Omandam",
@@ -348,217 +198,117 @@
         "CREDIT  @01:42  cust said,  \"Oh I see I was, I'll see what I was looking for, I was hoping that government, was any assistance. They're saying that, you know, you're retired, you can do it. I'm retired. I'm not working.\"  agent pressed  0(Credit) instead of  d(Defer).   PC BR"
       ],
       "audits": [],
-      "month": "OCTOBER",
+      "month": "NOVEMBER",
       "week_label": "WEEK 4",
       "weekly_data": {
         "week1": {
+          "score": 89.34,
+          "qa": [
+            {
+              "text": "PITCH - @00:44 Cust said \"Im not going forward with that right now, I kinda put that on hold but I appreciate the call and everything.\",  agent pressed  4(Not interested)  instead of  57(No need). PC-BR",
+              "link": ""
+            },
+            {
+              "text": "GREETINGS - @00:02 After auto intro, cust said \"No, this is Trudy.\",  agent pressed  1(Available)  instead of  4(Gatekeeper)  ;  PITCH - @00:47 Cust said \"My son has already remodeled his bathrooms, but thank you.\",  agent pressed  4(Not interested)  instead  of   80(Wrong number). PC-BR",
+              "link": ""
+            },
+            {
+              "text": "SURVEY - FL TYPE - @1:55 Bumping key. FL",
+              "link": ""
+            },
+            {
+              "text": " SURVEY - MAIN REASON - @00:59 Slight delay in applying the silent rule. PC-WI",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "INTRO - @00:37 Slight delay in pressing unnececssary hotkey. PC-WI",
+              "link": ""
+            }
+          ],
+          "audits": []
+        },
+        "week2": {
           "score": 0,
           "qa": [],
           "audits": []
         },
-        "week2": {
-          "score": 80.68,
-          "qa": [
-            {
-              "text": "Survey-Insurance Claim @3:13 - Timing issue in starting the script; @3:32 - Slight delay. - PC FL",
-              "link": ""
-            },
-            {
-              "text": "Pitch @0:56 - Cx said \"Um, I'm not even sure what you're talking about for a flooring project\" agent had some delay and pressed 58 (Hesitant) instead of # (How Get #).PC FL",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": " Pitch @0:46 - Some delay.  - PC FL",
-              "link": ""
-            },
-            {
-              "text": "Survey-Full Replacement @2:18 - Some delay; @2:27 - After Repeat, cx said \"Just 1 room,\" agent played 0 (Flooring Replacement's repeat question) instead of C (Clarification) or E (Explanation). - PC FL",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL.",
-              "link": ""
-            }
-          ],
-          "audits": []
-        },
         "week3": {
-          "score": 87.34,
-          "qa": [
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": "PITCH - @00:47 Cust said \"Ok, but you know what? I'm not ready. Can I call you back when I'm ready because I have no cash on me until next month, so can I call you back?\",  agent pressed   54(No time)  instead oif   57(No need) - PC.FL",
-              "link": ""
-            },
-            {
-              "text": "SURVEY - MAIN REASON - @1:48 Unnecessary O(Okay)  ;  FL TYPE/SIZE - @2:18 Cust said \"Hardwood floor? although there's interestingly enough, I have seen laminates that look very close to hardwood floors. What were the other materials?\",  agent had a slight delay in pressing bumping key then pressed SPACEBAR  instead  >(go back) & pressed   C(Clarification)  ;  SIZE - @2:46 Bumping key - PC.FL",
-              "link": ""
-            },
-            {
-              "text": "INTRO - @00:17 Bumping key - PC.FL (",
-              "link": ""
-            },
-            {
-              "text": "GREETINGS - @00:06 Bumping key - PC.FL ",
-              "link": ""
-            },
-            {
-              "text": "SURVEY - FL TYPE - @2:21 Slight delay - PC.FL\nTCPA - @4:03 Cust said \"Sounds great.\",  agent pressed  3(I guess, I think so..)  instead of   1(Yes) - PC.FL",
-              "link": ""
-            }
-          ],
+          "score": 0,
+          "qa": [],
           "audits": []
         },
         "week4": {
-          "score": 94.68,
-          "qa": [
-            {
-              "text": "Greetings @ 00:17 - slight delay; Pitch @ 01:15 - slight delay - PC FL \nFL Type @ 02:47 - slight delay; FL Size @ 03:21 - slight delay - PC FL",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": "FL Size @ 02:03 - slight delay - PC FL ",
-              "link": ""
-            },
-            {
-              "text": "Own Home @ 01:37 - slight delay; FL Type @ 01:59 - slight delay; FL Size @ 02:41 - slight delay - PC FL",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": "Greetings @ 00:23 - slight delay - PC FL\nTCPA @ 03:04 - slight delay - PC FL",
-              "link": ""
-            }
-          ],
+          "score": 0,
+          "qa": [],
           "audits": []
         }
       },
-      "f_scr": 59.28,
-      "phone_time": 99.59,
-      "qa_score": 92.46,
-      "score": 90.57,
-      "scorecard_month": "SEPTEMBER"
+      "f_scr": 43.24,
+      "phone_time": 94.63,
+      "qa_score": 87.57,
+      "score": 84.55,
+      "scorecard_month": "OCTOBER"
     },
     {
       "name": "J. Aniñon",
       "password": "jannah",
-      "month": "OCTOBER",
+      "month": "NOVEMBER",
       "weekly_data": {
         "week1": {
+          "score": 87.34,
+          "qa": [
+            {
+              "text": "PITCH - @00:39 Unnecessary stopping. FL",
+              "link": ""
+            },
+            {
+              "text": "SURVEY - MAIN REASON - @1:23 Some delay. FL",
+              "link": ""
+            },
+            {
+              "text": "INTRO - @00:16 Slight delay. FL",
+              "link": ""
+            },
+            {
+              "text": "SURVEY - OWN HOME - @1:18 Major delay. PC-BR",
+              "link": ""
+            },
+            {
+              "text": "PITCH - @00:53 Cust said \"Ok, but I've got to tell you that I am totally 100% broke, so I'm not gonna be able to do it. Anytime soon.\",  agent pressed  4(Not interested)  instead of   57(No need). PC-BR",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ],
+          "audits": []
+        },
+        "week2": {
           "score": 0,
           "qa": [],
           "audits": []
         },
-        "week2": {
-          "score": 93.34,
-          "qa": [
-            {
-              "text": " Transfer @4:27 - Timing issue (Cx is still talking, agent tried to press an option). - PC FL",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL.",
-              "link": ""
-            },
-            {
-              "text": "Pitch @1:05 - Slight delay.- PC FL",
-              "link": ""
-            },
-            {
-              "text": " TCPA @3:51, 4:06 - Slight delays; @4:21  - BR",
-              "link": ""
-            },
-            {
-              "text": "TCPA @3:18 - Slight delay. BR",
-              "link": ""
-            },
-            {
-              "text": "Pitch @0:51 - Slight delay. - BR",
-              "link": ""
-            }
-          ],
-          "audits": []
-        },
         "week3": {
-          "score": 89.34,
-          "qa": [
-            {
-              "text": "Introduction @0:14 - Cx said \"I'm doing fine, thank you\" then, after a brief pause, continued with, \"and yourself?\" there was a verbal collision, agent failed to stop the script and continued instead of going back to Introduction screen and press 2 (How Are You?). ",
-              "link": ""
-            },
-            {
-              "text": "Survey-Main Reason @1:16 - Slight delay. ",
-              "link": ""
-            },
-            {
-              "text": "Introduction @0:17 - Slight delay. ",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL.",
-              "link": ""
-            },
-            {
-              "text": "Pitch @0:52 - Unnecessary hotkey (No problem). ",
-              "link": ""
-            },
-            {
-              "text": "Greeting @0:03 - Major delay.",
-              "link": ""
-            }
-          ],
+          "score": 0,
+          "qa": [],
           "audits": []
         },
         "week4": {
-          "score": 90.68,
-          "qa": [
-            {
-              "text": "Greetings @ 00:17 - slight delay; Pitch @ 01:15 - slight delay - PC FL\nFL Type @ 02:47 - slight delay; FL Size @ 03:21 - slight delay - PC FL",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL.",
-              "link": ""
-            },
-            {
-              "text": "Greetings @ 00:15 - slight delay - PC FL ",
-              "link": ""
-            },
-            {
-              "text": " FL Type @ 02:27 - slight delay; @ 02:49 - some delay in applying silent rule - PC FL ",
-              "link": ""
-            },
-            {
-              "text": "Greetings @ 00:17 - slight delay - PC FL\nFL Type @ 01:46 - some delay - PC FL",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL.",
-              "link": ""
-            }
-          ],
+          "score": 0,
+          "qa": [],
           "audits": []
         }
       },
-      "f_scr": 25.83,
-      "phone_time": 98.54,
-      "qa_score": 91.68,
-      "score": 86.47,
-      "scorecard_month": "SEPTEMBER"
+      "f_scr": 60.77,
+      "phone_time": 96.38,
+      "qa_score": 91.12,
+      "score": 89.14,
+      "scorecard_month": "OCTOBER"
     },
     {
       "name": "R. Amodia",
@@ -571,33 +321,8 @@
           "audits": []
         },
         "week2": {
-          "score": 90.34,
-          "qa": [
-            {
-              "text": "Walk in tub @ 02:05 - bumping key - BR",
-              "link": ""
-            },
-            {
-              "text": "Greetings @ 00:15 - bumping key - BR\nWalk in tub @ 01:32 cx said \"I would, I would like to, yeah, get rid of the old tub and put in a walk-in shower.\" Agent pressed 1 (Walk In Tub) instead of 2 (No-walkin/Already Have). Agent input Yes instead of No - BR",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": "Home Type @ 03:06; @ 03:16; @ 03:21 - slight delays - BR",
-              "link": ""
-            },
-            {
-              "text": "Pitch @ 01:10 - slight delay in applying silent rule - BR",
-              "link": ""
-            },
-            {
-              "text": "Pitch @ 00:47; @ 01:28 - slight delays; @ 02:18 - some delay; @ 03:03 - not seamless - BR",
-              "link": ""
-            }
-          ],
+          "score": 0,
+          "qa": [],
           "audits": []
         },
         "week3": {
@@ -620,131 +345,56 @@
     {
       "name": "J. Villarta",
       "password": "099955",
-      "month": "OCTOBER",
-      "scorecard_month": "SEPTEMBER",
-      "f_scr": 64.6,
-      "phone_time": 96.51,
-      "qa_score": 62.89,
-      "score": 69.79,
+      "month": "NOVEMBER",
+      "scorecard_month": "OCTOBER",
+      "f_scr": 72.68,
+      "phone_time": 97.28,
+      "qa_score": 75.51,
+      "score": 79.58,
       "weekly_data": {
         "week1": {
-          "score": 85,
+          "score": 88,
           "qa": [
             {
-              "text": "TCPA @ 03:18 - slight delay - BR",
+              "text": "Main Reason @ 02:01 - bumping key - BR ",
               "link": ""
             },
             {
-              "text": "Own Home @ 03:01 - slight delay - BR\nTCPA @ 03:18 - slight delay - BR",
+              "text": "Credit @ 02:15 - some delay - BR ",
               "link": ""
             },
             {
-              "text": "Pitch @ 00:17 - slight delay - BR\nOwn Home @ 01:58 - slight delay - BR",
+              "text": "Greetings @ 00:14 cx said \"I'm not so well, how about yourself?\" Agent pressed 5 (Not Good) instead of 2 (How Are You?); Pitch @ 00:51 - slight delay in applying silent rule - BR\nTransfer @ 03:11 - slight delay in applying silent rule - BR",
               "link": ""
             },
             {
-              "text": "Pitch @ 00:49 - some delay; After R script @ 00:56  cx said \"Yeah, what's up?\" Agent pressed 7 (What's About) instead of proceed the call - BR",
+              "text": "Own Home @ 01:54 - slight delay; Walk in tub @ 02:15 - slight delay; Credit @ 02:40 - slight delay - BR",
               "link": ""
             },
             {
-              "text": "Pre-Transfer @ 03:10 - slight delay - BR ",
+              "text": "Pitch @ 01:15 - slight delay - BR ",
               "link": ""
             },
             {
-              "text": "Own Home @ 01:26 cx said \"Actually, I don't. It's just my nephew's home and he just asked me to find out, you know, get different estimates of how much would it cost to remodel the, the bathrooms.\" Agent pressed $ (How Much) + 33 (QO - Home) instead of $ (How Much) + 5 (Not Qualified) - BR",
+              "text": "Own Home @ 01:35 - slight delay - BR",
               "link": ""
             }
           ],
           "audits": []
         },
         "week2": {
-          "score": 52.24,
-          "qa": [
-            {
-              "text": "SURVEY - MAIN REASON - @1:33 After 42 script, cust said \"Uh-mhm.\",  agent pressed    33(QO - Main)  isntead of  32(Benefit)  ;  HOME TYPE - @2:31 Slight delay - BR",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL",
-              "link": ""
-            },
-            {
-              "text": "PITCH - @1:30 Slight delay in applying the silent rule  ;  @1:36 Cust said \"I'm just not, ready. I mean, I had to get estimate for both the windows and I've talked so much about windows and roofs and everything and so I'm just finished for now. Until next spring, so I can talk next spring about it freely.\",  agent pressed  &(How much)  +   42(Imm no)  instead of   42(Imm no) right away - BR",
-              "link": ""
-            },
-            {
-              "text": "NEXT STEP - @2:08 Unnecessary stopping - BR\nTCPA - @2:41 Cust said \"No.\",  agent pressed   41(Imm no)  instead of    43(Final no) - BR ",
-              "link": ""
-            },
-            {
-              "text": "MAIN REASON - @1:04 Cust said \"To do make more money doing P*rnhub.\",  agent pressed    1(Own Home)  instead of  END CALL --(auto fail) (cust used an inappropriate language) - BR\nInappropriate response from the customer. - BR",
-              "link": ""
-            },
-            {
-              "text": "SURVEY - MAIN REASON - @1:03 Cust said \"I need to do a walk-in tub instead of the tub I have.\",  then at OWN HOME - @1:20 cust said \"Yes.\",  agent pressed   2(SKIP - No walk in/Already Have)  instead of    34(SKIP - Yes Walk In Tub), agent input  (No)  instead of  (Yes)  ;  HOME TYPE - @1:30  ;  NEXT STEP - @2:15 Not seamless (some) - BR ",
-              "link": ""
-            }
-          ],
+          "score": 0,
+          "qa": [],
           "audits": []
         },
         "week3": {
-          "score": 86.34,
-          "qa": [
-            {
-              "text": "Credit @ 02:00 cx said \"Hmm, I don't really know. I've never checked it before, to be honest.\" Agent pressed 12 (Good 601-700) instead of 33 (Unsure Credit) - BR",
-              "link": ""
-            },
-            {
-              "text": "Own Home @ 01:14 - slight delay - BR\nTCPA @ 03:13 cx said \"Oh yes, I, I know that. Uh-huh.\" Agent pressed 1 (Yes TCPA) instead of 24 (Is that a YES) - BR",
-              "link": ""
-            },
-            {
-              "text": "slight delay in applying silent rule; @ 00:50 - slight delay in pressing unnecessary K (Is that okay) - BR \nCredit @ 02:18 - slight delay - BR \nTCPA @ 03:12 - some delay in pressing unnecessary H (Hello) - BR",
-              "link": ""
-            },
-            {
-              "text": "Greetings @ 00:13 - slight delay - BR",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL.",
-              "link": ""
-            },
-            {
-              "text": "Pitch @ 00:45 cx said \"Okay, I don't, I'm not sure if I remember putting in a request for a quote, but I'm happy to answer your question.\" Agent pressed 31 (LR - pitch) instead of 1 (Yes - Pitch); @ 00:55 - bumping key - BR (DISPUTED)\n\nOwn Home @ 01:56 - slight delay; @ 02:02 - some delay in pressing unnecessary H (Hello); 02:09 - major delay in pressing unnecessary H (Hello); @ 02:17 cx said \"Ahh yeah, can you hear me?\" Agent X (Thanks Bye) instead of redirect --- Call avoidance (Cat.2) - BR\n\nDelay dispo for 20secs. - BR ",
-              "link": ""
-            }
-          ],
+          "score": 0,
+          "qa": [],
           "audits": []
         },
         "week4": {
-          "score": 78.34,
-          "qa": [
-            {
-              "text": "GREETINGS - @00:11 Cust said \"Who are you trying to call?\",  agent pressed  7(What 's about)  instead of  >(How get #) - BR SURVEY - WALK IN TUB - @1:42 Some delay in applying the silent rule  ;  NEXT STEP - @3:17 Not seamless - BR",
-              "link": ""
-            },
-            {
-              "text": "SURVEY - MAIN REASON - @00:59 Slight delay in applying the silent rule - BR",
-              "link": ""
-            },
-            {
-              "text": "SURVEY - CREDIT - @2:19 After 31 script, cust said \"It has nothing to do with what I'm looking to have done.\",  agent pressed  33(Unsure) instead of   I(I Understand)  +  12(Good (601-700)  ;  @2:28 Cust said \"Poor.\",  agent input  (Good)  instead of  (Poor)  ;  @2:29 Slight delay - BR",
-              "link": ""
-            },
-            {
-              "text": "SURVEY - OWN HOME - @2:45 Cust said \"The home, we own it.\",  agent had a slight delay in pressing   32(Unsure)  instead of   1(Yes - Own) - BR",
-              "link": ""
-            },
-            {
-              "text": "GOOD CALL.",
-              "link": ""
-            },
-            {
-              "text": "SURVEY - OWN HOME - @2:41 Cust said \"My husband owns the home, it's just that he's co-owner with his brother.\",  agent pressed    32(Unsure)  instead   1(Yes)  ;  @2:54 Cust said \"I am his wife.\",  agent failed to press an option until cust hang up. - BR ",
-              "link": ""
-            }
-          ],
+          "score": 0,
+          "qa": [],
           "audits": []
         }
       }
