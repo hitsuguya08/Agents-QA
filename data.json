@@ -95,8 +95,17 @@
           "audits": []
         },
         "week3": {
-          "score": 0,
-          "qa": [],
+          "score": 94,
+          "qa": [
+            {
+              "text": "SURVEY - CREDIT - @2:26 Slight delay - BR\nTCPA - @3:22 Slight talking over - BR",
+              "link": ""
+            },
+            {
+              "text": "SURVEY - MAIN REASON - @1:49 Cust said \"I'm sorry, but, I'm waiting for, some call and can you call at another time?\",  agent slight delaying pressing   55(Talk to someone)  instead of   4(Final no) --(3rd objection) - BR",
+              "link": ""
+            }
+          ],
           "audits": []
         },
         "week4": {
@@ -177,8 +186,21 @@
           "audits": []
         },
         "week3": {
-          "score": 0,
-          "qa": [],
+          "score": 92,
+          "qa": [
+            {
+              "text": "PITCH - @00:48 Slight delay - BR",
+              "link": ""
+            },
+            {
+              "text": "PITCH - @00:58 Slight delay - BR\nSURVEY - MAIN REASON - @1:36 Cust said \"No, no, don't want. Thank you.\",  agent pressed   /(DNC)  instead of  4(Final no) - BR",
+              "link": ""
+            },
+            {
+              "text": "INTRO - @00:14 Slight delay  ;  PITCH - @1:21 Some delay - BR",
+              "link": ""
+            }
+          ],
           "audits": []
         },
         "week4": {
@@ -264,8 +286,17 @@
           "audits": []
         },
         "week3": {
-          "score": 0,
-          "qa": [],
+          "score": 99,
+          "qa": [
+            {
+              "text": "Note : Delay dispo for 12secs - BR",
+              "link": ""
+            },
+            {
+              "text": "Pitch @ 00:32 - slight delay in pressing unnecessary H (Hello) - BR",
+              "link": ""
+            }
+          ],
           "audits": []
         },
         "week4": {
@@ -346,8 +377,21 @@
           "audits": []
         },
         "week3": {
-          "score": 0,
-          "qa": [],
+          "score": 95,
+          "qa": [
+            {
+              "text": "INTRO - @00:37 Some delay - BR",
+              "link": ""
+            },
+            {
+              "text": "INTRO - @00:25 Bumping key - BR",
+              "link": ""
+            },
+            {
+              "text": "SURVEY - MAIN REASON - @1:14 Slight delay in applying the silent rule - BR",
+              "link": ""
+            }
+          ],
           "audits": []
         },
         "week4": {
@@ -428,8 +472,17 @@
           "audits": []
         },
         "week3": {
-          "score": 0,
-          "qa": [],
+          "score": 100,
+          "qa": [
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ],
           "audits": []
         },
         "week4": {
@@ -510,9 +563,39 @@
           "audits": []
         },
         "week3": {
-          "score": 0,
-          "qa": [],
-          "audits": []
+          "score": 90.37,
+          "qa": [
+            {
+              "text": "Own Home @ 01:46 - slight delay - BR",
+              "link": ""
+            },
+            {
+              "text": "Main Reason @ 01:07 cx said \"I'm installing a brand new bathroom.\" Agent pressed 1 (Own Home) instead of 5 (Not Qualified); Own Home @ 01:23 - some delay; Credit @ 02:09 - slight delay - BR\nDelay dispo for 20secs - BR",
+              "link": ""
+            }
+          ],
+          "audits": [
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "| BAD | Intro @0:25 - The contact provided a business introduction, however, the agent pressed 0 (Intro) instead of ending the call. BR | ",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "| CB | NOTE: @0:29 - Unnecessary hotkey (H). BR | ",
+              "link": ""
+            }
+          ]
         },
         "week4": {
           "score": 0,
@@ -592,8 +675,25 @@
           "audits": []
         },
         "week3": {
-          "score": 0,
-          "qa": [],
+          "score": 86.75,
+          "qa": [
+            {
+              "text": "PITCH - @00:58 Cust said \"Not at this time.\",  agent pressed   41(Imm no)   instead of   64(Don't need now) - BR",
+              "link": ""
+            },
+            {
+              "text": "GREETINGS - @00:25 Major delay - BR (For dispute)",
+              "link": ""
+            },
+            {
+              "text": "PITCH - @00:2 Slight delay - BR",
+              "link": ""
+            },
+            {
+              "text": "Agent disposed the call as  NI3  instead of  NI4 - BR",
+              "link": ""
+            }
+          ],
           "audits": []
         },
         "week4": {
@@ -674,8 +774,17 @@
           "audits": []
         },
         "week3": {
-          "score": 0,
-          "qa": [],
+          "score": 100,
+          "qa": [
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ],
           "audits": []
         },
         "week4": {
@@ -756,8 +865,17 @@
           "audits": []
         },
         "week3": {
-          "score": 0,
-          "qa": [],
+          "score": 100,
+          "qa": [
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ],
           "audits": []
         },
         "week4": {
@@ -838,8 +956,17 @@
           "audits": []
         },
         "week3": {
-          "score": 0,
-          "qa": [],
+          "score": 95.34,
+          "qa": [
+            {
+              "text": "PITCH - @00:29 Cust said \"I do not have time to speak to you about your product, sir. I'm currently at work.\",  agent pressed   7(What's about)  instead of   B(Busy)  ;  @1:27 Cust said \"No, thank you.\",  agent pressed  41(Imm no)  instead o f  43(Final no)  --(3rd objection)  (1st @00:29 & 2nd @00:57) - BR",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ],
           "audits": []
         },
         "week4": {
@@ -920,8 +1047,17 @@
           "audits": []
         },
         "week3": {
-          "score": 0,
-          "qa": [],
+          "score": 99.34,
+          "qa": [
+            {
+              "text": "Pitch @ 00:45 - slight delay in applying silent rule - BR ",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ],
           "audits": []
         },
         "week4": {
@@ -1002,9 +1138,35 @@
           "audits": []
         },
         "week3": {
-          "score": 0,
-          "qa": [],
-          "audits": []
+          "score": 96.94,
+          "qa": [
+            {
+              "text": "Greetings @ 00:13 - slight delay - BR",
+              "link": ""
+            },
+            {
+              "text": "Own Home @ 02:13 - slight delay - BR",
+              "link": ""
+            }
+          ],
+          "audits": [
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "| CB | Delay dispo 7secs. BR |",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ]
         },
         "week4": {
           "score": 0,
@@ -1015,7 +1177,7 @@
     },
     {
       "name": "A. Mendez",
-      "password": "143",
+      "password": "123",
       "month": "NOVEMBER",
       "scorecard_month": "N/A",
       "f_scr": 0,
@@ -1059,9 +1221,22 @@
           "audits": []
         },
         "week3": {
-          "score": 0,
+          "score": 96.82,
           "qa": [],
-          "audits": []
+          "audits": [
+            {
+              "text": "| DNC | Delay Greeting (4secs); Delay dispo (7secs). BRF",
+              "link": ""
+            },
+            {
+              "text": "| NI2 | Delay Greeting (4secs); Delay dispo (5secs). BRF |",
+              "link": ""
+            },
+            {
+              "text": " | CB | Delay Greeting (6 secs). BRF | ",
+              "link": ""
+            }
+          ]
         },
         "week4": {
           "score": 0,
@@ -1141,9 +1316,22 @@
           "audits": []
         },
         "week3": {
-          "score": 0,
+          "score": 98.62,
           "qa": [],
-          "audits": []
+          "audits": [
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": " Greeting: Cx \"Nancy, sorry no, wrong number\" agent already pressed 1 (Yes) instead of 4 (Gatekeeper); agent disposed of the call as CB instead of WN. BR | ",
+              "link": ""
+            },
+            {
+              "text": "NI2 | NOTE: @0:07 - Unnecessary hotkey (H); Delay dispo 8secs. BRJaintel ",
+              "link": ""
+            }
+          ]
         },
         "week4": {
           "score": 0,
@@ -1223,8 +1411,17 @@
           "audits": []
         },
         "week3": {
-          "score": 0,
-          "qa": [],
+          "score": 100,
+          "qa": [
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ],
           "audits": []
         },
         "week4": {
@@ -1302,6 +1499,72 @@
               "link": ""
             }
           ],
+          "audits": []
+        },
+        "week3": {
+          "score": 99.34,
+          "qa": [
+            {
+              "text": " INTRO - @00:34 Bumping key - BR",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ],
+          "audits": []
+        },
+        "week4": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        }
+      }
+    },
+    {
+      "name": "L. Masecampo",
+      "password": "123",
+      "month": "NOVEMBER",
+      "scorecard_month": "N/A",
+      "f_scr": 0,
+      "phone_time": 0,
+      "qa_score": 0,
+      "score": 0,
+      "weekly_data": {
+        "week1": {
+          "score": 62.59,
+          "qa": [
+            {
+              "text": "PITCH - @00:46 Cust said \"No, because I'm here on short term assignment and my home is leased through company.\",  agent had a major delay in pressing   41(Imm no)  instead of   88(End call)  ;  @1:17 Some delay - BR",
+              "link": "https://www.dropbox.com/scl/fi/4aiulun3u36286tznjv8p/1.mp3?rlkey=lwkq6hy1kfudk7osmtn0sb8ck&st=ivzmnqyv&dl=1"
+            },
+            {
+              "text": "PITCH - @00:59 Slight delay  ;  @1:11 Cust said \"No, not at the moment. Thank you.\",  agent had a slight delay in pressing   41(Imm no)  instad of   64(Don't need now) - WI",
+              "link": ""
+            },
+            {
+              "text": "GREETINGS - @00:11 Major delay - WI",
+              "link": "https://www.dropbox.com/scl/fi/gyt4876woove14sbs6e56/2.mp3?rlkey=x393yrbb2m802r1cmcpec2bpe&st=e66ei71o&dl=1"
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "SURVEY - MAIN REASON - @1:33 After 41 script, cust said \"Yes.\",  agent pressed   33(QO - Main) instead of  PROCEED  ;  WALK IN TUB - @2:37 After 42 script, cust said \"I understand.\",  agent pressed   43(Final no)  instead of  PROCEED --(call avoidance) - BR",
+              "link": "https://www.dropbox.com/scl/fi/sswl2fklvarogntlxiawq/3.mp3?rlkey=d624nrvsq71knjlmh73y1zf40&st=19r9thwc&dl=1"
+            },
+            {
+              "text": "GREETINGS - @00:28 After B(Busy), cust said \"Alright.\",  agent pressed  1(Good)  instead of   7(What's about)  ;  PITCH - @1:11 Cust said \"No, no.\",  agent pressed  41(Imm no)  instead of   43(Final no)  --(3rd objection) - BR",
+              "link": ""
+            }
+          ],
+          "audits": []
+        },
+        "week2": {
+          "score": 0,
+          "qa": [],
           "audits": []
         },
         "week3": {
