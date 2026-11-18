@@ -1533,6 +1533,11 @@
       "score": 0,
       "weekly_data": {
         "week1": {
+          "score": 0,
+          "qa": [],
+          "audits": []
+        },
+        "week2": {
           "score": 62.59,
           "qa": [
             {
@@ -1560,11 +1565,6 @@
               "link": ""
             }
           ],
-          "audits": []
-        },
-        "week2": {
-          "score": 0,
-          "qa": [],
           "audits": []
         },
         "week3": {
