@@ -95,7 +95,7 @@
           "audits": []
         },
         "week3": {
-          "score": 93,
+          "score": 82.62,
           "qa": [
             {
               "text": "SURVEY - CREDIT - @2:26 Slight delay - BR\nTCPA - @3:22 Slight talking over - BR",
@@ -108,9 +108,54 @@
             {
               "text": "PITCH - @1:01 Slight delay in applying the silent rule - BR",
               "link": ""
+            },
+            {
+              "text": "SURVEY - CREDIT - @2:18 Cust said \"It doesn't matter. If I do anything, I'll give cash anyway.\",  agent pressed  3(Unsure)  instead of   11(Good (621-700) - BR",
+              "link": ""
+            },
+            {
+              "text": "SURVEY - HOME TYPE - @1:49 Cust said \"Yeah, pretty much.\",  agent pressed  ,(Repeat message)  instead of  PROCEED - BR",
+              "link": ""
+            },
+            {
+              "text": "SURVEY - MAIN REASON - @1:30 Cust said \"Well, right now none my husband got hurt at work and we're down to a one income home and we're just we can't afford it and we're just not interested. I appreciate your call though and you have a nice day.\",  agent pressed   58(Hesitant)  instead of   4(Final no) --(3rd objection) - BR",
+              "link": ""
             }
           ],
-          "audits": []
+          "audits": [
+            {
+              "text": "| CB | Disposed of the call as CB instead of NI2. BR | ",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ]
         },
         "week4": {
           "score": 0,
@@ -190,7 +235,7 @@
           "audits": []
         },
         "week3": {
-          "score": 87,
+          "score": 82.09,
           "qa": [
             {
               "text": "PITCH - @00:48 Slight delay - BR",
@@ -207,9 +252,50 @@
             {
               "text": "PITCH - @00:53 Slight delay - BR\nSURVEY - WALKIN TUB - @2:24 Some delay in applying the silent rule - BR\nTRANSFER - @4:35 Slight talking over - BR",
               "link": ""
+            },
+            {
+              "text": " SURVEY - MAIN REASON - @1:46 Slight delay in applying the silent rule - BR",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
             }
           ],
-          "audits": []
+          "audits": [
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": " | WN | NOTE: @0:04, @0:15 - Slight delays. BR |",
+              "link": ""
+            },
+            {
+              "text": "| NI3 | NOTE: @0:15 - Slight delay. BR | ",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "| WN | @0:34 - Slight delay; @0:38 - Bumping key. BR | ",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "| BAD | Disposed of the call as BAD instead of DNC.",
+              "link": ""
+            }
+          ]
         },
         "week4": {
           "score": 0,
@@ -294,7 +380,7 @@
           "audits": []
         },
         "week3": {
-          "score": 99,
+          "score": 90.28,
           "qa": [
             {
               "text": "Note : Delay dispo for 12secs - BR",
@@ -303,9 +389,54 @@
             {
               "text": "Pitch @ 00:32 - slight delay in pressing unnecessary H (Hello) - BR",
               "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "Pitch @ 00:50 - slight delay - BR \nCredit @ 02:25 - slight delay - BR\nTCPA @ 03:29 - some delay; Pre-transfer @ 04:18 - slight delay in applying silent rule - BR\n",
+              "link": ""
+            },
+            {
+              "text": "Greetings @ 00:14 - slight delay - BR",
+              "link": ""
+            },
+            {
+              "text": "Pitch @ 00:48 - slight delay in applying silent rule - BR\nWalk in tub @ 02:05 - slight delay - BR ",
+              "link": ""
             }
           ],
-          "audits": []
+          "audits": [
+            {
+              "text": "| A | Delay dispo (7secs). BRF |",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ]
         },
         "week4": {
           "score": 0,
@@ -385,7 +516,7 @@
           "audits": []
         },
         "week3": {
-          "score": 92,
+          "score": 80.76,
           "qa": [
             {
               "text": "INTRO - @00:37 Some delay - BR",
@@ -402,9 +533,50 @@
             {
               "text": "INTRO - @00:29 After B(Busy), cust said \"Sure.\",  agent pressed  1(Good)  instead of   3(Who/What's about) - BR",
               "link": ""
+            },
+            {
+              "text": "SURVEY - MAIN REASON - @1:00 Slight delay in applying the silent rule  ;  CREDIT - @2:38 Some delay - BR\nTCPA - @3:44 Slight delay - BR",
+              "link": ""
+            },
+            {
+              "text": "TCPA - @3:25 Some delay - BR",
+              "link": ""
             }
           ],
-          "audits": []
+          "audits": [
+            {
+              "text": " | WN | Disposed of as WN instead of NI3. BR | ",
+              "link": ""
+            },
+            {
+              "text": "| WN | @0:15 - Timing issue; @0:24 - Slight delay; @0:43, 0:46 - Timing issue. BR ",
+              "link": ""
+            },
+            {
+              "text": "| WN | @0:52 - Slight delay; Disposed of the call as WN instead of NI3. BR | ",
+              "link": ""
+            },
+            {
+              "text": "| WN | Disposed of the call as WN instead of NI3. BR | ",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ]
         },
         "week4": {
           "score": 0,
@@ -484,7 +656,7 @@
           "audits": []
         },
         "week3": {
-          "score": 95.77,
+          "score": 95.11,
           "qa": [
             {
               "text": "GOOD CALL",
@@ -501,9 +673,50 @@
             {
               "text": "GOOD CALL",
               "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "Main Reason @ 02:26 - slight delay - BR Jaintel",
+              "link": ""
             }
           ],
-          "audits": []
+          "audits": [
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ]
         },
         "week4": {
           "score": 0,
@@ -583,7 +796,7 @@
           "audits": []
         },
         "week3": {
-          "score": 90.37,
+          "score": 86.05,
           "qa": [
             {
               "text": "Own Home @ 01:46 - slight delay - BR",
@@ -591,6 +804,22 @@
             },
             {
               "text": "Main Reason @ 01:07 cx said \"I'm installing a brand new bathroom.\" Agent pressed 1 (Own Home) instead of 5 (Not Qualified); Own Home @ 01:23 - some delay; Credit @ 02:09 - slight delay - BR\nDelay dispo for 20secs - BR",
+              "link": ""
+            },
+            {
+              "text": "Greetings @ 00:24 - unnecessary hotkey H (Hello); Pitch @ 01:09 - slight delay in pressing unnecessary hotkey H (Hello) - BR ",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "Pitch @ 01:39 - slight delay - BR ",
               "link": ""
             }
           ],
@@ -613,6 +842,18 @@
             },
             {
               "text": "| CB | NOTE: @0:29 - Unnecessary hotkey (H). BR | ",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
               "link": ""
             }
           ]
@@ -695,7 +936,7 @@
           "audits": []
         },
         "week3": {
-          "score": 90.75,
+          "score": 82.12,
           "qa": [
             {
               "text": "PITCH - @00:58 Cust said \"Not at this time.\",  agent pressed   41(Imm no)   instead of   64(Don't need now) - BR",
@@ -716,9 +957,46 @@
             {
               "text": "SURVEY - MAIN REASON - @2:38 Bumping key - WI",
               "link": ""
+            },
+            {
+              "text": " PITCH - @00:43 Cust mention what to do with his bathroom then @1:53 Cust said \"There's someone talking to me while I'm talking to you, but he's done. Go ahead. I'm listening to you now. Sorry.\",  agent pressed   1(Yes - Pitch)  instead of   34(SKIP - Main Reason) - BR\n\nAgent disposed the call as  NI3  instead of  NI4",
+              "link": ""
             }
           ],
-          "audits": []
+          "audits": [
+            {
+              "text": "| CB | Failed to press 0 (Intro) --cx HU. BR",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ]
         },
         "week4": {
           "score": 0,
@@ -798,7 +1076,7 @@
           "audits": []
         },
         "week3": {
-          "score": 100,
+          "score": 90.62,
           "qa": [
             {
               "text": "GOOD CALL",
@@ -807,9 +1085,58 @@
             {
               "text": "GOOD CALL",
               "link": ""
+            },
+            {
+              "text": " Pitch @ 00:53 - slight delay - BR ",
+              "link": ""
+            },
+            {
+              "text": "Pitch @ 01:28 - some delay - BR",
+              "link": ""
+            },
+            {
+              "text": "TCPA @ 03:15 - slight delay - BR ",
+              "link": ""
+            },
+            {
+              "text": "Greetings @ 00:08 - slight delay - BR \nMain Reason @ 01:03 - slight delay; Own Home @ 01:30 - some delay; @ 01:40 - slight delay; Credit @ 02:18 - slight delay - BR ",
+              "link": ""
             }
           ],
-          "audits": []
+          "audits": [
+            {
+              "text": "| CB | Disposed of as CB instead of DA. BRF | ",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL\n",
+              "link": ""
+            }
+          ]
         },
         "week4": {
           "score": 0,
@@ -889,7 +1216,7 @@
           "audits": []
         },
         "week3": {
-          "score": 100,
+          "score": 88.68,
           "qa": [
             {
               "text": "GOOD CALL",
@@ -898,9 +1225,58 @@
             {
               "text": "GOOD CALL",
               "link": ""
+            },
+            {
+              "text": " SURVEY - CREDIT - @2:08 Cust said \"800.\",  agent input  (Average)  instead of   (Excellent) - BR",
+              "link": ""
+            },
+            {
+              "text": "GREETINGS - @00:08 Cust said \"Good, sir. I'm traveling for work right now. I'm sorry, what's it in regard to?\",  agent pressed  B(Busy)  instead of   7(What's about) - BR",
+              "link": ""
+            },
+            {
+              "text": " PITCH - @1:39 After 64 script, cust said \"Actually I'm going to end this call. It's just not convenient for me. Thank you for calling. Bye.\",  agent pressed  42(Imm no)  instead of   43(Final no) --(3rd objection) - BR_",
+              "link": ""
+            },
+            {
+              "text": "PITCH - @1:15 Cust said \"No, I would not sorry like I said, we're selling, so we're not gonna worry about it.\",  agent pressed  42(Imm no)  isntead of   43(Final no) --(3rd objection) - BR",
+              "link": ""
             }
           ],
-          "audits": []
+          "audits": [
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ]
         },
         "week4": {
           "score": 0,
@@ -980,7 +1356,7 @@
           "audits": []
         },
         "week3": {
-          "score": 88.34,
+          "score": 85.34,
           "qa": [
             {
               "text": "PITCH - @00:29 Cust said \"I do not have time to speak to you about your product, sir. I'm currently at work.\",  agent pressed   7(What's about)  instead of   B(Busy)  ;  @1:27 Cust said \"No, thank you.\",  agent pressed  41(Imm no)  instead o f  43(Final no)  --(3rd objection)  (1st @00:29 & 2nd @00:57) - BR",
@@ -1001,9 +1377,46 @@
             {
               "text": "SURVEY - MAIN REASON - @1:52 Cust said \"Ok, I sold the place so I don't need it anymore. Thank you.\",  agent pressed  42(Imm no)  instead of   5(Not qualified) - BR",
               "link": ""
+            },
+            {
+              "text": "- PITCH - @1:08 Cust said \"I never had a thought of remodeling the bathroom or anything. It was pretty new house, so you must have gotten information incorrect from somewhere.\",  agent pressed  >(How get #)  instead of   88(End call) - BR",
+              "link": ""
             }
           ],
-          "audits": []
+          "audits": [
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ]
         },
         "week4": {
           "score": 0,
@@ -1083,7 +1496,7 @@
           "audits": []
         },
         "week3": {
-          "score": 99.34,
+          "score": 91.22,
           "qa": [
             {
               "text": "Pitch @ 00:45 - slight delay in applying silent rule - BR ",
@@ -1092,9 +1505,58 @@
             {
               "text": "GOOD CALL",
               "link": ""
+            },
+            {
+              "text": " Intro @ 00:03 - slight delay - BR ",
+              "link": ""
+            },
+            {
+              "text": "Pitch @ 00:29 - slight delay - BR",
+              "link": ""
+            },
+            {
+              "text": "Walk in tub @ 01:57 - some delay in applying silent rule - BR",
+              "link": ""
+            },
+            {
+              "text": "Greetings @ 00:18 - slight delay - BR",
+              "link": ""
             }
           ],
-          "audits": []
+          "audits": [
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "| A | Disposed of the call as A instead of CB. BR |",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "| LB | Disposed of the call as LB instead of NI2. BR | ",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ]
         },
         "week4": {
           "score": 0,
@@ -1174,7 +1636,7 @@
           "audits": []
         },
         "week3": {
-          "score": 95.28,
+          "score": 95.96,
           "qa": [
             {
               "text": "Greetings @ 00:13 - slight delay - BR",
@@ -1186,6 +1648,14 @@
             },
             {
               "text": "Greetings @ 00:13 - slight delay - BR \nPre-transfer @ 03:16 - slight delay - BR \n",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
               "link": ""
             },
             {
@@ -1208,6 +1678,22 @@
             },
             {
               "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "| NI2 | NOTE: @0:10 - Slight delay. WI | ",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL ",
               "link": ""
             }
           ]
@@ -1265,7 +1751,7 @@
           "audits": []
         },
         "week3": {
-          "score": 89.32,
+          "score": 80.6,
           "qa": [
             {
               "text": "Pitch @ 01:08 - slight delay - BR\nMain Reason @ 01:29; @ 02:50 - slight delays; @ 02:19 - slight delay in applying silent rule - BR",
@@ -1273,6 +1759,22 @@
             },
             {
               "text": "Pitch @ 00:43 - 00:46 Talking over (INSTANT RED) - BR ",
+              "link": ""
+            },
+            {
+              "text": " Pitch @ 01:41 - slight delay - BR",
+              "link": ""
+            },
+            {
+              "text": "Greetings @ 00:17; @ 00:35 - slight delays; Pitch @ 01:08 cx said \"I, I never did request that. I don't know who got my name saying that, but I never request that.\" Agent slight delay in pressing 41 (Imm No) instead of > (How Get Number); @ 01:27 - some delay in applying silent rule - BR",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "Walk in tub @ 02:17 - slight delay - BR ",
               "link": ""
             }
           ],
@@ -1291,6 +1793,22 @@
             },
             {
               "text": "| CB | Delay Greeting (6 secs). BRF | ",
+              "link": ""
+            },
+            {
+              "text": " DA | Delay Greeting (5secs). BRF |",
+              "link": ""
+            },
+            {
+              "text": "NOTE: Delay Greeting (4secs). BRF",
+              "link": ""
+            },
+            {
+              "text": " DNC | NOTE: @0:15 - Slight delay. BRF",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
               "link": ""
             }
           ]
@@ -1373,7 +1891,7 @@
           "audits": []
         },
         "week3": {
-          "score": 92.62,
+          "score": 87.96,
           "qa": [
             {
               "text": "Credit @ 03:58 - slight delay - BR Jaintel \nTCPA @ 04:55 - some delay; @ 06:18 - slight delay - BR Jaintel",
@@ -1381,6 +1899,22 @@
             },
             {
               "text": "Pitch @ 00:55; @ 01:10 - slight delays - BR Jaintel\nTCPA @ 06:00; @ 06:55 - slight delays - BR Jaintel",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "Greetings @ 00:17 - slight delay - BR Jaintel",
+              "link": ""
+            },
+            {
+              "text": "Pitch @ 00:51 - slight delay - BR Jaintel\nHome Type @ 02:36 - slight delay - BR Jaintel ",
+              "link": ""
+            },
+            {
+              "text": "Pitch @ 00:48 - slight delay - BR Jaintel\nOwn Home @ 01:25 - slight delay - BR Jaintel",
               "link": ""
             }
           ],
@@ -1395,6 +1929,26 @@
             },
             {
               "text": "| NI2 | NOTE: @0:07 - Unnecessary hotkey (H); Delay dispo 8secs. BRJaintel | ",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
               "link": ""
             }
           ]
@@ -1477,7 +2031,7 @@
           "audits": []
         },
         "week3": {
-          "score": 100,
+          "score": 89.68,
           "qa": [
             {
               "text": "GOOD CALL",
@@ -1486,9 +2040,45 @@
             {
               "text": "GOOD CALL",
               "link": ""
+            },
+            {
+              "text": "PITCH - @00:36 Unnecessary stopping  ;  @00:38 Slight delay in applying the silent rule - BR",
+              "link": ""
+            },
+            {
+              "text": "PITCH - @00:44 Slight delay - BR\nURVEY - OWN HOME - @1:23 Major delay - BR",
+              "link": "https://www.dropbox.com/scl/fi/dgo5mvjlyv1dfsjix10jd/4.mp3?rlkey=viu4z9mm59fhym1lkkdrmvfwo&st=8omv71db&dl=1"
+            },
+            {
+              "text": "SURVEY - MAIN REASON - @1:46 Slight delay - BR",
+              "link": ""
+            },
+            {
+              "text": "SURVEY - OWN HOME - @1:59 Cust said \"Well, I'm not interested.\",  agent pressed  58(Hesitant)  instead of   4(Final no) --(3rd objection) - BR",
+              "link": ""
             }
           ],
           "audits": [
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALLGOOD CALL",
+              "link": ""
+            },
             {
               "text": "GOOD CALL",
               "link": ""
@@ -1581,7 +2171,7 @@
           "audits": []
         },
         "week3": {
-          "score": 99.34,
+          "score": 85.96,
           "qa": [
             {
               "text": " INTRO - @00:34 Bumping key - BR",
@@ -1590,9 +2180,58 @@
             {
               "text": "GOOD CALL",
               "link": ""
+            },
+            {
+              "text": "INTRO - @00:19 Slight delay  ;  PITCH - @1:17 Slight delay in applying the silent rule - BR",
+              "link": ""
+            },
+            {
+              "text": " SURVEY - MAIN REASON - @1:30 Some delay - BR",
+              "link": ""
+            },
+            {
+              "text": " PITCH - @00:40 Cust said \"Ok, but probably not a good time for us because he has got laid off.\",  agent pressed   4(Not interested)  instead of   57(No need) - BR",
+              "link": ""
+            },
+            {
+              "text": "SURVEY - OWN HOME - @1:34 Bumping key  ;  WALK IN TUB - @1:55 Cust said \"I've been debating if I wanted a walk-in tub or just a shower that you can walk in without stepping over a bathtub. I haven't decided what I wanted yet.\",  agent pressed  3(Unsure)  instead of   2(No) - BR\nTCPA - @4:18 Bumping key - BR",
+              "link": ""
             }
           ],
-          "audits": []
+          "audits": [
+            {
+              "text": "| BAD | Disposed of as BAD instead of CB. BR | ",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ]
         },
         "week4": {
           "score": 0,
@@ -1647,7 +2286,7 @@
           "audits": []
         },
         "week3": {
-          "score": 91,
+          "score": 83.24,
           "qa": [
             {
               "text": "Pitch @ 01:12 - some delay - BR \nClient Branding @ 03:15 - not seamless (major); TCPA @ 03:53 - slight delay - BR ",
@@ -1656,9 +2295,58 @@
             {
               "text": "Pitch @ 01:39 - slight delay - BR \nTCPA @ 04:20 - not seamless (some) --- Note - BR ",
               "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "Main Reason @ 02:13 - slight delay; @ 02:17 - bumping key - BR",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "Pitch @ 00:49 - slight delay - BR \nMain Reason @ 01:09 cx said \"looks\" Agent slight delay in pressing 33 (QO - Main) instead of proceed - 1 (Own Home); @ 01:21; @ 01:31 -  slight delays - BR",
+              "link": ""
             }
           ],
-          "audits": []
+          "audits": [
+            {
+              "text": "| CB | Failed to play Enter-to-Intro. BR |",
+              "link": ""
+            },
+            {
+              "text": " | NI2 | Delay Introduction (5secs); Delay dispo (7secs). BR | ",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            },
+            {
+              "text": "GOOD CALL",
+              "link": ""
+            }
+          ]
         },
         "week4": {
           "score": 0,
